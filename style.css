@@ -1,0 +1,153 @@
+@import url(//fonts.googleapis.com/css?family=Lato:300:400);
+
+body {
+  margin: 0;
+}
+h1 {
+  font-family: Lato, sans-serif;
+  font-weight: 300;
+}
+h2 {
+  font-family: Lato, sans-serif;
+  font-weight: 300;
+}
+
+.container {
+  height: 100vh;
+  background: linear-gradient(
+    60deg,
+    rgba(84, 58, 183, 1) 0%,
+    rgba(0, 172, 193, 1) 100%
+  );
+  position: relative;
+  text-align: center;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.header {
+  height: 60vh;
+  width: 100%;
+  margin: 0;
+  padding: 1px;
+  flex-direction: column;
+}
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.heat {
+  flex-direction: column;
+  margin: 10px auto 0;
+  position: relative;
+}
+.heat_out {
+  left: 30px;
+}
+.heat_up {
+  top: -30px;
+}
+.top_heat {
+  width: 50px;
+  height: 30px;
+  background: #ffdf64;
+  border-radius: 20% 40% 0 0;
+  border-bottom: 3px solid;
+}
+.bottom_heat {
+  width: 150px;
+  height: 10px;
+  background: #ffdf64;
+  border-radius: 30% 40% 100% 100%;
+}
+.head {
+  width: 100px;
+  height: 100px;
+  background: darkgreen;
+  margin: 0px auto;
+  border-radius: 30% 30% 100% 100%;
+}
+.head:hover {
+  background: red;
+}
+
+.es {
+  background: white;
+  width: 25px;
+  height: 25px;
+  border-radius: 100%;
+}
+.le {
+  margin-left: 15px;
+  margin-top: 15px;
+  float: left;
+}
+.re {
+  margin-right: 15px;
+  margin-top: 15px;
+  float: right;
+}
+.ses {
+  background: black;
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+  margin-top: 3px;
+  margin-left: 2px;
+}
+
+.head:hover .ses {
+  margin-top: 13px;
+}
+
+.mouth {
+  float: left;
+  width: 70px;
+  height: 10px;
+  /* background: white; */
+  margin-top: 20px;
+  margin-left: 15px;
+  border-radius: 100%;
+  border-bottom: 5px solid white;
+
+  float: left;
+  border-bottom: 5px solid white;
+  width: 70px;
+  height: 10px;
+  margin-left: 15px;
+  margin-top: 20px;
+  border-radius: 100%;
+}
+
+/*  animation  */
+.parallax > use {
+  animation: move-forever 25s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
+}
+.parallax > use:nth-child(1) {
+  animation-delay: -2s;
+  animation-duration: 7s;
+}
+.parallax > use:nth-child(2) {
+  animation-delay: -3s;
+  animation-duration: 10s;
+}
+.parallax > use:nth-child(3) {
+  animation-delay: -4s;
+  animation-duration: 13s;
+}
+.parallax > use:nth-child(4) {
+  animation-delay: -5s;
+  animation-duration: 20s;
+}
+@keyframes move-forever {
+  0% {
+    transform: translate3d(-90px, 0, 0);
+  }
+  100% {
+    transform: translate3d(85px, 0, 0);
+  }
+}
