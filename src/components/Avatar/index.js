@@ -1,6 +1,11 @@
 import React from "react";
 import style from "./style.module.css";
+import AvatarMUI from "@mui/material/Avatar";
+import { makeStyles } from "@mui/styles";
 
-export const Avatar = ({ src }) => {
-  return <img className={style.user_avatar} src={src} alt="Аватар" />;
+const useStyles = makeStyles((theme) => ({}));
+
+export const Avatar = ({ src, size }) => {
+  const sizeAvatar = size === "small" ? 120 : 240;
+  return <AvatarMUI sx={{ width: sizeAvatar, height: sizeAvatar }} src={src} />;
 };

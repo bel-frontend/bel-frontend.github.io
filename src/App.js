@@ -1,8 +1,16 @@
 import "./App.css";
 import { Home } from "./containers/Home";
+import { ThemeProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import theme from "./styles/theme";
 
 function App() {
-  return <Home />;
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Home />
+    </ThemeProvider>
+  );
 }
 
 export default App;
