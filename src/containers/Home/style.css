@@ -21,7 +21,7 @@ h2 {
 
 .sidebar {
   background-color: rgba(191, 191, 191, 0.1);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
 }
