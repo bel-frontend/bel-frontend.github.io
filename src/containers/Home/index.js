@@ -40,7 +40,7 @@ export const Home = () => {
 
   return (
     <>
-      <Grid className="layout" container spacing={3}>
+      <Grid className={style.layout} container spacing={3}>
         <Grid className={style.sidebar} item md={4} xs={6}>
           <Avatar src={user?.picture?.large} />
           <Contacts t={t} />
