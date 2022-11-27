@@ -1,6 +1,7 @@
 import React from "react";
 import { Box } from "@mui/material";
 import CardHeader from "@mui/material/CardHeader";
+import Icon from "@mui/material/Icon";
 import { makeStyles } from "@mui/styles";
 
 import { Avatar } from "../../Avatar";
@@ -17,7 +18,11 @@ export const ContactItem = ({ title, value, icon }) => {
     <Box>
       <CardHeader
         className={classes.container}
-        avatar={<Avatar style={{ height: 32, width: 32 }}></Avatar>}
+        avatar={
+          <Avatar style={{ height: 32, width: 32 }}>
+            <Icon fontSize="small">{icon}</Icon>
+          </Avatar>
+        }
         title={title}
         subheader={value}
       />

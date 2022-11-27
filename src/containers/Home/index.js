@@ -1,12 +1,20 @@
 import React from "react";
+
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { useTranslation } from "react-i18next";
-import { Avatar, Contacts, AboutMe } from "../../components";
 import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+
+import {
+  Avatar,
+  Contacts,
+  AboutMe,
+  Experience,
+  Skills,
+  Education,
+} from "../../components";
 
 import style from "./style.module.css";
 
@@ -34,7 +42,7 @@ export const Home = () => {
     <>
       <Grid className="layout" container spacing={3}>
         <Grid className={style.sidebar} item md={4} xs={6}>
-          <Avatar src={user?.picture?.large} size="small" />
+          <Avatar src={user?.picture?.large} />
           <Contacts t={t} />
           <AboutMe />
         </Grid>
@@ -59,6 +67,9 @@ export const Home = () => {
           >
             {t("home_page.button", "CLICK ME")}
           </Button>
+          <Experience />
+          <Skills />
+          <Education />
         </Grid>
       </Grid>
     </>

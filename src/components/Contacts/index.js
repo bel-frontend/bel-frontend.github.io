@@ -10,8 +10,10 @@ export const Contacts = ({ t }) => {
       {contacts.map((i) => {
         return (
           <ContactItem
+            key={i.title}
             title={t(`contacts.${i.title}`, i.title)}
             value={t(`contacts.${i.title}_value`, i.value)}
+            icon={i.icon}
           />
         );
       })}
