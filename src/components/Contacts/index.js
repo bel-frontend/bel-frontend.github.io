@@ -1,13 +1,20 @@
 import React from "react";
 import style from "./style.module.css";
+import { ContactItem } from "./ContactItem";
 
-export const Contacts = ({ phone, location }) => {
+import contacts from "./contacts.json";
+
+export const Contacts = ({ t }) => {
   return (
     <div className={style.container}>
-      <p>Contacts</p>
-      <ul>
-        <li>Тэлефон:{phone}</li>
-      </ul>
+      {contacts.map((i) => {
+        return (
+          <ContactItem
+            title={t(`contacts.${i.title}`, i.title)}
+            value={t(`contacts.${i.title}_value`, i.value)}
+          />
+        );
+      })}
     </div>
   );
 };

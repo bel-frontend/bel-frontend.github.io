@@ -5,7 +5,12 @@ import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({}));
 
-export const Avatar = ({ src, size }) => {
+export const Avatar = ({ src, size, style = {} }) => {
   const sizeAvatar = size === "small" ? 120 : 240;
-  return <AvatarMUI sx={{ width: sizeAvatar, height: sizeAvatar }} src={src} />;
+  return (
+    <AvatarMUI
+      sx={{ width: sizeAvatar, height: sizeAvatar, ...style }}
+      src={src}
+    />
+  );
 };

@@ -1,0 +1,6 @@
+[
+  { "title": "Email", "value": "test@test.com", "icon": "" },
+  { "title": "Phone", "value": "+375297777777", "icon": "" },
+  { "title": "Website", "value": "bel-frontend.github.io", "icon": "" },
+  { "title": "Address", "value": "Minsk, Niamiga st, 12/A", "icon": "" }
+]
