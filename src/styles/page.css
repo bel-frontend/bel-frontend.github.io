@@ -1,0 +1,16 @@
+.author {
+    font-size: 18px;
+    font-style: italic;
+}
+.date-article {
+    font-size: 18px;
+    font-style: italic;
+    color: #777;
+}
+.pagination_container {
+    display: flex;
+    margin-top: 48px;
+}
+.pagination_container ul {
+    list-style-type: none;
+}
