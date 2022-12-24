@@ -76,7 +76,7 @@ module.exports = (config) => {
     return {
         dir: {
             input: "src",
-            output: "docks",
+            output: "docs",
             includes: "includes",
             layouts: "layouts",
         },
