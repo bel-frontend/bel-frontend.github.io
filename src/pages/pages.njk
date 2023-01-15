@@ -6,7 +6,7 @@ permalink: "{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber + 1 
 pagination:
     data: collections.episode
     size: 10
-    reverse: true
+    reverse: false
 ---
 
 
@@ -32,15 +32,19 @@ pagination:
                 </a>
                 {%- for episode in pagination.items -%}
                     <article class="episode box" id="e{{ episode.data.number }}">
-                        <h2 class="episode__title">
-                            <a class="episode__link" href="{{ episode.url }}">
-                                {{ episode.data.number }}.
-                                {{ episode.data.title }}
-                            </a>
-                        </h2>
-                        <div class="content">
-                            {{ episode.templateContent | safe }}
-                        </div>
+                        <div class='article'>
+                            <h2 class="episode__title">
+                                <a class="episode__link" href="{{ episode.url }}">
+                                    {{ episode.data.number }}.
+                                    {{ episode.data.title }}
+                                </a>
+                            </h2>
+                            <div class="content">
+                                {{ episode.templateContent | safe }}
+                            </div>
+                            </div>
+                            <div class="alfa"></div>
+                        <a href="{{ episode.url }}" class="link">Чытаць</a>
                         <div>
                             <span class='author'>{{ episode.data.author }}</span>,
                             <span class='date-article'> {{ episode.data.dateArticle}}</span>

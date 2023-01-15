@@ -14,3 +14,37 @@
 .pagination_container ul {
     list-style-type: none;
 }
+
+.article {
+    max-height: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* white-space: nowrap; */
+}
+.alfa {
+    position: relative;
+    height: 35px;
+    top: -35px;
+    width: 100%;
+    background-image: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.1) 0%,
+        rgba(255, 255, 255, 1) 70% /* rgba(255, 255, 255, 1) */
+    );
+}
+.link {
+    position: relative;
+    top: -35px;
+}
+.episode img{
+   max-width:  100%;
+}
+.episode {
+   max-width:  100%;
+}
+.content{
+    max-width: 100%;
+}
+.content p{
+   width: 100%;
+}
