@@ -10,7 +10,7 @@ module.exports = (config) => {
     config.addPassthroughCopy("src/images");
     config.addPassthroughCopy("src/scripts");
     config.addPassthroughCopy("src/styles");
-    config.addPassthroughCopy("src/episodes/**/*.(jpg|mp3)");
+    config.addPassthroughCopy("src/episodes/**/*.(png|jpg|mp3)");
 
     config.addPairedShortcode("markdown", (content) => {
         return markdown.render(content);

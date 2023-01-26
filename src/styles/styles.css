@@ -27,7 +27,13 @@ h5,
 h6 {
     font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight: 800;
+    text-decoration: none;
 }
+
+.header {
+    color: #eeeeee;
+}
+
 a {
     color: #0085a1;
     text-decoration: none;
