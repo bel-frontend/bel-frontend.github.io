@@ -10,7 +10,7 @@ tags: episode
 
 **Пытанне:**
 
-Ці ёсць **_hoisting_** для `let, const, classes`? Што такое \*\*_Temporal Dead Zone (часовая мертвая зона)_\*\*?
+Ці ёсць **_hoisting_** для `let, const, classes`? Што такое **_Temporal Dead Zone (часовая мертвая зона)_**?
 
 **Кароткі адказ**
 
