@@ -1,7 +1,7 @@
 ---
 number: 4
-title: "Разбор пытанняў з рэальных сумоўяў JS - 2."
-dateArticle: "30.01.2023"
+title: "Разбор пытанняў з рэальных сумоўяў JS Core - 2."
+dateArticle: "01.02.2023"
 author: "loveJS"
 chapters: 1
 layout: episode.njk

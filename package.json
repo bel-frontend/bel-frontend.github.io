@@ -19,6 +19,8 @@
     "gulp-sass": "^5.1.0",
     "gulp-uglify": "^3.0.2",
     "html-minifier-terser": "^7.0.0",
+    "markdown-it": "^13.0.1",
+    "markdown-it-replace-link": "^1.2.0",
     "music-metadata": "7.12.3",
     "postcss": "^8.3.8",
     "postcss-csso": "^6.0.0",

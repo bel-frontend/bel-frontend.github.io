@@ -22,6 +22,16 @@ module.exports = (config) => {
         return stats.size;
     });
 
+    config.setLibrary('md',(require('markdown-it')({
+        html: true,
+        linkify: true,
+        replaceLink: function (link) {
+            const baseUrl = 'https://bel-frontend.github.io/';
+
+            return link.startsWith('http') ? link : `${baseUrl}/episodes/${link}`;
+        }
+    }).use(require('markdown-it-replace-link'))))
+
     const getDuration = (path) => {
         return music
             .parseFile(path)
