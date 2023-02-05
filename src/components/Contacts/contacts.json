@@ -1,6 +1,0 @@
-[
-  { "title": "Email", "value": "test@test.com", "icon": "mail" },
-  { "title": "Phone", "value": "+375297777777", "icon": "call" },
-  { "title": "Website", "value": "bel-frontend.github.io", "icon": "link" },
-  { "title": "Address", "value": "Minsk, Niamiga st, 12/A", "icon": "home" }
-]
