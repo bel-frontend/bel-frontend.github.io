@@ -38,7 +38,7 @@ JS-двіжок разбірае наш код у _2 этапы_:
 >
 > `// ReferenceError: Cannot access 'a' before initialization`
 
-Трэба адзнацыць, што аб'яўленне функцый праз `function f(){}` ды `const f = function(){}` або `const f = ()=>{}` працуюць парознаму:
+Трэба адзначыць, што аб'яўленне функцый праз `function f(){}` ды `const f = function(){}` або `const f = ()=>{}` працуюць парознаму:
 
 > `f()`
 >
