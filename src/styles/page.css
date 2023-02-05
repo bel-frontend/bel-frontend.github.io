@@ -16,20 +16,20 @@
 }
 
 .article {
-    max-height: 300px;
+    max-height: 350px;
     overflow: hidden;
     text-overflow: ellipsis;
     /* white-space: nowrap; */
 }
 .alfa {
     position: relative;
-    height: 35px;
-    top: -35px;
+    height: 45px;
+    top: -45px;
     width: 100%;
     background-image: linear-gradient(
         to bottom,
         rgba(255, 255, 255, 0.1) 0%,
-        rgba(255, 255, 255, 0.7) 45%,
+        rgba(255, 255, 255, 0.7) 75%,
         rgba(255, 255, 255, 1)
     );
 }
