@@ -35,41 +35,51 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const getCountOfLikes = async (artickleId) => {
         const starCountRef = ref(database, `artickles/${artickleId}/likes`);
-        return new Promise((resolvre) => {
+        return new Promise((resolve) => {
             onValue(starCountRef, (snapshot) => {
                 const data = snapshot.val() || 0;
-                resolvre(data);
+                resolve(data);
             });
         });
     };
 
     const saveLikesToDB = async (artickleId) => {
         const countOfLikes = await getCountOfLikes(artickleId);
-        await set(
-            ref(database, `artickles/${artickleId}/likes`),
-            countOfLikes + 1
-        );
+        const newCount = countOfLikes + 1;
+        await set(ref(database, `artickles/${artickleId}/likes`), newCount);
+        return newCount;
     };
-    const setUnlikesToDB = async (artickleId) => {
+
+    const removeLikeFromDB = async (artickleId) => {
         const countOfLikes = await getCountOfLikes(artickleId);
-        await set(
-            ref(database, `artickles/${artickleId}/likes`),
-            countOfLikes - 1
-        );
+        const newCount = countOfLikes - 1;
+        await set(ref(database, `artickles/${artickleId}/likes`), newCount);
+        return newCount;
     };
 
     const saveLikeToLocalStorage = (artickleId) => {
-        const userId = `user_id_${parseInt(Math.random() * 10000)}`;
-        const userIdFromLocalStorage =
-            localStorage.getItem("user_like_data") || {};
+        const items = JSON.parse(localStorage.getItem("user_liked_item")) || [];
+        localStorage.setItem(
+            "user_liked_item",
+            JSON.stringify([...items, artickleId])
+        );
+    };
+    const removeLikeFromLocalStorage = (artickleId) => {
+        const items = JSON.parse(localStorage.getItem("user_liked_item")) || [];
+        localStorage.setItem(
+            "user_liked_item",
+            JSON.stringify([...items.filter((i) => i !== artickleId)])
+        );
+    };
 
-        localStorage.setItem("user_like_data", {
-            ...userIdFromLocalStorage,
-        });
+    const checkArtickeIsLiked = (artickleId) => {
+        const items = JSON.parse(localStorage.getItem("user_liked_item")) || [];
+        return items.find((i) => i === artickleId);
     };
 
     const buttons = document.querySelectorAll(".like");
-    const showLikesCount = () => {
+
+    const setLikesCountToCounter = () => {
         const likes_counter = document.querySelectorAll(".count_likes");
         likes_counter.forEach(async (item) => {
             const id = item.getAttribute("artickle_id");
@@ -77,14 +87,25 @@ document.addEventListener("DOMContentLoaded", () => {
             item.textContent = count;
         });
     };
-    showLikesCount();
+
+    setLikesCountToCounter();
 
     buttons.forEach((button) => {
-        button.addEventListener("click", (event) => {
-            const id = event.target.getAttribute("artickle_id");
-            saveLikesToDB(id);
-            showLikesCount();
-            saveLikeToLocalStorage(id);
+        button.addEventListener("click", async (event) => {
+            const id = event.target.closest(".like")
+                ? event.target.closest(".like").getAttribute("artickle_id")
+                : null;
+            if (id) {
+                if (checkArtickeIsLiked(id)) {
+                    await removeLikeFromDB(id);
+                    setLikesCountToCounter();
+                    removeLikeFromLocalStorage(id);
+                } else {
+                    await saveLikesToDB(id);
+                    setLikesCountToCounter();
+                    saveLikeToLocalStorage(id);
+                }
+            }
         });
     });
 });

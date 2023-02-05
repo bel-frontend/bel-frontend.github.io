@@ -1,0 +1,12 @@
+<div class="episode_meta">
+    <a href="{{ episode.url }}" class="btn btn-primary">Чытаць</a>
+    <button type="button" artickle_id="{{ episode.data.number }}" class="btn btn-danger like btn-sm">
+            <span class="bi bi-heart-fill"></span>
+            <span class="count_likes" artickle_id="{{ episode.data.number }}">0</span>
+        </button>
+</div>
+<div>
+    <span class='author'>{{ episode.data.author }}</span>,
+    <span class='date-article'> {{ episode.data.dateArticle}}</span>
+</div>
+ 
