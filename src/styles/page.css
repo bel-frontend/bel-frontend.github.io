@@ -29,22 +29,32 @@
     background-image: linear-gradient(
         to bottom,
         rgba(255, 255, 255, 0.1) 0%,
-        rgba(255, 255, 255, 1) 70% /* rgba(255, 255, 255, 1) */
+        rgba(255, 255, 255, 0.7) 45%,
+        rgba(255, 255, 255, 1)
     );
 }
-.link {
-    position: relative;
-    top: -35px;
-}
-.episode img{
-   max-width:  100%;
-}
-.episode {
-   max-width:  100%;
-}
-.content{
+.episode img {
     max-width: 100%;
 }
-.content p{
-   width: 100%;
+.episode {
+    max-width: 100%;
+    margin-bottom: 24px;
+}
+.content {
+    max-width: 100%;
+}
+.content p {
+    width: 100%;
+}
+
+.episode_meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    top: -24px;
+}
+
+.like:focus {
+    outline: transparent;
 }
