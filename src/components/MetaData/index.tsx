@@ -1,9 +1,8 @@
 import React from 'react';
 
-export const MetaData = ({ episode }: any) => {
-    const author = '',
-        dateArticle = '',
-        url = '';
+export const MetaData = ({ meta }: any) => {
+    const { author = '', dateArticle = '', url = '' } = meta || {};
+    console.log(meta);
 
     return (
         <>

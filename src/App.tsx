@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import { Home } from './containers/Home';
-import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/scss/bootstrap.scss';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
 function App() {

@@ -1,6 +1,8 @@
 import React from 'react';
 import { Layout } from '../Layout';
 import { useTranslation } from 'react-i18next';
+import { episodes } from 'src/episodes';
+import { EpisodePreview } from './components/EpisodePreview/indes';
 
 import style from './style.module.css';
 
@@ -20,6 +22,9 @@ export const Home = () => {
                             >
                                 Далучайцеся да нашага тэлеграмканалу
                             </a>
+                            {episodes.map((i) => (
+                                <EpisodePreview data={i} />
+                            ))}
                             <div className="pagination_container">
                                 Старонка:1
                             </div>
