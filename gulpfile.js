@@ -63,8 +63,8 @@ gulp.task("clean", () => {
     return del([
         "docs/styles",
         "docs/styles.css",
-        "docs/scripts",
-        "docs/scripts.js",
+        // "docs/scripts",
+        // "docs/scripts.js",
     ]);
 });
 
