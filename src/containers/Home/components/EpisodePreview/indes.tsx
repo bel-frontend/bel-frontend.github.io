@@ -1,7 +1,7 @@
 import React from 'react';
-import { MetaData } from 'src/components/MetaData';
+import { MetaData } from 'components/MetaData';
 import ReactMarkdown from 'react-markdown';
-import { parseMeta } from 'src/helpers';
+import { parseMeta } from 'helpers';
 
 export const EpisodePreview = ({ data }: any) => {
     const content = 'content';

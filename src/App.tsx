@@ -1,11 +1,16 @@
 import React from 'react';
-import logo from './logo.svg';
-import { Home } from './containers/Home';
-import 'bootstrap/scss/bootstrap.scss';
+import { BrowserRouter } from 'react-router-dom';
+import AppContainer from 'containers/App';
+
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import 'bootstrap/dist/css/bootstrap.css';
 
 function App() {
-    return <Home />;
+    return (
+        <BrowserRouter>
+            <AppContainer />
+        </BrowserRouter>
+    );
 }
 
 export default App;
