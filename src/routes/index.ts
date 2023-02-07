@@ -7,8 +7,8 @@ const mainRoutes = [
         path: '/',
         exact: true,
         component: Home,
-        showHeader: false,
-        showSidebar: false,
+        showHeader: true,
+        // showSidebar: false,
         // layout: LayoutEmpty,
     },
 ];

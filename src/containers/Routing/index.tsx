@@ -23,7 +23,6 @@ const RenderLayout = ({ layout = Layout, ...route }, component: any) => {
                   ...props,
                   history,
                   ...{ route: route },
-                  // ...route,
               })
             : React.createElement(component, {
                   ...props,
@@ -47,7 +46,7 @@ const Routing = ({
     redirectUrl?: string;
     routes: any[];
 }) => {
-    console.log(redirectUrl);
+    console.log(redirectUrl, routes);
 
     return (
         <Router history={history}>
