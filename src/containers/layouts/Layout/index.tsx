@@ -3,7 +3,6 @@ import { Header } from 'components';
 import style from './style.module.css';
 
 export const Layout = ({ children, ...props }: any) => {
-    console.log(props);
     const {
         route: { showHeader },
     } = props;

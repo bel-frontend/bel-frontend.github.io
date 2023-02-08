@@ -3,6 +3,7 @@ import { Suspense, lazy } from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 import { history } from 'modules/history';
 import { Layout } from 'containers/layouts/Layout';
+import { RouteItemInterface } from 'routes';
 
 // import PrivateRoute from './PrivateRoute';
 // import ErrorPage from '../ErrorPage';
@@ -44,10 +45,8 @@ const Routing = ({
     routes,
 }: {
     redirectUrl?: string;
-    routes: any[];
+    routes: RouteItemInterface[];
 }) => {
-    console.log(redirectUrl, routes);
-
     return (
         <Router history={history}>
             <Suspense fallback={<div />}>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './style.scss';
 
 export const Header = () => {
@@ -8,9 +9,9 @@ export const Header = () => {
                 <div className="row justify-content-center">
                     <div className="col-lg-10  col-md-10">
                         <div className="site-heading">
-                            <a href="/">
+                            <Link to="/">
                                 <h1 className="header">Беларускі франтэнд</h1>
-                            </a>
+                            </Link>
                             <hr className="small" />
                             <h2 className="subheading">Ды іншая трасца</h2>
                         </div>

@@ -1,11 +1,11 @@
 import React from 'react';
 import { MetaData } from 'components/MetaData';
 import ReactMarkdown from 'react-markdown';
+import { Link } from 'react-router-dom';
 import { parseMeta } from 'helpers';
 
 export const EpisodePreview = ({ data }: any) => {
     const content = 'content';
-    const url = './';
     const [episode, setState] = React.useState<any>();
     const [meta, setMeta] = React.useState<any>();
 
@@ -19,20 +19,23 @@ export const EpisodePreview = ({ data }: any) => {
             });
     }, []);
 
-    return (
-        <article className="episode box" id="e{{ episode.data.number }}">
+    const url = meta?.number ? `/article/${meta.number}` : '/';
+    console.log(meta, url);
+
+    return meta ? (
+        <article className="episode box" id={meta.number}>
             <div className="article">
                 <h2 className="episode__title">
-                    <a className="episode__link" href={url}>
-                        {data.number}.{data.title}
-                    </a>
+                    <Link className="episode__link" to={meta ? url : '/'}>
+                        {meta.number}.{meta.title}
+                    </Link>
                 </h2>
                 <div className="content">
                     <ReactMarkdown children={episode}></ReactMarkdown>
                 </div>
             </div>
             <div className="alfa"></div>
-            <MetaData meta={meta} />
+            <MetaData meta={meta} url={url} />
         </article>
-    );
+    ) : null;
 };
