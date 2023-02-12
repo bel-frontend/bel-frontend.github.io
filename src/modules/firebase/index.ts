@@ -45,17 +45,26 @@ export const removeLikeFromDB = async (artickleId: any) => {
     return newCount;
 };
 
-// export const saveLikeToLocalStorage = (artickleId: any) => {
-//     // const items = JSON.parse(localStorage.getItem('user_liked_item')) || [];
-//     localStorage.setItem(
-//         'user_liked_item',
-//         JSON.stringify([...items, artickleId]),
-//     );
-// };
-// export const removeLikeFromLocalStorage = (artickleId: any) => {
-//     const items = JSON.parse(localStorage.getItem('user_liked_item')) || [];
-//     localStorage.setItem(
-//         'user_liked_item',
-//         JSON.stringify([...items.filter((i) => i !== artickleId)]),
-//     );
-// };
+export const checkArtickeIsLiked = (artickleId: any) => {
+    const items =
+        JSON.parse(localStorage.getItem('user_liked_item') || '[]') || [];
+    return items.find((i: any) => i === artickleId);
+};
+
+export const saveLikeToLocalStorage = (artickleId: any) => {
+    const items =
+        JSON.parse(localStorage.getItem('user_liked_item') || '[]') || [];
+    localStorage.setItem(
+        'user_liked_item',
+        JSON.stringify([...items, artickleId]),
+    );
+};
+
+export const removeLikeFromLocalStorage = (artickleId: any) => {
+    const items =
+        JSON.parse(localStorage.getItem('user_liked_item') || '[]') || [];
+    localStorage.setItem(
+        'user_liked_item',
+        JSON.stringify([...items.filter((i: any) => i !== artickleId)]),
+    );
+};

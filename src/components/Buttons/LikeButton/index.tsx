@@ -4,6 +4,9 @@ import {
     saveLikesToDB,
     removeLikeFromDB,
     getCountOfLikes,
+    checkArtickeIsLiked,
+    saveLikeToLocalStorage,
+    removeLikeFromLocalStorage,
 } from 'modules/firebase';
 
 import style from './style.module.scss';
@@ -26,7 +29,13 @@ export const LikeButton = ({
         getLikesFromDb(artickleId);
     }, [artickleId]);
     const onClick = React.useCallback(async () => {
-        await saveLikesToDB(artickleId);
+        if (!checkArtickeIsLiked(artickleId)) {
+            await saveLikesToDB(artickleId);
+            saveLikeToLocalStorage(artickleId);
+        } else {
+            await removeLikeFromDB(artickleId);
+            removeLikeFromLocalStorage(artickleId);
+        }
         await getLikesFromDb(artickleId);
     }, [artickleId]);
 
