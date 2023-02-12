@@ -5,11 +5,22 @@ export const parseMeta = (str: string) => {
         .reduce((acc, item) => {
             const str = item
                 .split(':')
-                .map((i) => `"${i.replaceAll("'", '').trim()}"`)
+                .map(
+                    (i) =>
+                        `"${i
+                            .replaceAll('\n', '')
+                            .replaceAll("'", '')
+                            .trim()}"`,
+                )
                 .join(':');
             console.log(str);
 
             return acc.length > 0 ? `${acc},${str}` : `${str}`;
         }, '');
-    return JSON.parse(`{${res}}`);
+    try {
+        console.log(`{${res}}`[25], `{${res}}`);
+        return JSON.parse(`{${res}}`.replaceAll('""', '"'));
+    } catch (error) {
+        console.log(error);
+    }
 };
