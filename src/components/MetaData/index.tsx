@@ -1,20 +1,26 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { LikeButton } from '../Buttons/LikeButton';
+import style from './style.module.scss';
 
-export const MetaData = ({ meta, url }: any) => {
+export const MetaData = ({
+    meta,
+    showLikes = true,
+    showReadButton = true,
+    url,
+    artickleId,
+}: any) => {
     const { author = '', dateArticle = '' } = meta || {};
-    console.log(meta);
 
     return (
         <>
-            <div className="episode_meta">
-                <Link to={url} className="btn btn-primary">
-                    Чытаць
-                </Link>
-                <button type="button" className="btn btn-danger like btn-sm">
-                    <span className="bi bi-heart-fill"></span>
-                    <span className="count_likes">0</span>
-                </button>
+            <div className={style.episode_meta}>
+                {showReadButton ? (
+                    <Link to={url} className="btn btn-primary btn-sm">
+                        Чытаць
+                    </Link>
+                ) : null}
+                {showReadButton ? <LikeButton artickleId={artickleId} /> : null}
             </div>
             <div>
                 <span className="author">{author}</span>,

@@ -1,8 +1,8 @@
 ---
 number: 1
-title: 'Першы пост'
-dateArticle: '24.12.2022'
-author: 'Admin'
+title: "Першы пост"
+dateArticle: "24.12.2022"
+author: "Admin"
 chapters: 1
 layout: episode.njk
 tags: episode

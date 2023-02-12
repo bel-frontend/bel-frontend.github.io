@@ -1,8 +1,8 @@
 ---
 number: 2
-title: 'Як усталяваць Node.js'
-dateArticle: '11.01.2023'
-author: 'Admin'
+title: "Як усталяваць Node.js"
+dateArticle: "11.01.2023"
+author: "Admin"
 chapters: 1
 layout: episode.njk
 tags: episode

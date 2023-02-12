@@ -1,9 +1,11 @@
 import React from 'react';
 import { MetaData } from 'components/MetaData';
-import ReactMarkdown from 'react-markdown';
 import { Link } from 'react-router-dom';
+import { MD } from 'components';
 
-export const EpisodePreview = ({ meta, content }: any) => {
+import style from './style.module.scss';
+
+export const EpisodePreview = ({ meta, id, content }: any) => {
     const url = meta?.number ? `/article/${meta.number}` : '/';
 
     return meta ? (
@@ -15,11 +17,11 @@ export const EpisodePreview = ({ meta, content }: any) => {
                     </Link>
                 </h2>
                 <div className="content">
-                    <ReactMarkdown>{content}</ReactMarkdown>
+                    <MD>{content}</MD>
                 </div>
             </div>
-            <div className="alfa"></div>
-            <MetaData meta={meta} url={url} />
+            <div className={style.alfa}></div>
+            <MetaData meta={meta} artickleId={id} url={url} />
         </article>
     ) : null;
 };

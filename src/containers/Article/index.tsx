@@ -1,7 +1,11 @@
 import React from 'react';
-import ReactMarkdown from 'react-markdown';
+import { MetaData, MD } from 'components';
+import { LikeButton } from 'components/Buttons/LikeButton';
 
+import classnames from 'classnames';
 import { getArticleById } from 'modules/articles';
+
+import style from './style.module.scss';
 
 export const Article = ({
     match: {
@@ -19,22 +23,29 @@ export const Article = ({
         });
     }, [id]);
 
-    return (
-        <main className="page__main main">
-            <article className="episode box">
-                <h1 className="episode__title">
-                    {article?.meta?.number}.{article?.meta?.title}
-                </h1>
-                <div className="content">
-                    <ReactMarkdown>{article?.content}</ReactMarkdown>
-                </div>
-                <div>
-                    <span className="author">{article?.meta?.author}</span>,
-                    <span className="date-article">
-                        {article?.meta?.dateArticle}
-                    </span>
-                </div>
-            </article>
-        </main>
-    );
+    return article ? (
+        <>
+            <div className={classnames(style.likeContainer)}>
+                <LikeButton
+                    className={style.likeButton}
+                    artickleId={article.id}
+                />
+            </div>
+            <main className="page__main main">
+                <article className="episode box">
+                    <h1 className="episode__title">
+                        {article?.meta?.number}.{article?.meta?.title}
+                    </h1>
+                    <div className="content">
+                        <MD>{article?.content}</MD>
+                    </div>
+                    <MetaData
+                        showReadButton={false}
+                        showLikes={false}
+                        meta={article?.meta}
+                    />
+                </article>
+            </main>
+        </>
+    ) : null;
 };

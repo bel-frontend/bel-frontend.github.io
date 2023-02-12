@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 
 const testFolder = './src/articles';
 const getDirectories = (source, callback) =>
@@ -15,7 +16,8 @@ const getDirectories = (source, callback) =>
     });
 getDirectories(testFolder, (data) => {
     console.log(data);
+    fs.mkdirSync('./docs/articles');
     data.forEach((i) => {
-        fs.copyFileSync('./docs/index.html', `./docs/${i}.html`);
+        fs.copyFileSync('./docs/index.html', `./docs/articles/${i}.html`);
     });
 });

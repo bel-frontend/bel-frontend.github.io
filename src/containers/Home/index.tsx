@@ -3,7 +3,7 @@ import React from 'react';
 import { getAllArticles } from 'modules/articles';
 import { EpisodePreview } from './components/EpisodePreview/indes';
 
-import style from './style.module.css';
+import style from './style.module.scss';
 
 export const Home = ({ ...props }) => {
     const [articles, setArticles] = React.useState<any>();
@@ -14,12 +14,12 @@ export const Home = ({ ...props }) => {
     }, []);
 
     return (
-        <main className="page__main main">
-            <div className="main__intro box">
+        <main className={style.main}>
+            <div className="box">
                 <div className="content"></div>
             </div>
             <a
-                className="telegram box box--compact"
+                className={style.telegram}
                 href="https://t.me/bel_frontend"
                 target="_blank"
                 rel="noreferrer"
@@ -29,13 +29,18 @@ export const Home = ({ ...props }) => {
             {articles &&
                 articles.map(
                     (
-                        { content, meta }: { content: string; meta: any },
+                        {
+                            content,
+                            meta,
+                            id,
+                        }: { content: string; meta: any; id: any },
                         index: number,
                     ) => (
                         <EpisodePreview
                             key={index}
                             content={content}
                             meta={meta}
+                            id={id}
                         />
                     ),
                 )}
