@@ -14,6 +14,7 @@
         "@types/react-dom": "^18.0.10",
         "bootstrap": "^5.2.3",
         "bootstrap-icons": "^1.10.3",
+        "esm": "^3.2.25",
         "i18next": "^22.0.6",
         "react": "^18.2.0",
         "react-bootstrap": "^2.7.0",
@@ -29,7 +30,7 @@
     },
     "scripts": {
         "start": "react-scripts start",
-        "build": "rm -rf ./docs && react-scripts build  &&  cp -R ./build/  ./docs",
+        "build": "rm -rf ./docs && react-scripts build  &&  cp -R ./build/  ./docs  && node  build.js",
         "test": "react-scripts test",
         "eject": "react-scripts eject"
     },
