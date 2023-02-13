@@ -42,7 +42,7 @@ export const LikeButton = ({
     return (
         <button
             type="button"
-            className={classnames('btn btn-danger btn-sm', className)}
+            className={classnames('btn btn-sm', 'btn-danger', className)}
             onClick={onClick}
         >
             <span className="bi bi-heart-fill"></span>

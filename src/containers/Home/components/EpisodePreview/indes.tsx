@@ -13,7 +13,7 @@ export const EpisodePreview = ({ meta, id, content }: any) => {
             <div className="article">
                 <h2 className="episode__title">
                     <Link className="episode__link" to={meta ? url : '/'}>
-                        {meta.number}.{meta.title}
+                        {meta.title}
                     </Link>
                 </h2>
                 <div className="content">

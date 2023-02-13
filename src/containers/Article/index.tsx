@@ -1,6 +1,7 @@
 import React from 'react';
 import { MetaData, MD } from 'components';
 import { LikeButton } from 'components/Buttons/LikeButton';
+import { Link } from 'react-router-dom';
 
 import classnames from 'classnames';
 import { getArticleById } from 'modules/articles';
@@ -25,6 +26,10 @@ export const Article = ({
 
     return article ? (
         <>
+            <div>
+                <Link to="/">Галоўная</Link> <span>{'>'} </span>
+                <span>{article?.meta?.title}</span>
+            </div>
             <div className={classnames(style.likeContainer)}>
                 <LikeButton
                     className={style.likeButton}
@@ -33,9 +38,7 @@ export const Article = ({
             </div>
             <main className="page__main main">
                 <article className="episode box">
-                    <h1 className="episode__title">
-                        {article?.meta?.number}.{article?.meta?.title}
-                    </h1>
+                    <h1 className="episode__title">{article?.meta?.title}</h1>
                     <div className="content">
                         <MD>{article?.content}</MD>
                     </div>
