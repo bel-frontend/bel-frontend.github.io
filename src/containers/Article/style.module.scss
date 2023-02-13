@@ -1,0 +1,16 @@
+.likeContainer {
+    justify-content: flex-end;
+    display: flex;
+    position: sticky;
+    top: 95vh;
+    @media screen and (min-width: 600px) {
+        margin-right: -128px;
+    }
+    @media screen and (max-width: 600px) {
+        // margin-left: 48px;
+        justify-content: flex-start;
+    }
+}
+.likeButton {
+    // margin-right: 48px;
+}
