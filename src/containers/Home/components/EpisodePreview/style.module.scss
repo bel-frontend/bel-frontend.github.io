@@ -1,0 +1,12 @@
+.alfa {
+    position: relative;
+    height: 45px;
+    top: -45px;
+    width: 100%;
+    background-image: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.7) 50%,
+        rgba(255, 255, 255, 1)
+    );
+}
