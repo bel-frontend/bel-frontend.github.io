@@ -4,22 +4,32 @@ import { EpisodePreview } from './components/EpisodePreview/indes';
 import { getArticlesFromDB } from 'modules/firebase';
 import style from './style.module.scss';
 
-export const Home = ({ ...props }) => {
+export const Home = ({
+    route: { userIsAuth },
+    history,
+    ...props
+}: {
+    route: { userIsAuth?: boolean };
+    [key: string]: any;
+}) => {
+    console.log(userIsAuth);
+
     const [articles, setArticles] = React.useState<any>();
     React.useEffect(() => {
         getArticlesFromDB().then((data: any[]) => {
             setArticles(
                 data
-                    .map((i, index) => ({
-                        content: i.article,
-                        id: index,
-                        meta: {},
-                    }))
+                    .map((i, index) => {
+                        return {
+                            content: i.article,
+                            id: index,
+                            meta: i.meta,
+                        };
+                    })
                     .filter((i) => i.content),
             );
         });
     }, []);
-    console.log(articles);
 
     return (
         <Box component={'main'} className={style.main}>
@@ -45,7 +55,9 @@ export const Home = ({ ...props }) => {
                         index: number,
                     ) => (
                         <EpisodePreview
+                            history={history}
                             key={index}
+                            userIsAuth={userIsAuth}
                             content={content}
                             meta={meta}
                             id={id}

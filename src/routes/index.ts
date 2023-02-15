@@ -2,8 +2,9 @@ import { Home } from 'containers/Home';
 import { Article } from 'containers/Article';
 import { Editor } from 'containers/Editor';
 import { EmptyLayout } from 'containers/layouts/EmptyLayout';
-
-export const redirectAuthPath = '/';
+import Auth from 'containers/Auth/Auth';
+import SignUp from 'containers/Auth/SignUp';
+export const redirectAuthPath = '/login';
 
 export interface RouteItemInterface {
     path: string;
@@ -20,23 +21,33 @@ const mainRoutes: RouteItemInterface[] = [
         exact: true,
         component: Home,
         showHeader: true,
-        // showSidebar: false,
-        // layout: LayoutEmpty,
     },
     {
         path: '/article/:id',
         exact: true,
         component: Article,
         showHeader: true,
-        // showSidebar: false,
-        // layout: LayoutEmpty,
+    },
+    {
+        path: '/login',
+        exact: true,
+        component: Auth,
+        showHeader: false,
+        layout: EmptyLayout,
+    },
+    {
+        path: '/register',
+        exact: true,
+        component: SignUp,
+        showHeader: false,
+        layout: EmptyLayout,
     },
     {
         path: '/editor/:id',
         exact: true,
         component: Editor,
         showHeader: false,
-        // showSidebar: false,
+        isPrivate: true,
         layout: EmptyLayout,
     },
 ];

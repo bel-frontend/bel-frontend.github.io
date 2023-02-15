@@ -12,8 +12,8 @@ import * as yup from 'yup';
 import { MD } from 'components';
 import TextField from '@mui/material/TextField';
 
-import { addArticleToDB, getArticlesFromDB, MetaData } from 'modules/firebase';
-
+import { addArticleToDB, getArticlesFromDB } from 'modules/firebase';
+import { checkUserAuth } from 'modules/auth';
 import style from './style.module.scss';
 
 const validationSchema = yup.object({
@@ -21,7 +21,6 @@ const validationSchema = yup.object({
     title: yup.string().required(),
     dateArticle: yup.string().required(),
     author: yup.string().required(),
-    chapter: yup.string().required(),
     tags: yup.string().required(),
     content: yup.string().required(),
 });
@@ -73,12 +72,13 @@ export const Editor = ({
         validationSchema: validationSchema,
         onSubmit: ({ content, ...values }) => {
             if (id === 'add') {
-                addArticleToDB(content, articles.length + 1, { ...values });
+                addArticleToDB(content, (articles?.length || 0) + 1, {
+                    ...values,
+                });
             } else {
                 addArticleToDB(content, id, { ...values });
             }
             history.push('/');
-            console.log(values);
         },
     });
 
@@ -93,16 +93,6 @@ export const Editor = ({
             }
         });
     }, []);
-
-    //     interface MetaData {
-    //        number: number;
-    //        title: string;
-    //        dateArticle: string;
-    //        author: string;
-    //        chapters?: number;
-    //        tags: string[] | string;
-    //    }
-    const onClick = () => {};
 
     return (
         <div>
@@ -145,6 +135,7 @@ export const Editor = ({
                         name="dateArticle"
                         label="dateArticle"
                         type="date"
+                        InputLabelProps={{ shrink: true }}
                         value={values.dateArticle}
                         size="small"
                         onChange={handleChange('dateArticle')}
@@ -197,6 +188,15 @@ export const Editor = ({
                         language={'en'}
                         height={'60vh'}
                     ></EditorMD>
+                    <Button
+                        sx={{ mr: 4 }}
+                        variant="outlined"
+                        className="mt-5"
+                        color="primary"
+                        onClick={() => history.goBack()}
+                    >
+                        Скасаваць
+                    </Button>
                     <Button
                         variant="contained"
                         className="mt-5"
