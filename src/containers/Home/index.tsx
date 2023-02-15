@@ -1,23 +1,31 @@
 import React from 'react';
-
-import { getAllArticles } from 'modules/articles';
+import Box from '@mui/material/Box';
 import { EpisodePreview } from './components/EpisodePreview/indes';
-
+import { getArticlesFromDB } from 'modules/firebase';
 import style from './style.module.scss';
 
 export const Home = ({ ...props }) => {
     const [articles, setArticles] = React.useState<any>();
     React.useEffect(() => {
-        getAllArticles().then((data) => {
-            setArticles(data);
+        getArticlesFromDB().then((data: any[]) => {
+            setArticles(
+                data
+                    .map((i, index) => ({
+                        content: i.article,
+                        id: index,
+                        meta: {},
+                    }))
+                    .filter((i) => i.content),
+            );
         });
     }, []);
+    console.log(articles);
 
     return (
-        <main className={style.main}>
-            <div className="box">
-                <div className="content"></div>
-            </div>
+        <Box component={'main'} className={style.main}>
+            <Box className="box">
+                <Box className="content"></Box>
+            </Box>
             <a
                 className={style.telegram}
                 href="https://t.me/bel_frontend"
@@ -44,7 +52,7 @@ export const Home = ({ ...props }) => {
                         />
                     ),
                 )}
-            <div className="pagination_container">Старонка:1</div>
-        </main>
+            {/* <Box className="pagination_container">Старонка:1</Box> */}
+        </Box>
     );
 };
