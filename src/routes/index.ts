@@ -1,5 +1,7 @@
 import { Home } from 'containers/Home';
 import { Article } from 'containers/Article';
+import { Editor } from 'containers/Editor';
+import { EmptyLayout } from 'containers/layouts/EmptyLayout';
 
 export const redirectAuthPath = '/';
 
@@ -9,6 +11,7 @@ export interface RouteItemInterface {
     component: any;
     showHeader?: boolean;
     isPrivate?: boolean;
+    layout?: any;
 }
 
 const mainRoutes: RouteItemInterface[] = [
@@ -27,6 +30,14 @@ const mainRoutes: RouteItemInterface[] = [
         showHeader: true,
         // showSidebar: false,
         // layout: LayoutEmpty,
+    },
+    {
+        path: '/editor/:id',
+        exact: true,
+        component: Editor,
+        showHeader: false,
+        // showSidebar: false,
+        layout: EmptyLayout,
     },
 ];
 

@@ -6,7 +6,11 @@ import Routing from 'containers/Routing';
 const App = ({ ...props }) => {
     return (
         <Fragment>
-            <Routing routes={routes} redirectUrl={redirectAuthPath} />
+            <Routing
+                userIsAuth
+                routes={routes}
+                redirectUrl={redirectAuthPath}
+            />
         </Fragment>
     );
 };

@@ -4,6 +4,7 @@ import { Router, Route, Switch } from 'react-router-dom';
 import { history } from 'modules/history';
 import { Layout } from 'containers/layouts/Layout';
 import { RouteItemInterface } from 'routes';
+import PrivateRoute from './PrivateRoute';
 
 // import PrivateRoute from './PrivateRoute';
 // import ErrorPage from '../ErrorPage';
@@ -43,26 +44,29 @@ const RenderLayout = ({ layout = Layout, ...route }, component: any) => {
 const Routing = ({
     redirectUrl,
     routes,
+    userIsAuth,
 }: {
     redirectUrl?: string;
     routes: RouteItemInterface[];
+    userIsAuth: boolean;
 }) => {
     return (
         <Router history={history}>
             <Suspense fallback={<div />}>
                 <Switch>
                     {routes.map(({ component, ...route }, index) => {
-                        return route.isPrivate ? null : (
-                            // <PrivateRoute
-                            //     key={`router_key_${index}`}
-                            //     userIsAuth={userIsAuth}
-                            //     redirectUrl={redirectUrl}
-                            //     {...route}
-                            //     render={RenderLayout(
-                            //         { ...route, userIsAuth, viewPort },
-                            //         component,
-                            //     )}
-                            // />
+                        return route.isPrivate ? (
+                            <PrivateRoute
+                                key={`router_key_${index}`}
+                                userIsAuth={userIsAuth}
+                                redirectUrl={redirectUrl}
+                                {...route}
+                                render={RenderLayout(
+                                    { ...route, userIsAuth },
+                                    component,
+                                )}
+                            />
+                        ) : (
                             <Route
                                 key={`router_key_${index}`}
                                 {...route}
