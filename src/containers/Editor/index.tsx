@@ -77,7 +77,7 @@ export const Editor = ({
             } else {
                 addArticleToDB(content, id, { ...values });
             }
-            // history.push('/');
+            history.push('/');
             console.log(values);
         },
     });
