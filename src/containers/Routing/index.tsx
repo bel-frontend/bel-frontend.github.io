@@ -70,7 +70,10 @@ const Routing = ({
                             <Route
                                 key={`router_key_${index}`}
                                 {...route}
-                                render={RenderLayout({ ...route }, component)}
+                                render={RenderLayout(
+                                    { ...route, userIsAuth },
+                                    component,
+                                )}
                             />
                         );
                     })}
