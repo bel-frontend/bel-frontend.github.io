@@ -5,6 +5,7 @@ import get from 'lodash/get';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+import Switch from '@mui/material/Switch';
 
 import { useFormik } from 'formik';
 import * as yup from 'yup';
@@ -17,7 +18,6 @@ import { checkUserAuth } from 'modules/auth';
 import style from './style.module.scss';
 
 const validationSchema = yup.object({
-    number: yup.string().required(),
     title: yup.string().required(),
     dateArticle: yup.string().required(),
     author: yup.string().required(),
@@ -50,6 +50,7 @@ export const Editor = ({
     history: any;
     match: { params: { id: number | string } };
 }) => {
+    const isAdd = id === 'add';
     const [articles, setArticles] = React.useState<any>([]);
 
     const {
@@ -61,13 +62,12 @@ export const Editor = ({
         handleSubmit,
     } = useFormik({
         initialValues: {
-            number: '',
             title: '',
             dateArticle: '',
             author: '',
-            chapter: '',
             tags: '',
             content: '',
+            isActive: true,
         },
         validationSchema: validationSchema,
         onSubmit: ({ content, ...values }) => {
@@ -117,37 +117,6 @@ export const Editor = ({
                 <Grid item md={6}>
                     <TextField
                         fullWidth
-                        id="number"
-                        name="number"
-                        label="number"
-                        type={'number'}
-                        value={values.number}
-                        size="small"
-                        onChange={handleChange('number')}
-                        error={touched.number && Boolean(errors.number)}
-                        helperText={touched.number && errors.number}
-                    />
-                </Grid>
-                <Grid item md={6}>
-                    <TextField
-                        fullWidth
-                        id="dateArticle"
-                        name="dateArticle"
-                        label="dateArticle"
-                        type="date"
-                        InputLabelProps={{ shrink: true }}
-                        value={values.dateArticle}
-                        size="small"
-                        onChange={handleChange('dateArticle')}
-                        error={
-                            touched.dateArticle && Boolean(errors.dateArticle)
-                        }
-                        helperText={touched.dateArticle && errors.dateArticle}
-                    />
-                </Grid>
-                <Grid item md={6}>
-                    <TextField
-                        fullWidth
                         id="author"
                         name="author"
                         label="author"
@@ -169,6 +138,29 @@ export const Editor = ({
                         onChange={handleChange('tags')}
                         error={touched.author && Boolean(errors.tags)}
                         helperText={touched.tags && errors.tags}
+                    />
+                </Grid>
+                <Grid item md={6}>
+                    <TextField
+                        fullWidth
+                        id="dateArticle"
+                        name="dateArticle"
+                        label="dateArticle"
+                        type="date"
+                        InputLabelProps={{ shrink: true }}
+                        value={values.dateArticle}
+                        size="small"
+                        onChange={handleChange('dateArticle')}
+                        error={
+                            touched.dateArticle && Boolean(errors.dateArticle)
+                        }
+                        helperText={touched.dateArticle && errors.dateArticle}
+                    />
+                </Grid>
+                <Grid item md={3}>
+                    <Switch
+                        checked={values.isActive}
+                        onChange={handleChange('isActive')}
                     />
                 </Grid>
             </Grid>

@@ -70,12 +70,13 @@ export const removeLikeFromLocalStorage = (artickleId: any) => {
 };
 
 export interface MetaData {
-    number: string;
+    number?: string;
     title: string;
     dateArticle: string;
     author: string;
     chapters?: string;
     tags: string[] | string;
+    isActive?: boolean;
 }
 
 export const addArticleToDB = async (
@@ -86,6 +87,9 @@ export const addArticleToDB = async (
     await set(ref(database, `artickles/${artickleId}/article`), text);
     await set(ref(database, `artickles/${artickleId}/meta`), meta);
 };
+export const removeArticleFromDB = async (artickleId: any) => {
+    await set(ref(database, `artickles/${artickleId}`), null);
+};
 
 export const getArticlesFromDB = async (): Promise<any[]> => {
     const starCountRef = ref(database, `artickles`);
@@ -95,4 +99,8 @@ export const getArticlesFromDB = async (): Promise<any[]> => {
             resolve(data);
         });
     });
+};
+export const getArticlesByID = async (id: any): Promise<any> => {
+    const articles = await getArticlesFromDB();
+    return articles[id];
 };
