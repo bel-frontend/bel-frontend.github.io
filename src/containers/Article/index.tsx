@@ -42,18 +42,20 @@ export const Article = ({
             </div>
             <div className={classnames(style.likeContainer)}>
                 <LikeButton className={style.likeButton} articleId={id} />
-                <Button
-                    variant="outlined"
-                    sx={{ ml: 1 }}
-                    color="secondary"
-                    className={style.editButton}
-                    onClick={() => {
-                        history.push(`/editor/${id}`);
-                    }}
-                    endIcon={<EditIcon />}
-                >
-                    Рэдагаваць
-                </Button>
+                {userIsAuth ? (
+                    <Button
+                        variant="outlined"
+                        sx={{ ml: 1 }}
+                        color="secondary"
+                        className={style.editButton}
+                        onClick={() => {
+                            history.push(`/editor/${id}`);
+                        }}
+                        endIcon={<EditIcon />}
+                    >
+                        Рэдагаваць
+                    </Button>
+                ) : null}
             </div>
             <main className="page__main main">
                 <article className="episode box">
