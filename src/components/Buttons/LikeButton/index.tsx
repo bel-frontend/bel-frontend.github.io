@@ -12,32 +12,33 @@ import {
 import style from './style.module.scss';
 
 export const LikeButton = ({
-    artickleId,
+    articleId,
     className,
 }: {
-    artickleId: string;
+    articleId: string;
     className?: string;
 }) => {
+    console.log(articleId);
+
     const [likes, setLikes] = React.useState(0);
     const getLikesFromDb = (artickleId: any) => {
         getCountOfLikes(artickleId).then((data) => {
-            console.log(data);
             setLikes(data);
         });
     };
     React.useEffect(() => {
-        getLikesFromDb(artickleId);
-    }, [artickleId]);
+        getLikesFromDb(articleId);
+    }, [articleId]);
     const onClick = React.useCallback(async () => {
-        if (!checkArtickeIsLiked(artickleId)) {
-            await saveLikesToDB(artickleId);
-            saveLikeToLocalStorage(artickleId);
+        if (!checkArtickeIsLiked(articleId)) {
+            await saveLikesToDB(articleId);
+            saveLikeToLocalStorage(articleId);
         } else {
-            await removeLikeFromDB(artickleId);
-            removeLikeFromLocalStorage(artickleId);
+            await removeLikeFromDB(articleId);
+            removeLikeFromLocalStorage(articleId);
         }
-        await getLikesFromDb(artickleId);
-    }, [artickleId]);
+        await getLikesFromDb(articleId);
+    }, [articleId]);
 
     return (
         <button

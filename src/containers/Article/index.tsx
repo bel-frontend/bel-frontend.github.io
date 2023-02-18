@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import classnames from 'classnames';
 import { getArticlesByID } from 'modules/firebase';
-import IconButton from '@mui/material/IconButton';
+import Button from '@mui/material/Button';
 import EditIcon from '@mui/icons-material/Edit';
 
 import style from './style.module.scss';
@@ -36,26 +36,24 @@ export const Article = ({
 
     return article ? (
         <>
-            {userIsAuth ? (
-                <IconButton
-                    sx={{ ml: 1 }}
-                    color="secondary"
-                    onClick={() => {
-                        history.push(`/editor/${id}`);
-                    }}
-                >
-                    <EditIcon />
-                </IconButton>
-            ) : null}
             <div>
                 <Link to="/">Галоўная</Link> <span>{'>'} </span>
                 <span>{article?.meta?.title}</span>
             </div>
             <div className={classnames(style.likeContainer)}>
-                <LikeButton
-                    className={style.likeButton}
-                    artickleId={article.id}
-                />
+                <LikeButton className={style.likeButton} articleId={id} />
+                <Button
+                    variant="outlined"
+                    sx={{ ml: 1 }}
+                    color="secondary"
+                    className={style.editButton}
+                    onClick={() => {
+                        history.push(`/editor/${id}`);
+                    }}
+                    endIcon={<EditIcon />}
+                >
+                    Рэдагаваць
+                </Button>
             </div>
             <main className="page__main main">
                 <article className="episode box">
@@ -67,6 +65,7 @@ export const Article = ({
                         showReadButton={false}
                         showLikes={false}
                         meta={article?.meta}
+                        articleId={id}
                     />
                 </article>
             </main>

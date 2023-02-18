@@ -1,20 +1,18 @@
 import React from 'react';
 import classnames from 'classnames';
 import EditorMD from 'for-editor';
-import get from 'lodash/get';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Switch from '@mui/material/Switch';
-
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 
 import { MD } from 'components';
-import TextField from '@mui/material/TextField';
 
-import { addArticleToDB, getArticlesFromDB } from 'modules/firebase';
-import { checkUserAuth } from 'modules/auth';
+import { addArticleToDB, getArticlesByID } from 'modules/firebase';
 import style from './style.module.scss';
 
 const validationSchema = yup.object({
@@ -51,13 +49,13 @@ export const Editor = ({
     match: { params: { id: number | string } };
 }) => {
     const isAdd = id === 'add';
-    const [articles, setArticles] = React.useState<any>([]);
 
     const {
         values,
         touched,
         errors,
         setFieldValue,
+        setValues,
         handleChange,
         handleSubmit,
     } = useFormik({
@@ -71,28 +69,37 @@ export const Editor = ({
         },
         validationSchema: validationSchema,
         onSubmit: ({ content, ...values }) => {
-            if (id === 'add') {
-                addArticleToDB(content, (articles?.length || 0) + 1, {
+            if (isAdd) {
+                addArticleToDB(content, Date.now().toString(), {
                     ...values,
                 });
             } else {
                 addArticleToDB(content, id, { ...values });
             }
-            history.push('/');
+            setTimeout(() => {
+                history.push('/');
+            }, 300);
         },
     });
 
     React.useEffect(() => {
-        getArticlesFromDB().then((data) => {
-            setArticles(data);
-            if (get(data, `[${id}]`)) {
-                setFieldValue(
-                    'content',
-                    get(data, `[${id}]`, { article: '' })?.article || '',
-                );
-            }
-        });
-    }, []);
+        if (id && !isAdd) {
+            getArticlesByID(id).then((data) => {
+                console.log(data);
+                if (data) {
+                    const { article = '', meta } = data;
+                    setValues({
+                        content: article,
+                        dateArticle: meta?.dateArticle || '',
+                        author: meta?.author || '',
+                        tags: meta?.tags || '',
+                        isActive: meta?.isActive || false,
+                        title: meta?.title || '',
+                    });
+                }
+            });
+        }
+    }, [id, setValues, isAdd]);
 
     return (
         <div>
@@ -158,9 +165,14 @@ export const Editor = ({
                     />
                 </Grid>
                 <Grid item md={3}>
-                    <Switch
-                        checked={values.isActive}
-                        onChange={handleChange('isActive')}
+                    <FormControlLabel
+                        control={
+                            <Switch
+                                checked={values.isActive}
+                                onChange={handleChange('isActive')}
+                            />
+                        }
+                        label="Актываваць"
                     />
                 </Grid>
             </Grid>
