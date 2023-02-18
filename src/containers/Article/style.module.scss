@@ -4,13 +4,18 @@
     position: sticky;
     top: 95vh;
     @media screen and (min-width: 600px) {
-        margin-right: -128px;
+        margin-right: -328px;
     }
     @media screen and (max-width: 600px) {
-        // margin-left: 48px;
         justify-content: flex-start;
+        // margin-left: 48px;
     }
 }
 .likeButton {
     // margin-right: 48px;
+}
+.editButton {
+    // position: fixed;
+    // right: 5vw;
+    // top: 95vh;
 }

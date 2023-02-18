@@ -13,22 +13,27 @@ export const Home = ({
     route: { userIsAuth?: boolean };
     [key: string]: any;
 }) => {
-    console.log(userIsAuth);
-
     const [articles, setArticles] = React.useState<any>();
     React.useEffect(() => {
+        console.log('read artickles');
+
         getArticlesFromDB().then((data: any[]) => {
-            setArticles(
-                data
+            try {
+                const articles = Object.entries(data)
+                    .sort((a, b) => parseInt(b[0]) - parseInt(a[0]))
                     .map((i, index) => {
                         return {
-                            content: i.article,
-                            id: index,
-                            meta: i.meta,
+                            content: i[1].article,
+                            id: i[0],
+                            meta: i[1].meta,
+                            isActive: Boolean(i[1].meta.isActive),
                         };
                     })
-                    .filter((i) => i.content),
-            );
+                    .filter((i) => userIsAuth || i.isActive);
+                setArticles(articles);
+            } catch (error) {}
+
+            console.log(articles);
         });
     }, []);
 
@@ -50,7 +55,13 @@ export const Home = ({
                                 content,
                                 meta,
                                 id,
-                            }: { content: string; meta: any; id: any },
+                                isActive,
+                            }: {
+                                content: string;
+                                meta: any;
+                                id: any;
+                                isActive: boolean;
+                            },
                             index: number,
                         ) => (
                             <EpisodePreview
@@ -60,10 +71,11 @@ export const Home = ({
                                 content={content}
                                 meta={meta}
                                 id={id}
+                                isActive={isActive}
                             />
                         ),
                     )}
-            </Box>{' '}
+            </Box>
             {userIsAuth ? (
                 <Box className={style.artickleAdd}>
                     <Button
