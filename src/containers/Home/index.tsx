@@ -1,8 +1,9 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import { EpisodePreview } from './components/EpisodePreview/indes';
 import { getArticlesFromDB } from 'modules/firebase';
-import Button from '@mui/material/Button';
+
+import { EpisodePreview } from './components/EpisodePreview/indes';
+import { Search } from './components/Search';
 import style from './style.module.scss';
 
 export const Home = ({
@@ -36,6 +37,22 @@ export const Home = ({
             console.log(articles);
         });
     }, []);
+    const [searchText, setSearchText] = React.useState<string | undefined>('');
+
+    const preparedArticles = React.useMemo(() => {
+        console.log(articles);
+
+        if (searchText) {
+            return articles.filter(
+                (i: any) =>
+                    i?.meta?.title &&
+                    i?.meta?.title
+                        .toLowerCase()
+                        .indexOf(searchText.trim().toLowerCase()) !== -1,
+            );
+        }
+        return articles;
+    }, [articles, searchText]);
 
     return (
         <>
@@ -48,8 +65,13 @@ export const Home = ({
                 >
                     Далучайцеся да нашага тэлеграмканалу
                 </a>
-                {articles &&
-                    articles.map(
+                <Search
+                    onChange={(text) => setSearchText(text)}
+                    value={searchText}
+                    onClear={() => setSearchText('')}
+                />
+                {preparedArticles &&
+                    preparedArticles.map(
                         (
                             {
                                 content,
@@ -76,19 +98,6 @@ export const Home = ({
                         ),
                     )}
             </Box>
-            {userIsAuth ? (
-                <Box className={style.artickleAdd}>
-                    <Button
-                        variant="contained"
-                        className={style.button}
-                        onClick={() => {
-                            history.push('/editor/add');
-                        }}
-                    >
-                        Дадаць новы артыкул
-                    </Button>
-                </Box>
-            ) : null}
         </>
     );
 };

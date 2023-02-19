@@ -1,15 +1,17 @@
-import { all, takeLatest, put, delay, select } from 'redux-saga/effects';
+import { all, takeLatest, put, delay, call, select } from 'redux-saga/effects';
 import { INIT_DATA } from 'modules/init';
 import {
+    signOut,
     getAuth,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     onAuthStateChanged,
     signInWithPopup,
+    GoogleAuthProvider,
 } from 'firebase/auth';
-import { GoogleAuthProvider } from 'firebase/auth';
 import { app } from 'modules/firebase';
 import { createAction } from 'redux-actions';
+import { callbackify } from 'util';
 
 const module = 'auth';
 const provider = new GoogleAuthProvider();
@@ -52,6 +54,15 @@ export const loginRequest = (
             onError(error);
         });
 };
+
+const signOutUser = (callback: any) =>
+    signOut(auth)
+        .then(() => {
+            if (typeof callback === 'function') callback();
+        })
+        .catch((error) => {
+            // An error happened.
+        });
 
 export const checkUserAuth = (
     onSuccess: (user: any) => void,
@@ -101,10 +112,16 @@ function* checkAuthSaga(dispatch: any) {
     }
 }
 
+function* userLogoutSaga(dispatch: any) {
+    yield call(signOutUser, undefined);
+    // yield delay(100);
+}
+
 export const authModuleSaga = function* (dispatch: any) {
     yield all([
         // @ts-ignore
         takeLatest([INIT_DATA], checkAuthSaga, dispatch),
+        takeLatest([USER_UNLOGINED], userLogoutSaga, dispatch),
     ]);
 };
 
