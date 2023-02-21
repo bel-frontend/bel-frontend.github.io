@@ -77,3 +77,19 @@
         font-size: 30px;
     }
 }
+
+.container-inner-height {
+   height: 370px;
+}
+
+@media only screen and (min-width: 768px) {
+    .container-inner-height {
+        height: 560px;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .container-inner-height {
+        height: 460px;
+    }
+}
