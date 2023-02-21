@@ -1,6 +1,6 @@
 .scrollToTop {
     position: sticky;
-    top: 95vh;
+    top: calc(100vh - 50px);
 
-    left: calc(100vw - 64px);
+    left: calc(100vw - 72px);
 }

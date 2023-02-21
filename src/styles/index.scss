@@ -22,7 +22,7 @@ p {
     margin: 20px 0;
 }
 p a {
-    text-decoration: underline;
+    text-decoration: none !important;
 }
 h1,
 h2,
@@ -41,7 +41,7 @@ h6 {
 
 a {
     color: #0085a1;
-    text-decoration: none;
+    text-decoration: none !important;
 }
 a:hover,
 a:focus {
@@ -93,7 +93,7 @@ hr.small {
 .post-preview > .post-meta > a:hover,
 .post-preview > .post-meta > a:focus {
     color: #0085a1;
-    text-decoration: underline;
+    text-decoration: none;
 }
 @media only screen and (min-width: 768px) {
     .post-preview > a > .post-title {
@@ -152,7 +152,7 @@ hr.small {
     -ms-transition: top 0.3s ease, opacity 0.3s ease;
     transition: top 0.3s ease, opacity 0.3s ease;
 }
-.floating-label-form-group::not(:first-child) {
+.floating-label-form-group:not(:first-child) {
     padding-left: 14px;
     border-left: 1px solid #eeeeee;
 }
@@ -259,4 +259,9 @@ body {
 }
 .content p {
     width: 100%;
+}
+
+@font-face {
+    font-weight: normal;
+    font-style: normal;
 }
