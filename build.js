@@ -15,7 +15,6 @@ const getDirectories = (source, callback) =>
         }
     });
 getDirectories(testFolder, (data) => {
-    console.log(data);
     fs.mkdirSync('./docs/articles');
     data.forEach((i) => {
         fs.copyFileSync('./docs/index.html', `./docs/articles/${i}.html`);
