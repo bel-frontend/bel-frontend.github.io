@@ -4,11 +4,10 @@
     position: sticky;
     top: calc(100vh - 50px);
     @media screen and (min-width: 600px) {
-        margin-right: -328px;
+
     }
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: 768px) {
         justify-content: flex-start;
-        // margin-left: 48px;
     }
 }
 .likeButton {
