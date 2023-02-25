@@ -12,8 +12,16 @@ import * as yup from 'yup';
 
 import { MD } from 'components';
 
+// import MarkdownIt from 'markdown-it';
+import MdEditor from 'react-markdown-editor-lite';
+// import style manually
+import 'react-markdown-editor-lite/lib/index.css';
+
 import { addArticleToDB, getArticlesByID } from 'modules/firebase';
 import style from './style.module.scss';
+import MarkdownIt from 'markdown-it';
+
+const mdParser = new MarkdownIt(/* Markdown-it options */);
 
 const validationSchema = yup.object({
     title: yup.string().required(),
@@ -184,14 +192,22 @@ export const Editor = ({
                     >
                         Рэдактар
                     </label>
-                    <EditorMD
-                        onChange={(value) => setFieldValue('content', value)}
+                    <MdEditor
+                        renderHTML={(text) => mdParser.render(text)}
+                        onChange={({ text }) => setFieldValue('content', text)}
                         value={values.content}
                         placeholder={''}
-                        toolbar={toolbarParams}
-                        language={'en'}
-                        height={'60vh'}
-                    ></EditorMD>
+                        style={{ height: '80vh' }}
+                        view={{ menu: true, md: true, html: false }}
+                        canView={{
+                            menu: true,
+                            md: true,
+                            html: false,
+                            fullScreen: true,
+                            both: false,
+                            hideMenu: false,
+                        }}
+                    ></MdEditor>
                     <Button
                         sx={{ mr: 4 }}
                         variant="outlined"
