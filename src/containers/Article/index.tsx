@@ -1,6 +1,4 @@
 import React from 'react';
-import { MetaData, MD } from 'components';
-import { LikeButton } from 'components/Buttons/LikeButton';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
@@ -8,6 +6,9 @@ import classnames from 'classnames';
 import { getArticlesByID } from 'modules/firebase';
 import Button from '@mui/material/Button';
 import EditIcon from '@mui/icons-material/Edit';
+
+import { MetaData, MD } from 'components';
+import { LikeButton } from 'components/Buttons/LikeButton';
 
 import style from './style.module.scss';
 
