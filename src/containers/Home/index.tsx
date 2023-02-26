@@ -6,7 +6,7 @@ import { EpisodePreview } from './components/EpisodePreview/indes';
 import { Search } from './components/Search';
 import style from './style.module.scss';
 
-export const Home = ({
+const Home = ({
     route: { userIsAuth },
     history,
     ...props
@@ -101,3 +101,5 @@ export const Home = ({
         </>
     );
 };
+
+export default Home;

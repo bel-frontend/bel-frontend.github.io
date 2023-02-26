@@ -2,7 +2,7 @@ import React from 'react';
 import { Header, Footer } from 'components';
 import { ScrollToTop } from './components/ScrollToTop';
 
-export const EmptyLayout = ({ children, ...props }: any) => {
+const EmptyLayout = ({ children, ...props }: any) => {
     const {
         route: { showHeader, showFooter = true },
     } = props;
@@ -22,3 +22,4 @@ export const EmptyLayout = ({ children, ...props }: any) => {
         </>
     );
 };
+export default EmptyLayout;

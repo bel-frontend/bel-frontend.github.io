@@ -1,5 +1,5 @@
 import React from 'react';
-import { Suspense, lazy } from 'react';
+import { Suspense } from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 import { history } from 'modules/history';
 import { Layout } from 'containers/layouts/Layout';
@@ -52,7 +52,7 @@ const Routing = ({
 }) => {
     return (
         <Router history={history}>
-            <Suspense fallback={<div />}>
+            <Suspense fallback={<div>Пампуем!...</div>}>
                 <Switch>
                     {routes.map(({ component, ...route }, index) => {
                         return route.isPrivate ? (

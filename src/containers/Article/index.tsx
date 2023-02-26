@@ -2,6 +2,7 @@ import React from 'react';
 import { MetaData, MD } from 'components';
 import { LikeButton } from 'components/Buttons/LikeButton';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 import classnames from 'classnames';
 import { getArticlesByID } from 'modules/firebase';
@@ -10,7 +11,7 @@ import EditIcon from '@mui/icons-material/Edit';
 
 import style from './style.module.scss';
 
-export const Article = ({
+const Article = ({
     match: {
         params: { id },
     },
@@ -33,12 +34,17 @@ export const Article = ({
             });
         }
     }, [id]);
+    const title = article?.meta?.title;
 
     return article ? (
         <>
+            <Helmet>
+                <title>{title}</title>
+                <meta name="description" content={title} />
+            </Helmet>
             <div>
                 <Link to="/">Галоўная</Link> <span>{'>'} </span>
-                <span>{article?.meta?.title}</span>
+                <span>{title}</span>
             </div>
             <div className={classnames(style.likeContainer)}>
                 <LikeButton className={style.likeButton} articleId={id} />
@@ -74,3 +80,5 @@ export const Article = ({
         </>
     ) : null;
 };
+
+export default Article;
