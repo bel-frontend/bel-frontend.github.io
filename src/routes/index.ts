@@ -1,9 +1,12 @@
-import { Home } from 'containers/Home';
-import { Article } from 'containers/Article';
-import { Editor } from 'containers/Editor';
-import { EmptyLayout } from 'containers/layouts/EmptyLayout';
-import Auth from 'containers/Auth/Auth';
-import SignUp from 'containers/Auth/SignUp';
+import { lazy } from 'react';
+
+const Home = lazy(() => import('containers/Home'));
+const Article = lazy(() => import('containers/Article'));
+const Editor = lazy(() => import('containers/Editor'));
+const Auth = lazy(() => import('containers/Auth/Auth'));
+const SignUp = lazy(() => import('containers/Auth/SignUp'));
+const EmptyLayout = lazy(() => import('containers/layouts/EmptyLayout'));
+
 export const redirectAuthPath = '/login';
 
 export interface RouteItemInterface {

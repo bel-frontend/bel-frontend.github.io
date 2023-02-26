@@ -1,6 +1,5 @@
 import React from 'react';
 import classnames from 'classnames';
-import EditorMD from 'for-editor';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -12,14 +11,13 @@ import * as yup from 'yup';
 
 import { MD } from 'components';
 
-// import MarkdownIt from 'markdown-it';
+import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
-// import style manually
-import 'react-markdown-editor-lite/lib/index.css';
 
 import { addArticleToDB, getArticlesByID } from 'modules/firebase';
+
 import style from './style.module.scss';
-import MarkdownIt from 'markdown-it';
+import 'react-markdown-editor-lite/lib/index.css';
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
@@ -31,22 +29,7 @@ const validationSchema = yup.object({
     content: yup.string().required(),
 });
 
-const toolbarParams = {
-    h1: true, // h1
-    h2: true,
-    h3: true,
-    h4: true,
-    link: true,
-    code: true,
-    preview: false,
-    expand: true,
-    undo: true,
-    redo: true,
-    save: false,
-    subfield: false,
-};
-
-export const Editor = ({
+const Editor = ({
     history,
     match: {
         params: { id },
@@ -238,3 +221,5 @@ export const Editor = ({
         </div>
     );
 };
+
+export default Editor;
