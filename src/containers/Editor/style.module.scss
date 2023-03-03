@@ -4,3 +4,20 @@
     justify-content: space-around;
     flex-wrap: wrap;
 }
+
+.textarea {
+    width: 100%;
+    padding: 8px 14px;
+
+    border-color: rgb(196 196 196);
+    border-radius: 5px;
+
+    &:hover {
+       border-color: rgba(0, 0, 0, 0.87);
+    }
+
+    &:focus, &:active {
+        border-color: #556cd6;
+        outline-color: #556cd6;
+    }
+}
