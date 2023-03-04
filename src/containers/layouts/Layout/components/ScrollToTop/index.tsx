@@ -45,9 +45,9 @@ export const ScrollToTop = () => {
     return showButton ? (
         <button
             onClick={scrollToTop}
-            className={classnames(style.scrollToTop, 'btn btn-primary')}
+            className={classnames(style.scrollToTopBtn)}
         >
-            <span className="bi bi-caret-up-fill"></span>
+            <span className={style.arrowUp} />
         </button>
     ) : null;
 };

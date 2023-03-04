@@ -5,7 +5,6 @@ import AppContainer from 'containers/App';
 import { Provider } from 'react-redux';
 import { store } from 'store';
 import theme from 'styles/theme';
-import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
