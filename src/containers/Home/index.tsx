@@ -16,8 +16,6 @@ const Home = ({
 }) => {
     const [articles, setArticles] = React.useState<any>();
     React.useEffect(() => {
-        console.log('read artickles');
-
         getArticlesFromDB().then((data: any[]) => {
             try {
                 const articles = Object.entries(data)
