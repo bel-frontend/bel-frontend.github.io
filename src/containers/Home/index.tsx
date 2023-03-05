@@ -1,6 +1,7 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import { getArticlesFromDB } from 'modules/firebase';
+import { useDispatch, useSelector } from 'react-redux';
+import { getArticklesRequest, getArticklesSelector } from 'modules/artickles';
 
 import { EpisodePreview } from './components/EpisodePreview/indes';
 import { Search } from './components/Search';
@@ -14,32 +15,16 @@ const Home = ({
     route: { userIsAuth?: boolean };
     [key: string]: any;
 }) => {
-    const [articles, setArticles] = React.useState<any>();
+    const dispatch = useDispatch();
     React.useEffect(() => {
-        getArticlesFromDB().then((data: any[]) => {
-            try {
-                const articles = Object.entries(data)
-                    .sort((a, b) => parseInt(b[0]) - parseInt(a[0]))
-                    .map((i, index) => {
-                        return {
-                            content: i[1].article,
-                            id: i[0],
-                            meta: i[1].meta,
-                            isActive: Boolean(i[1].meta.isActive),
-                        };
-                    })
-                    .filter((i) => userIsAuth || i.isActive);
-                setArticles(articles);
-            } catch (error) {}
-
-            console.log(articles);
-        });
+        dispatch(getArticklesRequest());
     }, []);
+
+    const { total, articles }: any = useSelector(getArticklesSelector);
+
     const [searchText, setSearchText] = React.useState<string | undefined>('');
 
     const preparedArticles = React.useMemo(() => {
-        console.log(articles);
-
         if (searchText) {
             return articles.filter(
                 (i: any) =>
@@ -76,11 +61,13 @@ const Home = ({
                                 meta,
                                 id,
                                 isActive,
+                                likes,
                             }: {
                                 content: string;
                                 meta: any;
                                 id: any;
                                 isActive: boolean;
+                                likes: any;
                             },
                             index: number,
                         ) => (
@@ -92,6 +79,7 @@ const Home = ({
                                 meta={meta}
                                 id={id}
                                 isActive={isActive}
+                                likes={likes}
                             />
                         ),
                     )}

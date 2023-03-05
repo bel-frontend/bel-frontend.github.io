@@ -9,6 +9,7 @@ export const MetaData = ({
     showReadButton = true,
     url,
     articleId,
+    likes,
 }: any) => {
     const { author = '', dateArticle = '' } = meta || {};
 
@@ -20,7 +21,9 @@ export const MetaData = ({
                         Чытаць
                     </Link>
                 ) : null}
-                {showReadButton ? <LikeButton articleId={articleId} /> : null}
+                {showReadButton ? (
+                    <LikeButton likesCount={likes} articleId={articleId} />
+                ) : null}
             </div>
             <div>
                 <span className="author">{author}</span>,

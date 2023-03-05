@@ -1,5 +1,8 @@
 import React from 'react';
 import classnames from 'classnames';
+import { useDispatch, useSelector } from 'react-redux';
+import MdEditor from 'react-markdown-editor-lite';
+import MarkdownIt from 'markdown-it';
 import {
     TextField,
     TextareaAutosize,
@@ -14,14 +17,14 @@ import * as yup from 'yup';
 import moment from 'moment';
 
 import { MD } from 'components';
-
-import MarkdownIt from 'markdown-it';
-import MdEditor from 'react-markdown-editor-lite';
-
-import { addArticleToDB, getArticlesByID } from 'modules/firebase';
-
-import style from './style.module.scss';
+import {
+    updateArtickleRequest,
+    createArtickleRequest,
+    getArtickleByIdRequest,
+    getArtickleSelector,
+} from 'modules/artickles';
 import 'react-markdown-editor-lite/lib/index.css';
+import style from './style.module.scss';
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
@@ -55,6 +58,16 @@ const Editor = ({
     match: { params: { id: number | string } };
 }) => {
     const isAdd = id === 'add';
+    const dispatch = useDispatch();
+    const artickleData: any = useSelector(getArtickleSelector);
+
+    React.useEffect(() => {
+        if (id && !isAdd) {
+            dispatch(getArtickleByIdRequest({ id }));
+        }
+    }, [id, isAdd]);
+
+    console.log(artickleData);
 
     const {
         values,
@@ -67,38 +80,46 @@ const Editor = ({
     } = useFormik({
         initialValues,
         validationSchema: validationSchema,
-        onSubmit: ({ content, ...values }) => {
+        onSubmit: ({ ...values }) => {
             if (isAdd) {
-                addArticleToDB(content, Date.now().toString(), {
-                    ...values,
-                });
+                dispatch(
+                    createArtickleRequest(values, {
+                        onSuccess: () => {
+                            history.push('/');
+                        },
+                    }),
+                );
             } else {
-                addArticleToDB(content, id, { ...values });
+                dispatch(
+                    updateArtickleRequest(
+                        { id, ...values },
+                        {
+                            onSuccess: () => {
+                                history.push('/');
+                            },
+                        },
+                    ),
+                );
             }
-            setTimeout(() => {
-                history.push('/');
-            }, 300);
         },
     });
 
     React.useEffect(() => {
         if (id && !isAdd) {
-            getArticlesByID(id).then((data) => {
-                if (data) {
-                    const { article = '', meta } = data;
-                    setValues({
-                        content: article,
-                        description: meta?.description || '',
-                        dateArticle: meta?.dateArticle || '',
-                        author: meta?.author || '',
-                        tags: meta?.tags || '',
-                        isActive: meta?.isActive || false,
-                        title: meta?.title || '',
-                    });
-                }
-            });
+            if (artickleData?.loaded) {
+                const { content = '', meta } = artickleData;
+                setValues({
+                    content: content,
+                    description: meta?.description || '',
+                    dateArticle: meta?.dateArticle || '',
+                    author: meta?.author || '',
+                    tags: meta?.tags || '',
+                    isActive: meta?.isActive || false,
+                    title: meta?.title || '',
+                });
+            }
         }
-    }, [id, setValues, isAdd]);
+    }, [id, setValues, isAdd, artickleData]);
 
     return (
         <div>
