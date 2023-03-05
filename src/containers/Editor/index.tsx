@@ -45,14 +45,15 @@ const Editor = ({
 }) => {
     const isAdd = id === 'add';
     const dispatch = useDispatch();
-    const { loaded, ...artickleData }: { loaded: boolean; [key: string]: any } =
-        useSelector(getArtickleSelector);
+    const artickleData: any = useSelector(getArtickleSelector);
 
     React.useEffect(() => {
         if (id && !isAdd) {
             dispatch(getArtickleByIdRequest({ id }));
         }
     }, [id, isAdd]);
+
+    console.log(artickleData);
 
     const {
         values,
@@ -93,13 +94,12 @@ const Editor = ({
                     ),
                 );
             }
-            setTimeout(() => {}, 300);
         },
     });
 
     React.useEffect(() => {
         if (id && !isAdd) {
-            if (loaded && artickleData) {
+            if (artickleData?.loaded) {
                 const { content = '', meta } = artickleData;
                 setValues({
                     content: content,
@@ -111,7 +111,7 @@ const Editor = ({
                 });
             }
         }
-    }, [id, setValues, isAdd, loaded]);
+    }, [id, setValues, isAdd, artickleData]);
 
     return (
         <div>

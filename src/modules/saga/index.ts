@@ -4,7 +4,7 @@ import { set, get } from 'lodash';
 import { history } from '../history';
 import { initModuleSaga } from '../init';
 import { notificationSaga, showError, showSuccess } from 'modules/notification';
-import { authModuleSaga } from 'modules/auth';
+import { authModuleSaga, authHashSelector } from 'modules/auth';
 const {
     modules: { apiWatchRequest },
     axios: { init },
@@ -21,17 +21,20 @@ if (process.env.NODE_ENV == 'development') {
 function* rootSaga(dispatch: any) {
     yield all([
         apiWatchRequest({
-            additiveCallback: function* ({ showLoaderFlag = false, ...data }) {
+            additiveCallback: function* ({
+                showLoaderFlag = false,
+                ...data
+            }): Generator<any> {
                 //show loader
                 if (showLoaderFlag) {
                     // yield put(showLoader());
                 }
 
                 // add credentials for  request
-                // const credentials = yield select(authHashSelector);
-                // if (credentials) {
-                //     set(data, 'headers.Authorization', `${credentials}`);
-                // }
+                const credentials = yield select(authHashSelector);
+                if (credentials) {
+                    set(data, 'headers.Authorization', `${credentials}`);
+                }
                 return data;
             },
             successCallback: function* (data: any) {
