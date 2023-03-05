@@ -37,6 +37,7 @@ const Article = ({
     }, [id]);
     const title = article?.meta?.title;
     const description = article?.meta?.description ?? article?.meta?.title;
+    console.log(article);
 
     return article ? (
         <>
