@@ -1,17 +1,20 @@
 import React from 'react';
 import classnames from 'classnames';
-import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import * as yup from 'yup';
-import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
-
-import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Switch from '@mui/material/Switch';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
+import MarkdownIt from 'markdown-it';
+import {
+    TextField,
+    TextareaAutosize,
+    FormControlLabel,
+    Switch,
+    Box,
+    Grid,
+    Button,
+} from '@mui/material';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
+import moment from 'moment';
 
 import { MD } from 'components';
 import {
@@ -27,11 +30,22 @@ const mdParser = new MarkdownIt(/* Markdown-it options */);
 
 const validationSchema = yup.object({
     title: yup.string().required(),
+    description: yup.string(),
     dateArticle: yup.string().required(),
     author: yup.string().required(),
     tags: yup.string().required(),
     content: yup.string().required(),
 });
+
+const initialValues = {
+    title: '',
+    description: '',
+    dateArticle: moment(new Date()).format('YYYY-MM-DD'),
+    author: '',
+    tags: '',
+    content: '',
+    isActive: true,
+};
 
 const Editor = ({
     history,
@@ -64,14 +78,7 @@ const Editor = ({
         handleChange,
         handleSubmit,
     } = useFormik({
-        initialValues: {
-            title: '',
-            dateArticle: '',
-            author: '',
-            tags: '',
-            content: '',
-            isActive: true,
-        },
+        initialValues,
         validationSchema: validationSchema,
         onSubmit: ({ ...values }) => {
             if (isAdd) {
@@ -103,6 +110,7 @@ const Editor = ({
                 const { content = '', meta } = artickleData;
                 setValues({
                     content: content,
+                    description: meta?.description || '',
                     dateArticle: meta?.dateArticle || '',
                     author: meta?.author || '',
                     tags: meta?.tags || '',
@@ -119,13 +127,13 @@ const Editor = ({
             <label htmlFor="exampleFormControlTextarea1" className="form-label">
                 Meтададзеныя
             </label>
-            <Grid container spacing={3}>
+            <Grid container spacing={4}>
                 <Grid item md={12}>
                     <TextField
                         fullWidth
                         id="title"
                         name="title"
-                        label="title"
+                        label="title*"
                         value={values.title}
                         size="small"
                         onChange={handleChange('title')}
@@ -133,12 +141,24 @@ const Editor = ({
                         helperText={touched.title && errors.title}
                     />
                 </Grid>
+                <Grid item md={12}>
+                    <TextareaAutosize
+                        id="description"
+                        name="description"
+                        minRows={3}
+                        area-label="description"
+                        placeholder="description"
+                        value={values.description}
+                        onChange={handleChange('description')}
+                        className={style.textarea}
+                    />
+                </Grid>
                 <Grid item md={6}>
                     <TextField
                         fullWidth
                         id="author"
                         name="author"
-                        label="author"
+                        label="author*"
                         value={values.author}
                         size="small"
                         onChange={handleChange('author')}
@@ -151,7 +171,7 @@ const Editor = ({
                         fullWidth
                         id="author"
                         name="tags"
-                        label="tags"
+                        label="tags*"
                         value={values.tags}
                         size="small"
                         onChange={handleChange('tags')}
@@ -164,7 +184,7 @@ const Editor = ({
                         fullWidth
                         id="dateArticle"
                         name="dateArticle"
-                        label="dateArticle"
+                        label="date*"
                         type="date"
                         InputLabelProps={{ shrink: true }}
                         value={values.dateArticle}

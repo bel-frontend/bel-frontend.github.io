@@ -16,12 +16,11 @@ const Home = ({
     [key: string]: any;
 }) => {
     const dispatch = useDispatch();
-
     React.useEffect(() => {
         dispatch(getArticklesRequest());
     }, []);
 
-    const { tota, articles }: any = useSelector(getArticklesSelector);
+    const { total, articles }: any = useSelector(getArticklesSelector);
 
     const [searchText, setSearchText] = React.useState<string | undefined>('');
 

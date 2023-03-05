@@ -1,7 +1,37 @@
-.scrollToTop {
+.scrollToTopBtn {
     position: sticky;
     top: calc(100vh - 53px);
 
     left: calc(100vw - 72px);
     z-index: 3;
+
+    display: flex;
+    width: 32px;
+    height: 32px;
+
+    color: white;
+    border: 1px solid darken(#0d6efd, 5%);
+    background-color: #0d6efd;
+    border-radius: 4px;
+    box-shadow: 1px 1px 0 darken(#0d6efd, 3%), 1px 1px 1px 1px darken(#0d6efd, 1%);
+
+    transition: all 350ms linear;
+
+    &:hover {
+        background: darken(#0d6efd, 8%);
+        box-shadow: inset 1px 1px 3px rgba(#fff, 0.3), 1px 1px 1px 1px darken(#0d6efd, 5%);
+        color: lighten(#0d6efd, 18%);
+        transition: all 350ms linear;
+    }
+}
+
+.arrowUp {
+    width: 0;
+    height: 0;
+    margin: auto;
+
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid white;
+    transition: all 250ms linear;
 }
