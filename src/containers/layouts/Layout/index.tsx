@@ -8,6 +8,7 @@ export const Layout = ({ children, ...props }: any) => {
         history,
         route: { showHeader, showFooter = true, userIsAuth },
     } = props;
+    console.log(props);
 
     return (
         <>
@@ -21,7 +22,7 @@ export const Layout = ({ children, ...props }: any) => {
                     </div>
                 </div>
             </div>
-            {showFooter !== false ? <Footer /> : null}
+            {showFooter ? <Footer /> : null}
         </>
     );
 };
