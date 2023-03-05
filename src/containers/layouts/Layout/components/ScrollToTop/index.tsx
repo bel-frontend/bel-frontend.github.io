@@ -11,8 +11,10 @@ const MIN_SCROLL_Y_DESKTOP = 460;
 
 export const ScrollToTop = () => {
     const [showButton, setShowButton] = React.useState(false);
+    console.log('render');
 
     React.useEffect(() => {
+        console.log('mount', window.outerWidth, window.scrollY);
         window.addEventListener('scroll', () => {
             const width = window.outerWidth;
             const height = window.scrollY;
@@ -45,9 +47,9 @@ export const ScrollToTop = () => {
     return showButton ? (
         <button
             onClick={scrollToTop}
-            className={classnames(style.scrollToTop, 'btn btn-primary')}
+            className={classnames(style.scrollToTopBtn)}
         >
-            <span className="bi bi-caret-up-fill"></span>
+            <span className={style.arrowUp} />
         </button>
     ) : null;
 };

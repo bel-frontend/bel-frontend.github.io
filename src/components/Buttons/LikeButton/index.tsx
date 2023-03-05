@@ -7,6 +7,7 @@ import {
 } from 'modules/firebase';
 import { setLikedRequest, removeLikeRequest } from 'modules/artickles';
 import { useDispatch } from 'react-redux';
+import HeardIcon from './components/HeardIcon';
 
 import style from './style.module.scss';
 
@@ -53,10 +54,10 @@ export const LikeButton = ({
     return (
         <button
             type="button"
-            className={classnames('btn btn-sm', 'btn-danger', className)}
+            className={classnames('btn btn-sm', 'btn-danger', style.btn)}
             onClick={onClick}
         >
-            <span className="bi bi-heart-fill"></span>
+            <HeardIcon />
             <span className={style.count_likes}>{likes}</span>
         </button>
     );

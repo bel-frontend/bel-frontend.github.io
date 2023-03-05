@@ -37,12 +37,14 @@ const Article = ({
     }, [id]);
 
     const title = article?.meta?.title;
+    const description = article?.meta?.description ?? article?.meta?.title;
+    console.log(article);
 
     return article ? (
         <>
             <Helmet>
                 <title>{title}</title>
-                <meta name="description" content={title} />
+                <meta name="description" content={description} />
             </Helmet>
             <div>
                 <Link to="/">Галоўная</Link> <span>{'>'} </span>
