@@ -1,43 +1,53 @@
 import React from 'react';
 import classnames from 'classnames';
 import {
-    saveLikesToDB,
-    removeLikeFromDB,
-    getCountOfLikes,
     checkArtickeIsLiked,
     saveLikeToLocalStorage,
     removeLikeFromLocalStorage,
 } from 'modules/firebase';
+import { setLikedRequest, removeLikeRequest } from 'modules/artickles';
+import { useDispatch } from 'react-redux';
 
 import style from './style.module.scss';
 
 export const LikeButton = ({
     articleId,
     className,
+    likesCount,
 }: {
     articleId: string;
     className?: string;
+    likesCount: number;
 }) => {
-    console.log(articleId);
+    const dispatch = useDispatch();
+    const [likes, setLikes] = React.useState(likesCount);
 
-    const [likes, setLikes] = React.useState(0);
-    const getLikesFromDb = (artickleId: any) => {
-        getCountOfLikes(artickleId).then((data) => {
-            setLikes(data);
-        });
-    };
-    React.useEffect(() => {
-        getLikesFromDb(articleId);
-    }, [articleId]);
     const onClick = React.useCallback(async () => {
         if (!checkArtickeIsLiked(articleId)) {
-            await saveLikesToDB(articleId);
+            await dispatch(
+                setLikedRequest(
+                    { id: articleId },
+                    {
+                        onSuccess: ({ data }: { data: any }) => {
+                            setLikes(data?.count);
+                        },
+                    },
+                ),
+            );
             saveLikeToLocalStorage(articleId);
         } else {
-            await removeLikeFromDB(articleId);
+            await dispatch(
+                removeLikeRequest(
+                    { id: articleId },
+                    {
+                        onSuccess: ({ data }: { data: any }) => {
+                            setLikes(data?.count);
+                        },
+                    },
+                ),
+            );
             removeLikeFromLocalStorage(articleId);
         }
-        await getLikesFromDb(articleId);
     }, [articleId]);
 
     return (
