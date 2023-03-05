@@ -18,7 +18,6 @@ export const EpisodePreview = ({
     likes = 0,
 }: any) => {
     const url = id ? `/article/${id}` : '/';
-    console.log(likes);
 
     return meta ? (
         <article className="episode box" id={meta.number}>

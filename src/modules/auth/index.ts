@@ -1,127 +1,110 @@
-import { all, takeLatest, put, delay, call, select } from 'redux-saga/effects';
-import { INIT_DATA } from 'modules/init';
-import {
-    signOut,
-    getAuth,
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    onAuthStateChanged,
-    signInWithPopup,
-    GoogleAuthProvider,
-} from 'firebase/auth';
-import { app } from 'modules/firebase';
+import * as api_helpers from 'react_redux_api';
 import { createAction } from 'redux-actions';
+import { call, put, takeEvery, select, all } from 'redux-saga/effects';
+import { INIT_DATA } from 'modules/init';
 
-const module = 'auth';
-const provider = new GoogleAuthProvider();
-const auth = getAuth(app);
+const modules = 'auth';
+const {
+    helpers: { actionCreator, apiSelector },
+    modules: { ApiRoutes },
+} = api_helpers;
 
-const USER_LOGINED = `${module}/USER_LOGINED`;
-const USER_UNLOGINED = `${module}/USER_UNLOGINED`;
+const apiRoutes = new ApiRoutes();
 
-export const loginAction = createAction(USER_LOGINED);
-export const logoutAction = createAction(USER_UNLOGINED);
+export const LOGIN_USER_REQUEST = `${modules}/LOGIN_USER_REQUEST`;
+export const LOGIN_USER_SUCCESS = `${modules}/LOGIN_USER_SUCCESS`;
+export const LOGIN_USER_FAILED = `${modules}/LOGIN_USER_FAILED`;
 
-export const registerRequest = (
-    email: string,
-    password: string,
-    onSuccess: (user: any) => void,
-    onError: (error: any) => void,
-) => {
-    createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            const user = userCredential.user;
-            onSuccess(user);
-        })
-        .catch((error) => {
-            onError(error);
-        });
-};
+export const REGISTER_USER_REQUEST = `${modules}/REGISTER_USER_REQUEST`;
+export const REGISTER_USER_SUCCESS = `${modules}/REGISTER_USER_SUCCESS`;
 
-export const loginRequest = (
-    email: string,
-    password: string,
-    onSuccess: (user: any) => void,
-    onError: (error: any) => void,
-) => {
-    signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            const user = userCredential.user;
-            onSuccess(user);
-        })
-        .catch((error) => {
-            onError(error);
-        });
-};
+export const LOGOUT_USER_REQUEST = `${modules}/LOGOUT_USER_REQUEST`;
+export const LOGOUT_USER = `${modules}/LOGOUT_USER`;
 
-const signOutUser = (callback: any) =>
-    signOut(auth)
-        .then(() => {
-            if (typeof callback === 'function') callback();
-        })
-        .catch((error) => {
-            // An error happened.
-        });
+export const GET_CURRENT_USER_REQUEST = `${modules}/GET_CURRENT_USER_REQUEST`;
+export const GET_CURRENT_USER_SUCCESS = `${modules}/GET_CURRENT_USER_SUCCESS`;
 
-export const checkUserAuth = (
-    onSuccess: (user: any) => void,
-    onError: () => void,
-) => {
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            onSuccess(user);
-        } else {
-            onError();
-        }
-    });
-};
+export const getCurrentUserRequest = actionCreator(GET_CURRENT_USER_REQUEST);
 
-export default function authReduser(
-    state = { userIsAuth: false },
-    action: any,
-) {
+export const loginRequest = actionCreator(LOGIN_USER_REQUEST, {
+    preventFailure: false,
+});
+export const registerRequest = actionCreator(REGISTER_USER_REQUEST);
+export const logoutRequest = actionCreator(LOGOUT_USER_REQUEST);
+
+export const logoutAction = createAction(LOGOUT_USER);
+
+apiRoutes.add(GET_CURRENT_USER_REQUEST, () => {
+    return {
+        url: `/check-auth`,
+        method: 'GET',
+    };
+});
+
+apiRoutes.add(LOGIN_USER_REQUEST, ({ ...data }) => ({
+    url: `/login`,
+    method: 'post',
+    data,
+}));
+
+apiRoutes.add(REGISTER_USER_REQUEST, ({ ...data }) => ({
+    url: `/register`,
+    method: 'post',
+    data,
+}));
+
+apiRoutes.add(LOGOUT_USER_REQUEST, () => ({
+    url: `/logout`,
+    method: 'get',
+}));
+
+const initialState = {};
+
+export const authReducer = (state = initialState, action: any) => {
     switch (action.type) {
-        case USER_LOGINED: {
-            return { ...state, userIsAuth: true };
+        case LOGIN_USER_SUCCESS: {
+            const {
+                response: { data },
+            } = action;
+            return { ...state, ...data };
         }
-        case USER_UNLOGINED: {
-            return {
-                ...state,
-                userIsAuth: false,
-            };
+        case REGISTER_USER_SUCCESS: {
+            const {
+                response: { data },
+            } = action;
+            return { ...state, ...data };
         }
-
+        case LOGOUT_USER:
+            return { ...initialState };
+        case LOGIN_USER_FAILED: {
+            return { ...initialState };
+        }
         default:
             return state;
     }
-}
+};
 
-function* checkAuthSaga(dispatch: any) {
-    while (true) {
-        checkUserAuth(
-            (user) => {
-                dispatch(loginAction());
-            },
-            () => {
-                dispatch(logoutAction());
-                console.log('error');
-            },
-        );
-        yield delay(60000);
+export function* logoutSaga() {
+    yield put(logoutRequest());
+}
+export function* getUserSaga(): Generator<any, any> {
+    const auth = yield select(currentUserIsAuth);
+    if (auth) {
+        yield put(getCurrentUserRequest());
     }
 }
 
-function* userLogoutSaga(dispatch: any) {
-    yield call(signOutUser, undefined);
-    // yield delay(100);
+export function* authModuleSaga(dispatch: any) {
+    yield all([
+        takeEvery(LOGOUT_USER, logoutSaga),
+        takeEvery([INIT_DATA, LOGIN_USER_SUCCESS], getUserSaga),
+    ]);
 }
 
-export const authModuleSaga = function* (dispatch: any) {
-    yield all([
-        // @ts-ignore
-        takeLatest([INIT_DATA], checkAuthSaga, dispatch),
-        takeLatest([USER_UNLOGINED], userLogoutSaga, dispatch),
-    ]);
-};
+export const userDataSelector = (state: any) => state.auth;
+export const currentUserIsAuth = (state: any) => Boolean(state.auth.token);
+export const authHashSelector = (state: any) => state.auth.token;
 
-export const currentUserIsAuth = (state: any) => state.auth.userIsAuth;
+export const loginUserSelector = apiSelector(LOGIN_USER_REQUEST);
+export const registerUserSelector = apiSelector(LOGIN_USER_REQUEST);
+export const getCurrentUserSelector = apiSelector(GET_CURRENT_USER_REQUEST);
