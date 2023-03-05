@@ -11,7 +11,6 @@ import {
 } from 'firebase/auth';
 import { app } from 'modules/firebase';
 import { createAction } from 'redux-actions';
-import { callbackify } from 'util';
 
 const module = 'auth';
 const provider = new GoogleAuthProvider();

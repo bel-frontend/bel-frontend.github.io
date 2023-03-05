@@ -15,8 +15,10 @@ export const EpisodePreview = ({
     history,
     userIsAuth,
     isActive,
+    likes = 0,
 }: any) => {
     const url = id ? `/article/${id}` : '/';
+    console.log(likes);
 
     return meta ? (
         <article className="episode box" id={meta.number}>
@@ -52,7 +54,12 @@ export const EpisodePreview = ({
                 </div>
             </div>
             <div className={style.alfa}></div>
-            <MetaData meta={meta} articleId={id} url={url} />
+            <MetaData
+                meta={{ ...meta }}
+                likes={likes}
+                articleId={id}
+                url={url}
+            />
         </article>
     ) : null;
 };

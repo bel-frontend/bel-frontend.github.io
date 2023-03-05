@@ -11,9 +11,9 @@ const {
 } = apiHelpers;
 
 if (process.env.NODE_ENV == 'development') {
-    // init(devHost);
+    init('http://localhost:3001');
 } else if (process.env.NODE_ENV == 'production') {
-    // init(host);
+    init('http://localhost:3001');
 }
 
 // TODO:  need refactoring
