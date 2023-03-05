@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
 import classnames from 'classnames';
-import { getArticlesByID } from 'modules/firebase';
 import Button from '@mui/material/Button';
 import EditIcon from '@mui/icons-material/Edit';
+import { useDispatch, useSelector } from 'react-redux';
+import { getArtickleByIdRequest, getArtickleSelector } from 'modules/artickles';
 
 import { MetaData, MD } from 'components';
 import { LikeButton } from 'components/Buttons/LikeButton';
@@ -24,17 +25,17 @@ const Article = ({
     history: any;
     route: { userIsAuth?: boolean };
 }) => {
-    const [article, setArticle] = React.useState<any>();
+    const dispatch = useDispatch();
+
+    const article: any = useSelector(getArtickleSelector);
+    console.log(article);
 
     React.useEffect(() => {
         if (id) {
-            getArticlesByID(id).then((data) => {
-                if (data) {
-                    setArticle(data);
-                }
-            });
+            dispatch(getArtickleByIdRequest({ id }));
         }
     }, [id]);
+
     const title = article?.meta?.title;
     const description = article?.meta?.description ?? article?.meta?.title;
     console.log(article);
@@ -50,7 +51,11 @@ const Article = ({
                 <span>{title}</span>
             </div>
             <div className={classnames(style.likeContainer)}>
-                <LikeButton className={style.likeButton} articleId={id} />
+                <LikeButton
+                    likesCount={article?.likes || 0}
+                    className={style.likeButton}
+                    articleId={id}
+                />
                 {userIsAuth ? (
                     <Button
                         variant="outlined"
@@ -70,7 +75,7 @@ const Article = ({
                 <article className="episode box">
                     <h1 className="episode__title">{article?.meta?.title}</h1>
                     <div className="content">
-                        <MD>{article?.article}</MD>
+                        <MD>{article?.content}</MD>
                     </div>
                     <MetaData
                         showReadButton={false}

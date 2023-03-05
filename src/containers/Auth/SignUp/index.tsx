@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
@@ -10,6 +10,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
 import { registerRequest } from 'modules/auth';
+import { useDispatch } from 'react-redux';
 
 const validationSchema = (t: any) =>
     yup.object({
@@ -24,6 +25,7 @@ const validationSchema = (t: any) =>
     });
 
 const SignUp = ({ history }: { history: any }) => {
+    const dispatch = useDispatch();
     const { t } = useTranslation();
     const {
         handleChange,
@@ -41,16 +43,19 @@ const SignUp = ({ history }: { history: any }) => {
         },
         validationSchema: validationSchema(t),
         onSubmit: ({ email, password, ...values }) => {
-            registerRequest(
-                email,
-                password,
-                (user) => {
-                    history.push('/');
-                },
-                (error) => {
-                    setErrors({ email: error.message });
-                    console.log(error.message);
-                },
+            dispatch(
+                registerRequest(
+                    { email, password },
+                    {
+                        onSuccess: () => {
+                            history.push('/');
+                        },
+                        onFailure: ({ response: { data: err } }: any) => {
+                            console.error(err);
+                            setErrors({ email: err });
+                        },
+                    },
+                ),
             );
         },
     });

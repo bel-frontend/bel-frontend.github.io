@@ -8,7 +8,7 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import { useDispatch } from 'react-redux';
 import { Grid, Typography } from '@mui/material';
-import { loginRequest, loginAction, logoutAction } from 'modules/auth';
+import { loginRequest } from 'modules/auth';
 
 const validationSchema = (t: any) =>
     yup.object({
@@ -27,18 +27,20 @@ const Auth = ({ history }: { history: any }) => {
             },
             validationSchema: validationSchema(t),
             onSubmit: ({ email, password }) => {
-                loginRequest(
-                    email,
-                    password,
-                    (user) => {
-                        console.log(user);
-                        history.push('/');
-                        dispatch(loginAction());
-                    },
-                    (error) => {
-                        setErrors({ email: error.message });
-                        dispatch(logoutAction());
-                    },
+                dispatch(
+                    loginRequest(
+                        { email, password },
+                        {
+                            onSuccess: () => {
+                                history.push('/');
+                            },
+                            onFailure: ({ response: { data: err } }: any) => {
+                                console.log(err);
+
+                                setErrors({ email: err });
+                            },
+                        },
+                    ),
                 );
             },
         },
