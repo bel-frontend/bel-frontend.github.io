@@ -8,7 +8,7 @@
       "type": "image/x-icon"
     }
   ],
-  "default_locate": "by",
+  "default_locate": "be",
   "start_url": "https://bel-frontend.online/",
   "display": "standalone",
   "theme_color": "#000000",
