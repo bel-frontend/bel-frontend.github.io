@@ -9,12 +9,22 @@ const MIN_SCROLL_Y_MOBILE = 370;
 const MIN_SCROLL_Y_TABLET = 560;
 const MIN_SCROLL_Y_DESKTOP = 460;
 
-export const ScrollToTop = () => {
+type ScrollToTopPropsType = {
+    isArticlePage: boolean;
+}
+export const ScrollToTop: React.FC<ScrollToTopPropsType> = ({ isArticlePage }) => {
     const [showButton, setShowButton] = React.useState(false);
-    console.log('render');
+
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth', // for smoothly scrolling
+        });
+    };
 
     React.useEffect(() => {
-        console.log('mount', window.outerWidth, window.scrollY);
+        isArticlePage && scrollToTop();
+
         window.addEventListener('scroll', () => {
             const width = window.outerWidth;
             const height = window.scrollY;
@@ -36,13 +46,6 @@ export const ScrollToTop = () => {
             setShowButton(isShowButton);
         });
     }, []);
-
-    const scrollToTop = () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth', // for smoothly scrolling
-        });
-    };
 
     return showButton ? (
         <button
