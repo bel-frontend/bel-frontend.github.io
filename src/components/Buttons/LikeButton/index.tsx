@@ -23,6 +23,10 @@ export const LikeButton = ({
     const dispatch = useDispatch();
     const [likes, setLikes] = React.useState(likesCount);
 
+    React.useEffect(() => {
+        setLikes(likesCount);
+    }, [likesCount]);
+
     const onClick = React.useCallback(async () => {
         if (!checkArtickeIsLiked(articleId)) {
             await dispatch(
