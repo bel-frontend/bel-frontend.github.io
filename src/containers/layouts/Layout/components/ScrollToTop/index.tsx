@@ -11,24 +11,22 @@ const MIN_SCROLL_Y_DESKTOP = 460;
 
 export const ScrollToTop = () => {
     const [showButton, setShowButton] = React.useState(false);
-    console.log('render');
 
     React.useEffect(() => {
-        console.log('mount', window.outerWidth, window.scrollY);
         window.addEventListener('scroll', () => {
             const width = window.outerWidth;
             const height = window.scrollY;
 
             const isShowButtonMobile =
-              width < WIDTH_TABLET &&
-              height >= MIN_SCROLL_Y_MOBILE + BUTTON_HEIGHT;
+                width < WIDTH_TABLET &&
+                height >= MIN_SCROLL_Y_MOBILE + BUTTON_HEIGHT;
             const isShowButtonTablet =
-              width <= WIDTH_DESKTOP &&
-              width >= WIDTH_TABLET &&
-              height >= MIN_SCROLL_Y_TABLET + BUTTON_HEIGHT;
+                width <= WIDTH_DESKTOP &&
+                width >= WIDTH_TABLET &&
+                height >= MIN_SCROLL_Y_TABLET + BUTTON_HEIGHT;
             const isShowButtonDesktop =
-              width >= WIDTH_DESKTOP &&
-              height >= MIN_SCROLL_Y_DESKTOP + BUTTON_HEIGHT;
+                width >= WIDTH_DESKTOP &&
+                height >= MIN_SCROLL_Y_DESKTOP + BUTTON_HEIGHT;
 
             const isShowButton =
                 isShowButtonMobile || isShowButtonTablet || isShowButtonDesktop;
