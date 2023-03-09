@@ -6,7 +6,6 @@ import { Provider } from 'react-redux';
 import { store } from 'store';
 import { Helmet } from 'react-helmet';
 import theme from 'styles/theme';
-import 'bootstrap/dist/css/bootstrap.css';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';

@@ -17,7 +17,7 @@ export const MetaData = ({
         <>
             <div className={style.episode_meta}>
                 {showReadButton ? (
-                    <Link to={url} className="btn btn-primary btn-sm">
+                    <Link to={url} className="btn btn-primary">
                         Чытаць
                     </Link>
                 ) : null}
