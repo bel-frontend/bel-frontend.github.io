@@ -29,6 +29,7 @@ const Article = ({
 
     const article: any = useSelector(getArtickleSelector);
 
+
     React.useEffect(() => {
         if (id) {
             dispatch(getArtickleByIdRequest({ id }));
@@ -37,6 +38,7 @@ const Article = ({
 
     const title = article?.meta?.title;
     const description = article?.meta?.description ?? article?.meta?.title;
+
 
     return article ? (
         <>
