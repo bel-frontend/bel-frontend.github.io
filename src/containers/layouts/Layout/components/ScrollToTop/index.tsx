@@ -15,6 +15,7 @@ type ScrollToTopPropsType = {
 export const ScrollToTop: React.FC<ScrollToTopPropsType> = ({ isArticlePage }) => {
     const [showButton, setShowButton] = React.useState(false);
 
+
     const scrollToTop = () => {
         window.scrollTo({
             top: 0,
@@ -24,21 +25,20 @@ export const ScrollToTop: React.FC<ScrollToTopPropsType> = ({ isArticlePage }) =
 
     React.useEffect(() => {
         isArticlePage && scrollToTop();
-
         window.addEventListener('scroll', () => {
             const width = window.outerWidth;
             const height = window.scrollY;
 
             const isShowButtonMobile =
-              width < WIDTH_TABLET &&
-              height >= MIN_SCROLL_Y_MOBILE + BUTTON_HEIGHT;
+                width < WIDTH_TABLET &&
+                height >= MIN_SCROLL_Y_MOBILE + BUTTON_HEIGHT;
             const isShowButtonTablet =
-              width <= WIDTH_DESKTOP &&
-              width >= WIDTH_TABLET &&
-              height >= MIN_SCROLL_Y_TABLET + BUTTON_HEIGHT;
+                width <= WIDTH_DESKTOP &&
+                width >= WIDTH_TABLET &&
+                height >= MIN_SCROLL_Y_TABLET + BUTTON_HEIGHT;
             const isShowButtonDesktop =
-              width >= WIDTH_DESKTOP &&
-              height >= MIN_SCROLL_Y_DESKTOP + BUTTON_HEIGHT;
+                width >= WIDTH_DESKTOP &&
+                height >= MIN_SCROLL_Y_DESKTOP + BUTTON_HEIGHT;
 
             const isShowButton =
                 isShowButtonMobile || isShowButtonTablet || isShowButtonDesktop;
