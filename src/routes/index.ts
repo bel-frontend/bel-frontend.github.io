@@ -14,6 +14,7 @@ export interface RouteItemInterface {
     exact: boolean;
     component: any;
     showHeader?: boolean;
+    showFooter?: boolean;
     isPrivate?: boolean;
     layout?: any;
 }
@@ -36,6 +37,7 @@ const mainRoutes: RouteItemInterface[] = [
         exact: true,
         component: Auth,
         showHeader: false,
+        showFooter: false,
         layout: EmptyLayout,
     },
     {
@@ -43,6 +45,7 @@ const mainRoutes: RouteItemInterface[] = [
         exact: true,
         component: SignUp,
         showHeader: false,
+        showFooter: false,
         layout: EmptyLayout,
     },
     {

@@ -9,6 +9,9 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { loginRequest } from 'modules/auth';
+import classnames from "classnames";
+
+import style from './style.module.scss';
 
 const validationSchema = (t: any) =>
     yup.object({
@@ -45,7 +48,7 @@ const Auth = ({ history }: { history: any }) => {
     );
 
     return (
-        <div className="pageContainer">
+        <div className={classnames("pageContainer", style.authContainer)}>
             <Typography textAlign={'center'} variant="h4">
                 Аўтарызацыя
             </Typography>
@@ -53,7 +56,7 @@ const Auth = ({ history }: { history: any }) => {
                 component="form"
                 onSubmit={handleSubmit}
                 noValidate
-                minHeight={'70vh'}
+                minHeight={'50vh'}
             >
                 <TextField
                     margin="dense"
