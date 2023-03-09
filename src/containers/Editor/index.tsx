@@ -6,10 +6,11 @@ import MarkdownIt from 'markdown-it';
 import TextField from '@mui/material/TextField';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch  from '@mui/material/Switch';
+import Switch from '@mui/material/Switch';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import moment from 'moment';
@@ -118,13 +119,13 @@ const Editor = ({
     }, [id, setValues, isAdd, artickleData]);
 
     return (
-        <div>
+        <Container maxWidth="xl">
             <Box height={'48px'}></Box>
-            <label htmlFor="exampleFormControlTextarea1" className="form-label">
+            <label htmlFor="exampleFormControlTextarea1" className={style.formLabel}>
                 Meтаданыя
             </label>
             <Grid container spacing={4}>
-                <Grid item md={12}>
+                <Grid item xs={12}>
                     <TextField
                         fullWidth
                         id="title"
@@ -137,7 +138,7 @@ const Editor = ({
                         helperText={touched.title && errors.title}
                     />
                 </Grid>
-                <Grid item md={12}>
+                <Grid item xs={12}>
                     <TextareaAutosize
                         id="description"
                         name="description"
@@ -149,7 +150,7 @@ const Editor = ({
                         className={style.textarea}
                     />
                 </Grid>
-                <Grid item md={6}>
+                <Grid item xs={6}>
                     <TextField
                         fullWidth
                         id="author"
@@ -162,7 +163,7 @@ const Editor = ({
                         helperText={touched.author && errors.author}
                     />
                 </Grid>
-                <Grid item md={6}>
+                <Grid item xs={6}>
                     <TextField
                         fullWidth
                         id="author"
@@ -175,7 +176,7 @@ const Editor = ({
                         helperText={touched.tags && errors.tags}
                     />
                 </Grid>
-                <Grid item md={6}>
+                <Grid item xs={6}>
                     <TextField
                         fullWidth
                         id="dateArticle"
@@ -192,7 +193,7 @@ const Editor = ({
                         helperText={touched.dateArticle && errors.dateArticle}
                     />
                 </Grid>
-                <Grid item md={3}>
+                <Grid item xs={3}>
                     <FormControlLabel
                         control={
                             <Switch
@@ -205,7 +206,7 @@ const Editor = ({
                 </Grid>
             </Grid>
             <Grid container className={style.container} spacing={3}>
-                <Grid item md={6} className={classnames('mb-3 mt-5')}>
+                <Grid item md={6}>
                     <label
                         htmlFor="exampleFormControlTextarea1"
                         className="form-label"
@@ -228,22 +229,24 @@ const Editor = ({
                             hideMenu: false,
                         }}
                     ></MdEditor>
-                    <Button
-                        sx={{ mr: 4 }}
-                        variant="outlined"
-                        className="mt-5"
-                        color="primary"
-                        onClick={() => history.goBack()}
-                    >
-                        Скасаваць
-                    </Button>
-                    <Button
-                        variant="contained"
-                        className="mt-5"
-                        onClick={() => handleSubmit()}
-                    >
-                        Захаваць
-                    </Button>
+                    <div className={style.buttonContainer}>
+                        <Button
+                            sx={{ mr: 4 }}
+                            variant="outlined"
+                            className="mt-5"
+                            color="primary"
+                            onClick={() => history.goBack()}
+                        >
+                            Скасаваць
+                        </Button>
+                        <Button
+                            variant="contained"
+                            className="mt-5"
+                            onClick={() => handleSubmit()}
+                        >
+                            Захаваць
+                        </Button>
+                    </div>
                 </Grid>
                 <Grid item md={6} className={classnames('mb-3 mt-5')}>
                     <label
@@ -255,7 +258,7 @@ const Editor = ({
                     <MD>{values.content}</MD>
                 </Grid>
             </Grid>
-        </div>
+        </Container>
     );
 };
 

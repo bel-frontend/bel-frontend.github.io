@@ -53,6 +53,7 @@ const mainRoutes: RouteItemInterface[] = [
         exact: true,
         component: Editor,
         showHeader: false,
+        showFooter: false,
         isPrivate: true,
         layout: EmptyLayout,
     },

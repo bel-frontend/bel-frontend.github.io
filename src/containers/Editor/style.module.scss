@@ -3,14 +3,23 @@
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
+
+    margin-top: 10px !important;
+}
+
+.formLabel {
+    display: block;
+    margin-bottom: 0.8rem;
 }
 
 .textarea {
-    width: 100%;
+    width: calc(100% - 30px);
     padding: 8px 14px;
 
     border-color: rgb(196 196 196);
     border-radius: 5px;
+
+    font: inherit;
 
     &:hover {
        border-color: rgba(0, 0, 0, 0.87);
@@ -18,6 +27,11 @@
 
     &:focus, &:active {
         border-color: #556cd6;
-        outline-color: #556cd6;
+        outline: none;
     }
+}
+
+.buttonContainer {
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
