@@ -3,15 +3,13 @@ import classnames from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 import MdEditor from 'react-markdown-editor-lite';
 import MarkdownIt from 'markdown-it';
-import {
-    TextField,
-    TextareaAutosize,
-    FormControlLabel,
-    Switch,
-    Box,
-    Grid,
-    Button,
-} from '@mui/material';
+import TextField from '@mui/material/TextField';
+import TextareaAutosize from '@mui/material/TextareaAutosize';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch  from '@mui/material/Switch';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Button from '@mui/material/Button';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import moment from 'moment';
@@ -66,8 +64,6 @@ const Editor = ({
             dispatch(getArtickleByIdRequest({ id }));
         }
     }, [id, isAdd]);
-
-    console.log(artickleData);
 
     const {
         values,
@@ -125,7 +121,7 @@ const Editor = ({
         <div>
             <Box height={'48px'}></Box>
             <label htmlFor="exampleFormControlTextarea1" className="form-label">
-                Meтададзеныя
+                Meтаданыя
             </label>
             <Grid container spacing={4}>
                 <Grid item md={12}>

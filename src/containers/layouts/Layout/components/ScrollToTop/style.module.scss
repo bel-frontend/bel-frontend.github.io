@@ -7,22 +7,7 @@
 
     display: flex;
     width: 32px;
-    height: 32px;
-
-    color: white;
-    border: 1px solid darken(#0d6efd, 5%);
-    background-color: #0d6efd;
-    border-radius: 4px;
-    box-shadow: 1px 1px 0 darken(#0d6efd, 3%), 1px 1px 1px 1px darken(#0d6efd, 1%);
-
-    transition: all 350ms linear;
-
-    &:hover {
-        background: darken(#0d6efd, 8%);
-        box-shadow: inset 1px 1px 3px rgba(#fff, 0.3), 1px 1px 1px 1px darken(#0d6efd, 5%);
-        color: lighten(#0d6efd, 18%);
-        transition: all 350ms linear;
-    }
+    border: none;
 }
 
 .arrowUp {

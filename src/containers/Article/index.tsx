@@ -28,7 +28,6 @@ const Article = ({
     const dispatch = useDispatch();
 
     const article: any = useSelector(getArtickleSelector);
-    console.log(article);
 
     React.useEffect(() => {
         if (id) {
@@ -38,7 +37,6 @@ const Article = ({
 
     const title = article?.meta?.title;
     const description = article?.meta?.description ?? article?.meta?.title;
-    console.log(article);
 
     return article ? (
         <>
@@ -46,7 +44,7 @@ const Article = ({
                 <title>{title}</title>
                 <meta name="description" content={description} />
             </Helmet>
-            <div>
+            <div className="articlePage">
                 <Link to="/">Галоўная</Link> <span>{'>'} </span>
                 <span>{title}</span>
             </div>
@@ -71,9 +69,9 @@ const Article = ({
                     </Button>
                 ) : null}
             </div>
-            <main className="page__main main">
+            <main className="page__main main articlePage">
                 <article className="episode box">
-                    <h1 className="episode__title">{article?.meta?.title}</h1>
+                    <h2 className="episode__title">{article?.meta?.title}</h2>
                     <div className="content">
                         <MD>{article?.content}</MD>
                     </div>
