@@ -12,6 +12,7 @@ const {
 
 if (process.env.NODE_ENV == 'development') {
     init('https://api.bel-frontend.online');
+    // init('http://localhost:3001');
 } else if (process.env.NODE_ENV == 'production') {
     init('https://api.bel-frontend.online');
 }

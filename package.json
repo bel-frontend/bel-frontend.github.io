@@ -1,6 +1,6 @@
 {
     "name": "bel_frontend",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "private": true,
     "dependencies": {
         "@emotion/react": "^11.10.5",
@@ -41,7 +41,15 @@
         "start": "react-scripts start",
         "build": "rm -rf ./docs && react-scripts build  &&  cp -R ./build/  ./docs",
         "test": "react-scripts test",
-        "eject": "react-scripts eject"
+        "eject": "react-scripts eject",
+        "version:patch": "yarn build && git add . && yarn patch",
+        "version:feature": "yarn build && git add . && yarn feature",
+        "version:release": "yarn build && git add . && yarn release",
+        "deploy": "bash deploy_prod.sh",
+        "patch": "yarn version --patch",
+        "feature": "yarn version --minor",
+        "release": "yarn version --major",
+        "build:prod": "yarn run version:patch"
     },
     "eslintConfig": {
         "extends": [
