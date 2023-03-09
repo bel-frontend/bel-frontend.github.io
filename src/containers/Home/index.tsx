@@ -38,7 +38,7 @@ const Home = ({
     }, [articles, searchText]);
 
     return (
-        <>
+        <div className="pageContainer">
             <Box component={'main'} className={style.main}>
                 <a
                     className={style.telegram}
@@ -84,7 +84,7 @@ const Home = ({
                         ),
                     )}
             </Box>
-        </>
+        </div>
     );
 };
 

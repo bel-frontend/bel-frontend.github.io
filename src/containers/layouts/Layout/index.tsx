@@ -8,7 +8,6 @@ export const Layout = ({ children, ...props }: any) => {
         history,
         route: { showHeader, showFooter = true, userIsAuth },
     } = props;
-    console.log(props);
 
     return (
         <>
@@ -16,10 +15,8 @@ export const Layout = ({ children, ...props }: any) => {
             <Drawer history={history} userIsAuth={userIsAuth} />
             <ScrollToTop />
             <div className="container">
-                <div className="row justify-content-center">
-                    <div className="col-lg-8  col-md-10">
-                        {React.createElement(children, props)}
-                    </div>
+                <div className="pageContainer">
+                  {React.createElement(children, props)}
                 </div>
             </div>
             {showFooter ? <Footer /> : null}

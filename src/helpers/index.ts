@@ -19,7 +19,6 @@ export const parseMeta = (str: string) => {
             }, '');
         return JSON.parse(`{${res}}`.replaceAll('""', '"'));
     } catch (error) {
-        console.log(error);
         return [undefined, undefined];
     }
 };

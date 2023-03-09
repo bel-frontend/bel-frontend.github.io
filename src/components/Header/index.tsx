@@ -5,7 +5,7 @@ import './style.scss';
 export const Header = () => {
     return (
         <header className="intro-header">
-            <div className="container">
+            <div className="pageContainer">
                 <div className="row justify-content-center container-inner-height">
                     <div className="col-lg-10  col-md-10">
                         <div className="site-heading">

@@ -2,19 +2,15 @@
     justify-content: flex-end;
     display: flex;
     position: sticky;
-    top: calc(100vh - 50px);
-    @media screen and (min-width: 860px) {
-        margin-right: -48px;
-    }
-    @media screen and (max-width: 860px) {
+    top: calc(100vh - 54px);
+
+    @media screen and (max-width: 1200px) {
         justify-content: flex-start;
     }
 }
-.likeButton {
-    // margin-right: 48px;
-}
+
 .editButton {
     position: fixed;
     right: 5vw;
-    top: 95vh;
+    top: calc(100vh - 56px);
 }
