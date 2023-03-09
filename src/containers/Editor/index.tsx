@@ -67,8 +67,6 @@ const Editor = ({
         }
     }, [id, isAdd]);
 
-    console.log(artickleData);
-
     const {
         values,
         touched,
