@@ -50,7 +50,7 @@ export const ScrollToTop: React.FC<ScrollToTopPropsType> = ({ isArticlePage }) =
     return showButton ? (
         <button
             onClick={scrollToTop}
-            className={classnames(style.scrollToTopBtn)}
+            className={classnames('btn', 'btn-primary', style.scrollToTopBtn)}
         >
             <span className={style.arrowUp} />
         </button>
