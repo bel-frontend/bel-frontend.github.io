@@ -1,7 +1,12 @@
-import { red } from '@mui/material/colors';
 import { createTheme } from '@mui/material/styles';
 
+const primary = '#0085a1';
+const primaryHover = '#0c93e4';
+const error = '#dc3d62';
+const errorHover = '#f13753';
+
 // A custom theme for this app
+
 const theme = createTheme({
     breakpoints: {
         values: {
@@ -14,13 +19,10 @@ const theme = createTheme({
     },
     palette: {
         primary: {
-            main: '#556cd6',
-        },
-        secondary: {
-            main: '#19857b',
+            main: primary,
         },
         error: {
-            main: red.A400,
+            main: error,
         },
     },
     typography: {
@@ -47,7 +49,19 @@ const theme = createTheme({
         MuiButton: {
             defaultProps: {
                 disableRipple: true,
-                color: 'secondary',
+                color: 'primary',
+            },
+        },
+        MuiButtonBase: {
+            styleOverrides: {
+                root: {
+                    '&:hover.MuiButton-containedPrimary:hover': {
+                        backgroundColor: primaryHover,
+                    },
+                    '&:hover.MuiButton-containedError:hover': {
+                      backgroundColor: errorHover,
+                    },
+                }
             },
         },
         MuiInputBase: {},

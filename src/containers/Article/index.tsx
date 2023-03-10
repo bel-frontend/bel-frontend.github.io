@@ -46,11 +46,11 @@ const Article = ({
                 <title>{title}</title>
                 <meta name="description" content={description} />
             </Helmet>
-            <div className="articlePage">
+            <div className={style.articlePage}>
                 <Link to="/">Галоўная</Link> <span>{'>'} </span>
                 <span>{title}</span>
             </div>
-            <div className={classnames(style.likeContainer)}>
+            <div className={classnames(userIsAuth ? style.editorLikeContainer : style.likeContainer)}>
                 <LikeButton
                     likesCount={article?.likes || 0}
                     className={style.likeButton}
@@ -60,8 +60,8 @@ const Article = ({
                     <Button
                         variant="outlined"
                         sx={{ ml: 1 }}
-                        color="secondary"
-                        className={style.editButton}
+                        color="primary"
+                        style={{marginRight:'60px'}}
                         onClick={() => {
                             history.push(`/editor/${id}`);
                         }}

@@ -1,5 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
+import Button from "@mui/material/Button";
 import {
     checkArtickeIsLiked,
     saveLikeToLocalStorage,
@@ -56,13 +57,14 @@ export const LikeButton = ({
     }, [articleId]);
 
     return (
-        <button
+        <Button
             type="button"
-            className={classnames('btn btn-sm', 'btn-danger', style.btn)}
+            color="error"
+            variant="contained"
             onClick={onClick}
         >
             <HeardIcon />
             <span className={style.count_likes}>{likes}</span>
-        </button>
+        </Button>
     );
 };

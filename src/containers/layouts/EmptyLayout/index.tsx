@@ -18,7 +18,7 @@ const EmptyLayout = ({ children, ...props }: any) => {
                     </div>
                 </div>
             </div>
-            {showFooter !== false ? <Footer /> : null}
+            {showFooter ? <Footer /> : null}
         </>
     );
 };

@@ -39,7 +39,7 @@ export const EpisodePreview = ({
                     {userIsAuth ? (
                         <IconButton
                             sx={{ ml: 1 }}
-                            color="secondary"
+                            color="primary"
                             onClick={() => {
                                 history.push(`/editor/${id}`);
                             }}
@@ -58,6 +58,7 @@ export const EpisodePreview = ({
                 likes={likes}
                 articleId={id}
                 url={url}
+                history={history}
             />
         </article>
     ) : null;

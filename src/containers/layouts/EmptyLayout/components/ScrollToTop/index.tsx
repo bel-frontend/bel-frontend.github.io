@@ -1,18 +1,23 @@
-import React from 'react';
-import classnames from 'classnames';
+import React, {useLayoutEffect} from 'react';
+import Button from '@mui/material/Button';
+
 import style from './style.module.scss';
 
 export const ScrollToTop = () => {
     const [showButton, setShowButton] = React.useState(false);
 
-    React.useEffect(() => {
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 300) {
-                setShowButton(true);
-            } else {
-                setShowButton(false);
-            }
-        });
+    useLayoutEffect(() => {
+      const handleScroll = () => {
+        if (window.scrollY > 300) {
+          setShowButton(true);
+        } else {
+          setShowButton(false);
+        }
+      };
+
+        window.addEventListener('scroll', handleScroll);
+
+      return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
     const scrollToTop = () => {
@@ -23,11 +28,20 @@ export const ScrollToTop = () => {
     };
 
     return showButton ? (
-        <button
+        <Button
+            variant="contained"
+            color="primary"
             onClick={scrollToTop}
-            className={classnames(style.scrollToTop, 'btn btn-primary')}
+            style={{
+                position: 'sticky',
+                top: 'calc(100vh - 53px)',
+                left: 'calc(100vw - 72px)',
+                zIndex: 3,
+                minWidth: '32px',
+                height: '32px',
+            }}
         >
-            <span className="bi bi-caret-up-fill"></span>
-        </button>
+            <span className={style.arrowUp} />
+        </Button>
     ) : null;
 };

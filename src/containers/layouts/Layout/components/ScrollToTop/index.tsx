@@ -1,5 +1,6 @@
 import React from 'react';
-import classnames from 'classnames';
+import Button from '@mui/material/Button';
+
 import style from './style.module.scss';
 
 const BUTTON_HEIGHT = 40;
@@ -11,10 +12,11 @@ const MIN_SCROLL_Y_DESKTOP = 460;
 
 type ScrollToTopPropsType = {
     isArticlePage: boolean;
-}
-export const ScrollToTop: React.FC<ScrollToTopPropsType> = ({ isArticlePage }) => {
+};
+export const ScrollToTop: React.FC<ScrollToTopPropsType> = ({
+    isArticlePage,
+}) => {
     const [showButton, setShowButton] = React.useState(false);
-
 
     const scrollToTop = () => {
         window.scrollTo({
@@ -25,34 +27,48 @@ export const ScrollToTop: React.FC<ScrollToTopPropsType> = ({ isArticlePage }) =
 
     React.useEffect(() => {
         isArticlePage && scrollToTop();
-        window.addEventListener('scroll', () => {
-            const width = window.outerWidth;
-            const height = window.scrollY;
 
-            const isShowButtonMobile =
-                width < WIDTH_TABLET &&
-                height >= MIN_SCROLL_Y_MOBILE + BUTTON_HEIGHT;
-            const isShowButtonTablet =
-                width <= WIDTH_DESKTOP &&
-                width >= WIDTH_TABLET &&
-                height >= MIN_SCROLL_Y_TABLET + BUTTON_HEIGHT;
-            const isShowButtonDesktop =
-                width >= WIDTH_DESKTOP &&
-                height >= MIN_SCROLL_Y_DESKTOP + BUTTON_HEIGHT;
+        const handleScroll = () => {
+          const width = window.outerWidth;
+          const height = window.scrollY;
 
-            const isShowButton =
-                isShowButtonMobile || isShowButtonTablet || isShowButtonDesktop;
+          const isShowButtonMobile =
+            width < WIDTH_TABLET &&
+            height >= MIN_SCROLL_Y_MOBILE + BUTTON_HEIGHT;
+          const isShowButtonTablet =
+            width <= WIDTH_DESKTOP &&
+            width >= WIDTH_TABLET &&
+            height >= MIN_SCROLL_Y_TABLET + BUTTON_HEIGHT;
+          const isShowButtonDesktop =
+            width >= WIDTH_DESKTOP &&
+            height >= MIN_SCROLL_Y_DESKTOP + BUTTON_HEIGHT;
 
-            setShowButton(isShowButton);
-        });
+          const isShowButton =
+            isShowButtonMobile || isShowButtonTablet || isShowButtonDesktop;
+
+          setShowButton(isShowButton);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
     return showButton ? (
-        <button
+        <Button
+            variant="contained"
+            color="primary"
             onClick={scrollToTop}
-            className={classnames('btn', 'btn-primary', style.scrollToTopBtn)}
+            style={{
+                position: 'sticky',
+                top: 'calc(100vh - 53px)',
+                left: 'calc(100vw - 72px)',
+                zIndex: 3,
+                minWidth: '32px',
+                height: '32px',
+            }}
         >
             <span className={style.arrowUp} />
-        </button>
+        </Button>
     ) : null;
 };

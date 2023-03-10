@@ -38,53 +38,51 @@ const Home = ({
     }, [articles, searchText]);
 
     return (
-        <div className="pageContainer">
-            <Box component={'main'} className={style.main}>
-                <a
-                    className={style.telegram}
-                    href="https://t.me/bel_frontend"
-                    target="_blank"
-                    rel="noreferrer"
-                >
-                    Далучайцеся да нашага тэлеграмканалу
-                </a>
-                <Search
-                    onChange={(text) => setSearchText(text)}
-                    value={searchText}
-                    onClear={() => setSearchText('')}
-                />
-                {preparedArticles &&
-                    preparedArticles.map(
-                        (
-                            {
-                                content,
-                                meta,
-                                id,
-                                isActive,
-                                likes,
-                            }: {
-                                content: string;
-                                meta: any;
-                                id: any;
-                                isActive: boolean;
-                                likes: any;
-                            },
-                            index: number,
-                        ) => (
-                            <EpisodePreview
-                                history={history}
-                                key={index}
-                                userIsAuth={userIsAuth}
-                                content={content}
-                                meta={meta}
-                                id={id}
-                                isActive={isActive}
-                                likes={likes}
-                            />
-                        ),
-                    )}
-            </Box>
-        </div>
+        <Box component={'main'} className={style.main}>
+            <a
+                className={style.telegram}
+                href="https://t.me/bel_frontend"
+                target="_blank"
+                rel="noreferrer"
+            >
+                Далучайцеся да нашага тэлеграмканалу
+            </a>
+            <Search
+                onChange={(text) => setSearchText(text)}
+                value={searchText}
+                onClear={() => setSearchText('')}
+            />
+            {preparedArticles &&
+                preparedArticles.map(
+                    (
+                        {
+                            content,
+                            meta,
+                            id,
+                            isActive,
+                            likes,
+                        }: {
+                            content: string;
+                            meta: any;
+                            id: any;
+                            isActive: boolean;
+                            likes: any;
+                        },
+                        index: number,
+                    ) => (
+                        <EpisodePreview
+                            history={history}
+                            key={index}
+                            userIsAuth={userIsAuth}
+                            content={content}
+                            meta={meta}
+                            id={id}
+                            isActive={isActive}
+                            likes={likes}
+                        />
+                    ),
+                )}
+        </Box>
     );
 };
 
