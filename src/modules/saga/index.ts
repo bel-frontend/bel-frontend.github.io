@@ -4,7 +4,7 @@ import { set, get } from 'lodash';
 import { history } from '../history';
 import { initModuleSaga } from '../init';
 import { notificationSaga, showError, showSuccess } from 'modules/notification';
-import { authModuleSaga, authHashSelector } from 'modules/auth';
+import { authModuleSaga, authHashSelector, logoutAction } from 'modules/auth';
 const {
     modules: { apiWatchRequest },
     axios: { init },
@@ -73,7 +73,8 @@ function* rootSaga(dispatch: any) {
                     }
 
                     case dataStatus === 401:
-                        yield call(history.push, '/login');
+                        yield put(logoutAction());
+                        yield call(history.push, '/');
                         return;
                     case dataStatus === 500:
                         yield put(
