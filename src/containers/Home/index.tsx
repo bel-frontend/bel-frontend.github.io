@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Box from '@mui/material/Box';
 import { useDispatch, useSelector } from 'react-redux';
 import { getArticklesRequest, getArticklesSelector } from 'modules/artickles';
 
-import { EpisodePreview } from './components/EpisodePreview/indes';
+import { EpisodePreview } from './components/EpisodePreview';
 import { Search } from './components/Search';
+
 import style from './style.module.scss';
 
 const Home = ({
@@ -16,11 +17,12 @@ const Home = ({
     [key: string]: any;
 }) => {
     const dispatch = useDispatch();
-    React.useEffect(() => {
+
+    useEffect(() => {
         dispatch(getArticklesRequest());
     }, []);
 
-    const { total, articles }: any = useSelector(getArticklesSelector);
+    const { articles }: any = useSelector(getArticklesSelector);
 
     const [searchText, setSearchText] = React.useState<string | undefined>('');
 
@@ -38,7 +40,7 @@ const Home = ({
     }, [articles, searchText]);
 
     return (
-        <div className="pageContainer">
+        <>
             <Box component={'main'} className={style.main}>
                 <a
                     className={style.telegram}
@@ -71,7 +73,7 @@ const Home = ({
                             },
                             index: number,
                         ) => (
-                            <EpisodePreview
+                            meta ? <EpisodePreview
                                 history={history}
                                 key={index}
                                 userIsAuth={userIsAuth}
@@ -80,11 +82,11 @@ const Home = ({
                                 id={id}
                                 isActive={isActive}
                                 likes={likes}
-                            />
+                            /> : null
                         ),
                     )}
             </Box>
-        </div>
+        </>
     );
 };
 
