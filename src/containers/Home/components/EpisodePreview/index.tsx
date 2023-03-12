@@ -23,7 +23,7 @@ export const EpisodePreview = ({
     const url = id ? `/article/${id}` : '/';
 
     return (
-        <article className="episode box" id={id} ref={ref}>
+        <article className="episode box" ref={ref}>
             {entry?.isIntersecting && (
                 <>
                     <div className="article">
