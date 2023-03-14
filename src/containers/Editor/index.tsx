@@ -109,7 +109,6 @@ const Editor = ({
         if (id && !isAdd) {
             if (artickleData?.loaded) {
                 const { content = '', meta } = artickleData;
-                console.log(meta);
                 setValues({
                     content: content,
                     description: meta?.description || '',

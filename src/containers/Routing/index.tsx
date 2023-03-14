@@ -9,8 +9,6 @@ import PrivateRoute from './PrivateRoute';
 // import PrivateRoute from './PrivateRoute';
 // import ErrorPage from '../ErrorPage';
 
-// TODO: need  create not found component and  add to route 404
-
 /**
  * [RenderLayout description]
  * @param {[type]} [layout=Layout] [get layout element for wrap  components in routes]
@@ -19,14 +17,8 @@ import PrivateRoute from './PrivateRoute';
  */
 const RenderLayout = ({ layout = Layout, ...route }, component: any) => {
     return (props: any) => {
-        return layout
-            ? React.createElement(layout, {
+        return React.createElement(layout, {
                   ...{ children: component },
-                  ...props,
-                  history,
-                  ...{ route: route },
-              })
-            : React.createElement(component, {
                   ...props,
                   history,
                   ...{ route: route },
@@ -77,19 +69,6 @@ const Routing = ({
                             />
                         );
                     })}
-                    <Route
-                        render={RenderLayout(
-                            {
-                                exact: true,
-                                isPrivate: false,
-                                showHeader: false,
-                                showFooter: false,
-                            },
-                            () =>
-                                // <ErrorPage history={history} />
-                                null,
-                        )}
-                    />
                 </Switch>
             </Suspense>
         </Router>
