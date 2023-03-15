@@ -60,7 +60,7 @@ const Article = ({
                     <Button
                         variant="outlined"
                         sx={{ ml: 1 }}
-                        color="secondary"
+                        color="primary"
                         className={style.editButton}
                         onClick={() => {
                             history.push(`/editor/${id}`);
