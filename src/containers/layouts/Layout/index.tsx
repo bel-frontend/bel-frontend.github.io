@@ -1,7 +1,9 @@
 import React from 'react';
+import { Container } from '@mui/material';
 import { Header, Footer } from 'components';
 import { ScrollToTop } from './components/ScrollToTop';
 import { Drawer } from './components/Drawer';
+
 export const Layout = ({ children, ...props }: any) => {
     const {
         history,
@@ -13,12 +15,10 @@ export const Layout = ({ children, ...props }: any) => {
         <>
             {showHeader !== false ? <Header /> : null}
             <Drawer history={history} userIsAuth={userIsAuth} />
-            <ScrollToTop isArticlePage={location.pathname !== '/'} />
-            <div className="container">
-                <div className="pageContainer">
-                  {React.createElement(children, props)}
-                </div>
-            </div>
+            <ScrollToTop />
+            <Container maxWidth="md">
+                {React.createElement(children, props)}
+            </Container>
             {showFooter ? <Footer /> : null}
         </>
     );

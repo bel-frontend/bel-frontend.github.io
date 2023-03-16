@@ -2,7 +2,9 @@ body {
     margin: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans","Liberation Sans",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue',
+        'Noto Sans', 'Liberation Sans', Arial, sans-serif, 'Apple Color Emoji',
+        'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
     font-size: 16px;
     color: #333333;
     -webkit-tap-highlight-color: #0085a1;
@@ -89,7 +91,9 @@ img::-moz-selection {
     background: transparent;
 }
 span {
-    font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans","Liberation Sans",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue',
+        'Noto Sans', 'Liberation Sans', Arial, sans-serif, 'Apple Color Emoji',
+        'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 }
 .author {
     font-size: 18px;
@@ -119,23 +123,6 @@ span {
 }
 .content p {
     width: 100%;
-}
-
-.pageContainer {
-    display: flex;
-    flex-direction: column;
-
-    padding: 0 12px;
-    margin: auto;
-    max-width: 540px;
-
-    @media (min-width: 768px) {
-        max-width: 720px;
-    }
-
-    @media (min-width: 992px) {
-        max-width: 960px;
-    }
 }
 
 .btn {
