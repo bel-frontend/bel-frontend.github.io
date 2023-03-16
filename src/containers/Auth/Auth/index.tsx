@@ -45,16 +45,11 @@ const Auth = ({ history }: { history: any }) => {
     );
 
     return (
-        <div className="pageContainer">
+        <Box sx={{ mb: 0, mt: 30 }}>
             <Typography textAlign={'center'} variant="h4">
                 Аўтарызацыя
             </Typography>
-            <Box
-                component="form"
-                onSubmit={handleSubmit}
-                noValidate
-                minHeight={'70vh'}
-            >
+            <Box component="form" onSubmit={handleSubmit} noValidate>
                 <TextField
                     margin="dense"
                     required
@@ -95,7 +90,7 @@ const Auth = ({ history }: { history: any }) => {
                     Увайсці
                 </Button>
             </Box>
-        </div>
+        </Box>
     );
 };
 
