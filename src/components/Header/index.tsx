@@ -34,7 +34,14 @@ export const Header = ({ userIsAuth, history, ...props }: any) => {
             <AppBar position="static">
                 <Container maxWidth="md" disableGutters>
                     <Toolbar>
-                        <Typography variant="h2">BF</Typography>
+                        <Typography
+                            onClick={() => {
+                                history.push('/');
+                            }}
+                            variant="h2"
+                        >
+                            BF
+                        </Typography>
                         <TextField
                             value={searchText}
                             onChange={(ev) => {
