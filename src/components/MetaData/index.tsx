@@ -26,6 +26,11 @@ export const MetaData = ({
                 ) : null}
             </div>
             <div>
+                {(meta?.tags && Array.isArray(meta?.tags)) ? meta?.tags.map((tag: string) => (
+                    <span key={tag} className={style.tag}>#{tag}</span>
+                )) : <span className={style.tag}>#{meta.tags}</span>}
+            </div>
+            <div>
                 <span className="author">{author}</span>,
                 <span className="date-article"> {dateArticle}</span>
             </div>

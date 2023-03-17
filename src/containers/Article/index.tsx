@@ -39,7 +39,6 @@ const Article = ({
     const title = article?.meta?.title;
     const description = article?.meta?.description ?? article?.meta?.title;
 
-
     return article ? (
         <>
             <Helmet>
@@ -60,7 +59,7 @@ const Article = ({
                     <Button
                         variant="outlined"
                         sx={{ ml: 1 }}
-                        color="secondary"
+                        color="primary"
                         className={style.editButton}
                         onClick={() => {
                             history.push(`/editor/${id}`);
@@ -74,6 +73,10 @@ const Article = ({
             <main className="page__main main articlePage">
                 <article className="episode box">
                     <h2 className="episode__title">{article?.meta?.title}</h2>
+                    {article?.meta?.tags && article?.meta?.tags.map((tag: string) => (
+                            <span className={style.tag} key={tag}>#{tag}</span>
+                        )
+                    )}
                     <div className="content">
                         <MD>{article?.content}</MD>
                     </div>
