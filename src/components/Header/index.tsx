@@ -1,28 +1,21 @@
 import React from 'react';
-import { styled, alpha } from '@mui/material/styles';
 import { Container } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import InputBase from '@mui/material/InputBase';
-import Badge from '@mui/material/Badge';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import MoreIcon from '@mui/icons-material/MoreVert';
 import InputAdornment from '@mui/material/InputAdornment';
 import TextField from '@mui/material/TextField';
 import Clear from '@mui/icons-material/Clear';
+import Button from '@mui/material/Button';
+import AccountCircle from '@mui/icons-material/AccountCircle';
 
 import { searchArticle } from 'modules/artickles';
 import { useDispatch } from 'react-redux';
 
-export const Header = function () {
+export const Header = ({ userIsAuth, history, ...props }: any) => {
     const dispatch = useDispatch();
 
     const [searchText, setSearchText] = React.useState<string | null>('');
@@ -53,12 +46,16 @@ export const Header = function () {
                                 m: 1,
                                 ml: 2,
                                 width: '15vw',
+                                minWidth: '240px',
                             }}
                             InputProps={{
                                 style: { backgroundColor: '#fff' },
                                 endAdornment: (
                                     <InputAdornment position="start">
-                                        <IconButton onClick={onClick}>
+                                        <IconButton
+                                            onClick={onClick}
+                                            color="inherit"
+                                        >
                                             {searchText ? (
                                                 <Clear />
                                             ) : (
@@ -71,47 +68,39 @@ export const Header = function () {
                         />
                         <Box sx={{ flexGrow: 1 }} />
                         <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                            <IconButton
-                                size="large"
-                                aria-label="show 4 new mails"
-                                color="inherit"
-                            >
-                                <Badge badgeContent={4} color="error">
-                                    <MailIcon />
-                                </Badge>
-                            </IconButton>
-                            <IconButton
-                                size="large"
-                                aria-label="show 17 new notifications"
-                                color="inherit"
-                            >
-                                <Badge badgeContent={17} color="error">
-                                    <NotificationsIcon />
-                                </Badge>
-                            </IconButton>
-                            {/* <IconButton
-                                size="large"
-                                edge="end"
-                                aria-label="account of current user"
-                                aria-controls={menuId}
-                                aria-haspopup="true"
-                                onClick={handleProfileMenuOpen}
-                                color="inherit"
-                            >
-                                <AccountCircle />
-                            </IconButton> */}
-                        </Box>
-                        <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-                            {/* <IconButton
-                                size="large"
-                                aria-label="show more"
-                                aria-controls={mobileMenuId}
-                                aria-haspopup="true"
-                                onClick={handleMobileMenuOpen}
-                                color="inherit"
-                            >
-                                <MoreIcon />
-                            </IconButton> */}
+                            {userIsAuth ? (
+                                <>
+                                    <IconButton
+                                        size="large"
+                                        aria-label="show more"
+                                        aria-haspopup="true"
+                                        color="inherit"
+                                    >
+                                        <AccountCircle />
+                                    </IconButton>
+                                </>
+                            ) : (
+                                <>
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        disableElevation
+                                        onClick={() => history.push('/login')}
+                                    >
+                                        Увайсці
+                                    </Button>
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        disableElevation
+                                        onClick={() =>
+                                            history.push('/register')
+                                        }
+                                    >
+                                        Стварыць акаунт
+                                    </Button>
+                                </>
+                            )}
                         </Box>
                     </Toolbar>
                 </Container>

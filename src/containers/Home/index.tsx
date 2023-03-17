@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getArticklesRequest, getArticklesSelector } from 'modules/artickles';
 
 import { EpisodePreview } from './components/EpisodePreview/indes';
-import { Search } from './components/Search';
 import style from './style.module.scss';
 
 const Home = ({
@@ -22,20 +21,9 @@ const Home = ({
 
     const { total, articles }: any = useSelector(getArticklesSelector);
 
-    const [searchText, setSearchText] = React.useState<string | undefined>('');
-
     const preparedArticles = React.useMemo(() => {
-        if (searchText) {
-            return articles.filter(
-                (i: any) =>
-                    i?.meta?.title &&
-                    i?.meta?.title
-                        .toLowerCase()
-                        .indexOf(searchText.trim().toLowerCase()) !== -1,
-            );
-        }
         return articles;
-    }, [articles, searchText]);
+    }, [articles]);
 
     return (
         <>
@@ -48,11 +36,7 @@ const Home = ({
                 >
                     Далучайцеся да нашага тэлеграмканалу
                 </a>
-                <Search
-                    onChange={(text) => setSearchText(text)}
-                    value={searchText}
-                    onClear={() => setSearchText('')}
-                />
+
                 {preparedArticles &&
                     preparedArticles.map(
                         (
