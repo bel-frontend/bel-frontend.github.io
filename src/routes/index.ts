@@ -5,6 +5,7 @@ const Article = lazy(() => import('containers/Article'));
 const Editor = lazy(() => import('containers/Editor'));
 const Auth = lazy(() => import('containers/Auth/Auth'));
 const SignUp = lazy(() => import('containers/Auth/SignUp'));
+const NotFound = lazy(() => import ('containers/NotFound'));
 const EmptyLayout = lazy(() => import('containers/layouts/EmptyLayout'));
 
 export const redirectAuthPath = '/login';
@@ -14,6 +15,7 @@ export interface RouteItemInterface {
     exact: boolean;
     component: any;
     showHeader?: boolean;
+    showFooter?: boolean;
     isPrivate?: boolean;
     layout?: any;
 }
@@ -53,6 +55,14 @@ const mainRoutes: RouteItemInterface[] = [
         isPrivate: true,
         layout: EmptyLayout,
     },
+    {
+        path: '*',
+        exact: false,
+        component: NotFound,
+        showHeader: false,
+        showFooter: false,
+        layout: EmptyLayout,
+    }
 ];
 
 export default mainRoutes;

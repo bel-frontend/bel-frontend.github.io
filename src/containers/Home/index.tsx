@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Box from '@mui/material/Box';
 import { useDispatch, useSelector } from 'react-redux';
 import { getArticklesRequest, getArticklesSelector } from 'modules/artickles';
 
-import { EpisodePreview } from './components/EpisodePreview/indes';
+import { EpisodePreview } from './components/EpisodePreview/';
 import style from './style.module.scss';
 
 const Home = ({
@@ -15,11 +15,12 @@ const Home = ({
     [key: string]: any;
 }) => {
     const dispatch = useDispatch();
-    React.useEffect(() => {
+
+    useEffect(() => {
         dispatch(getArticklesRequest());
     }, []);
 
-    const { total, articles }: any = useSelector(getArticklesSelector);
+    const { articles }: any = useSelector(getArticklesSelector);
 
     const preparedArticles = React.useMemo(() => {
         return articles;
@@ -54,18 +55,19 @@ const Home = ({
                                 likes: any;
                             },
                             index: number,
-                        ) => (
-                            <EpisodePreview
-                                history={history}
-                                key={index}
-                                userIsAuth={userIsAuth}
-                                content={content}
-                                meta={meta}
-                                id={id}
-                                isActive={isActive}
-                                likes={likes}
-                            />
-                        ),
+                        ) =>
+                            meta ? (
+                                <EpisodePreview
+                                    history={history}
+                                    key={index}
+                                    userIsAuth={userIsAuth}
+                                    content={content}
+                                    meta={meta}
+                                    id={id}
+                                    isActive={isActive}
+                                    likes={likes}
+                                />
+                            ) : null,
                     )}
             </Box>
         </>
