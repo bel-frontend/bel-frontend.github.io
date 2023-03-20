@@ -61,8 +61,9 @@ export const LikeButton = ({
             color="error"
             type="button"
             variant="contained"
-            className={classnames('btn btn-sm', 'btn-danger', style.btn)}
+            size="small"
             onClick={onClick}
+            disableElevation
         >
             <HeardIcon />
             <span className={style.count_likes}>{likes}</span>

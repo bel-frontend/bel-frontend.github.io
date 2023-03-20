@@ -21,18 +21,14 @@ export const Header = ({ userIsAuth, history, ...props }: any) => {
 
     const [searchText, setSearchText] = React.useState<string | null>('');
 
-    React.useEffect(() => {
-        dispatch(searchArticle(searchText));
-    }, [searchText]);
+    React.useEffect(() => {}, [searchText]);
 
     const onClick = () => {
-        if (searchText) {
-            setSearchText('');
-        }
+        dispatch(searchArticle(searchText));
     };
     return (
         <Box sx={{ flexGrow: 1, mb: 3 }}>
-            <AppBar position="static">
+            <AppBar color="primary" position="static">
                 <Container maxWidth="md" disableGutters>
                     <Toolbar>
                         <Box
@@ -62,11 +58,7 @@ export const Header = ({ userIsAuth, history, ...props }: any) => {
                                             onClick={onClick}
                                             color="inherit"
                                         >
-                                            {searchText ? (
-                                                <Clear />
-                                            ) : (
-                                                <SearchIcon />
-                                            )}
+                                            <SearchIcon />
                                         </IconButton>
                                     </InputAdornment>
                                 ),

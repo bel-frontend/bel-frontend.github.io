@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { LikeButton, Tag } from 'components';
+import { Button } from '@mui/material';
 
 import style from './style.module.scss';
 
 export const MetaData = ({
     meta,
-    showLikes = true,
     showReadButton = true,
     url,
     articleId,
@@ -18,8 +18,15 @@ export const MetaData = ({
         <>
             <div className={style.episode_meta}>
                 {showReadButton ? (
-                    <Link to={url} className="btn btn-primary">
-                        Чытаць
+                    <Link to={url}>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            size="small"
+                            disableElevation
+                        >
+                            Чытаць
+                        </Button>
                     </Link>
                 ) : null}
                 {showReadButton ? (

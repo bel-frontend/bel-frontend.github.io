@@ -1,5 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
+import { Button } from '@mui/material';
 import style from './style.module.scss';
 
 type ScrollToTopPropsType = {
@@ -18,11 +19,11 @@ export const ScrollToTop: React.FC<ScrollToTopPropsType> = ({
     };
 
     return showButton ? (
-        <button
+        <Button
             onClick={scrollToTop}
-            className={classnames('btn', 'btn-primary', style.scrollToTopBtn)}
+            className={classnames(style.scrollToTopBtn)}
         >
             <span className={style.arrowUp} />
-        </button>
+        </Button>
     ) : null;
 };
