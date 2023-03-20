@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { LikeButton } from '../Buttons/LikeButton';
+import { LikeButton, Tag } from 'components';
+
 import style from './style.module.scss';
 
 export const MetaData = ({
@@ -26,15 +27,9 @@ export const MetaData = ({
                 ) : null}
             </div>
             <div>
-                {meta?.tags && Array.isArray(meta?.tags) ? (
-                    meta?.tags.map((tag: string) => (
-                        <span key={tag} className={style.tag}>
-                            #{tag}
-                        </span>
-                    ))
-                ) : (
-                    <span className={style.tag}>#{meta?.tags}</span>
-                )}
+                {(meta?.tags.toString().split(',') || []).map((tag: string) => (
+                    <Tag key={tag}>{tag}</Tag>
+                ))}
             </div>
             <div>
                 <span className="author">{author}</span>,

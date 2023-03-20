@@ -58,7 +58,7 @@ export const LikeButton = ({
 
     return (
         <Button
-            color="primary"
+            color="error"
             type="button"
             variant="contained"
             className={classnames('btn btn-sm', 'btn-danger', style.btn)}
