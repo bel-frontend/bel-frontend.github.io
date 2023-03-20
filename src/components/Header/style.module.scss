@@ -1,9 +1,11 @@
 .logo {
-    background-image: url('/assets/images/logo.png');
+    background-image: url('/assets/images/vector/default-monochrome-white.svg');
     height: 40px;
-    width: 40px;
+    width: 100px;
     background-size: contain;
-    background-color: white;
+    background-repeat: no-repeat;
+    // background-color: white;
     border-radius: 5px;
     padding: 5px;
+    cursor: pointer;
 }
