@@ -14,6 +14,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 
 import { searchArticle } from 'modules/artickles';
 import { useDispatch } from 'react-redux';
+import style from './style.module.scss';
 
 export const Header = ({ userIsAuth, history, ...props }: any) => {
     const dispatch = useDispatch();
@@ -34,14 +35,10 @@ export const Header = ({ userIsAuth, history, ...props }: any) => {
             <AppBar position="static">
                 <Container maxWidth="md" disableGutters>
                     <Toolbar>
-                        <Typography
-                            onClick={() => {
-                                history.push('/');
-                            }}
-                            variant="h2"
-                        >
-                            BF
-                        </Typography>
+                        <Box
+                            className={style.logo}
+                            onClick={() => history.push('/')}
+                        ></Box>
                         <TextField
                             value={searchText}
                             onChange={(ev) => {
