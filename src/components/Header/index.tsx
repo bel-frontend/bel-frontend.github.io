@@ -56,7 +56,9 @@ export const Header = ({ userIsAuth, history, ...props }: any) => {
                                 minWidth: '240px',
                             }}
                             InputProps={{
-                                style: { backgroundColor: '#fff' },
+                                style: {
+                                    backgroundColor: '#fff',
+                                },
                                 endAdornment: (
                                     <InputAdornment position="start">
                                         <IconButton

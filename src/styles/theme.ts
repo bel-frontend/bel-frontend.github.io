@@ -49,7 +49,13 @@ const theme = createTheme({
                 color: 'secondary',
             },
         },
-        MuiInputBase: {},
+        MuiInputAdornment: {
+            styleOverrides: {
+                root: {
+                    marginRight: 0,
+                },
+            },
+        },
     },
 });
 

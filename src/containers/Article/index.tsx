@@ -5,11 +5,12 @@ import { Helmet } from 'react-helmet';
 import classnames from 'classnames';
 import Button from '@mui/material/Button';
 import EditIcon from '@mui/icons-material/Edit';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { getArtickleByIdRequest, getArtickleSelector } from 'modules/artickles';
 
 import { MetaData, MD } from 'components';
-import { LikeButton } from 'components/Buttons/LikeButton';
+import { LikeButton, Tag } from 'components';
 
 import style from './style.module.scss';
 
@@ -28,7 +29,6 @@ const Article = ({
     const dispatch = useDispatch();
 
     const article: any = useSelector(getArtickleSelector);
-
 
     React.useEffect(() => {
         if (id) {
@@ -73,9 +73,10 @@ const Article = ({
             <main className="page__main main articlePage">
                 <article className="episode box">
                     <h2 className="episode__title">{article?.meta?.title}</h2>
-                    {article?.meta?.tags && article?.meta?.tags.map((tag: string) => (
-                            <span className={style.tag} key={tag}>#{tag}</span>
-                        )
+                    {(article?.meta?.tags.toString().split(',') || []).map(
+                        (tag: string) => (
+                            <Tag key={tag}>{tag}</Tag>
+                        ),
                     )}
                     <div className="content">
                         <MD>{article?.content}</MD>
