@@ -77,6 +77,9 @@ function* rootSaga(dispatch: any) {
                         yield put(logoutAction());
                         yield call(history.push, '/');
                         return;
+                    case dataStatus === 404:
+                        yield call(history.push, '/404');
+                        return;
                     case dataStatus === 500:
                         yield put(
                             showError({
