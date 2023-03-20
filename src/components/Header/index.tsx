@@ -16,16 +16,25 @@ import { searchArticle } from 'modules/artickles';
 import { useDispatch } from 'react-redux';
 import style from './style.module.scss';
 
-export const Header = ({ userIsAuth, history, ...props }: any) => {
+export const Header = ({ userIsAuth, history, location: { search } }: any) => {
     const dispatch = useDispatch();
 
     const [searchText, setSearchText] = React.useState<string | null>('');
 
-    React.useEffect(() => {}, [searchText]);
+    React.useEffect(() => {
+        const query = new URLSearchParams(search);
+        const text = query.get('seacrhText');
+        dispatch(searchArticle(text));
+        setSearchText(text || '');
+    }, [search]);
 
     const onClick = () => {
-        dispatch(searchArticle(searchText));
+        history.push(`/`);
+        if (searchText) {
+            history.push(`?seacrhText=${searchText}`);
+        }
     };
+
     return (
         <Box sx={{ flexGrow: 1, mb: 3 }}>
             <AppBar color="primary" position="static">
@@ -40,7 +49,6 @@ export const Header = ({ userIsAuth, history, ...props }: any) => {
                             onChange={(ev) => {
                                 setSearchText(ev?.target?.value);
                             }}
-                            // variant="filled"
                             size="small"
                             sx={{
                                 m: 1,

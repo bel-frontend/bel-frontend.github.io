@@ -14,7 +14,11 @@ export const Layout = ({ children, ...props }: any) => {
     return (
         <>
             {showHeader !== false ? (
-                <Header history={history} userIsAuth={userIsAuth} />
+                <Header
+                    location={location}
+                    history={history}
+                    userIsAuth={userIsAuth}
+                />
             ) : null}
             <Drawer history={history} userIsAuth={userIsAuth} />
             <ScrollToTop />
