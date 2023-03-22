@@ -9,12 +9,14 @@ export const Layout = ({ children, ...props }: any) => {
         history,
         route: { showHeader, showFooter = true, userIsAuth },
         location,
+        viewPort: { isMobile },
     } = props;
 
     return (
         <>
             {showHeader !== false ? (
                 <Header
+                    isMobile={isMobile}
                     location={location}
                     history={history}
                     userIsAuth={userIsAuth}
