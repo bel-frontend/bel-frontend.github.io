@@ -197,6 +197,7 @@ export const Header = ({
                     </Toolbar>
                 </Container>
             </AppBar>
+            {renderMobileMenu}
         </Box>
     );
 };
