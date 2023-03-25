@@ -4,5 +4,5 @@ import { Chip } from '@mui/material';
 import style from './style.module.scss';
 
 export const Tag = ({ children }: any) => {
-    return <Chip className={style.tag} label={children} />;
+    return <Chip size="small" className={style.tag} label={children} />;
 };
