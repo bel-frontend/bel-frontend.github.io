@@ -24,7 +24,7 @@ export const Layout = ({ children, ...props }: any) => {
             ) : null}
             {/* <Drawer history={history} userIsAuth={userIsAuth} /> */}
             <ScrollToTop />
-            <Container maxWidth={maxWidth}>
+            <Container maxWidth={maxWidth} sx={{ minHeight: '80vh' }}>
                 {React.createElement(children, props)}
             </Container>
             {showFooter ? <Footer /> : null}
