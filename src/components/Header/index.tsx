@@ -12,10 +12,13 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import MenuIcon from '@mui/icons-material/Menu';
-
+import LogoutIcon from '@mui/icons-material/Logout';
+import LoginIcon from '@mui/icons-material/Login';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import EditIcon from '@mui/icons-material/Edit';
 import { searchArticle } from 'modules/artickles';
 import { useDispatch } from 'react-redux';
+import { logoutAction } from 'modules/auth';
 import style from './style.module.scss';
 
 export const Header = ({
@@ -70,47 +73,82 @@ export const Header = ({
             open={isMobileMenuOpen}
             onClose={handleMobileMenuClose}
         >
-            <MenuItem>
-                <IconButton
-                    size="large"
-                    aria-label="show 4 new mails"
-                    color="inherit"
-                >
-                    {/* <Badge badgeContent={4} color="error">
-                        <MailIcon />
-                    </Badge> */}
-                </IconButton>
-                <p>Messages</p>
-            </MenuItem>
-            <MenuItem>
-                <IconButton
-                    size="large"
-                    aria-label="show 17 new notifications"
-                    color="inherit"
-                >
-                    {/* <Badge badgeContent={17} color="error">
-                        <NotificationsIcon />
-                    </Badge> */}
-                </IconButton>
-                <p>Notifications</p>
-            </MenuItem>
-            {/* <MenuItem onClick={handleProfileMenuOpen}>
-                <IconButton
-                    size="large"
-                    aria-label="account of current user"
-                    aria-controls="primary-search-account-menu"
-                    aria-haspopup="true"
-                    color="inherit"
-                >
-                    <AccountCircle />
-                </IconButton>
-                <p>Profile</p>
-            </MenuItem> */}
+            {userIsAuth ? null : (
+                <>
+                    <MenuItem onClick={() => history.push('/login')}>
+                        <IconButton
+                            aria-label="show 4 new mails"
+                            color="inherit"
+                        >
+                            <LoginIcon />
+                        </IconButton>
+                        <p>Увайсці</p>
+                    </MenuItem>
+                    <MenuItem onClick={() => history.push('/register')}>
+                        <IconButton
+                            aria-label="show 17 new notifications"
+                            color="inherit"
+                        >
+                            <PersonAddIcon />
+                        </IconButton>
+                        <p>Стварыць акаунт</p>
+                    </MenuItem>
+                </>
+            )}
+            {userIsAuth ? (
+                <>
+                    <MenuItem
+                        onClick={() => {
+                            history.push('/profile');
+                        }}
+                    >
+                        <IconButton
+                            aria-label="account of current user"
+                            aria-controls="primary-search-account-menu"
+                            aria-haspopup="true"
+                            color="inherit"
+                        >
+                            <AccountCircle />
+                        </IconButton>
+                        <p>Прафайл</p>
+                    </MenuItem>
+                    <MenuItem
+                        onClick={() => {
+                            history.push('/editor/add');
+                        }}
+                    >
+                        <IconButton
+                            aria-label="account of current user"
+                            aria-controls="primary-search-account-menu"
+                            aria-haspopup="true"
+                            color="inherit"
+                        >
+                            <EditIcon />
+                        </IconButton>
+                        <p>Стварыць артыкул</p>
+                    </MenuItem>
+                    <MenuItem
+                        onClick={() => {
+                            dispatch(logoutAction());
+                        }}
+                    >
+                        <IconButton
+                            aria-label="account of current user"
+                            aria-controls="primary-search-account-menu"
+                            aria-haspopup="true"
+                            color="inherit"
+                        >
+                            <LogoutIcon />
+                        </IconButton>
+                        <p>Выйсці</p>
+                    </MenuItem>
+                </>
+            ) : null}
         </Menu>
     );
 
     return (
-        <Box sx={{ flexGrow: 1, mb: 3 }}>
+        <Box sx={{ flexGrow: 1, mb: 3, position: 'sticky', top: 0, zIndex: 3 }}>
             <AppBar color="primary" position="static">
                 <Container maxWidth="md" disableGutters>
                     <Toolbar>
@@ -155,6 +193,7 @@ export const Header = ({
                                         aria-label="show more"
                                         aria-haspopup="true"
                                         color="inherit"
+                                        onClick={handleMobileMenuOpen}
                                     >
                                         <AccountCircle />
                                     </IconButton>

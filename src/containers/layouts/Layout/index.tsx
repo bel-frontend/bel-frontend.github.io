@@ -22,7 +22,7 @@ export const Layout = ({ children, ...props }: any) => {
                     userIsAuth={userIsAuth}
                 />
             ) : null}
-            <Drawer history={history} userIsAuth={userIsAuth} />
+            {/* <Drawer history={history} userIsAuth={userIsAuth} /> */}
             <ScrollToTop />
             <Container maxWidth="md">
                 {React.createElement(children, props)}
