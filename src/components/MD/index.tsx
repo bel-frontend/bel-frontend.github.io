@@ -2,7 +2,7 @@ import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 
-import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { darcula } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 export const MD = ({ children }: any) => {
     return (
@@ -10,7 +10,10 @@ export const MD = ({ children }: any) => {
             components={{
                 code({ node, inline, className, children, ...props }) {
                     return !inline ? (
-                        <SyntaxHighlighter language="javascript" style={dark}>
+                        <SyntaxHighlighter
+                            language="javascript"
+                            style={darcula}
+                        >
                             {String(children).replace(/\n$/, '')}
                         </SyntaxHighlighter>
                     ) : (

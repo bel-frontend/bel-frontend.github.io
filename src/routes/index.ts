@@ -19,6 +19,7 @@ export interface RouteItemInterface {
     showFooter?: boolean;
     isPrivate?: boolean;
     layout?: any;
+    maxWidth?: 'mg' | 'lg' | 'xl';
 }
 
 const mainRoutes: RouteItemInterface[] = [
@@ -52,9 +53,9 @@ const mainRoutes: RouteItemInterface[] = [
         path: '/editor/:id',
         exact: true,
         component: Editor,
-        showHeader: false,
+        showHeader: true,
         isPrivate: true,
-        layout: EmptyLayout,
+        maxWidth: 'xl',
     },
     {
         path: '/profile',
