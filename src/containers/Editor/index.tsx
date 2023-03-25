@@ -21,6 +21,10 @@ import {
     getArtickleByIdRequest,
     getArtickleSelector,
 } from 'modules/artickles';
+
+import { getCurrentUserSelector } from 'modules/auth';
+import { USER_ROLES } from 'constants/users';
+
 import 'react-markdown-editor-lite/lib/index.css';
 import style from './style.module.scss';
 
@@ -61,6 +65,7 @@ const Editor = ({
     const isAdd = id === 'add';
     const dispatch = useDispatch();
     const artickleData: any = useSelector(getArtickleSelector);
+    const currentUser: any = useSelector(getCurrentUserSelector);
 
     React.useEffect(() => {
         if (id && !isAdd) {
@@ -83,16 +88,19 @@ const Editor = ({
 
             if (isAdd) {
                 dispatch(
-                    createArtickleRequest({ ...values, tags }, {
-                        onSuccess: () => {
-                            history.push('/');
+                    createArtickleRequest(
+                        { ...values, tags },
+                        {
+                            onSuccess: () => {
+                                history.push('/');
+                            },
                         },
-                    }),
+                    ),
                 );
             } else {
                 dispatch(
                     updateArtickleRequest(
-                        {id, ...values, tags},
+                        { id, ...values, tags },
                         {
                             onSuccess: () => {
                                 history.push('/');
@@ -114,7 +122,9 @@ const Editor = ({
                     description: meta?.description || '',
                     dateArticle: meta?.dateArticle || '',
                     author: meta?.author || '',
-                    tags: Array.isArray(meta?.tags) && meta?.tags?.join(' ') || (meta?.tags ?? ''),
+                    tags:
+                        (Array.isArray(meta?.tags) && meta?.tags?.join(' ')) ||
+                        (meta?.tags ?? ''),
                     isActive: meta?.isActive || false,
                     title: meta?.title || '',
                 });
@@ -123,7 +133,7 @@ const Editor = ({
     }, [id, setValues, isAdd, artickleData]);
 
     return (
-        <div>
+        <Box>
             <Box height={'48px'}></Box>
             <label htmlFor="exampleFormControlTextarea1" className="form-label">
                 Meтаданыя
@@ -206,6 +216,12 @@ const Editor = ({
                         <FormControlLabel
                             control={
                                 <Switch
+                                    disabled={
+                                        !(
+                                            currentUser.role ===
+                                            USER_ROLES.SUPERADMIN
+                                        )
+                                    }
                                     checked={values.isActive}
                                     onChange={handleChange('isActive')}
                                 />
@@ -251,6 +267,13 @@ const Editor = ({
                         </Button>
 
                         <Button
+                            disabled={
+                                !(
+                                    currentUser?.user_id ===
+                                        artickleData?.meta?.user_id ||
+                                    currentUser.role === USER_ROLES.SUPERADMIN
+                                )
+                            }
                             variant="contained"
                             className="mt-5"
                             type="submit"
@@ -269,7 +292,7 @@ const Editor = ({
                     </Grid>
                 </Grid>
             </form>
-        </div>
+        </Box>
     );
 };
 

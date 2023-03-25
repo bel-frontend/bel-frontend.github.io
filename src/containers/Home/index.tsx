@@ -5,6 +5,7 @@ import { getArticklesRequest, getArticklesSelector } from 'modules/artickles';
 
 import { EpisodePreview } from './components/EpisodePreview/';
 import style from './style.module.scss';
+import { getCurrentUserSelector } from 'modules/auth';
 
 const Home = ({
     route: { userIsAuth },
@@ -15,6 +16,7 @@ const Home = ({
     [key: string]: any;
 }) => {
     const dispatch = useDispatch();
+    const currentUser = useSelector(getCurrentUserSelector);
 
     useEffect(() => {
         dispatch(getArticklesRequest());
@@ -58,6 +60,7 @@ const Home = ({
                         ) =>
                             meta ? (
                                 <EpisodePreview
+                                    currentUser={currentUser}
                                     history={history}
                                     key={index}
                                     userIsAuth={userIsAuth}

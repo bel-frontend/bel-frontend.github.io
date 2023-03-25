@@ -7,7 +7,7 @@ import { Drawer } from './components/Drawer';
 export const Layout = ({ children, ...props }: any) => {
     const {
         history,
-        route: { showHeader, showFooter = true, userIsAuth },
+        route: { showHeader, showFooter = true, userIsAuth, maxWidth = 'md' },
         location,
         viewPort: { isMobile },
     } = props;
@@ -24,7 +24,7 @@ export const Layout = ({ children, ...props }: any) => {
             ) : null}
             {/* <Drawer history={history} userIsAuth={userIsAuth} /> */}
             <ScrollToTop />
-            <Container maxWidth="md">
+            <Container maxWidth={maxWidth}>
                 {React.createElement(children, props)}
             </Container>
             {showFooter ? <Footer /> : null}

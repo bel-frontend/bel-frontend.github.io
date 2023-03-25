@@ -16,6 +16,8 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import LoginIcon from '@mui/icons-material/Login';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import EditIcon from '@mui/icons-material/Edit';
+import { useFormik } from 'formik';
+
 import { searchArticle } from 'modules/artickles';
 import { useDispatch } from 'react-redux';
 import { logoutAction } from 'modules/auth';
@@ -33,21 +35,22 @@ export const Header = ({
     // const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-    const [searchText, setSearchText] = React.useState<string | null>('');
+    const { values, handleChange, handleSubmit, setFieldValue } = useFormik({
+        onSubmit: ({ text }) => {
+            history.push(`/`);
+            if (text) {
+                history.push(`?seacrhText=${text}`);
+            }
+        },
+        initialValues: { text: '' },
+    });
 
     React.useEffect(() => {
         const query = new URLSearchParams(search);
         const text = query.get('seacrhText');
         dispatch(searchArticle(text));
-        setSearchText(text || '');
+        setFieldValue('text', text || '');
     }, [search]);
-
-    const onClick = () => {
-        history.push(`/`);
-        if (searchText) {
-            history.push(`?seacrhText=${searchText}`);
-        }
-    };
 
     const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
         setMobileMoreAnchorEl(event.currentTarget);
@@ -148,7 +151,11 @@ export const Header = ({
     );
 
     return (
-        <Box sx={{ flexGrow: 1, mb: 3, position: 'sticky', top: 0, zIndex: 3 }}>
+        <Box
+            sx={{ flexGrow: 1, mb: 3, position: 'sticky', top: 0, zIndex: 3 }}
+            component="form"
+            onSubmit={handleSubmit}
+        >
             <AppBar color="primary" position="static">
                 <Container maxWidth="md" disableGutters>
                     <Toolbar>
@@ -157,15 +164,13 @@ export const Header = ({
                             onClick={() => history.push('/')}
                         ></Box>
                         <TextField
-                            value={searchText}
-                            onChange={(ev) => {
-                                setSearchText(ev?.target?.value);
-                            }}
+                            value={values.text}
+                            onChange={handleChange('text')}
                             size="small"
                             sx={{
                                 m: 1,
                                 ml: 2,
-                                width: '15vw',
+                                width: '25vw',
                                 minWidth: isMobile ? '200px' : '240px',
                             }}
                             InputProps={{
@@ -175,8 +180,8 @@ export const Header = ({
                                 endAdornment: (
                                     <InputAdornment position="start">
                                         <IconButton
-                                            onClick={onClick}
                                             color="inherit"
+                                            type="submit"
                                         >
                                             <SearchIcon />
                                         </IconButton>

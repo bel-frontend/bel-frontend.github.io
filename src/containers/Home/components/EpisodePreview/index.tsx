@@ -8,6 +8,7 @@ import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import Chip from '@mui/material/Chip';
 
+import { USER_ROLES } from 'constants/users';
 import style from './style.module.scss';
 
 export const EpisodePreview = ({
@@ -18,9 +19,12 @@ export const EpisodePreview = ({
     userIsAuth,
     isActive,
     likes = 0,
+    currentUser,
 }: any) => {
     const { ref, entry } = useInView({ threshold: 0 });
     const url = id ? `/article/${id}` : '/';
+    const { user_id } = meta;
+    const { role } = currentUser;
 
     return (
         <article className="episode box" ref={ref}>
@@ -41,7 +45,9 @@ export const EpisodePreview = ({
                             {userIsAuth && !isActive ? (
                                 <Chip sx={{ ml: 2, mr: 2 }} label="Выключана" />
                             ) : null}
-                            {userIsAuth ? (
+                            {userIsAuth &&
+                            (role === USER_ROLES.SUPERADMIN ||
+                                user_id === currentUser?.user_id) ? (
                                 <IconButton
                                     sx={{ ml: 1 }}
                                     color="secondary"

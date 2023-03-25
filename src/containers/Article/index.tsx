@@ -7,12 +7,15 @@ import Button from '@mui/material/Button';
 import EditIcon from '@mui/icons-material/Edit';
 
 import { useDispatch, useSelector } from 'react-redux';
+
 import { getArtickleByIdRequest, getArtickleSelector } from 'modules/artickles';
+import { getCurrentUserSelector } from 'modules/auth';
 
 import { MetaData, MD } from 'components';
 import { LikeButton, Tag } from 'components';
 
 import style from './style.module.scss';
+import { USER_ROLES } from 'constants/users';
 
 const Article = ({
     match: {
@@ -27,6 +30,7 @@ const Article = ({
     route: { userIsAuth?: boolean };
 }) => {
     const dispatch = useDispatch();
+    const currentUser: any = useSelector(getCurrentUserSelector);
 
     const article: any = useSelector(getArtickleSelector);
 
@@ -55,7 +59,9 @@ const Article = ({
                     className={style.likeButton}
                     articleId={id}
                 />
-                {userIsAuth ? (
+                {userIsAuth &&
+                (currentUser?.user_id === article?.meta?.user_id ||
+                    currentUser.role === USER_ROLES.SUPERADMIN) ? (
                     <Button
                         variant="outlined"
                         sx={{ ml: 1 }}
