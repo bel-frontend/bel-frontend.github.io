@@ -7,7 +7,7 @@ import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import InputAdornment from '@mui/material/InputAdornment';
 import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
+import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import Menu from '@mui/material/Menu';
@@ -147,6 +147,15 @@ export const Header = ({
                     </MenuItem>
                 </>
             ) : null}
+            <MenuItem onClick={() => history.push('/register')}>
+                <IconButton
+                    aria-label="show 17 new notifications"
+                    color="inherit"
+                >
+                    <AlternateEmailIcon />
+                </IconButton>
+                <p>Кантакты</p>
+            </MenuItem>
         </Menu>
     );
 
@@ -190,43 +199,7 @@ export const Header = ({
                             }}
                         />
                         <Box sx={{ flexGrow: 1 }} />
-                        <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                            {userIsAuth ? (
-                                <>
-                                    <IconButton
-                                        size="large"
-                                        aria-label="show more"
-                                        aria-haspopup="true"
-                                        color="inherit"
-                                        onClick={handleMobileMenuOpen}
-                                    >
-                                        <AccountCircle />
-                                    </IconButton>
-                                </>
-                            ) : (
-                                <>
-                                    <Button
-                                        variant="contained"
-                                        color="primary"
-                                        disableElevation
-                                        onClick={() => history.push('/login')}
-                                    >
-                                        Увайсці
-                                    </Button>
-                                    <Button
-                                        variant="contained"
-                                        color="primary"
-                                        disableElevation
-                                        onClick={() =>
-                                            history.push('/register')
-                                        }
-                                    >
-                                        Стварыць акаунт
-                                    </Button>
-                                </>
-                            )}
-                        </Box>
-                        <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+                        <Box sx={{}}>
                             <IconButton
                                 size="large"
                                 aria-label="show more"
