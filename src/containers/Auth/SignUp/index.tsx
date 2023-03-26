@@ -133,7 +133,7 @@ const SignUp = ({ history }: { history: any }) => {
                     color="primary"
                     sx={{ mt: 1, mb: 1 }}
                 >
-                    {t('sign_up.confirm_button')}
+                    Зарэгістравацца
                 </Button>
             </Box>
         </Box>
