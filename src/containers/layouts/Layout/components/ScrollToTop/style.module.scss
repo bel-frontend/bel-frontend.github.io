@@ -1,10 +1,8 @@
 .scrollToTopBtn {
-    position: sticky;
+    position: sticky !important;
     top: calc(100vh - 53px);
-
     left: calc(100vw - 72px);
     z-index: 3;
-
     display: flex;
     width: 32px;
     border: none;
