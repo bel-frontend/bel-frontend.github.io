@@ -38,19 +38,11 @@ export const Header = ({
     const { values, handleChange, handleSubmit, setFieldValue } = useFormik({
         onSubmit: ({ text }) => {
             history.push(`/`);
-            if (text) {
-                history.push(`?seacrhText=${text}`);
-            }
+            dispatch(searchArticle(text));
+            history.push(`?seacrhText=${text}`);
         },
         initialValues: { text: '' },
     });
-
-    React.useEffect(() => {
-        const query = new URLSearchParams(search);
-        const text = query.get('seacrhText');
-        dispatch(searchArticle(text));
-        setFieldValue('text', text || '');
-    }, [search]);
 
     const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
         setMobileMoreAnchorEl(event.currentTarget);
@@ -147,7 +139,7 @@ export const Header = ({
                     </MenuItem>
                 </>
             ) : null}
-            <MenuItem onClick={() => history.push('/register')}>
+            <MenuItem onClick={() => history.push('/contacts')}>
                 <IconButton
                     aria-label="show 17 new notifications"
                     color="inherit"

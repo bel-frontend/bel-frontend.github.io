@@ -113,10 +113,11 @@ const Editor = ({
         validationSchema,
     });
 
+    const { content = '', meta } = artickleData;
+
     useEffect(() => {
         if (id && !isAdd) {
             if (artickleData?.loaded) {
-                const { content = '', meta } = artickleData;
                 setValues({
                     content: content,
                     description: meta?.description || '',
@@ -217,6 +218,7 @@ const Editor = ({
                             control={
                                 <Switch
                                     disabled={
+                                        !meta?.isActive &&
                                         !(
                                             currentUser.role ===
                                             USER_ROLES.SUPERADMIN
