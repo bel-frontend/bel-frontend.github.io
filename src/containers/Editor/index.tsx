@@ -136,9 +136,14 @@ const Editor = ({
     return (
         <Box>
             <Box height={'48px'}></Box>
-            <label htmlFor="exampleFormControlTextarea1" className="form-label">
-                Meтаданыя
-            </label>
+            <Box mb={1}>
+                <label
+                    htmlFor="exampleFormControlTextarea1"
+                    className="form-label"
+                >
+                    Meтаданыя
+                </label>
+            </Box>
             <form onSubmit={handleSubmit}>
                 <Grid container spacing={4}>
                     <Grid item md={12}>
@@ -158,7 +163,7 @@ const Editor = ({
                         <TextareaAutosize
                             id="description"
                             name="description"
-                            minRows={3}
+                            minRows={2}
                             area-label="description"
                             placeholder="description"
                             value={values.description}
@@ -234,12 +239,14 @@ const Editor = ({
                 </Grid>
                 <Grid container className={style.container} spacing={3}>
                     <Grid item md={6} className={classnames('mb-3 mt-5')}>
-                        <label
-                            htmlFor="exampleFormControlTextarea1"
-                            className="form-label"
-                        >
-                            Рэдактар
-                        </label>
+                        <Box m={1}>
+                            <label
+                                htmlFor="exampleFormControlTextarea1"
+                                className="form-label"
+                            >
+                                Рэдактар
+                            </label>
+                        </Box>
                         <MdEditor
                             renderHTML={(text) => mdParser.render(text)}
                             onChange={({ text }) =>
@@ -284,12 +291,14 @@ const Editor = ({
                         </Button>
                     </Grid>
                     <Grid item md={6} className={classnames('mb-3 mt-5')}>
-                        <label
-                            htmlFor="exampleFormControlTextarea1"
-                            className="form-label"
-                        >
-                            Прадагляд
-                        </label>
+                        <Box m={1}>
+                            <label
+                                htmlFor="exampleFormControlTextarea1"
+                                className="form-label"
+                            >
+                                Прадагляд
+                            </label>
+                        </Box>
                         <MD>{values.content}</MD>
                     </Grid>
                 </Grid>
