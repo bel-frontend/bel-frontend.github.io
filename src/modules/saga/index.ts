@@ -6,6 +6,7 @@ import { initModuleSaga } from '../init';
 import { notificationSaga, showError, showSuccess } from 'modules/notification';
 import { authModuleSaga, authHashSelector, logoutAction } from 'modules/auth';
 import { artickleModuleSaga } from 'modules/artickles';
+
 const {
     modules: { apiWatchRequest },
     axios: { init },
@@ -62,16 +63,18 @@ function* rootSaga(dispatch: any) {
                 const dataStatus = data.status;
                 // redirect to login
                 // yield put(hideLoader());
-                const error = get(data, 'response.data.error');
+                const error = get(data, 'response.data');
                 switch (true) {
-                    case typeof error === 'object' && error.type === 'popup': {
-                        yield put(showError({ message: error.message }));
+                    case dataStatus === 400: {
+                        yield put(
+                            showError({ message: error?.message || error }),
+                        );
                         return;
                     }
-                    case typeof error === 'object' && error.type === 'snack': {
-                        yield put(showError({ message: error.message }));
-                        return;
-                    }
+                    // case typeof error === 'object' && error.type === 'snack': {
+                    //     yield put(showError({ message: error.message }));
+                    //     return;
+                    // }
 
                     case dataStatus === 401:
                         yield put(logoutAction());
