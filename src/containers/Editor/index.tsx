@@ -224,10 +224,8 @@ const Editor = ({
                                 <Switch
                                     disabled={
                                         !meta?.isActive &&
-                                        !(
-                                            currentUser.role ===
+                                        currentUser.role !==
                                             USER_ROLES.SUPERADMIN
-                                        )
                                     }
                                     checked={values.isActive}
                                     onChange={handleChange('isActive')}
@@ -277,11 +275,9 @@ const Editor = ({
 
                         <Button
                             disabled={
-                                !(
-                                    currentUser?.user_id ===
-                                        artickleData?.meta?.user_id ||
-                                    currentUser.role === USER_ROLES.SUPERADMIN
-                                )
+                                currentUser?.user_id !==
+                                    artickleData?.meta?.user_id &&
+                                currentUser.role !== USER_ROLES.SUPERADMIN
                             }
                             variant="contained"
                             className="mt-5"
