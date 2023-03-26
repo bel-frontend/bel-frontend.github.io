@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet';
 
 import classnames from 'classnames';
 import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 import EditIcon from '@mui/icons-material/Edit';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,9 +14,10 @@ import { getCurrentUserSelector } from 'modules/auth';
 
 import { MetaData, MD } from 'components';
 import { LikeButton, Tag } from 'components';
+import { USER_ROLES } from 'constants/users';
+import Error from './Error';
 
 import style from './style.module.scss';
-import { USER_ROLES } from 'constants/users';
 
 const Article = ({
     match: {
@@ -31,7 +33,6 @@ const Article = ({
 }) => {
     const dispatch = useDispatch();
     const currentUser: any = useSelector(getCurrentUserSelector);
-
     const article: any = useSelector(getArtickleSelector);
 
     React.useEffect(() => {
@@ -53,6 +54,7 @@ const Article = ({
                 <Link to="/">Галоўная</Link> <span>{'>'} </span>
                 <span>{title}</span>
             </div>
+
             <div className={classnames(style.likeContainer)}>
                 <LikeButton
                     likesCount={article?.likes || 0}
@@ -93,6 +95,11 @@ const Article = ({
                         meta={article?.meta}
                         articleId={id}
                     />
+                    {userIsAuth ? (
+                        <Box marginTop={2}>
+                            <Error currentUser={currentUser} artickleId={id} />
+                        </Box>
+                    ) : null}
                 </article>
             </main>
         </>

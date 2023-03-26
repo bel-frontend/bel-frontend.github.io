@@ -23,6 +23,8 @@ export const UPDATE_ARTICLE_REQUEST = `${modules}/UPDATE_ARTICLE_REQUEST`;
 export const CREATE_ARTICLE_REQUEST = `${modules}/CREATE_ARTICLE_REQUEST`;
 export const SET_LIKE_REQUEST = `${modules}/SET_LIKE_REQUEST`;
 export const REMOVE_LIKE_REQUEST = `${modules}/REMOVE_LIKE_REQUEST`;
+export const SEND_ERRORR_REQUEST = `${modules}/SEND_ERRORR_REQUEST`;
+
 const SEARCH_ARTICLE = `${modules}/SEARCH_ARTICLE`;
 
 export const getArticklesRequest = actionCreator(GET_ARTICKLES_REQUEST);
@@ -32,12 +34,20 @@ export const getArtickleByIdRequest = actionCreator(GET_ARTICKLE_BY_ID_REQUEST);
 export const setLikedRequest = actionCreator(SET_LIKE_REQUEST);
 export const removeLikeRequest = actionCreator(REMOVE_LIKE_REQUEST);
 
+export const sendErrorRequest = actionCreator(SEND_ERRORR_REQUEST);
+
 export const searchArticle = createAction(SEARCH_ARTICLE);
 
 apiRoutes.add(GET_ARTICKLES_REQUEST, ({ ...params } = {}) => ({
     url: `/artickles`,
     method: 'get',
     params: params,
+}));
+
+apiRoutes.add(SEND_ERRORR_REQUEST, ({ ...data } = {}) => ({
+    url: `/error-artickle`,
+    method: 'post',
+    data: data,
 }));
 
 apiRoutes.add(GET_ARTICKLE_BY_ID_REQUEST, ({ id }: { id: any }) => ({

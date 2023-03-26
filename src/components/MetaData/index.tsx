@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { LikeButton, Tag } from 'components';
-import { Button } from '@mui/material';
+import { Button, Box } from '@mui/material';
 
 import style from './style.module.scss';
 
@@ -38,10 +38,10 @@ export const MetaData = ({
                     <Tag key={tag}>{tag}</Tag>
                 ))}
             </div>
-            <div>
+            <Box marginTop={1}>
                 <span className="author">{author}</span>,
                 <span className="date-article"> {dateArticle}</span>
-            </div>
+            </Box>
         </>
     );
 };

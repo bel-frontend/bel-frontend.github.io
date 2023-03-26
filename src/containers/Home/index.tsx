@@ -1,7 +1,11 @@
 import React, { useEffect } from 'react';
 import Box from '@mui/material/Box';
 import { useDispatch, useSelector } from 'react-redux';
-import { getArticklesRequest, getArticklesSelector } from 'modules/artickles';
+import {
+    getArticklesRequest,
+    getArticklesSelector,
+    searchArticle,
+} from 'modules/artickles';
 
 import { EpisodePreview } from './components/EpisodePreview/';
 import style from './style.module.scss';
@@ -10,6 +14,7 @@ import { getCurrentUserSelector } from 'modules/auth';
 const Home = ({
     route: { userIsAuth },
     history,
+    location: { search },
     ...props
 }: {
     route: { userIsAuth?: boolean };
@@ -18,9 +23,11 @@ const Home = ({
     const dispatch = useDispatch();
     const currentUser = useSelector(getCurrentUserSelector);
 
-    useEffect(() => {
-        dispatch(getArticklesRequest());
-    }, []);
+    React.useEffect(() => {
+        const query = new URLSearchParams(search);
+        const text = query.get('seacrhText');
+        dispatch(searchArticle(text));
+    }, [search]);
 
     const { articles }: any = useSelector(getArticklesSelector);
 
