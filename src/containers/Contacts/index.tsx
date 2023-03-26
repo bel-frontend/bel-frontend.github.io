@@ -21,7 +21,10 @@ const Contacts = (props: any) => {
                     <ListItemText
                         primary="Email"
                         secondary={
-                            <a href="mailto:goman.live.service@gmail.com">
+                            <a
+                                target={'_blank'}
+                                href="mailto:goman.live.service@gmail.com"
+                            >
                                 goman.live.service@gmail.com
                             </a>
                         }
@@ -31,8 +34,24 @@ const Contacts = (props: any) => {
                     <ListItemText
                         primary="Тэлеграм"
                         secondary={
-                            <a href="https://t.me/bel_frontend">
+                            <a
+                                target={'_blank'}
+                                href="https://t.me/bel_frontend"
+                            >
                                 Беларускі франтэнд ды іншая трасца
+                            </a>
+                        }
+                    />
+                </ListItem>
+                <ListItem>
+                    <ListItemText
+                        primary="Тэхнічныя памылкі дасылайце:"
+                        secondary={
+                            <a
+                                target={'_blank'}
+                                href="https://github.com/bel-frontend/bel-frontend.github.io/issues"
+                            >
+                                Наш гітхаб
                             </a>
                         }
                     />
