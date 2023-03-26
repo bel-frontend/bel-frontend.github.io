@@ -8,16 +8,8 @@
         justify-content: flex-start;
     }
 }
-
 .editButton {
     position: fixed;
     right: 5vw;
     top: calc(100vh - 56px);
-}
-
-.tag {
-    display: inline-block;
-    padding: 15px 10px;
-
-    font-style: italic;
 }

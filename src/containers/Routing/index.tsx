@@ -5,7 +5,8 @@ import { history } from 'modules/history';
 import { Layout } from 'containers/layouts/Layout';
 import { RouteItemInterface } from 'routes';
 import PrivateRoute from './PrivateRoute';
-
+import { getViewport as viewPortSelector } from 'modules/viewport';
+import { useSelector } from 'react-redux';
 // import PrivateRoute from './PrivateRoute';
 // import ErrorPage from '../ErrorPage';
 
@@ -15,14 +16,18 @@ import PrivateRoute from './PrivateRoute';
  * @param {[type]} route           [route data used for check private routes, and redirect]
  * @param {[type]} component       [component for render in route]
  */
-const RenderLayout = ({ layout = Layout, ...route }, component: any) => {
+const RenderLayout = (
+    { layout = Layout, viewPort, ...route }: any,
+    component: any,
+) => {
     return (props: any) => {
         return React.createElement(layout, {
-                  ...{ children: component },
-                  ...props,
-                  history,
-                  ...{ route: route },
-              });
+            ...{ children: component },
+            ...props,
+            viewPort,
+            history,
+            ...{ route: route },
+        });
     };
 };
 
@@ -42,6 +47,7 @@ const Routing = ({
     routes: RouteItemInterface[];
     userIsAuth: boolean;
 }) => {
+    const viewPort = useSelector(viewPortSelector);
     return (
         <Router history={history}>
             <Suspense fallback={<div>Пампуем!...</div>}>
@@ -54,7 +60,7 @@ const Routing = ({
                                 redirectUrl={redirectUrl}
                                 {...route}
                                 render={RenderLayout(
-                                    { ...route, userIsAuth },
+                                    { ...route, userIsAuth, viewPort },
                                     component,
                                 )}
                             />
@@ -63,7 +69,7 @@ const Routing = ({
                                 key={`router_key_${index}`}
                                 {...route}
                                 render={RenderLayout(
-                                    { ...route, userIsAuth },
+                                    { ...route, userIsAuth, viewPort },
                                     component,
                                 )}
                             />

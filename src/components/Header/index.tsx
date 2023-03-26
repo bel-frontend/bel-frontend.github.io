@@ -1,23 +1,212 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import './style.scss';
+import { Container } from '@mui/material';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import SearchIcon from '@mui/icons-material/Search';
+import InputAdornment from '@mui/material/InputAdornment';
+import TextField from '@mui/material/TextField';
+import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import MoreIcon from '@mui/icons-material/MoreVert';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import LogoutIcon from '@mui/icons-material/Logout';
+import LoginIcon from '@mui/icons-material/Login';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import EditIcon from '@mui/icons-material/Edit';
+import { useFormik } from 'formik';
 
-export const Header = () => {
+import { searchArticle } from 'modules/artickles';
+import { useDispatch } from 'react-redux';
+import { logoutAction } from 'modules/auth';
+import style from './style.module.scss';
+
+export const Header = ({
+    userIsAuth,
+    isMobile,
+    history,
+    location: { search },
+}: any) => {
+    const dispatch = useDispatch();
+    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
+        React.useState<null | HTMLElement>(null);
+    // const isMenuOpen = Boolean(anchorEl);
+    const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+    const { values, handleChange, handleSubmit, setFieldValue } = useFormik({
+        onSubmit: ({ text }) => {
+            history.push(`/`);
+            dispatch(searchArticle(text));
+            history.push(`?seacrhText=${text}`);
+        },
+        initialValues: { text: '' },
+    });
+
+    const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+        setMobileMoreAnchorEl(event.currentTarget);
+    };
+    const handleMobileMenuClose = () => {
+        setMobileMoreAnchorEl(null);
+    };
+
+    const mobileMenuId = 'primary-search-account-menu-mobile';
+    const renderMobileMenu = (
+        <Menu
+            anchorEl={mobileMoreAnchorEl}
+            anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+            }}
+            id={mobileMenuId}
+            keepMounted
+            transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+            }}
+            open={isMobileMenuOpen}
+            onClose={handleMobileMenuClose}
+        >
+            {userIsAuth ? null : (
+                <>
+                    <MenuItem onClick={() => history.push('/login')}>
+                        <IconButton
+                            aria-label="show 4 new mails"
+                            color="inherit"
+                        >
+                            <LoginIcon />
+                        </IconButton>
+                        <p>Увайсці</p>
+                    </MenuItem>
+                    <MenuItem onClick={() => history.push('/register')}>
+                        <IconButton
+                            aria-label="show 17 new notifications"
+                            color="inherit"
+                        >
+                            <PersonAddIcon />
+                        </IconButton>
+                        <p>Стварыць акаунт</p>
+                    </MenuItem>
+                </>
+            )}
+            {userIsAuth ? (
+                <>
+                    <MenuItem
+                        onClick={() => {
+                            history.push('/profile');
+                        }}
+                    >
+                        <IconButton
+                            aria-label="account of current user"
+                            aria-controls="primary-search-account-menu"
+                            aria-haspopup="true"
+                            color="inherit"
+                        >
+                            <AccountCircle />
+                        </IconButton>
+                        <p>Прафайл</p>
+                    </MenuItem>
+                    <MenuItem
+                        onClick={() => {
+                            history.push('/editor/add');
+                        }}
+                    >
+                        <IconButton
+                            aria-label="account of current user"
+                            aria-controls="primary-search-account-menu"
+                            aria-haspopup="true"
+                            color="inherit"
+                        >
+                            <EditIcon />
+                        </IconButton>
+                        <p>Стварыць артыкул</p>
+                    </MenuItem>
+                    <MenuItem
+                        onClick={() => {
+                            dispatch(logoutAction());
+                        }}
+                    >
+                        <IconButton
+                            aria-label="account of current user"
+                            aria-controls="primary-search-account-menu"
+                            aria-haspopup="true"
+                            color="inherit"
+                        >
+                            <LogoutIcon />
+                        </IconButton>
+                        <p>Выйсці</p>
+                    </MenuItem>
+                </>
+            ) : null}
+            <MenuItem onClick={() => history.push('/contacts')}>
+                <IconButton
+                    aria-label="show 17 new notifications"
+                    color="inherit"
+                >
+                    <AlternateEmailIcon />
+                </IconButton>
+                <p>Кантакты</p>
+            </MenuItem>
+        </Menu>
+    );
+
     return (
-        <header className="intro-header">
-            <div className="pageContainer">
-                <div className="row justify-content-center container-inner-height">
-                    <div className="col-lg-10  col-md-10">
-                        <div className="site-heading">
-                            <Link to="/">
-                                <h1 className="header">Беларускі франтэнд</h1>
-                            </Link>
-                            <hr className="small" />
-                            <h2 className="subheading">Ды іншая трасца</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
+        <Box
+            sx={{ flexGrow: 1, mb: 3, position: 'sticky', top: 0, zIndex: 3 }}
+            component="form"
+            onSubmit={handleSubmit}
+        >
+            <AppBar color="primary" position="static">
+                <Container maxWidth="md" disableGutters>
+                    <Toolbar>
+                        <Box
+                            className={isMobile ? style.mobileLogo : style.logo}
+                            onClick={() => history.push('/')}
+                        ></Box>
+                        <TextField
+                            value={values.text}
+                            onChange={handleChange('text')}
+                            size="small"
+                            sx={{
+                                m: 1,
+                                ml: 2,
+                                width: '25vw',
+                                minWidth: isMobile ? '200px' : '240px',
+                            }}
+                            InputProps={{
+                                style: {
+                                    backgroundColor: '#fff',
+                                },
+                                endAdornment: (
+                                    <InputAdornment position="start">
+                                        <IconButton
+                                            color="inherit"
+                                            type="submit"
+                                        >
+                                            <SearchIcon />
+                                        </IconButton>
+                                    </InputAdornment>
+                                ),
+                            }}
+                        />
+                        <Box sx={{ flexGrow: 1 }} />
+                        <Box sx={{}}>
+                            <IconButton
+                                size="large"
+                                aria-label="show more"
+                                aria-controls={mobileMenuId}
+                                aria-haspopup="true"
+                                onClick={handleMobileMenuOpen}
+                                color="inherit"
+                            >
+                                <MoreIcon />
+                            </IconButton>
+                        </Box>
+                    </Toolbar>
+                </Container>
+            </AppBar>
+            {renderMobileMenu}
+        </Box>
     );
 };

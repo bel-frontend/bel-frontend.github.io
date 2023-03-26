@@ -5,8 +5,10 @@ const Article = lazy(() => import('containers/Article'));
 const Editor = lazy(() => import('containers/Editor'));
 const Auth = lazy(() => import('containers/Auth/Auth'));
 const SignUp = lazy(() => import('containers/Auth/SignUp'));
-const NotFound = lazy(() => import ('containers/NotFound'));
+const NotFound = lazy(() => import('containers/NotFound'));
 const EmptyLayout = lazy(() => import('containers/layouts/EmptyLayout'));
+const ProFile = lazy(() => import('containers/Profile'));
+const Contacts = lazy(() => import('containers/Contacts'));
 
 export const redirectAuthPath = '/login';
 
@@ -18,6 +20,7 @@ export interface RouteItemInterface {
     showFooter?: boolean;
     isPrivate?: boolean;
     layout?: any;
+    maxWidth?: 'mg' | 'lg' | 'xl';
 }
 
 const mainRoutes: RouteItemInterface[] = [
@@ -51,9 +54,23 @@ const mainRoutes: RouteItemInterface[] = [
         path: '/editor/:id',
         exact: true,
         component: Editor,
-        showHeader: false,
+        showHeader: true,
         isPrivate: true,
-        layout: EmptyLayout,
+        maxWidth: 'xl',
+    },
+    {
+        path: '/profile',
+        exact: true,
+        component: ProFile,
+        showHeader: true,
+        isPrivate: true,
+    },
+    {
+        path: '/contacts',
+        exact: true,
+        component: Contacts,
+        showHeader: true,
+        isPrivate: false,
     },
     {
         path: '*',
@@ -62,7 +79,7 @@ const mainRoutes: RouteItemInterface[] = [
         showHeader: false,
         showFooter: false,
         layout: EmptyLayout,
-    }
+    },
 ];
 
 export default mainRoutes;
