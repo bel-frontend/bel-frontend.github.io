@@ -44,7 +44,7 @@ const Home = ({
                     target="_blank"
                     rel="noreferrer"
                 >
-                    Далучайцеся да нашага тэлеграмканалу
+                    Далучайцеся да нашага Тэлеграм-канала
                 </a>
 
                 {preparedArticles &&
