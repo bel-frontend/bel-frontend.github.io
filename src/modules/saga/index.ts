@@ -4,15 +4,16 @@ import { set, get } from 'lodash';
 import { history } from '../history';
 import { initModuleSaga } from '../init';
 import { notificationSaga, showError, showSuccess } from 'modules/notification';
-import { authModuleSaga, authHashSelector } from 'modules/auth';
+import { authModuleSaga, authHashSelector, logoutAction } from 'modules/auth';
+import { artickleModuleSaga } from 'modules/artickles';
 const {
     modules: { apiWatchRequest },
     axios: { init },
 } = apiHelpers;
 
 if (process.env.NODE_ENV == 'development') {
-    init('https://api.bel-frontend.online');
-    // init('http://localhost:3001');
+    init('http://localhost:3001');
+    // init('https://api.bel-frontend.online');
 } else if (process.env.NODE_ENV == 'production') {
     init('https://api.bel-frontend.online');
 }
@@ -73,7 +74,11 @@ function* rootSaga(dispatch: any) {
                     }
 
                     case dataStatus === 401:
-                        yield call(history.push, '/login');
+                        yield put(logoutAction());
+                        yield call(history.push, '/');
+                        return;
+                    case dataStatus === 404:
+                        yield call(history.push, '/404');
                         return;
                     case dataStatus === 500:
                         yield put(
@@ -115,6 +120,7 @@ function* rootSaga(dispatch: any) {
         initModuleSaga(dispatch),
         notificationSaga(dispatch),
         authModuleSaga(dispatch),
+        artickleModuleSaga(dispatch),
     ]);
 }
 

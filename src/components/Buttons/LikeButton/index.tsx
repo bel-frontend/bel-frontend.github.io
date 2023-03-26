@@ -6,6 +6,7 @@ import {
     removeLikeFromLocalStorage,
 } from 'modules/firebase';
 import { setLikedRequest, removeLikeRequest } from 'modules/artickles';
+import { Button } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import HeardIcon from './components/HeardIcon';
 
@@ -56,13 +57,16 @@ export const LikeButton = ({
     }, [articleId]);
 
     return (
-        <button
+        <Button
+            color="error"
             type="button"
-            className={classnames('btn btn-sm', 'btn-danger', style.btn)}
+            variant="contained"
+            size="small"
             onClick={onClick}
+            disableElevation
         >
             <HeardIcon />
             <span className={style.count_likes}>{likes}</span>
-        </button>
+        </Button>
     );
 };

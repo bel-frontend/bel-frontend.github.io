@@ -1,4 +1,3 @@
-import { red } from '@mui/material/colors';
 import { createTheme } from '@mui/material/styles';
 
 // A custom theme for this app
@@ -20,7 +19,7 @@ const theme = createTheme({
             main: '#19857b',
         },
         error: {
-            main: red.A400,
+            main: '#dc3d62',
         },
     },
     typography: {
@@ -50,7 +49,13 @@ const theme = createTheme({
                 color: 'secondary',
             },
         },
-        MuiInputBase: {},
+        MuiInputAdornment: {
+            styleOverrides: {
+                root: {
+                    marginRight: 0,
+                },
+            },
+        },
     },
 });
 

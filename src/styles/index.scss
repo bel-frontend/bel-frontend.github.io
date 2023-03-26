@@ -2,7 +2,9 @@ body {
     margin: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans","Liberation Sans",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue',
+        'Noto Sans', 'Liberation Sans', Arial, sans-serif, 'Apple Color Emoji',
+        'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
     font-size: 16px;
     color: #333333;
     -webkit-tap-highlight-color: #0085a1;
@@ -89,7 +91,9 @@ img::-moz-selection {
     background: transparent;
 }
 span {
-    font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans","Liberation Sans",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue',
+        'Noto Sans', 'Liberation Sans', Arial, sans-serif, 'Apple Color Emoji',
+        'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 }
 .author {
     font-size: 18px;
@@ -120,59 +124,6 @@ span {
 }
 .content p {
     width: 100%;
-}
-
-.pageContainer {
-    display: flex;
-    flex-direction: column;
-
-    padding: 0 12px;
-    margin: auto;
-    max-width: 540px;
-
-    @media (min-width: 768px) {
-        max-width: 720px;
-    }
-
-    @media (min-width: 992px) {
-        max-width: 960px;
-    }
-}
-
-.btn {
-    display: flex;
-    align-items: center;
-    height: 32px;
-    padding-right: 10px;
-    padding-left: 10px;
-
-    border-radius: 3px;
-    cursor: pointer;
-
-    line-height: 32px;
-    font-size: 0.9em;
-    transition: all 250ms linear;
-}
-
-.btn-primary {
-    background-color: #0085a1;
-    color: white;
-
-    &:hover {
-        background-color: #0c93e4;
-        color: white;
-    }
-}
-
-.btn-danger {
-    background-color: #dc3d62;
-    color: white;
-    box-shadow: none;
-    border: none;
-
-    &:hover {
-        background-color: #f13753;
-    }
 }
 
 .articlePage {

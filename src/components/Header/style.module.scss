@@ -1,0 +1,23 @@
+.logo {
+    background-image: url('/assets/images/vector/default-monochrome-white.svg');
+    height: 40px;
+    width: 100px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    // background-color: white;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+}
+.mobileLogo {
+    background-image: url('/assets/images/vector/isolated-monochrome-white.svg');
+    height: 40px;
+    width: 40px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    // background-color: white;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+}

@@ -1,43 +1,39 @@
 import React, { useEffect } from 'react';
 import Box from '@mui/material/Box';
 import { useDispatch, useSelector } from 'react-redux';
-import { getArticklesRequest, getArticklesSelector } from 'modules/artickles';
+import {
+    getArticklesRequest,
+    getArticklesSelector,
+    searchArticle,
+} from 'modules/artickles';
 
-import { EpisodePreview } from './components/EpisodePreview';
-import { Search } from './components/Search';
-
+import { EpisodePreview } from './components/EpisodePreview/';
 import style from './style.module.scss';
+import { getCurrentUserSelector } from 'modules/auth';
 
 const Home = ({
     route: { userIsAuth },
     history,
+    location: { search },
     ...props
 }: {
     route: { userIsAuth?: boolean };
     [key: string]: any;
 }) => {
     const dispatch = useDispatch();
+    const currentUser = useSelector(getCurrentUserSelector);
 
-    useEffect(() => {
-        dispatch(getArticklesRequest());
-    }, []);
+    React.useEffect(() => {
+        const query = new URLSearchParams(search);
+        const text = query.get('seacrhText');
+        dispatch(searchArticle(text));
+    }, [search]);
 
     const { articles }: any = useSelector(getArticklesSelector);
 
-    const [searchText, setSearchText] = React.useState<string | undefined>('');
-
     const preparedArticles = React.useMemo(() => {
-        if (searchText) {
-            return articles.filter(
-                (i: any) =>
-                    i?.meta?.title &&
-                    i?.meta?.title
-                        .toLowerCase()
-                        .indexOf(searchText.trim().toLowerCase()) !== -1,
-            );
-        }
         return articles;
-    }, [articles, searchText]);
+    }, [articles]);
 
     return (
         <>
@@ -50,11 +46,7 @@ const Home = ({
                 >
                     Далучайцеся да нашага тэлеграмканалу
                 </a>
-                <Search
-                    onChange={(text) => setSearchText(text)}
-                    value={searchText}
-                    onClear={() => setSearchText('')}
-                />
+
                 {preparedArticles &&
                     preparedArticles.map(
                         (
@@ -72,18 +64,20 @@ const Home = ({
                                 likes: any;
                             },
                             index: number,
-                        ) => (
-                            meta ? <EpisodePreview
-                                history={history}
-                                key={index}
-                                userIsAuth={userIsAuth}
-                                content={content}
-                                meta={meta}
-                                id={id}
-                                isActive={isActive}
-                                likes={likes}
-                            /> : null
-                        ),
+                        ) =>
+                            meta ? (
+                                <EpisodePreview
+                                    currentUser={currentUser}
+                                    history={history}
+                                    key={index}
+                                    userIsAuth={userIsAuth}
+                                    content={content}
+                                    meta={meta}
+                                    id={id}
+                                    isActive={isActive}
+                                    likes={likes}
+                                />
+                            ) : null,
                     )}
             </Box>
         </>
