@@ -7,6 +7,7 @@ import { RouteItemInterface } from 'routes';
 import PrivateRoute from './PrivateRoute';
 import { getViewport as viewPortSelector } from 'modules/viewport';
 import { useSelector } from 'react-redux';
+import LinearProgress from '@mui/material/LinearProgress';
 // import PrivateRoute from './PrivateRoute';
 // import ErrorPage from '../ErrorPage';
 
@@ -50,7 +51,7 @@ const Routing = ({
     const viewPort = useSelector(viewPortSelector);
     return (
         <Router history={history}>
-            <Suspense fallback={<div>Пампуем!...</div>}>
+            <Suspense fallback={<LinearProgress color="primary" />}>
                 <Switch>
                     {routes.map(({ component, ...route }, index) => {
                         return route.isPrivate ? (
