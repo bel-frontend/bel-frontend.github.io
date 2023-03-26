@@ -81,8 +81,14 @@ export default function Error({ currentUser, artickleId }: any) {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Адмяніць</Button>
-                    <Box component={'form'} onSubmit={handleSubmit}>
-                        <Button type="submit">Даслаць</Button>
+                    <Box component={'form'} ml={1} onSubmit={handleSubmit}>
+                        <Button
+                            disableElevation
+                            variant="contained"
+                            type="submit"
+                        >
+                            Даслаць
+                        </Button>
                     </Box>
                 </DialogActions>
             </Dialog>

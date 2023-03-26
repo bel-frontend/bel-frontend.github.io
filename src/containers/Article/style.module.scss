@@ -4,12 +4,12 @@
     position: sticky;
     top: calc(100vh - 54px);
 
-    @media screen and (max-width: 1200px) {
-        justify-content: flex-start;
-    }
+    // @media screen and (max-width: 1200px) {
+    //     justify-content: flex-start;
+    // }
 }
 .editButton {
-    position: fixed;
-    right: 5vw;
-    top: calc(100vh - 56px);
+    // position: fixed;
+    // right: 5vw;
+    // top: calc(100vh - 56px);
 }

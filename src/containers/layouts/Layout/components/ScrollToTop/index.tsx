@@ -1,15 +1,15 @@
 import React from 'react';
 import classnames from 'classnames';
-import { Button } from '@mui/material';
+import { IconButton } from '@mui/material';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import style from './style.module.scss';
 
 type ScrollToTopPropsType = {
     isArticlePage?: boolean;
+    viewPort: any;
 };
-export const ScrollToTop: React.FC<ScrollToTopPropsType> = ({
-    isArticlePage,
-}) => {
-    const [showButton, setShowButton] = React.useState(false);
+export const ScrollToTop: React.FC<ScrollToTopPropsType> = ({ viewPort }) => {
+    const [showButton, setShowButton] = React.useState(true);
 
     const scrollToTop = () => {
         window.scrollTo({
@@ -19,11 +19,11 @@ export const ScrollToTop: React.FC<ScrollToTopPropsType> = ({
     };
 
     return showButton ? (
-        <Button
+        <IconButton
             onClick={scrollToTop}
             className={classnames(style.scrollToTopBtn)}
         >
-            <span className={style.arrowUp} />
-        </Button>
+            <ArrowUpwardIcon />
+        </IconButton>
     ) : null;
 };

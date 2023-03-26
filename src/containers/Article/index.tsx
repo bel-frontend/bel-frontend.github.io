@@ -61,22 +61,6 @@ const Article = ({
                     className={style.likeButton}
                     articleId={id}
                 />
-                {userIsAuth &&
-                (currentUser?.user_id === article?.meta?.user_id ||
-                    currentUser.role === USER_ROLES.SUPERADMIN) ? (
-                    <Button
-                        variant="outlined"
-                        sx={{ ml: 1 }}
-                        color="primary"
-                        className={style.editButton}
-                        onClick={() => {
-                            history.push(`/editor/${id}`);
-                        }}
-                        endIcon={<EditIcon />}
-                    >
-                        Рэдагаваць
-                    </Button>
-                ) : null}
             </div>
             <main className="page__main main articlePage">
                 <article className="episode box">
@@ -100,6 +84,24 @@ const Article = ({
                             <Error currentUser={currentUser} artickleId={id} />
                         </Box>
                     ) : null}
+                    <Box marginTop={2}>
+                        {userIsAuth &&
+                        (currentUser?.user_id === article?.meta?.user_id ||
+                            currentUser.role === USER_ROLES.SUPERADMIN) ? (
+                            <Button
+                                variant="outlined"
+                                // sx={{ ml: 1 }}
+                                color="primary"
+                                className={style.editButton}
+                                onClick={() => {
+                                    history.push(`/editor/${id}`);
+                                }}
+                                endIcon={<EditIcon />}
+                            >
+                                Рэдагаваць
+                            </Button>
+                        ) : null}
+                    </Box>
                 </article>
             </main>
         </>
