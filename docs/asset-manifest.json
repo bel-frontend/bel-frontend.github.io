@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/static/css/main.3558acb6.css",
-    "main.js": "/static/js/main.64f8fd5e.js",
+    "main.js": "/static/js/main.170c59fc.js",
     "static/css/458.71704bec.chunk.css": "/static/css/458.71704bec.chunk.css",
     "static/js/458.89b9a14d.chunk.js": "/static/js/458.89b9a14d.chunk.js",
     "static/css/296.1b04471e.chunk.css": "/static/css/296.1b04471e.chunk.css",
     "static/js/296.7ba3c1bd.chunk.js": "/static/js/296.7ba3c1bd.chunk.js",
     "static/css/130.326a088b.chunk.css": "/static/css/130.326a088b.chunk.css",
-    "static/js/130.25b745b1.chunk.js": "/static/js/130.25b745b1.chunk.js",
+    "static/js/130.1f62decb.chunk.js": "/static/js/130.1f62decb.chunk.js",
     "static/js/426.9fea217f.chunk.js": "/static/js/426.9fea217f.chunk.js",
     "static/js/940.0de31099.chunk.js": "/static/js/940.0de31099.chunk.js",
     "static/css/199.b3bf65b2.chunk.css": "/static/css/199.b3bf65b2.chunk.css",
@@ -60,13 +60,13 @@
     "static/media/roboto-greek-ext-300-normal.woff2": "/static/media/roboto-greek-ext-300-normal.35b9d6be04b95f0f0530.woff2",
     "static/media/roboto-greek-ext-700-normal.woff2": "/static/media/roboto-greek-ext-700-normal.bd9854c751441ccc1a70.woff2",
     "main.3558acb6.css.map": "/static/css/main.3558acb6.css.map",
-    "main.64f8fd5e.js.map": "/static/js/main.64f8fd5e.js.map",
+    "main.170c59fc.js.map": "/static/js/main.170c59fc.js.map",
     "458.71704bec.chunk.css.map": "/static/css/458.71704bec.chunk.css.map",
     "458.89b9a14d.chunk.js.map": "/static/js/458.89b9a14d.chunk.js.map",
     "296.1b04471e.chunk.css.map": "/static/css/296.1b04471e.chunk.css.map",
     "296.7ba3c1bd.chunk.js.map": "/static/js/296.7ba3c1bd.chunk.js.map",
     "130.326a088b.chunk.css.map": "/static/css/130.326a088b.chunk.css.map",
-    "130.25b745b1.chunk.js.map": "/static/js/130.25b745b1.chunk.js.map",
+    "130.1f62decb.chunk.js.map": "/static/js/130.1f62decb.chunk.js.map",
     "426.9fea217f.chunk.js.map": "/static/js/426.9fea217f.chunk.js.map",
     "940.0de31099.chunk.js.map": "/static/js/940.0de31099.chunk.js.map",
     "199.b3bf65b2.chunk.css.map": "/static/css/199.b3bf65b2.chunk.css.map",
@@ -85,6 +85,6 @@
   },
   "entrypoints": [
     "static/css/main.3558acb6.css",
-    "static/js/main.64f8fd5e.js"
+    "static/js/main.170c59fc.js"
   ]
 }
