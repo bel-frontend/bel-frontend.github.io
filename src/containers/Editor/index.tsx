@@ -49,7 +49,7 @@ const initialValues = {
     author: '',
     tags: '',
     content: '',
-    isActive: true,
+    isActive: false,
 };
 
 const Editor = ({
@@ -135,7 +135,6 @@ const Editor = ({
 
     return (
         <Box>
-            <Box height={'48px'}></Box>
             <Box mb={1}>
                 <label
                     htmlFor="exampleFormControlTextarea1"
@@ -237,54 +236,61 @@ const Editor = ({
                 </Grid>
                 <Grid container className={style.container} spacing={3}>
                     <Grid item md={6} className={classnames('mb-3 mt-5')}>
-                        <Box m={1}>
-                            <label
-                                htmlFor="exampleFormControlTextarea1"
-                                className="form-label"
-                            >
-                                Рэдактар
-                            </label>
-                        </Box>
-                        <MdEditor
-                            renderHTML={(text) => mdParser.render(text)}
-                            onChange={({ text }) =>
-                                setFieldValue('content', text)
-                            }
-                            value={values.content}
-                            placeholder={''}
-                            style={{ height: '80vh' }}
-                            view={{ menu: true, md: true, html: false }}
-                            canView={{
-                                menu: true,
-                                md: true,
-                                html: false,
-                                fullScreen: true,
-                                both: false,
-                                hideMenu: false,
-                            }}
-                        ></MdEditor>
-                        <Button
-                            sx={{ mr: 4 }}
-                            variant="outlined"
-                            className="mt-5"
-                            color="primary"
-                            onClick={() => history.goBack()}
-                        >
-                            Скасаваць
-                        </Button>
+                        <Box sx={{ position: 'sticky', top: '10vh' }}>
+                            <Box m={1}>
+                                <label
+                                    htmlFor="exampleFormControlTextarea1"
+                                    className="form-label"
+                                >
+                                    Рэдактар
+                                </label>
+                            </Box>
+                            <MdEditor
+                                renderHTML={(text) => mdParser.render(text)}
+                                onChange={({ text }) =>
+                                    setFieldValue('content', text)
+                                }
+                                value={values.content}
+                                placeholder={''}
+                                style={{
+                                    height: '60vh',
+                                }}
+                                view={{ menu: true, md: true, html: false }}
+                                canView={{
+                                    menu: true,
+                                    md: true,
+                                    html: false,
+                                    fullScreen: true,
+                                    both: false,
+                                    hideMenu: false,
+                                }}
+                            ></MdEditor>
+                            <Box mt={2}>
+                                <Button
+                                    sx={{ mr: 4 }}
+                                    variant="outlined"
+                                    className="mt-5"
+                                    color="primary"
+                                    onClick={() => history.goBack()}
+                                >
+                                    Скасаваць
+                                </Button>
 
-                        <Button
-                            disabled={
-                                currentUser?.user_id !==
-                                    artickleData?.meta?.user_id &&
-                                currentUser.role !== USER_ROLES.SUPERADMIN
-                            }
-                            variant="contained"
-                            className="mt-5"
-                            type="submit"
-                        >
-                            Захаваць
-                        </Button>
+                                <Button
+                                    disabled={
+                                        currentUser?.user_id !==
+                                            artickleData?.meta?.user_id &&
+                                        currentUser.role !==
+                                            USER_ROLES.SUPERADMIN
+                                    }
+                                    variant="contained"
+                                    className="mt-5"
+                                    type="submit"
+                                >
+                                    Захаваць
+                                </Button>
+                            </Box>
+                        </Box>
                     </Grid>
                     <Grid item md={6} className={classnames('mb-3 mt-5')}>
                         <Box m={1}>
