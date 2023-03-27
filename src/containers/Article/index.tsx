@@ -16,7 +16,7 @@ import { MetaData, MD } from 'components';
 import { LikeButton, Tag } from 'components';
 import { USER_ROLES } from 'constants/users';
 import Error from './Error';
-import BF from 'assets/images/default.png';
+import BF from 'assets/images/default.jpg';
 
 import style from './style.module.scss';
 

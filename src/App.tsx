@@ -7,7 +7,7 @@ import { store } from 'store';
 import { Helmet } from 'react-helmet';
 import Viewport from 'containers/ViewPort';
 import theme from 'styles/theme';
-import BF from 'assets/images/default.png';
+import BF from 'assets/images/default.jpg';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
