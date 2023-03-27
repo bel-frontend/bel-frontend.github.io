@@ -57,9 +57,15 @@ const Article = ({
                 <meta property="og:type" content="website" />
                 <meta property="og:title" content={title} />
                 <meta property="og:description" content={description} />
-                <meta property="og:image" content={BF} />
+                <meta
+                    property="og:image"
+                    content={`https://bel-frontend.online${BF}`}
+                />
 
-                <meta name="twitter:card" content={BF} />
+                <meta
+                    name="twitter:card"
+                    content={`https://bel-frontend.online${BF}`}
+                />
                 <meta property="twitter:domain" content="bel-frontend.online" />
                 <meta
                     property="twitter:url"
@@ -67,7 +73,10 @@ const Article = ({
                 />
                 <meta name="twitter:title" content={title} />
                 <meta name="twitter:description" content={description} />
-                <meta name="twitter:image" content={BF} />
+                <meta
+                    name="twitter:image"
+                    content={`https://bel-frontend.online${BF}`}
+                />
             </Helmet>
             <div className="articlePage">
                 <Link to="/">Галоўная</Link> <span>{'>'} </span>

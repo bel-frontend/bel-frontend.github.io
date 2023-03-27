@@ -32,9 +32,15 @@ function App() {
                     property="og:description"
                     content={'Беларускамоўны блог пра IT ды інш.'}
                 />
-                <meta property="og:image" content={BF} />
+                <meta
+                    property="og:image"
+                    content={`https://bel-frontend.online${BF}`}
+                />
 
-                <meta name="twitter:card" content={BF} />
+                <meta
+                    name="twitter:card"
+                    content={`https://bel-frontend.online${BF}`}
+                />
                 <meta property="twitter:domain" content="bel-frontend.online" />
                 <meta
                     property="twitter:url"
@@ -48,7 +54,10 @@ function App() {
                     name="twitter:description"
                     content={'Беларускамоўны блог пра IT ды інш.'}
                 />
-                <meta name="twitter:image" content={BF} />
+                <meta
+                    name="twitter:image"
+                    content={`https://bel-frontend.online${BF}`}
+                />
             </Helmet>
             <Provider store={store}>
                 <ThemeProvider theme={theme}>
