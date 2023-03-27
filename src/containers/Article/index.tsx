@@ -16,6 +16,7 @@ import { MetaData, MD } from 'components';
 import { LikeButton, Tag } from 'components';
 import { USER_ROLES } from 'constants/users';
 import Error from './Error';
+import BF from 'assets/images/default.png';
 
 import style from './style.module.scss';
 
@@ -49,6 +50,12 @@ const Article = ({
             <Helmet>
                 <title>{title}</title>
                 <meta name="description" content={description} />
+                <meta property="og:title" content={title} />
+                <meta property="og:desctription" content={description} />
+                <meta property="og:image" content={BF} />
+                <meta property="twitter:title" content={title} />
+                <meta property="twitter:desctription" content={description} />
+                <meta property="twitter:image" content={BF} />
             </Helmet>
             <div className="articlePage">
                 <Link to="/">Галоўная</Link> <span>{'>'} </span>
