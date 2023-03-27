@@ -3,10 +3,12 @@ import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 
 import { darcula } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import style from './style.module.scss';
 
 export const MD = ({ children }: any) => {
     return (
         <ReactMarkdown
+            className={style.container}
             components={{
                 code({ node, inline, className, children, ...props }) {
                     return !inline ? (
