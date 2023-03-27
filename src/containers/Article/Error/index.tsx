@@ -23,24 +23,26 @@ const validationSchema = () =>
 
 export default function Error({ currentUser, artickleId }: any) {
     const dispatch = useDispatch();
-    const { handleSubmit, values, handleChange, errors } = useFormik({
-        onSubmit: ({ message }) => {
-            dispatch(
-                sendErrorRequest(
-                    { message, artickleId },
-                    {
-                        onSuccess: () => {
-                            setOpen(false);
+    const { handleSubmit, values, handleChange, setFieldValue, errors } =
+        useFormik({
+            onSubmit: ({ message }) => {
+                dispatch(
+                    sendErrorRequest(
+                        { message, artickleId },
+                        {
+                            onSuccess: () => {
+                                setOpen(false);
+                                setFieldValue('message', '');
+                            },
                         },
-                    },
-                ),
-            );
-        },
-        validationSchema: validationSchema(),
-        initialValues: {
-            message: '',
-        },
-    });
+                    ),
+                );
+            },
+            validationSchema: validationSchema(),
+            initialValues: {
+                message: '',
+            },
+        });
 
     const [open, setOpen] = React.useState(false);
 
