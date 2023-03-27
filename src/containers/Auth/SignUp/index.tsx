@@ -1,16 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
 
 import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
 import { registerRequest } from 'modules/auth';
 import { useDispatch } from 'react-redux';
+import Switch from '@mui/material/Switch';
+import { USER_ROLES } from '../../../constants/users';
+import FormControlLabel from '@mui/material/FormControlLabel';
+
+import styles from './style.module.scss';
+import Dialog from '@mui/material/Dialog';
+import { PrivacyPolicy } from './PrivacyPolicy';
 
 const validationSchema = (t: any) =>
     yup.object({
@@ -25,6 +31,8 @@ const validationSchema = (t: any) =>
     });
 
 const SignUp = ({ history }: { history: any }) => {
+    const [isOpenDialog, setIsOpenDialog] = useState(false);
+
     const dispatch = useDispatch();
     const { t } = useTranslation();
     const {
@@ -40,6 +48,7 @@ const SignUp = ({ history }: { history: any }) => {
             email: '',
             password: '',
             confirm_password: '',
+            privacy_policy: false,
         },
         validationSchema: validationSchema(t),
         onSubmit: ({ email, password, ...values }) => {
@@ -59,6 +68,10 @@ const SignUp = ({ history }: { history: any }) => {
             );
         },
     });
+
+    const onOpenDialog = () => setIsOpenDialog(true);
+
+    const onCloseDialog = () => setIsOpenDialog(false);
 
     return (
         <Box sx={{ mb: 0, mt: 30 }}>
@@ -125,17 +138,40 @@ const SignUp = ({ history }: { history: any }) => {
                         Boolean(errors.confirm_password)
                     }
                 />
-
+                <FormControlLabel
+                    control={
+                        <Switch
+                            checked={values.privacy_policy}
+                            onChange={handleChange('privacy_policy')}
+                        />
+                    }
+                    label="Згодны з"
+                />
+                <Typography
+                    variant="body1"
+                    component="span"
+                    color="primary"
+                    className={styles.linkedSpan}
+                    onClick={onOpenDialog}
+                >
+                    палітыкай прыватнасці
+                </Typography>
                 <Button
                     type="submit"
                     fullWidth
                     variant="contained"
                     color="primary"
                     sx={{ mt: 1, mb: 1 }}
+                    disabled={!values.privacy_policy}
                 >
                     Зарэгістравацца
                 </Button>
             </Box>
+            {isOpenDialog && (
+                <Dialog open={isOpenDialog} onClose={onCloseDialog}>
+                    <PrivacyPolicy />
+                </Dialog>
+            )}
         </Box>
     );
 };
