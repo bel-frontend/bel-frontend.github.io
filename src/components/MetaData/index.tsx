@@ -11,6 +11,7 @@ export const MetaData = ({
     url,
     articleId,
     likes,
+    showTags = true,
 }: any) => {
     const { author = '', dateArticle = '' } = meta || {};
 
@@ -34,7 +35,7 @@ export const MetaData = ({
                 ) : null}
             </div>
             <div>
-                {(meta?.tags.toString().split(',') || []).map((tag: string) => (
+                {showTags && (meta?.tags.toString().split(',') || []).map((tag: string) => (
                     <Tag key={tag}>{tag}</Tag>
                 ))}
             </div>
