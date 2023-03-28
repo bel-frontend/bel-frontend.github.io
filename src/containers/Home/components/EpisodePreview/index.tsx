@@ -42,6 +42,12 @@ export const EpisodePreview = ({
                             >
                                 {meta.title}
                             </Link>
+                            {meta?.isPinned ? (
+                                <Chip
+                                    sx={{ ml: 2, mr: 2 }}
+                                    label="Замацаванае"
+                                />
+                            ) : null}
                             {userIsAuth && !isActive ? (
                                 <Chip sx={{ ml: 2, mr: 2 }} label="Выключана" />
                             ) : null}
