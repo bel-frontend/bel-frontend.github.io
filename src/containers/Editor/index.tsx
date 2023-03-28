@@ -278,6 +278,7 @@ const Editor = ({
 
                                 <Button
                                     disabled={
+                                        !isAdd &&
                                         currentUser?.user_id !==
                                             artickleData?.meta?.user_id &&
                                         currentUser.role !==

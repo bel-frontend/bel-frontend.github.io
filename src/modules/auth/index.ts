@@ -1,6 +1,6 @@
 import * as api_helpers from 'react_redux_api';
 import { createAction } from 'redux-actions';
-import { call, put, takeEvery, select, all } from 'redux-saga/effects';
+import { call, put, takeEvery, select, all, delay } from 'redux-saga/effects';
 import { INIT_DATA } from 'modules/init';
 
 const modules = 'auth';
@@ -90,7 +90,10 @@ export function* logoutSaga() {
 export function* getUserSaga(): Generator<any, any> {
     const auth = yield select(currentUserIsAuth);
     if (auth) {
-        yield put(getCurrentUserRequest());
+        while (true) {
+            yield put(getCurrentUserRequest());
+            yield delay(10000);
+        }
     }
 }
 
