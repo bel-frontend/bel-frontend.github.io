@@ -5,10 +5,10 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { darcula } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import style from './style.module.scss';
 
-export const MD = ({ children }: any) => {
+export const MD = ({ children, className = '' }: any) => {
     return (
         <ReactMarkdown
-            className={style.container}
+            className={[style.container, className].join(' ')}
             components={{
                 code({ node, inline, className, children, ...props }) {
                     return !inline ? (

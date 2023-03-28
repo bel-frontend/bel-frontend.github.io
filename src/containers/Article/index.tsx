@@ -99,7 +99,7 @@ const Article = ({
                         ),
                     )}
                     <div className="content">
-                        <MD>{article?.content}</MD>
+                        <MD className={style.MD_view}>{article?.content}</MD>
                     </div>
                     <MetaData
                         showReadButton={false}
