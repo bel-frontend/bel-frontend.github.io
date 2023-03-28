@@ -1,6 +1,14 @@
 import * as api_helpers from 'react_redux_api';
 import { createAction } from 'redux-actions';
-import { call, put, takeEvery, select, all, delay } from 'redux-saga/effects';
+import {
+    call,
+    put,
+    takeEvery,
+    select,
+    all,
+    delay,
+    takeLatest,
+} from 'redux-saga/effects';
 import { INIT_DATA } from 'modules/init';
 
 const modules = 'auth';
@@ -21,6 +29,10 @@ export const REGISTER_USER_SUCCESS = `${modules}/REGISTER_USER_SUCCESS`;
 export const LOGOUT_USER_REQUEST = `${modules}/LOGOUT_USER_REQUEST`;
 export const LOGOUT_USER = `${modules}/LOGOUT_USER`;
 
+export const NEED_CHECK_USER_ACCESS = `${modules}/NEED_CHECK_USER_ACCESS`;
+const UPDATE_USER_TOKEN_REQUEST = `${modules}/UPDATE_USER_TOKEN_REQUEST`;
+const UPDATE_USER_TOKEN_SUCCESS = `${modules}/UPDATE_USER_TOKEN_SUCCESS`;
+
 export const GET_CURRENT_USER_REQUEST = `${modules}/GET_CURRENT_USER_REQUEST`;
 export const GET_CURRENT_USER_SUCCESS = `${modules}/GET_CURRENT_USER_SUCCESS`;
 
@@ -33,11 +45,22 @@ export const registerRequest = actionCreator(REGISTER_USER_REQUEST);
 export const logoutRequest = actionCreator(LOGOUT_USER_REQUEST);
 
 export const logoutAction = createAction(LOGOUT_USER);
+export const checkUserAccess = createAction(NEED_CHECK_USER_ACCESS);
+
+const updateUserTokenRequest = actionCreator(UPDATE_USER_TOKEN_REQUEST);
 
 apiRoutes.add(GET_CURRENT_USER_REQUEST, () => {
     return {
         url: `/check-auth`,
         method: 'GET',
+    };
+});
+
+apiRoutes.add(UPDATE_USER_TOKEN_REQUEST, ({ refreshToken }: any) => {
+    return {
+        url: `/refresh-token`,
+        method: 'POST',
+        data: { refreshToken },
     };
 });
 
@@ -84,29 +107,39 @@ export const authReducer = (state = initialState, action: any) => {
     }
 };
 
-export function* logoutSaga() {
+function* logoutSaga() {
     yield put(logoutRequest());
 }
-export function* getUserSaga(): Generator<any, any> {
+
+function* getUserSaga(): Generator<any, any> {
     const auth = yield select(currentUserIsAuth);
     if (auth) {
         while (true) {
             yield put(getCurrentUserRequest());
-            yield delay(10000);
+            yield delay(60000);
         }
     }
+}
+
+function* checkUserTokenSaga(): Generator<any, any> {
+    const auth = yield select(getCurrentUserSelector);
+    const refreshToken = yield select(refreshTokenSelector);
+    // yield put(updateUserTokenRequest({ refreshToken }));
+    // console.log(auth, refreshToken);
 }
 
 export function* authModuleSaga(dispatch: any) {
     yield all([
         takeEvery(LOGOUT_USER, logoutSaga),
-        takeEvery([INIT_DATA, LOGIN_USER_SUCCESS], getUserSaga),
+        takeLatest([INIT_DATA, LOGIN_USER_SUCCESS], getUserSaga),
+        takeLatest([GET_CURRENT_USER_SUCCESS], checkUserTokenSaga),
     ]);
 }
 
 export const userDataSelector = (state: any) => state.auth;
 export const currentUserIsAuth = (state: any) => Boolean(state.auth.token);
 export const authHashSelector = (state: any) => state.auth.token;
+export const refreshTokenSelector = (state: any) => state.auth.refreshTOken;
 
 export const loginUserSelector = apiSelector(LOGIN_USER_REQUEST);
 export const registerUserSelector = apiSelector(LOGIN_USER_REQUEST);
