@@ -10,6 +10,7 @@ import {
 import { EpisodePreview } from './components/EpisodePreview/';
 import style from './style.module.scss';
 import { getCurrentUserSelector } from 'modules/auth';
+import { USER_ROLES } from 'constants/users';
 
 const Home = ({
     route: { userIsAuth },
@@ -21,21 +22,27 @@ const Home = ({
     [key: string]: any;
 }) => {
     const dispatch = useDispatch();
-    const currentUser = useSelector(getCurrentUserSelector);
+    const currentUser: any = useSelector(getCurrentUserSelector);
 
     React.useEffect(() => {
         const query = new URLSearchParams(search);
         const text = query.get('seacrhText');
         dispatch(searchArticle(text));
-    }, [search]);
+    }, [search, userIsAuth]);
 
     const { articles = [] }: any = useSelector(getArticklesSelector);
 
     const preparedArticles = React.useMemo(() => {
         const pinned = articles.filter((i: any) => i?.meta?.isPinned); //TODO need move that to BE(sort by pinned)
         const non_pinned = articles.filter((i: any) => !i?.meta?.isPinned);
-        return [...pinned, ...non_pinned];
+        return [...pinned, ...non_pinned].filter(
+            (i) =>
+                i.isActive ||
+                (!i.isActive && currentUser?.user_id === i?.meta?.user_id) ||
+                currentUser.role === USER_ROLES.SUPERADMIN,
+        );
     }, [articles]);
+    console.log(currentUser);
 
     return (
         <>
