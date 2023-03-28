@@ -153,7 +153,14 @@ export const Header = ({
 
     return (
         <Box
-            sx={{ flexGrow: 1, mb: 3, position: 'sticky', top: 0, zIndex: 3 }}
+            sx={{
+                flexGrow: 1,
+                mb: 3,
+                position: 'sticky',
+                top: 0,
+                zIndex: 3,
+                left: 0,
+            }}
             component="form"
             onSubmit={handleSubmit}
         >
