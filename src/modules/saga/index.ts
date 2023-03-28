@@ -4,7 +4,12 @@ import { set, get } from 'lodash';
 import { history } from '../history';
 import { initModuleSaga } from '../init';
 import { notificationSaga, showError, showSuccess } from 'modules/notification';
-import { authModuleSaga, authHashSelector, logoutAction } from 'modules/auth';
+import {
+    authModuleSaga,
+    authHashSelector,
+    logoutAction,
+    checkUserAccess,
+} from 'modules/auth';
 import { artickleModuleSaga } from 'modules/artickles';
 
 const {
@@ -13,8 +18,8 @@ const {
 } = apiHelpers;
 
 if (process.env.NODE_ENV == 'development') {
-    // init('http://localhost:3001');
-    init('https://api.bel-frontend.online');
+    init('http://localhost:3001');
+    // init('https://api.bel-frontend.online');
 } else if (process.env.NODE_ENV == 'production') {
     init('https://api.bel-frontend.online');
 }
@@ -77,8 +82,7 @@ function* rootSaga(dispatch: any) {
                     // }
 
                     case dataStatus === 401:
-                        yield put(logoutAction());
-                        yield call(history.push, '/');
+                        yield put(checkUserAccess());
                         return;
                     case dataStatus === 404:
                         yield call(history.push, '/404');
