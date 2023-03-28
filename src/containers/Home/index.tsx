@@ -29,10 +29,12 @@ const Home = ({
         dispatch(searchArticle(text));
     }, [search]);
 
-    const { articles }: any = useSelector(getArticklesSelector);
+    const { articles = [] }: any = useSelector(getArticklesSelector);
 
     const preparedArticles = React.useMemo(() => {
-        return articles;
+        const pinned = articles.filter((i: any) => i?.meta?.isPinned); //TODO need move that to BE(sort by pinned)
+        const non_pinned = articles.filter((i: any) => !i?.meta?.isPinned);
+        return [...pinned, ...non_pinned];
     }, [articles]);
 
     return (
