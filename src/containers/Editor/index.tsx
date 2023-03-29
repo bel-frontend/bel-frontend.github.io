@@ -217,7 +217,7 @@ const Editor = ({
                             }
                         />
                     </Grid>
-                    <Grid item md={3}>
+                    <Grid item md={6}>
                         <FormControlLabel
                             control={
                                 <Switch
@@ -230,7 +230,7 @@ const Editor = ({
                                     onChange={handleChange('isActive')}
                                 />
                             }
-                            label="Актываваць"
+                            label="Паказваць усім (можа актываваць толькі адмін)"
                         />
                     </Grid>
                 </Grid>

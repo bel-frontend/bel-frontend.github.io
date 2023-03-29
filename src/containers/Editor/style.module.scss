@@ -11,6 +11,7 @@
 
     border-color: rgb(196 196 196);
     border-radius: 5px;
+    box-sizing: border-box;
 
     &:hover {
        border-color: rgba(0, 0, 0, 0.87);

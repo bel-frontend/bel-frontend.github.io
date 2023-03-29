@@ -104,6 +104,7 @@ const Article = ({
                     <MetaData
                         showReadButton={false}
                         showLikes={false}
+                        showTags={false}
                         meta={article?.meta}
                         articleId={id}
                     />
