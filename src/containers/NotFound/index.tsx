@@ -6,8 +6,8 @@ import style from './style.module.scss';
 const NotFound = () => (
     <div className={style.contentWrap}>
         <img src={notFound} title="not found" alt="not found" className={style.img}/>
-        <p>Тут нічога няма.</p>
-        <p>Паспрабуйце пашукаць што-небудзь іншае.</p>
+        <p className={style.text}>Тут нічога няма.</p>
+        <p className={style.text}>Паспрабуйце пашукаць што-небудзь іншае.</p>
         <Link to="/" className={style.link}>
             На галоўную
         </Link>
