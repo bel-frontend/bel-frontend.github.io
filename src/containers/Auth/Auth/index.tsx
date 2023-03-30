@@ -8,6 +8,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import { Link } from 'react-router-dom';
 import { loginRequest } from 'modules/auth';
 
 const validationSchema = (t: any) =>
@@ -80,6 +81,9 @@ const Auth = ({ history }: { history: any }) => {
                     error={Boolean(errors.password)}
                     margin="dense"
                 />
+                <Box mt={2} mb={2}>
+                    <Link to="/register"> Перайсці да рэгістрацыя</Link>
+                </Box>
                 <Button
                     type="submit"
                     fullWidth
