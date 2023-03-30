@@ -56,11 +56,11 @@ apiRoutes.add(GET_CURRENT_USER_REQUEST, () => {
     };
 });
 
-apiRoutes.add(UPDATE_USER_TOKEN_REQUEST, ({ refreshToken }: any) => {
+apiRoutes.add(UPDATE_USER_TOKEN_REQUEST, ({ credentials }: any) => {
     return {
         url: `/refresh-token`,
         method: 'POST',
-        data: { refreshToken },
+        data: { credentials },
     };
 });
 
@@ -121,25 +121,39 @@ function* getUserSaga(): Generator<any, any> {
     }
 }
 
-function* checkUserTokenSaga(): Generator<any, any> {
+function* checkUserTokenSaga(dispatch: any): Generator<any, any> {
     const auth = yield select(getCurrentUserSelector);
-    const refreshToken = yield select(refreshTokenSelector);
-    // yield put(updateUserTokenRequest({ refreshToken }));
-    // console.log(auth, refreshToken);
+    const credentials = yield select(userCredentialsSelector);
+    yield put(logoutAction());
+    console.log('check user');
+
+    // yield put(
+    //     getCurrentUserRequest(
+    //         {},
+    //         {
+    //             onFailure: () => {
+    //                 dispatch(logoutAction());
+    //             },
+    //         },
+    //     ),
+    // );
+
+    console.log(auth, credentials);
 }
 
 export function* authModuleSaga(dispatch: any) {
     yield all([
         takeEvery(LOGOUT_USER, logoutSaga),
         takeLatest([INIT_DATA, LOGIN_USER_SUCCESS], getUserSaga),
-        takeLatest([GET_CURRENT_USER_SUCCESS], checkUserTokenSaga),
+        takeLatest([NEED_CHECK_USER_ACCESS], checkUserTokenSaga, dispatch),
     ]);
 }
 
 export const userDataSelector = (state: any) => state.auth;
 export const currentUserIsAuth = (state: any) => Boolean(state.auth.token);
 export const authHashSelector = (state: any) => state.auth.token;
-export const refreshTokenSelector = (state: any) => state.auth.refreshTOken;
+export const userCredentialsSelector = (state: any) =>
+    state.auth.userCredentials;
 
 export const loginUserSelector = apiSelector(LOGIN_USER_REQUEST);
 export const registerUserSelector = apiSelector(LOGIN_USER_REQUEST);
