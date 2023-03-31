@@ -82,7 +82,7 @@ const Auth = ({ history }: { history: any }) => {
                     margin="dense"
                 />
                 <Box mt={2} mb={2}>
-                    <Link to="/register"> Перайсці да рэгістрацыя</Link>
+                    <Link to="/register"> Перайсці да рэгістрацыі</Link>
                 </Box>
                 <Button
                     type="submit"
