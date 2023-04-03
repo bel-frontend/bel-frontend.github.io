@@ -221,16 +221,11 @@ const Editor = ({
                         <FormControlLabel
                             control={
                                 <Switch
-                                    disabled={
-                                        !meta?.isActive &&
-                                        currentUser.role !==
-                                            USER_ROLES.SUPERADMIN
-                                    }
                                     checked={values.isActive}
                                     onChange={handleChange('isActive')}
                                 />
                             }
-                            label="Паказваць усім (можа актываваць толькі адмін)"
+                            label="Паказваць усім (артыкул будзе бачны для ўсіх карыстальнікаў)"
                         />
                     </Grid>
                 </Grid>
