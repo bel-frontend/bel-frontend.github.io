@@ -12,6 +12,7 @@ import { useFormik } from 'formik';
 import { sendErrorRequest } from 'modules/artickles';
 import { useDispatch } from 'react-redux';
 import * as yup from 'yup';
+import { useHistory } from 'react-router';
 
 const validationSchema = () =>
     yup.object({
@@ -21,7 +22,16 @@ const validationSchema = () =>
             .required('Увядзіце тэкст'),
     });
 
-export default function Error({ currentUser, artickleId }: any) {
+export default function Error({
+    userIsAuth,
+    currentUser,
+    artickleId,
+}: {
+    userIsAuth: any;
+    currentUser: any;
+    artickleId: any;
+}) {
+    const history = useHistory();
     const dispatch = useDispatch();
     const { handleSubmit, values, handleChange, setFieldValue, errors } =
         useFormik({
@@ -56,44 +66,61 @@ export default function Error({ currentUser, artickleId }: any) {
 
     return (
         <Box>
-            <Button variant="outlined" onClick={handleClickOpen}>
-                Знайшлі памылку?
-            </Button>
-            <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>Паведаміць пра памылку</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        Паведамленне пра памылку будзе адпраўлена на Email да
-                        аўтара артыкулу
-                    </DialogContentText>
-                    <TextField
-                        value={values.message}
-                        onChange={handleChange('message')}
-                        autoFocus
-                        margin="dense"
-                        id="name"
-                        label=""
-                        placeholder="Калі ласка, апішыце памылку"
-                        fullWidth
-                        multiline
-                        variant="standard"
-                        helperText={errors.message}
-                        error={Boolean(errors.message)}
-                    />
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose}>Скасаваць</Button>
-                    <Box component={'form'} ml={1} onSubmit={handleSubmit}>
-                        <Button
-                            disableElevation
-                            variant="contained"
-                            type="submit"
-                        >
-                            Даслаць
-                        </Button>
-                    </Box>
-                </DialogActions>
-            </Dialog>
+            {userIsAuth ? (
+                <>
+                    <Button variant="outlined" onClick={handleClickOpen}>
+                        Знайшлі памылку?
+                    </Button>
+                    <Dialog open={open} onClose={handleClose}>
+                        <DialogTitle>Паведаміць пра памылку</DialogTitle>
+                        <DialogContent>
+                            <DialogContentText>
+                                Паведамленне пра памылку будзе адпраўлена на
+                                Email да аўтара артыкулу
+                            </DialogContentText>
+                            <TextField
+                                value={values.message}
+                                onChange={handleChange('message')}
+                                autoFocus
+                                margin="dense"
+                                id="name"
+                                label=""
+                                placeholder="Калі ласка, апішыце памылку"
+                                fullWidth
+                                multiline
+                                variant="standard"
+                                helperText={errors.message}
+                                error={Boolean(errors.message)}
+                            />
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={handleClose}>Скасаваць</Button>
+                            <Box
+                                component={'form'}
+                                ml={1}
+                                onSubmit={handleSubmit}
+                            >
+                                <Button
+                                    disableElevation
+                                    variant="contained"
+                                    type="submit"
+                                >
+                                    Даслаць
+                                </Button>
+                            </Box>
+                        </DialogActions>
+                    </Dialog>
+                </>
+            ) : (
+                <Button
+                    variant="outlined"
+                    onClick={() => {
+                        history.push('/login');
+                    }}
+                >
+                    Знайшлі памылку?
+                </Button>
+            )}
         </Box>
     );
 }

@@ -57,7 +57,7 @@ const SignUp = ({ history }: { history: any }) => {
                     { email, password },
                     {
                         onSuccess: () => {
-                            history.push('/');
+                            history.goBack();
                         },
                         onFailure: ({ response: { data: err } }: any) => {
                             console.error(err);

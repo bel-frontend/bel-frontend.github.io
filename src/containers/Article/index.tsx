@@ -108,11 +108,13 @@ const Article = ({
                         meta={article?.meta}
                         articleId={id}
                     />
-                    {userIsAuth ? (
-                        <Box marginTop={2}>
-                            <Error currentUser={currentUser} artickleId={id} />
-                        </Box>
-                    ) : null}
+                    <Box marginTop={2}>
+                        <Error
+                            userIsAuth={userIsAuth}
+                            currentUser={currentUser}
+                            artickleId={id}
+                        />
+                    </Box>
                     <Box marginTop={2}>
                         {userIsAuth &&
                         (currentUser?.user_id === article?.meta?.user_id ||

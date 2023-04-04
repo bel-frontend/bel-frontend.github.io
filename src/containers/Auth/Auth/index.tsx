@@ -33,7 +33,7 @@ const Auth = ({ history }: { history: any }) => {
                         { email, password },
                         {
                             onSuccess: () => {
-                                history.push('/');
+                                history.goBack();
                             },
                             onFailure: ({ response: { data: err } }: any) => {
                                 setErrors({ email: err });
