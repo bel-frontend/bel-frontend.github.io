@@ -1,7 +1,18 @@
 import React from 'react';
 
 import Button from '@mui/material/Button';
-export function UploadFile({ onChange }: { onChange: (data: any) => any }) {
+
+export function UploadFile({
+    onChange,
+    disabled,
+    maxCount = 4,
+    count = 0,
+}: {
+    onChange: (data: any) => any;
+    disabled?: boolean;
+    maxCount?: number;
+    count?: number;
+}) {
     return (
         <>
             <Button
@@ -9,8 +20,12 @@ export function UploadFile({ onChange }: { onChange: (data: any) => any }) {
                 color="primary"
                 size="small"
                 component="label"
+                disabled={disabled || count >= maxCount}
             >
-                Загрузіць малюнкі
+                Загрузіць малюнкі{' '}
+                {!disabled && count >= maxCount
+                    ? `(не болей за ${maxCount} выявы)`
+                    : ''}
                 <input
                     hidden
                     accept="image/*"

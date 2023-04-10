@@ -150,14 +150,18 @@ const Editor = ({
                                 onDelete({ filename, id });
                             }}
                         />
-                        {isAdd ||
-                        artickleData.user_id === currentUser.user_id ? (
-                            <UploadFile
-                                onChange={(data) => {
-                                    onImageUpload(data);
-                                }}
-                            />
-                        ) : null}
+
+                        <UploadFile
+                            disabled={
+                                isAdd ||
+                                artickleData.user_id === currentUser.user_id
+                            }
+                            maxCount={4}
+                            count={urls.length}
+                            onChange={(data) => {
+                                onImageUpload(data);
+                            }}
+                        />
                     </Grid>
                 </Grid>
                 <Grid container className={style.container} spacing={3}>
