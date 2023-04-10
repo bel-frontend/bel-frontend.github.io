@@ -153,8 +153,8 @@ const Editor = ({
 
                         <UploadFile
                             disabled={
-                                isAdd ||
-                                artickleData.user_id === currentUser.user_id
+                                artickleData.user_id !== currentUser.user_id &&
+                                !isAdd
                             }
                             maxCount={4}
                             count={urls.length}
