@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import classnames from 'classnames';
-import { useDispatch, useSelector } from 'react-redux';
 import MdEditor from 'react-markdown-editor-lite';
 import MarkdownIt from 'markdown-it';
 import TextField from '@mui/material/TextField';
@@ -10,47 +9,18 @@ import Switch from '@mui/material/Switch';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
-import { useFormik } from 'formik';
-import * as yup from 'yup';
-import moment from 'moment';
 
-import { MD } from 'components';
-import {
-    updateArtickleRequest,
-    createArtickleRequest,
-    getArtickleByIdRequest,
-    getArtickleSelector,
-} from 'modules/artickles';
-
-import { getCurrentUserSelector } from 'modules/auth';
 import { USER_ROLES } from 'constants/users';
+
+import { MD, UploadFile } from 'components';
+
+import { useHooks } from './hooks';
+import { UploadController } from './components/UploadController';
 
 import 'react-markdown-editor-lite/lib/index.css';
 import style from './style.module.scss';
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
-
-const validationSchema = yup.object({
-    title: yup.string().required(),
-    description: yup.string(),
-    dateArticle: yup.string().required(),
-    author: yup.string().required(),
-    tags: yup
-        .string()
-        .required('Поле абавязковае')
-        .matches(/^[a-z0-9а-я'іў ]+$/i, 'Толькі літары, нумары і прабелы'),
-    content: yup.string().required(),
-});
-
-const initialValues = {
-    title: '',
-    description: '',
-    dateArticle: moment(new Date()).format('YYYY-MM-DD'),
-    author: '',
-    tags: '',
-    content: '',
-    isActive: false,
-};
 
 const Editor = ({
     history,
@@ -62,76 +32,21 @@ const Editor = ({
     history: any;
     match: { params: { id: number | string } };
 }) => {
-    const isAdd = id === 'add';
-    const dispatch = useDispatch();
-    const artickleData: any = useSelector(getArtickleSelector);
-    const currentUser: any = useSelector(getCurrentUserSelector);
-
-    React.useEffect(() => {
-        if (id && !isAdd) {
-            dispatch(getArtickleByIdRequest({ id }));
-        }
-    }, [id, isAdd]);
-
     const {
+        handleSubmit,
         values,
         touched,
-        errors,
-        setFieldValue,
-        setValues,
         handleChange,
-        handleSubmit,
-    } = useFormik({
-        initialValues,
-        onSubmit: (values) => {
-            const tags = values.tags.trim().split(' ').filter(Boolean);
-
-            if (isAdd) {
-                dispatch(
-                    createArtickleRequest(
-                        { ...values, tags },
-                        {
-                            onSuccess: () => {
-                                history.push('/');
-                            },
-                        },
-                    ),
-                );
-            } else {
-                dispatch(
-                    updateArtickleRequest(
-                        { id, ...values, tags },
-                        {
-                            onSuccess: () => {
-                                history.push('/');
-                            },
-                        },
-                    ),
-                );
-            }
-        },
-        validationSchema,
-    });
-
-    const { content = '', meta } = artickleData;
-
-    useEffect(() => {
-        if (id && !isAdd) {
-            if (artickleData?.loaded) {
-                setValues({
-                    content: content,
-                    description: meta?.description || '',
-                    dateArticle: meta?.dateArticle || '',
-                    author: meta?.author || '',
-                    tags:
-                        (Array.isArray(meta?.tags) && meta?.tags?.join(' ')) ||
-                        (meta?.tags ?? ''),
-                    isActive: meta?.isActive || false,
-                    title: meta?.title || '',
-                });
-            }
-        }
-    }, [id, setValues, isAdd, artickleData]);
+        errors,
+        meta,
+        currentUser,
+        artickleData,
+        setFieldValue,
+        isAdd,
+        onImageUpload,
+        urls,
+        onDelete,
+    } = useHooks({ history, id });
 
     return (
         <Box>
@@ -158,7 +73,7 @@ const Editor = ({
                             helperText={touched.title && errors.title}
                         />
                     </Grid>
-                    <Grid item md={12}>
+                    <Grid item md={6}>
                         <TextareaAutosize
                             id="description"
                             name="description"
@@ -227,6 +142,22 @@ const Editor = ({
                             }
                             label="Паказваць усім (артыкул будзе бачны для ўсіх карыстальнікаў)"
                         />
+                    </Grid>
+                    <Grid item md={6}>
+                        <UploadController
+                            urls={urls}
+                            onDelete={({ filename, id }) => {
+                                onDelete({ filename, id });
+                            }}
+                        />
+                        {isAdd ||
+                        artickleData.user_id === currentUser.user_id ? (
+                            <UploadFile
+                                onChange={(data) => {
+                                    onImageUpload(data);
+                                }}
+                            />
+                        ) : null}
                     </Grid>
                 </Grid>
                 <Grid container className={style.container} spacing={3}>
