@@ -21,7 +21,10 @@ import { PrivacyPolicy } from './PrivacyPolicy';
 const validationSchema = (t: any) =>
     yup.object({
         email: yup.string().email().required(),
-        password: yup.string().min(6).max(16).required(),
+        password: yup
+            .string()
+            .min(6, 'Пароль павінен быць не карацей за 6 сімвалаў')
+            .required(),
         confirm_password: yup
             .string()
             .min(6)
