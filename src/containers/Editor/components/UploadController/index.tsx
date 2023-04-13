@@ -29,7 +29,7 @@ export const UploadController = ({
                             key={i.filename}
                             title={
                                 <>
-                                    Націсні каб скаріраваць URL
+                                    Націсні каб скапіраваць URL
                                     <Box p={1}>
                                         <img
                                             className={style.preview}
