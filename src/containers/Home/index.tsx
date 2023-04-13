@@ -42,7 +42,6 @@ const Home = ({
                 currentUser.role === USER_ROLES.SUPERADMIN,
         );
     }, [articles]);
-    console.log(currentUser);
 
     return (
         <>
