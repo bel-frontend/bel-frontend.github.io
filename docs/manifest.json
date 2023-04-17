@@ -1,16 +1,21 @@
 {
-  "short_name": "Беларускі франтэнд",
-  "name": "Беларускі франтэнд ды іншая трасца",
-  "icons": [
-    {
-      "src": "favicon.ico",
-      "sizes": "96x96 32x32 16x16",
-      "type": "image/x-icon"
-    }
-  ],
-  "default_locate": "be",
-  "start_url": "https://bel-frontend.online/",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+    "short_name": "Беларускі франтэнд",
+    "name": "Беларускі франтэнд ды іншая трасца",
+    "icons": [
+        {
+            "src": "icon_192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "icon_512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "default_locate": "be",
+    "start_url": "https://bel-frontend.online/",
+    "display": "standalone",
+    "theme_color": "#000000",
+    "background_color": "#ffffff"
 }
