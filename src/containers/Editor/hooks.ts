@@ -20,6 +20,7 @@ import {
 } from 'modules/files';
 
 import { getCurrentUserSelector } from 'modules/auth';
+import { log } from 'console';
 
 const validationSchema = yup.object({
     title: yup.string().required(),
@@ -42,6 +43,7 @@ const initialValues = {
     content: '',
     isActive: false,
 };
+let interval: any;
 
 export const useHooks = ({ history, id }: { history: any; id: any }) => {
     const isAdd = id === 'add';
@@ -49,12 +51,11 @@ export const useHooks = ({ history, id }: { history: any; id: any }) => {
     const artickleData: any = useSelector(getArtickleSelector);
     const currentUser: any = useSelector(getCurrentUserSelector);
     const images: any = useSelector(getImagesSelector);
+    const [autoSave, enableAutoSave] = React.useState(true);
 
     const [urls, setUrls] = React.useState<any[]>([]);
 
     React.useEffect(() => {
-        console.log(images.loaded);
-
         if (images?.loaded) {
             setUrls(images);
         }
@@ -107,6 +108,35 @@ export const useHooks = ({ history, id }: { history: any; id: any }) => {
         validationSchema,
     });
 
+    // React.useEffect(() => {
+    //     if (autoSave) {
+    //         interval = setInterval(() => {
+    //             const tags = values.tags.trim().split(' ').filter(Boolean);
+    //             if (isAdd) {
+    //                 dispatch(
+    //                     createArtickleRequest(
+    //                         { ...values, tags, files: urls },
+    //                         {
+    //                             onSuccess: () => {},
+    //                         },
+    //                     ),
+    //                 );
+    //             } else {
+    //                 dispatch(
+    //                     updateArtickleRequest(
+    //                         { id, ...values, tags, files: urls },
+    //                         {
+    //                             onSuccess: () => {},
+    //                         },
+    //                     ),
+    //                 );
+    //             }
+    //         }, 5000);
+    //     } else {
+    //         clearInterval(interval);
+    //     }
+    // }, [autoSave]);
+
     const { content = '', meta } = artickleData;
 
     useEffect(() => {
@@ -142,7 +172,6 @@ export const useHooks = ({ history, id }: { history: any; id: any }) => {
             ),
         );
     };
-    console.log(urls);
 
     const onDelete = ({ filename, id: field_id }: any) => {
         dispatch(

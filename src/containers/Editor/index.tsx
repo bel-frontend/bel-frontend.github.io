@@ -156,7 +156,7 @@ const Editor = ({
                                 artickleData.user_id !== currentUser.user_id &&
                                 !isAdd
                             }
-                            maxCount={4}
+                            maxCount={8}
                             count={urls.length}
                             onChange={(data) => {
                                 onImageUpload(data);
