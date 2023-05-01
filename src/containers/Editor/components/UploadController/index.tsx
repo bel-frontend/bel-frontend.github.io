@@ -1,7 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Chip from '@mui/material/Chip';
-import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Tooltip from '@mui/material/Tooltip';
 
@@ -22,42 +21,44 @@ export const UploadController = ({
 
     return (
         <Box m={1}>
-            <Stack direction="row" spacing={1}>
+            <Box flexWrap="wrap">
                 {urls.map((i: any) => {
                     return (
-                        <Tooltip
-                            key={i.filename}
-                            title={
-                                <>
-                                    Націсні каб скапіраваць URL
-                                    <Box p={1}>
-                                        <img
-                                            className={style.preview}
-                                            src={i.url}
-                                        />
-                                    </Box>
-                                </>
-                            }
-                        >
-                            <Chip
-                                onClick={() => {
-                                    saveToClipBoard(dispatch)(i.url);
-                                }}
-                                label={i.filename}
-                                onDelete={
-                                    disabledDelete
-                                        ? undefined
-                                        : () =>
-                                              onDelete({
-                                                  filename: i.filename,
-                                                  id: i.id,
-                                              })
+                        <Box key={i.filename} className={style.chip}>
+                            <Tooltip
+                                title={
+                                    <>
+                                        Націсні каб скапіраваць URL
+                                        <Box p={1}>
+                                            <img
+                                                className={style.preview}
+                                                src={i.url}
+                                                alt={'выява'}
+                                            />
+                                        </Box>
+                                    </>
                                 }
-                            />
-                        </Tooltip>
+                            >
+                                <Chip
+                                    onClick={() => {
+                                        saveToClipBoard(dispatch)(i.url);
+                                    }}
+                                    label={i.filename}
+                                    onDelete={
+                                        disabledDelete
+                                            ? undefined
+                                            : () =>
+                                                  onDelete({
+                                                      filename: i.filename,
+                                                      id: i.id,
+                                                  })
+                                    }
+                                />
+                            </Tooltip>
+                        </Box>
                     );
                 })}
-            </Stack>
+            </Box>
         </Box>
     );
 };
