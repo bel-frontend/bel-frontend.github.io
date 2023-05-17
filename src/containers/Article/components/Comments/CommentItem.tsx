@@ -55,7 +55,7 @@ export const CommentItem = ({
                                 color="text.primary"
                             >
                                 {comment}
-                            </Typography>{' '}
+                            </Typography>
                             <br />
                             <Button
                                 size={'small'}
