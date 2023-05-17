@@ -18,7 +18,7 @@ const validationSchema = () =>
     yup.object({
         message: yup
             .string()
-            .min(6, 'Павінна быць не меней за 10 сівалаў')
+            .min(10, 'Павінна быць не меней за 10 сімвалаў')
             .required('Увядзіце тэкст'),
     });
 
