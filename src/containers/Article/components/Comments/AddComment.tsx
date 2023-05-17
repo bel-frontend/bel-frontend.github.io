@@ -29,33 +29,39 @@ export const AddComment = ({
     parent_comment_id?: string;
 }) => {
     const dispatch = useDispatch();
-    const { handleSubmit, values, handleReset, handleChange, errors } =
-        useFormik({
-            onSubmit: ({ comment, user_alias }) => {
-                console.log(comment);
-                dispatch(
-                    addCommentRequest(
-                        {
-                            comment,
-                            artickle_id: articleId,
-                            user_alias,
-                            parent_comment_id,
+    const {
+        handleSubmit,
+        values,
+        handleReset,
+        handleChange,
+        setFieldValue,
+        errors,
+    } = useFormik({
+        onSubmit: ({ comment, user_alias }) => {
+            console.log(comment);
+            dispatch(
+                addCommentRequest(
+                    {
+                        comment,
+                        artickle_id: articleId,
+                        user_alias,
+                        parent_comment_id,
+                    },
+                    {
+                        onSuccess: () => {
+                            onSuccess();
+                            setFieldValue('comment', '');
                         },
-                        {
-                            onSuccess: () => {
-                                onSuccess();
-                                handleReset('');
-                            },
-                        },
-                    ),
-                );
-            },
-            validationSchema: validationSchema(),
-            initialValues: {
-                comment: '',
-                user_alias: '',
-            },
-        });
+                    },
+                ),
+            );
+        },
+        validationSchema: validationSchema(),
+        initialValues: {
+            comment: '',
+            user_alias: '',
+        },
+    });
     return (
         <Grid
             flexDirection="column"
