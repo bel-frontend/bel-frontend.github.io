@@ -83,11 +83,7 @@ export const Comments = ({ articleId, userIsAuth }: any) => {
                     </List>
                 </Grid>
             </Grid>
-            {userIsAuth ? null : (
-                <Typography variant="subtitle1">
-                    (Калі ласка залагуйцеся)
-                </Typography>
-            )}
+
             <AddComment
                 articleId={articleId}
                 userIsAuth={userIsAuth}
