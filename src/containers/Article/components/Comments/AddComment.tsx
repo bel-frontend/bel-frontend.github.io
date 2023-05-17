@@ -95,16 +95,22 @@ export const AddComment = ({
                 ></TextField>
             </Grid>
             <Grid item xs={12}>
-                <Button
-                    variant="contained"
-                    disabled={!userIsAuth}
-                    onClick={() => handleSubmit()}
-                >
-                    Даслаць
-                </Button>
-                {!userIsAuth ? (
-                    <Typography>(Калі ласа залагіньцеся)</Typography>
-                ) : null}
+                <Grid container spacing={2}>
+                    <Grid item>
+                        <Button
+                            variant="contained"
+                            disabled={!userIsAuth}
+                            onClick={() => handleSubmit()}
+                        >
+                            Даслаць
+                        </Button>
+                    </Grid>
+                    <Grid item>
+                        {!userIsAuth ? (
+                            <Typography>(Калі ласа залагіньцеся)</Typography>
+                        ) : null}
+                    </Grid>
+                </Grid>
             </Grid>
         </Grid>
     );
