@@ -83,7 +83,6 @@ export const Comments = ({ articleId, userIsAuth }: any) => {
                     </List>
                 </Grid>
             </Grid>
-            <Typography variant="h6">Дадаць каментар</Typography>
             {userIsAuth ? null : (
                 <Typography variant="subtitle1">
                     (Калі ласка залагуйцеся)
