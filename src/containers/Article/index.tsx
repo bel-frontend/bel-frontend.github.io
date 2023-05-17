@@ -1,13 +1,13 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
 import classnames from 'classnames';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
 import EditIcon from '@mui/icons-material/Edit';
-
-import { useDispatch, useSelector } from 'react-redux';
 
 import { getArtickleByIdRequest, getArtickleSelector } from 'modules/artickles';
 import { getCurrentUserSelector } from 'modules/auth';
@@ -15,10 +15,11 @@ import { getCurrentUserSelector } from 'modules/auth';
 import { MetaData, MD } from 'components';
 import { LikeButton, Tag } from 'components';
 import { USER_ROLES } from 'constants/users';
-import Error from './Error';
+import Error from './components/Error';
 import BF from 'assets/images/default.jpg';
 
 import style from './style.module.scss';
+import { Comments } from './components/Comments';
 
 const Article = ({
     match: {
@@ -108,31 +109,40 @@ const Article = ({
                         meta={article?.meta}
                         articleId={id}
                     />
-                    <Box marginTop={2}>
-                        <Error
-                            userIsAuth={userIsAuth}
-                            currentUser={currentUser}
-                            artickleId={id}
-                        />
-                    </Box>
-                    <Box marginTop={2}>
-                        {userIsAuth &&
-                        (currentUser?.user_id === article?.meta?.user_id ||
-                            currentUser.role === USER_ROLES.SUPERADMIN) ? (
-                            <Button
-                                variant="outlined"
-                                // sx={{ ml: 1 }}
-                                color="primary"
-                                className={style.editButton}
-                                onClick={() => {
-                                    history.push(`/editor/${id}`);
-                                }}
-                                endIcon={<EditIcon />}
-                            >
-                                Рэдагаваць
-                            </Button>
-                        ) : null}
-                    </Box>
+                    <Box marginTop={2}></Box>
+                    <Grid marginTop={2} spacing={2} container>
+                        <Grid item>
+                            <Error
+                                userIsAuth={userIsAuth}
+                                currentUser={currentUser}
+                                artickleId={id}
+                            />
+                        </Grid>
+                        <Grid item>
+                            {userIsAuth &&
+                            (currentUser?.user_id === article?.meta?.user_id ||
+                                currentUser.role === USER_ROLES.SUPERADMIN) ? (
+                                <Button
+                                    variant="outlined"
+                                    // sx={{ ml: 1 }}
+                                    color="primary"
+                                    className={style.editButton}
+                                    onClick={() => {
+                                        history.push(`/editor/${id}`);
+                                    }}
+                                    endIcon={<EditIcon />}
+                                >
+                                    Рэдагаваць
+                                </Button>
+                            ) : null}
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Comments
+                                userIsAuth={userIsAuth}
+                                articleId={id}
+                            ></Comments>
+                        </Grid>
+                    </Grid>
                 </article>
             </main>
         </>

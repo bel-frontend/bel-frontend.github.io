@@ -18,8 +18,8 @@ const {
 } = apiHelpers;
 
 if (process.env.NODE_ENV == 'development') {
-    // init('http://localhost:3001');
-    init('https://api.bel-frontend.online');
+    init('http://localhost:3001');
+    // init('https://api.bel-frontend.online');
 } else if (process.env.NODE_ENV == 'production') {
     init('https://api.bel-frontend.online');
 }
@@ -85,7 +85,11 @@ function* rootSaga(dispatch: any) {
                         yield put(checkUserAccess());
                         return;
                     case dataStatus === 404:
-                        yield call(history.push, '/404');
+                        yield put(
+                            showError({
+                                message: 'Не знойдзена',
+                            }),
+                        );
                         return;
                     case dataStatus === 500:
                         yield put(

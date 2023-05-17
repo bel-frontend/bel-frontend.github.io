@@ -31,6 +31,10 @@ const theme = createTheme({
             fontSize: 24,
             fontWeight: 400,
         },
+        subtitle1: {
+            fontSize: '1.1rem',
+            fontWeight: 600,
+        },
     },
     components: {
         MuiAvatar: {
@@ -38,8 +42,8 @@ const theme = createTheme({
                 // Name of the slot
                 root: {
                     // Some CSS
-                    height: 240,
-                    width: 240,
+                    // height: 240,
+                    // width: 240,
                 },
             },
         },
