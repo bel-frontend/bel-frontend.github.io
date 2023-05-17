@@ -13,15 +13,19 @@ import { USER_ROLES } from 'constants/users';
 import { AddComment } from './AddComment';
 import { CommentItem } from './CommentItem';
 
-const getTreeChildren = (items: any[], itemId: string | null): any => {
-    const children: any[] = items.filter((i) => i.parent_comment_id === itemId);
-    const nonChildren = items.filter((i) => i.parent_comment_id !== itemId);
+const getTreeChildren = (items: any[] = [], itemId: string | null): any => {
+    const children: any[] = (items || []).filter(
+        (i) => i.parent_comment_id === itemId,
+    );
+    const nonChildren = (items || []).filter(
+        (i) => i.parent_comment_id !== itemId,
+    );
     if (children.length === 0) {
         return [];
     } else {
         return children.map((i) => ({
             ...i,
-            children: getTreeChildren(nonChildren, i.comment_id),
+            children: getTreeChildren(nonChildren || [], i.comment_id),
         }));
     }
 };
@@ -56,6 +60,17 @@ export const Comments = ({ articleId, userIsAuth }: any) => {
                         {commentsPrepared?.length > 0
                             ? commentsPrepared.map((item: any) => (
                                   <CommentItem
+                                      currentUser={currentUser}
+                                      onDelete={(comment_id) => {
+                                          dispatch(
+                                              deleteCommentRequest(
+                                                  {
+                                                      comment_id,
+                                                  },
+                                                  { onSuccess },
+                                              ),
+                                          );
+                                      }}
                                       articleId={articleId}
                                       userIsAuth={userIsAuth}
                                       onSuccess={onSuccess}

@@ -30,4 +30,11 @@ apiRoutes.add(GET_COMMENTS_REQUEST, ({ artickle_id }: any = {}) => {
     };
 });
 
+apiRoutes.add(DELETE_COMMENT_REQUEST, ({ comment_id }: any = {}) => {
+    return {
+        url: `/comment/${comment_id}`,
+        method: 'delete',
+    };
+});
+
 export const getCommentsSelector = apiSelector(GET_COMMENTS_REQUEST);
