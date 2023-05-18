@@ -2,14 +2,13 @@ import React from 'react';
 import { IconButton, Box, Typography, Button } from '@mui/material';
 import { DeleteRounded } from '@mui/icons-material';
 import ListItem from '@mui/material/ListItem';
-import Divider from '@mui/material/Divider';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
-import moment from 'moment';
 import { AddComment } from './AddComment';
 import ReplyIcon from '@mui/icons-material/Reply';
-import ForumIcon from '@mui/icons-material/Forum';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
 
 export const CommentItem = ({
     onSetLike,
@@ -22,8 +21,8 @@ export const CommentItem = ({
     onDelete,
     currentUser,
 }: {
-    onSetLike?: () => void;
-    onSetDislike?: () => void;
+    onSetLike: (id: any) => void;
+    onSetDislike: (id: any) => void;
     currntUserIsAdmin: boolean;
     articleId: string;
     userIsAuth?: boolean;
@@ -35,12 +34,15 @@ export const CommentItem = ({
         children: any[];
         user_id: string;
         disabled?: boolean;
+        score?: number;
     };
     onDelete: (id: any) => void;
     currentUser?: any;
 }) => {
     const { user_alias, comment, comment_id, children } = item;
     const [addCommentIsOpen, setAddComment] = React.useState(false);
+    const [liked, setLiked] = React.useState<any>();
+
     return (
         <>
             <ListItem alignItems="flex-start">
@@ -53,7 +55,7 @@ export const CommentItem = ({
                             <Typography variant="subtitle1">
                                 {user_alias}
                             </Typography>
-                            <Box>
+                            <Box display={'inline-flex'} alignItems="center">
                                 {(currntUserIsAdmin ||
                                     currentUser?.user_id === item?.user_id) &&
                                 !item?.disabled ? (
@@ -64,7 +66,7 @@ export const CommentItem = ({
                                             onDelete(item?.comment_id);
                                         }}
                                     >
-                                        <DeleteRounded />
+                                        <DeleteRounded fontSize="small" />
                                     </IconButton>
                                 ) : null}
                                 <IconButton
@@ -82,7 +84,10 @@ export const CommentItem = ({
                     secondary={
                         <React.Fragment>
                             <Typography
-                                sx={{ display: 'inline', whiteSpace: 'pre' }}
+                                sx={{
+                                    display: 'inline',
+                                    whiteSpace: 'pre-wrap',
+                                }}
                                 component="span"
                                 variant="body2"
                                 color="text.primary"
@@ -103,9 +108,51 @@ export const CommentItem = ({
                         </React.Fragment>
                     }
                 />
-            </ListItem>
+            </ListItem>{' '}
+            <Box
+                display={'flex'}
+                alignItems="center"
+                justifyContent={'flex-end'}
+                ml={1}
+            >
+                <IconButton
+                    color="error"
+                    size="small"
+                    disabled={liked}
+                    onClick={() => {
+                        onSetLike(comment_id);
+                        setLiked(
+                            liked
+                                ? undefined
+                                : liked === false
+                                ? undefined
+                                : true,
+                        );
+                    }}
+                >
+                    <AddIcon fontSize="small" />
+                </IconButton>
+                <Typography variant="subtitle2">{item?.score || 0}</Typography>
+                <IconButton
+                    color="primary"
+                    size="small"
+                    disabled={liked === false}
+                    onClick={() => {
+                        onSetDislike(comment_id);
+                        setLiked(
+                            liked === false
+                                ? undefined
+                                : liked
+                                ? undefined
+                                : false,
+                        );
+                    }}
+                >
+                    <RemoveIcon fontSize="small" />
+                </IconButton>
+            </Box>
             {children.map((item: any) => (
-                <Box ml={10}>
+                <Box ml={10} mt={2}>
                     <CommentItem
                         onDelete={onDelete}
                         articleId={articleId}
@@ -115,6 +162,8 @@ export const CommentItem = ({
                         key={item.comment_id}
                         item={item}
                         currentUser={currentUser}
+                        onSetDislike={onSetDislike}
+                        onSetLike={onSetLike}
                     ></CommentItem>
                 </Box>
             ))}
