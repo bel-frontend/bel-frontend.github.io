@@ -8,6 +8,8 @@ import {
     deleteCommentRequest,
     getCommentsRequest,
     getCommentsSelector,
+    addScoreToCommentsRequest,
+    removeScoreToCommentsRequest,
 } from 'modules/comments';
 import { USER_ROLES } from 'constants/users';
 import { AddComment } from './AddComment';
@@ -51,6 +53,17 @@ export const Comments = ({ articleId, userIsAuth }: any) => {
         const res = getTreeChildren(comments, null);
         return res;
     }, [comments]);
+
+    const onSetLike = (id: any) => {
+        dispatch(addScoreToCommentsRequest({ comment_id: id }, { onSuccess }));
+        console.log(id);
+    };
+    const onSetDislike = (id: any) => {
+        dispatch(
+            removeScoreToCommentsRequest({ comment_id: id }, { onSuccess }),
+        );
+    };
+
     return (
         <Box mt={6} padding={2}>
             <Typography variant="h6">Каментары</Typography>
@@ -77,6 +90,8 @@ export const Comments = ({ articleId, userIsAuth }: any) => {
                                       currntUserIsAdmin={currntUserIsAdmin}
                                       key={item.comment_id}
                                       item={item}
+                                      onSetDislike={onSetDislike}
+                                      onSetLike={onSetLike}
                                   ></CommentItem>
                               ))
                             : null}

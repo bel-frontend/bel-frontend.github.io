@@ -107,7 +107,10 @@ export const AddComment = ({
                     </Grid>
                     <Grid item>
                         {!userIsAuth ? (
-                            <Typography>(Калі ласка залагуйцеся)</Typography>
+                            <Typography>
+                                (Каб адправіць каментарый увайдзіце ў свой
+                                уліковы запіс)
+                            </Typography>
                         ) : null}
                     </Grid>
                 </Grid>

@@ -35,6 +35,11 @@ const theme = createTheme({
             fontSize: '1.1rem',
             fontWeight: 600,
         },
+        subtitle2: {
+            fontSize: '1.1rem',
+            fontWeight: 500,
+            lineHeight: 1,
+        },
     },
     components: {
         MuiAvatar: {
