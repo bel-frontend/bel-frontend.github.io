@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
 import classnames from 'classnames';
+
 import MdEditor from 'react-markdown-editor-lite';
 import MarkdownIt from 'markdown-it';
+
 import TextField from '@mui/material/TextField';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -20,7 +22,7 @@ import { UploadController } from './components/UploadController';
 import 'react-markdown-editor-lite/lib/index.css';
 import style from './style.module.scss';
 
-const mdParser = new MarkdownIt(/* Markdown-it options */);
+const mdParser = new MarkdownIt({ typographer: true });
 
 const Editor = ({
     history,
