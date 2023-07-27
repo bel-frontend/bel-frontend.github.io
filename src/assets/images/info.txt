@@ -1,0 +1,14 @@
+
+Hope you enjoy your new logo, here are the people that
+made your beautiful logo happen :)
+font name: Lovelo Line Bold
+font link: https://www.fontfabric.com/lovelo-font/
+font author: Renzler Design
+font author site: http://www.braenda.com/
+
+
+icon designer: IconfactoryTeam
+icon designer link: /iconfactoryteam
+        
+{"bg":"#E8DCEF","font":"#241030","icon-gradient-0":"#49247E","icon-gradient-1":"#AA49C7","slogan":"#382444"}
+      
