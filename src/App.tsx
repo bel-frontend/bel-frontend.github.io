@@ -17,20 +17,20 @@ function App() {
     return (
         <>
             <Helmet>
-                <title>Беларускі франтэнд ды іншая трасца</title>
+                <title>Bel-Geek.com - Тэхналогіі і Навука</title>
                 <meta
                     name="description"
-                    content="Беларускамоўны блог пра IT ды інш."
+                    content="Bel-Geek.com - Тэхналогіі і Навука На Беларускай Мове"
                 />
                 <meta property="og:url" content="https://bel-frontend.online" />
                 <meta property="og:type" content="website" />
                 <meta
                     property="og:title"
-                    content={'Беларускі франтэнд ды іншая трасца'}
+                    content={'Bel-Geek.com - Тэхналогіі і Навука'}
                 />
                 <meta
                     property="og:description"
-                    content={'Беларускамоўны блог пра IT ды інш.'}
+                    content={'Bel-Geek.com - Тэхналогіі і Навука'}
                 />
                 <meta
                     property="og:image"
@@ -48,11 +48,11 @@ function App() {
                 />
                 <meta
                     name="twitter:title"
-                    content={'Беларускі франтэнд ды іншая трасца'}
+                    content={'Bel-Geek.com - Тэхналогіі і Навука'}
                 />
                 <meta
                     name="twitter:description"
-                    content={'Беларускамоўны блог пра IT ды інш.'}
+                    content={'Bel-Geek.com - Тэхналогіі і Навука'}
                 />
                 <meta
                     name="twitter:image"

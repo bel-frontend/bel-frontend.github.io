@@ -1,6 +1,6 @@
 {
-    "short_name": "Беларускі франтэнд",
-    "name": "Беларускі франтэнд ды іншая трасца",
+    "short_name": "БГ",
+    "name": "Bel-Geek.com - Тэхналогіі і Навука",
     "icons": [
         {
             "src": "icon_192.png",
@@ -14,7 +14,7 @@
         }
     ],
     "default_locate": "be",
-    "start_url": "https://bel-frontend.online/",
+    "start_url": "https://bel-geek.com/",
     "display": "standalone",
     "theme_color": "#000000",
     "background_color": "#ffffff"
