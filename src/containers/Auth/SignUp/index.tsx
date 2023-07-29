@@ -28,7 +28,6 @@ const validationSchema = (t: any) =>
         confirm_password: yup
             .string()
             .min(6)
-            .max(16)
             .required()
             .oneOf([yup.ref('password'), ''], 'Passwords must match'),
     });
