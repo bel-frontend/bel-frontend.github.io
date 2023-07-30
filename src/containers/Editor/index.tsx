@@ -67,7 +67,7 @@ const Editor = ({
                             fullWidth
                             id="title"
                             name="title"
-                            label="title*"
+                            label="Назва артыкула*"
                             value={values.title}
                             size="small"
                             onChange={handleChange('title')}
@@ -80,8 +80,8 @@ const Editor = ({
                             id="description"
                             name="description"
                             minRows={2}
-                            area-label="description"
-                            placeholder="description"
+                            area-label="Кароткае апісанне зместу"
+                            placeholder="Кароткае апісанне зместу"
                             value={values.description}
                             onChange={handleChange('description')}
                             className={style.textarea}
@@ -92,7 +92,7 @@ const Editor = ({
                             fullWidth
                             id="author"
                             name="author"
-                            label="author*"
+                            label="Імя аўтара (любы нікнэйм)*"
                             value={values.author}
                             size="small"
                             onChange={handleChange('author')}
@@ -105,7 +105,7 @@ const Editor = ({
                             fullWidth
                             id="tags"
                             name="tags"
-                            label="tags*"
+                            label="Тэгі для пошуку*"
                             placeholder="Дадайце патрэбныя тэгі праз прабел: javascript webdev"
                             value={values.tags}
                             size="small"
@@ -119,7 +119,7 @@ const Editor = ({
                             fullWidth
                             id="dateArticle"
                             name="dateArticle"
-                            label="date*"
+                            label="Дата публікацыі артыкула*"
                             type="date"
                             InputLabelProps={{ shrink: true }}
                             value={values.dateArticle}
