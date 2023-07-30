@@ -6,4 +6,4 @@ Disallow: /*/register
 Allow: /
 Allow: /*/article/*
 
-Sitemap: https://bel-frontend.online/sitemap.xml
+Sitemap: https://bel-geek.com/sitemap.xml
