@@ -8,6 +8,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import InputAdornment from '@mui/material/InputAdornment';
 import TextField from '@mui/material/TextField';
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
+import EventAvailableIcon from '@mui/icons-material/EventAvailable';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import Menu from '@mui/material/Menu';
@@ -139,6 +140,15 @@ export const Header = ({
                     </MenuItem>
                 </>
             ) : null}
+            <MenuItem onClick={() => history.push('/become_author')}>
+                <IconButton
+                    aria-label="show 17 new notifications"
+                    color="inherit"
+                >
+                    <EventAvailableIcon />
+                </IconButton>
+                <p>Як стаць аўтарам?</p>
+            </MenuItem>
             <MenuItem onClick={() => history.push('/contacts')}>
                 <IconButton
                     aria-label="show 17 new notifications"
