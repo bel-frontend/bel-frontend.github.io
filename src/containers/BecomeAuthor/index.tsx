@@ -17,6 +17,13 @@ const BecomeAuthor = () => (
             component="p"
             style={{ marginBottom: '20px', marginTop: '20px' }}
         >
+            <b>Bel-Geek - гэта адкрытая пляцоўка для публікацыі артыкулаў розных аўтараў на беларускай мове на свабодныя тэмы.</b>
+        </Typography>
+        <Typography
+            variant="body1"
+            component="p"
+            style={{ marginBottom: '20px', marginTop: '20px' }}
+        >
             Калі ў вас няма акаунта, то трэба <Link to='/register'>зарэгістравацца</Link> на сайце.
             Калі акаунт ужо існуе, то <Link to='/login'>аўтарызавацца</Link>.
         </Typography>
@@ -48,7 +55,14 @@ const BecomeAuthor = () => (
             style={{ marginBottom: '20px', marginTop: '20px', lineHeight: '20px' }}
         >
            <b>Важна!</b> Захоўвайце час ад часу свае артыкулы з дапамогай кнопкі "Захаваць", каб выпадкова не згубіць напісанае.
-            Таксама можна захаваць напісанае і адкласці работу з артыкулам на іншы дзень.
+            Таксама можна захаваць напісанае і адкласці работу з артыкулам на іншы дзень. <i>Калі вы ўжо вядзеце блогі ў сацыяльных сетках, то дадавайце спасылкі на іх у сваіх артыкулах.</i>
+        </Typography>
+        <Typography
+            variant="body1"
+            component="p"
+            style={{ marginBottom: '20px', marginTop: '20px', lineHeight: '20px' }}
+        >
+            <b>Важна!</b> Калі вы ўжо вядзеце блогі ў любых сацыяльных сетках, то дадавайце спасылкі на іх у сваіх артыкулах, каб чытачы маглі знайсці больш зацікавіўшай іх інфармацыі.
         </Typography>
         <Typography
             variant="body1"
