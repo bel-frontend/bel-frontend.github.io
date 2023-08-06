@@ -50,6 +50,8 @@ const Editor = ({
         onDelete,
     } = useHooks({ history, id });
 
+    console.log(currentUser);
+
     return (
         <Box>
             <Box mb={1}>
@@ -144,6 +146,17 @@ const Editor = ({
                             }
                             label="Паказваць усім (артыкул будзе бачны для ўсіх карыстальнікаў)"
                         />
+                        {currentUser.role === USER_ROLES.SUPERADMIN ? (
+                            <FormControlLabel
+                                control={
+                                    <Switch
+                                        checked={values.isPinned}
+                                        onChange={handleChange('isPinned')}
+                                    />
+                                }
+                                label="Замацаваць уверсе"
+                            />
+                        ) : null}
                     </Grid>
                     <Grid item md={6}>
                         <UploadController

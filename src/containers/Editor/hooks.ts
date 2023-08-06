@@ -20,7 +20,6 @@ import {
 } from 'modules/files';
 
 import { getCurrentUserSelector } from 'modules/auth';
-import { log } from 'console';
 
 const validationSchema = yup.object({
     title: yup.string().required(),
@@ -42,7 +41,9 @@ const initialValues = {
     tags: '',
     content: '',
     isActive: false,
+    isPinned: false,
 };
+
 let interval: any;
 
 export const useHooks = ({ history, id }: { history: any; id: any }) => {
@@ -151,6 +152,7 @@ export const useHooks = ({ history, id }: { history: any; id: any }) => {
                         (Array.isArray(meta?.tags) && meta?.tags?.join(' ')) ||
                         (meta?.tags ?? ''),
                     isActive: meta?.isActive || false,
+                    isPinned: artickleData?.isPinned || false,
                     title: meta?.title || '',
                 });
             }
