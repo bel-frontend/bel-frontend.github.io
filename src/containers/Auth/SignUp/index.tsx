@@ -169,11 +169,9 @@ const SignUp = ({ history }: { history: any }) => {
                     Зарэгістравацца
                 </Button>
             </Box>
-            {isOpenDialog && (
-                <Dialog open={isOpenDialog} onClose={onCloseDialog}>
-                    <PrivacyPolicy />
-                </Dialog>
-            )}
+            <Dialog open={isOpenDialog} onClose={onCloseDialog}>
+                <PrivacyPolicy />
+            </Dialog>
         </Box>
     );
 };
