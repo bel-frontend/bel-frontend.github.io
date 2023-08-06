@@ -9,7 +9,6 @@ const NotFound = lazy(() => import('containers/NotFound'));
 const EmptyLayout = lazy(() => import('containers/layouts/EmptyLayout'));
 const ProFile = lazy(() => import('containers/Profile'));
 const Contacts = lazy(() => import('containers/Contacts'));
-const BecomeAuthor = lazy(() => import('containers/BecomeAuthor'));
 
 export const redirectAuthPath = '/login';
 
@@ -70,13 +69,6 @@ const mainRoutes: RouteItemInterface[] = [
         path: '/contacts',
         exact: true,
         component: Contacts,
-        showHeader: true,
-        isPrivate: false,
-    },
-    {
-        path: '/become_author',
-        exact: true,
-        component: BecomeAuthor,
         showHeader: true,
         isPrivate: false,
     },
