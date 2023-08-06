@@ -1,0 +1,26 @@
+.wrapper {
+  min-width: 300px;
+  max-width: 450px;
+  width: 70vw;
+  padding: 20px;
+
+  border-radius: 5px;
+  background-color: #eeeded;
+}
+
+.cookieContainer {
+  display: flex;
+}
+
+.linkContainer {
+  color: #0085a1;
+  cursor: pointer;
+
+  &:focus, &:hover {
+    color: #0c93e4;
+  }
+}
+
+.button {
+  margin-top: 10px;
+}
