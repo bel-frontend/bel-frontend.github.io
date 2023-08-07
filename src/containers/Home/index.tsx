@@ -6,6 +6,7 @@ import {
     getArticklesSelector,
     searchArticle,
 } from 'modules/artickles';
+import { confirmCookiesAction } from 'modules/cookies';
 
 import { EpisodePreview } from './components/EpisodePreview/';
 import style from './style.module.scss';
@@ -23,7 +24,9 @@ const Home = ({
 }) => {
     const dispatch = useDispatch();
     const currentUser: any = useSelector(getCurrentUserSelector);
-
+    React.useEffect(() => {
+        // dispatch(confirmCookiesAction());
+    }, []);
     React.useEffect(() => {
         const query = new URLSearchParams(search);
         const text = query.get('seacrhText');
