@@ -28,7 +28,7 @@ const createStoreApp = () => {
         storage: storage,
         throttle: 100,
         version: 0,
-        whitelist: ['auth', 'locale', 'sidebar'],
+        whitelist: ['auth', 'locale', 'sidebar', 'cookies'],
     };
     // Middleware: Redux Persist Persisted Reducer
     const persistedReducer = persistReducer(persistConfig, rootReducer);
