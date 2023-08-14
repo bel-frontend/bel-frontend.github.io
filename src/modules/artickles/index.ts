@@ -38,11 +38,14 @@ export const sendErrorRequest = actionCreator(SEND_ERRORR_REQUEST);
 
 export const searchArticle = createAction(SEARCH_ARTICLE);
 
-apiRoutes.add(GET_ARTICKLES_REQUEST, ({ ...params } = {}) => ({
-    url: `/artickles`,
-    method: 'get',
-    params: params,
-}));
+apiRoutes.add(GET_ARTICKLES_REQUEST, ({ ...params } = {}) => {
+    console.log(params)
+    return ({
+        url: `/artickles`,
+        method: 'get',
+        params: params,
+    })
+});
 
 apiRoutes.add(SEND_ERRORR_REQUEST, ({ ...data } = {}) => ({
     url: `/error-artickle`,
@@ -79,7 +82,7 @@ apiRoutes.add(REMOVE_LIKE_REQUEST, ({ id }: { id: any }) => ({
 
 export function* searchSaga(action: any): any {
     yield put(
-        getArticklesRequest(action?.payload ? { search: action?.payload } : {}),
+        getArticklesRequest(action?.payload),
     );
 }
 
