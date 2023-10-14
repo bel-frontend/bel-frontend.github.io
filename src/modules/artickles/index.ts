@@ -79,7 +79,7 @@ apiRoutes.add(REMOVE_LIKE_REQUEST, ({ id }: { id: any }) => ({
 
 export function* searchSaga(action: any): any {
     yield put(
-        getArticklesRequest(action?.payload ? { search: action?.payload } : {}),
+        getArticklesRequest(action?.payload),
     );
 }
 
