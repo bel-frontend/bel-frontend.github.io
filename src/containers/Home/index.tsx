@@ -48,6 +48,14 @@ const Home = ({
 
     const { articles = [], total }: any = useSelector(getArticklesSelector);
 
+    //add scroll to top
+    React.useEffect(() => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth', // for smoothly scrolling
+        });
+    }, [articles]);
+
     const preparedArticles = React.useMemo(() => {
         const pinned = articles.filter((i: any) => i?.meta?.isPinned); //TODO need move that to BE(sort by pinned)
         const non_pinned = articles.filter((i: any) => !i?.meta?.isPinned);
