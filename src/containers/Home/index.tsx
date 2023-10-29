@@ -10,7 +10,7 @@ import { USER_ROLES } from 'constants/users';
 
 import style from './style.module.scss';
 
-const ARTICLES_PER_PAGE = 5;
+const ARTICLES_PER_PAGE = 15;
 const DEFAULT_PAGE_NUM = 1;
 
 const Home = ({
@@ -59,12 +59,13 @@ const Home = ({
     const preparedArticles = React.useMemo(() => {
         const pinned = articles.filter((i: any) => i?.meta?.isPinned); //TODO need move that to BE(sort by pinned)
         const non_pinned = articles.filter((i: any) => !i?.meta?.isPinned);
-        return [...pinned, ...non_pinned].filter(
-            (i) =>
+        return [...pinned, ...non_pinned].filter((i) => {
+            return (
                 i.isActive ||
                 (!i.isActive && currentUser?.user_id === i?.meta?.user_id) ||
-                currentUser.role === USER_ROLES.SUPERADMIN,
-        );
+                currentUser.role === USER_ROLES.SUPERADMIN
+            );
+        });
     }, [articles]);
 
     const onChangePaginationNumber = (
