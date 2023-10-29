@@ -75,61 +75,63 @@ const Home = ({
     };
 
     return (
-        <Box component={'main'} className={style.main}>
-            <a
-                className={style.telegram}
-                href="https://t.me/bel_frontend"
-                target="_blank"
-                rel="noreferrer"
-            >
-                Далучайцеся да нашага Тэлеграм-канала
-            </a>
+        <>
+            <Box component={'main'} className={style.main}>
+                <a
+                    className={style.telegram}
+                    href="https://t.me/bel_frontend"
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    Далучайцеся да нашага Тэлеграм-канала
+                </a>
 
-            {!!preparedArticles.length && (
-                <>
-                    {preparedArticles.map(
-                        (
-                            {
-                                content,
-                                meta,
-                                id,
-                                isActive,
-                                likes,
-                            }: {
-                                content: string;
-                                meta: any;
-                                id: any;
-                                isActive: boolean;
-                                likes: any;
-                            },
-                            index: number,
-                        ) =>
-                            meta ? (
-                                <EpisodePreview
-                                    currentUser={currentUser}
-                                    history={history}
-                                    key={index}
-                                    userIsAuth={userIsAuth}
-                                    content={content}
-                                    meta={meta}
-                                    id={id}
-                                    isActive={isActive}
-                                    likes={likes}
-                                />
-                            ) : null,
-                    )}
-                    <Box display={'flex'} justifyContent={'center'}>
-                        <Pagination
-                            count={Math.ceil(total / ARTICLES_PER_PAGE)}
-                            shape="rounded"
-                            defaultPage={DEFAULT_PAGE_NUM}
-                            color="primary"
-                            onChange={onChangePaginationNumber}
-                        />
-                    </Box>
-                </>
-            )}
-        </Box>
+                {!!preparedArticles.length && (
+                    <>
+                        {preparedArticles.map(
+                            (
+                                {
+                                    content,
+                                    meta,
+                                    id,
+                                    isActive,
+                                    likes,
+                                }: {
+                                    content: string;
+                                    meta: any;
+                                    id: any;
+                                    isActive: boolean;
+                                    likes: any;
+                                },
+                                index: number,
+                            ) =>
+                                meta ? (
+                                    <EpisodePreview
+                                        currentUser={currentUser}
+                                        history={history}
+                                        key={index}
+                                        userIsAuth={userIsAuth}
+                                        content={content}
+                                        meta={meta}
+                                        id={id}
+                                        isActive={isActive}
+                                        likes={likes}
+                                    />
+                                ) : null,
+                        )}
+                        <Box display={'flex'} justifyContent={'center'}>
+                            <Pagination
+                                count={Math.ceil(total / ARTICLES_PER_PAGE)}
+                                shape="rounded"
+                                defaultPage={DEFAULT_PAGE_NUM}
+                                color="primary"
+                                onChange={onChangePaginationNumber}
+                            />
+                        </Box>
+                    </>
+                )}
+            </Box>
+        </>
     );
 };
 

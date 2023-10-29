@@ -48,9 +48,9 @@ const Editor = ({
         onImageUpload,
         urls,
         onDelete,
+        onCancel,
+        deleteArticle,
     } = useHooks({ history, id });
-
-    console.log(currentUser);
 
     return (
         <Box>
@@ -64,7 +64,7 @@ const Editor = ({
             </Box>
             <form onSubmit={handleSubmit}>
                 <Grid container spacing={4}>
-                    <Grid item md={12}>
+                    <Grid item md={10}>
                         <TextField
                             fullWidth
                             id="title"
@@ -76,6 +76,15 @@ const Editor = ({
                             error={touched.title && Boolean(errors.title)}
                             helperText={touched.title && errors.title}
                         />
+                    </Grid>
+                    <Grid item md={2}>
+                        <Button
+                            variant="contained"
+                            color="error"
+                            onClick={deleteArticle}
+                        >
+                            Выдаліць артыкул
+                        </Button>
                     </Grid>
                     <Grid item md={6}>
                         <TextareaAutosize
@@ -216,7 +225,7 @@ const Editor = ({
                                     variant="outlined"
                                     className="mt-5"
                                     color="primary"
-                                    onClick={() => history.goBack()}
+                                    onClick={onCancel}
                                 >
                                     Скасаваць
                                 </Button>
