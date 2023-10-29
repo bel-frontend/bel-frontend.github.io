@@ -90,7 +90,11 @@ function* rootSaga(dispatch: any) {
                                 message: 'Не знойдзена',
                             }),
                         );
-                        history.push('/404');
+
+                        if (data?.response?.config?.method === 'get') {
+                            history.push('/404');
+                        }
+
                         return;
                     case dataStatus === 500:
                         yield put(

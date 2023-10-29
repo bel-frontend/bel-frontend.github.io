@@ -14,6 +14,7 @@ import {
     getAutoSavedArtickleSelector,
     deleteArticleRequest,
 } from 'modules/artickles';
+import { showPopupAction, hidePopupAction } from 'modules/popups';
 
 import {
     uploadImageForArticleRequest,
@@ -23,7 +24,6 @@ import {
 } from 'modules/files';
 
 import { getCurrentUserSelector } from 'modules/auth';
-import showNotification from 'modules/notification';
 
 const validationSchema = yup.object({
     title: yup.string().required(),
@@ -180,14 +180,33 @@ export const useHooks = ({ history, id }: { history: any; id: any }) => {
 
     const deleteArticle = () => {
         dispatch(
-            deleteArticleRequest(
-                { id },
-                {
-                    onSuccess: () => {
-                        history.push('/');
-                    },
+            showPopupAction({
+                title: '',
+                subtitle: 'Гэты артыкул будзе выдалены назаўседы. Працягнуць?',
+                type: 'confirm',
+                submitButtonText: 'Выдаліць',
+                cancelButtonText: 'Скасаваць',
+                onClick: () => {
+                    dispatch(
+                        deleteArticleRequest(
+                            { id },
+                            {
+                                onSuccess: () => {
+                                    history.push('/');
+                                },
+                            },
+                        ),
+                    );
+                    return true;
                 },
-            ),
+                onCancel: () => {
+                    dispatch(hidePopupAction());
+                    return true;
+                },
+                confirmButtonProps: {
+                    color: 'error',
+                },
+            }),
         );
     };
 

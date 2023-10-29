@@ -1,0 +1,100 @@
+@import '../../styles/endpoints.scss';
+$maxWidth: 80vw;
+$maxWidthMobile: 98vw;
+$maxHeight: 100vh;
+
+.background {
+    border-radius: 16px !important;
+    padding: 30px;
+    @media (max-width: $md) {
+        border-radius: 0px !important;
+        width: 100%;
+    }
+}
+.container {
+    min-width: 280px;
+    max-height: $maxHeight;
+    max-width: $maxWidth;
+    @media (max-width: $md) {
+        max-width: $maxWidthMobile;
+        max-height: none;
+    }
+    @media (min-width: $md) {
+        min-width: 280px;
+    }
+    .title {
+        padding: 0 25px 16px 25px;
+        text-align: center;
+        @media (max-width: $md) {
+            display: none;
+        }
+    }
+    .subtitle {
+        text-align: center;
+        font-weight: 400 !important;
+    }
+    .textError {
+        margin-left: 16px;
+        color: #eb5757;
+        font-size: 12px;
+        white-space: pre;
+    }
+    .textInfo {
+        margin-left: 16px;
+        font-size: 12px;
+    }
+
+    .buttonContainer_right {
+        padding-top: 25px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+
+        // max-height: 20px;
+    }
+    .buttonContainer_center {
+        padding-top: 25px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+
+        // max-height: 20px;
+    }
+    .buttonContainer_left {
+        padding-top: 25px;
+        padding-left: 0px;
+        padding-bottom: 0px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+
+        // max-height: 20px;
+    }
+    .dataContainer {
+        overflow-y: hidden;
+        overflow-x: hidden;
+        padding: 20px 0px 0px 0px;
+        white-space: break-spaces;
+        max-width: $maxWidth;
+        @media (max-width: $md) {
+            max-width: $maxWidthMobile;
+            padding: 0;
+        }
+    }
+    .clear {
+        display: flex;
+        justify-content: flex-end;
+        max-height: 15px;
+        left: 10px;
+        @media (max-width: $md) {
+            padding-bottom: 30px;
+        }
+    }
+    .buttonClear {
+        min-height: 32px;
+    }
+    .confirmButton {
+        margin-left: 20px !important;
+        // font-size: 0.8em;
+    }
+}
