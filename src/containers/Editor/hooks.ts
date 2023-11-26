@@ -70,6 +70,9 @@ export const useHooks = ({ history, id }: { history: any; id: any }) => {
         }
     }, [id, isAdd]);
 
+    const autoSavedArticle = useSelector(getAutoSavedArtickleSelector);
+    const { content = '', meta } = artickleData;
+
     const {
         values,
         touched,
@@ -79,8 +82,29 @@ export const useHooks = ({ history, id }: { history: any; id: any }) => {
         handleChange,
         handleSubmit,
     } = useFormik({
-        initialValues,
+        initialValues: {
+            ...initialValues,
+            ...(isAdd
+                ? {}
+                : {
+                      content: content,
+                      description: meta?.description || '',
+                      dateArticle: meta?.dateArticle || '',
+                      author: meta?.author || '',
+                      tags:
+                          (Array.isArray(meta?.tags) &&
+                              meta?.tags?.join(' ')) ||
+                          (meta?.tags ?? ''),
+                      isActive: meta?.isActive || false,
+                      isPinned: artickleData?.isPinned || false,
+                      title: meta?.title || '',
+                  }),
+            ...(autoSavedArticle?.id === id ? autoSavedArticle : {}),
+        },
+        enableReinitialize: true,
         onSubmit: (values) => {
+            console.log('values', values);
+
             const tags = values.tags.trim().split(' ').filter(Boolean);
 
             if (isAdd) {
@@ -117,33 +141,6 @@ export const useHooks = ({ history, id }: { history: any; id: any }) => {
         }
     }, [values]);
 
-    const { content = '', meta } = artickleData;
-    const autoSavedArticle = useSelector(getAutoSavedArtickleSelector);
-
-    useEffect(() => {
-        if (id && !isAdd) {
-            if (artickleData?.loaded) {
-                setValues({
-                    content: content,
-                    description: meta?.description || '',
-                    dateArticle: meta?.dateArticle || '',
-                    author: meta?.author || '',
-                    tags:
-                        (Array.isArray(meta?.tags) && meta?.tags?.join(' ')) ||
-                        (meta?.tags ?? ''),
-                    isActive: meta?.isActive || false,
-                    isPinned: artickleData?.isPinned || false,
-                    title: meta?.title || '',
-                    ...(autoSavedArticle?.id === id ? autoSavedArticle : {}),
-                });
-            }
-        } else if (isAdd) {
-            setValues({
-                ...autoSavedArticle,
-            });
-        }
-    }, [id, setValues, isAdd, artickleData]);
-
     const onImageUpload = (data: any) => {
         const formData = new FormData();
         formData.append('image', data);
@@ -174,7 +171,7 @@ export const useHooks = ({ history, id }: { history: any; id: any }) => {
     };
 
     const onCancel = () => {
-        history.goBack();
+        history.back();
         dispatch(clearAutoSaveArticle());
     };
 
@@ -192,7 +189,7 @@ export const useHooks = ({ history, id }: { history: any; id: any }) => {
                             { id },
                             {
                                 onSuccess: () => {
-                                    history.push('/');
+                                    history.back();
                                 },
                             },
                         ),

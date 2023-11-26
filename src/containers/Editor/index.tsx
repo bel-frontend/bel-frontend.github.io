@@ -74,6 +74,7 @@ const Editor = ({
                             size="small"
                             onChange={handleChange('title')}
                             error={touched.title && Boolean(errors.title)}
+                            // @ts-ignore
                             helperText={touched.title && errors.title}
                         />
                     </Grid>
@@ -108,6 +109,8 @@ const Editor = ({
                             size="small"
                             onChange={handleChange('author')}
                             error={touched.author && Boolean(errors.author)}
+                            // @ts-ignore
+
                             helperText={touched.author && errors.author}
                         />
                     </Grid>
@@ -122,6 +125,7 @@ const Editor = ({
                             size="small"
                             onChange={handleChange('tags')}
                             error={touched.author && Boolean(errors.tags)}
+                            // @ts-ignore
                             helperText={touched.tags && errors.tags}
                         />
                     </Grid>
@@ -140,6 +144,7 @@ const Editor = ({
                                 touched.dateArticle &&
                                 Boolean(errors.dateArticle)
                             }
+                            // @ts-ignore
                             helperText={
                                 touched.dateArticle && errors.dateArticle
                             }
