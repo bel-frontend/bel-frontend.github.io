@@ -4,7 +4,7 @@ import Chip from '@mui/material/Chip';
 import Box from '@mui/material/Box';
 import Tooltip from '@mui/material/Tooltip';
 
-import { saveToClipBoard } from 'helpers/clipboard';
+import { saveToClipBoard } from '@/helpers/clipboard';
 
 import style from './style.module.scss';
 

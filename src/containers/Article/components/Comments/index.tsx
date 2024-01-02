@@ -1,17 +1,19 @@
+'use client';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import * as yup from 'yup';
 import { Grid, Typography, Box, List } from '@mui/material';
-import { getCurrentUserSelector } from 'modules/auth';
+import { getCurrentUserSelector } from '@/modules/auth';
 import {
-    addCommentRequest,
     deleteCommentRequest,
     getCommentsRequest,
     getCommentsSelector,
     addScoreToCommentsRequest,
     removeScoreToCommentsRequest,
-} from 'modules/comments';
-import { USER_ROLES } from 'constants/users';
+} from '@/modules/comments';
+import { currentUserIsAuth } from '@/modules/auth';
+import { checkPermission } from '@/utils/permissions';
+
+import { USER_ROLES } from '@/constants/users';
 import { AddComment } from './AddComment';
 import { CommentItem } from './CommentItem';
 
@@ -32,18 +34,20 @@ const getTreeChildren = (items: any[] = [], itemId: string | null): any => {
     }
 };
 
-export const Comments = ({ articleId, userIsAuth }: any) => {
+export const Comments = ({ articleId }: any) => {
+    const userIsAuth = useSelector(currentUserIsAuth);
     const currentUser: any = useSelector(getCurrentUserSelector);
     const dispatch = useDispatch();
+    const currntUserIsAdmin = checkPermission(currentUser, [
+        USER_ROLES.ADMIN,
+        USER_ROLES.SUPERADMIN,
+    ]);
 
     React.useEffect(() => {
         dispatch(getCommentsRequest({ artickle_id: articleId }));
     }, [articleId]);
 
     const comments: any[] = useSelector(getCommentsSelector);
-    const currntUserIsAdmin =
-        currentUser.role === USER_ROLES.SUPERADMIN ||
-        currentUser.role === USER_ROLES.ADMIN;
 
     const onSuccess = () => {
         dispatch(getCommentsRequest({ artickle_id: articleId }));
@@ -56,7 +60,6 @@ export const Comments = ({ articleId, userIsAuth }: any) => {
 
     const onSetLike = (id: any) => {
         dispatch(addScoreToCommentsRequest({ comment_id: id }, { onSuccess }));
-        console.log(id);
     };
     const onSetDislike = (id: any) => {
         dispatch(

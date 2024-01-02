@@ -9,7 +9,7 @@ import {
     delay,
     takeLatest,
 } from 'redux-saga/effects';
-import { INIT_DATA } from 'modules/init';
+import { INIT_DATA } from '@/modules/init';
 
 const modules = 'auth';
 const {

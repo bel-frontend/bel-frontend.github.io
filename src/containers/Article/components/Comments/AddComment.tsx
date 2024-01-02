@@ -3,7 +3,7 @@ import { Button, TextField, Grid, Typography, Box, List } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { addCommentRequest } from 'modules/comments';
+import { addCommentRequest } from '@/modules/comments';
 
 const validationSchema = () =>
     yup.object({

@@ -13,6 +13,7 @@ export const MD = ({ children, className = '' }: any) => {
             components={{
                 code({ node, inline, className, children, ...props }) {
                     return !inline ? (
+                        //@ts-ignore
                         <SyntaxHighlighter
                             language="javascript"
                             style={darcula}

@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux';
 import { currentUserIsAuth } from 'modules/auth';
 import Notifications from 'containers/Notifications';
 import { CookiesBanner } from 'components/CookiesBanner';
-import Popups from 'containers/Popups';
 
 const App = ({ ...props }) => {
     const userIsAuth = useSelector(currentUserIsAuth);
@@ -19,7 +18,6 @@ const App = ({ ...props }) => {
                 redirectUrl={redirectAuthPath}
             />
             <Notifications />
-            <Popups />
         </Fragment>
     );
 };

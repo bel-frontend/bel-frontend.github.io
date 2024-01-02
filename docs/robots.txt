@@ -1,9 +1,0 @@
-# https://www.robotstxt.org/robotstxt.html
-User-agent: *
-Disallow: /*/editor
-Disallow: /*/login
-Disallow: /*/register
-Allow: /
-Allow: /*/article/*
-
-Sitemap: https://bel-geek.com/sitemap.xml

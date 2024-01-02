@@ -15,14 +15,16 @@ export const RE_INIT_DATA = `${modules}/RE_INIT_DATA`;
 export const initDataAction = createAction(INIT_DATA);
 export const reInitDataAction = createAction(RE_INIT_DATA);
 
-const initDataSaga = function* () {
-    yield delay(100);
+const initDataSaga = function* (action: any, dipatch: any) {
+    yield delay(50);
     yield put(initDataAction());
 };
 
 export const isRehydrated = (state: any) => state._persist.rehydrated;
 
-export const initModuleSaga = function* (dispatch: any) {
+export const initModuleSaga = function* (dispatch: any, action?: any) {
+    // console.log('initModuleSaga', action, dispatch);
+
     yield all([
         // @ts-ignore
         takeLatest(['persist/PERSIST'], initDataSaga, dispatch),

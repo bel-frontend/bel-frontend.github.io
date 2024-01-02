@@ -1,18 +1,10 @@
 import React from 'react';
-import { Container, Stack } from '@mui/material';
+import { Container } from '@mui/material';
 
 const EmptyLayout = ({ children, ...props }: any) => {
-    const {
-        history,
-        route: { showHeader, showFooter = true, userIsAuth },
-        location,
-    } = props;
-
     return (
         <>
-            <Container maxWidth="xs">
-                {React.createElement(children, props)}
-            </Container>
+            <Container maxWidth="xs">{children}</Container>
         </>
     );
 };

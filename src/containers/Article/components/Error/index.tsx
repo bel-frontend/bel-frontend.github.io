@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 
 import Button from '@mui/material/Button';
@@ -9,10 +10,11 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useFormik } from 'formik';
-import { sendErrorRequest } from 'modules/artickles';
-import { useDispatch } from 'react-redux';
+import { sendErrorRequest } from '@/modules/artickles';
+import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
-import { useHistory } from 'react-router';
+import { currentUserIsAuth } from '@/modules/auth';
+import { useRouter } from 'next/navigation';
 
 const validationSchema = () =>
     yup.object({
@@ -22,17 +24,10 @@ const validationSchema = () =>
             .required('Увядзіце тэкст'),
     });
 
-export default function Error({
-    userIsAuth,
-    currentUser,
-    artickleId,
-}: {
-    userIsAuth: any;
-    currentUser: any;
-    artickleId: any;
-}) {
-    const history = useHistory();
+export default function Error({ artickleId }: { artickleId: any }) {
+    const history = useRouter();
     const dispatch = useDispatch();
+    const userIsAuth = useSelector(currentUserIsAuth);
     const { handleSubmit, values, handleChange, setFieldValue, errors } =
         useFormik({
             onSubmit: ({ message }) => {

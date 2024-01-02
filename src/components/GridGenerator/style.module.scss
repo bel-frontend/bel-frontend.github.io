@@ -1,0 +1,40 @@
+@import '@/styles/endpoints.scss';
+
+.gridContainer {
+    display: grid;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    grid-auto-rows: minmax(5px, 5px);
+}
+.cell {
+    // min-height: 20px;
+    @media (max-width: $isMobile) {
+        min-width: 60px;
+    }
+    // min-width: 60px;
+    border: 1px solid grey;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    &:hover {
+        // background: rgb(230, 230, 230);
+    }
+    user-select: none;
+}
+.selected {
+    border-radius: 5px;
+    // background-color: #1e8cff;
+    box-sizing: border-box;
+    &:hover {
+        // background: rgba(#1f8cff, 0.77);
+    }
+}
+.hovered {
+    // background: rgb(230, 230, 230) !important;
+    // border: 1px solid rgb(184, 184, 184);
+    & > * {
+        // background: rgb(230, 230, 230) !important;
+    }
+}

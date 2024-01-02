@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
@@ -11,7 +12,7 @@ import PopupBackground from '../PopupBackground';
 
 import styles from './style.module.scss';
 
-const Popup = ({ ...props }) => {
+export const Popup = ({ ...props }) => {
     const {
         align = 'left',
         onSubmit,
@@ -65,6 +66,7 @@ const Popup = ({ ...props }) => {
                             className={style.buttonClear}
                             onClick={onClear}
                         >
+                            /home/serj/projects/bel-frontend.github.io/src/components/PopupBackground
                             <ClearIcon />
                         </IconButton>
                     </Grid>
@@ -198,5 +200,3 @@ Popup.defaultProps = {
     cancelButtonProps: {},
     style: {},
 };
-
-export default Popup;

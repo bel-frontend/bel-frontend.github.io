@@ -1,25 +1,26 @@
+'use client';
 import React from 'react';
-import classnames from 'classnames';
+import { useDispatch } from 'react-redux';
 import {
     checkArtickeIsLiked,
     saveLikeToLocalStorage,
     removeLikeFromLocalStorage,
-} from 'modules/firebase';
-import { setLikedRequest, removeLikeRequest } from 'modules/artickles';
+} from '@/modules/firebase';
+
+import { setLikedRequest, removeLikeRequest } from '@/modules/artickles';
 import { Button } from '@mui/material';
-import { useDispatch } from 'react-redux';
 import HeardIcon from './components/HeardIcon';
 
 import style from './style.module.scss';
 
 export const LikeButton = ({
     articleId,
-    className,
     likesCount,
+    className = '',
 }: {
     articleId: string;
-    className?: string;
     likesCount: number;
+    className?: string;
 }) => {
     const dispatch = useDispatch();
     const [likes, setLikes] = React.useState(likesCount);
@@ -64,6 +65,7 @@ export const LikeButton = ({
             size="small"
             onClick={onClick}
             disableElevation
+            className={className}
         >
             <HeardIcon />
             <span className={style.count_likes}>{likes}</span>

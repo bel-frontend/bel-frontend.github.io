@@ -1,24 +1,25 @@
+'use client';
 import * as React from 'react';
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
-import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { Link } from 'react-router-dom';
-import { loginRequest } from 'modules/auth';
+import { loginRequest } from '@/modules/auth';
 
-const validationSchema = (t: any) =>
+const validationSchema = (t?: any) =>
     yup.object({
         email: yup.string().email().required(),
         password: yup.string().min(6).max(16).required(),
     });
 
-const Auth = ({ history }: { history: any }) => {
-    const { t } = useTranslation();
+const Auth = () => {
+    const history = useRouter();
     const dispatch = useDispatch();
     const { handleChange, values, handleSubmit, setErrors, errors } = useFormik(
         {
@@ -26,14 +27,14 @@ const Auth = ({ history }: { history: any }) => {
                 email: '',
                 password: '',
             },
-            validationSchema: validationSchema(t),
+            validationSchema: validationSchema(),
             onSubmit: ({ email, password }) => {
                 dispatch(
                     loginRequest(
                         { email, password },
                         {
                             onSuccess: () => {
-                                history.goBack();
+                                history.back();
                             },
                             onFailure: ({ response: { data: err } }: any) => {
                                 setErrors({ email: err });
@@ -82,7 +83,7 @@ const Auth = ({ history }: { history: any }) => {
                     margin="dense"
                 />
                 <Box mt={2} mb={2}>
-                    <Link to="/register"> Перайсці да рэгістрацыі</Link>
+                    <Link href="/register"> Перайсці да рэгістрацыі</Link>
                 </Box>
                 <Button
                     type="submit"

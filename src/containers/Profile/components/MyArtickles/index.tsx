@@ -1,59 +1,77 @@
 import React from 'react';
-import { EpisodePreview } from 'containers/Home/components/EpisodePreview';
 import { Box } from '@mui/system';
-import { useDispatch, useSelector } from 'react-redux';
+import { Button } from '@mui/material';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableRow from '@mui/material/TableRow';
+import Chip from '@mui/material/Chip';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { ArticleInterface } from '@/constants/types/article';
 
-import { getArticklesRequest, getArticklesSelector } from 'modules/artickles';
-import { getCurrentUserSelector } from 'modules/auth';
-
-export const MyArtickles = ({ history }: any) => {
-    const dispatch = useDispatch();
-    const currentUser: any = useSelector(getCurrentUserSelector);
-    const { articles }: any = useSelector(getArticklesSelector);
-
-    const preparedArticles = React.useMemo(() => {
-        return articles || [];
-    }, [articles]);
-
-    React.useEffect(() => {
-        if (currentUser?.user_id) {
-            dispatch(getArticklesRequest({ user_id: currentUser?.user_id }));
-        }
-    }, [currentUser]);
-
+export const MyArtickles = ({ articles = [] }: any) => {
+    const router = useRouter();
     return (
-        <Box sx={{ maxWidth: '100%' }}>
-            {preparedArticles.map(
-                (
-                    {
-                        content,
-                        meta,
-                        id,
-                        isActive,
-                        likes,
-                    }: {
-                        content: string;
-                        meta: any;
-                        id: any;
-                        isActive: boolean;
-                        likes: any;
-                    },
-                    index: number,
-                ) =>
-                    meta ? (
-                        <EpisodePreview
-                            currentUser={currentUser}
-                            history={history}
-                            key={index}
-                            userIsAuth={true}
-                            content={content}
-                            meta={meta}
-                            id={id}
-                            isActive={isActive}
-                            likes={likes}
-                        />
-                    ) : null,
-            )}
+        <Box sx={{ maxWidth: '100%', maxHeight: '100%', overflowY: 'auto' }}>
+            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                <TableBody>
+                    {articles.map(
+                        (
+                            {
+                                content,
+                                meta,
+                                id,
+                                isActive,
+                                likes,
+                                title,
+                            }: ArticleInterface,
+                            index: number,
+                        ) =>
+                            meta ? (
+                                <TableRow
+                                    hover
+                                    key={id}
+                                    sx={{
+                                        '&:last-child td, &:last-child th': {
+                                            border: 0,
+                                        },
+                                    }}
+                                >
+                                    <TableCell component="th" scope="row">
+                                        <Link
+                                            href={
+                                                meta?.isActive
+                                                    ? `/article/${id}`
+                                                    : `/draft/${id}`
+                                            }
+                                        >
+                                            {meta?.title}
+                                        </Link>
+                                    </TableCell>
+                                    <TableCell align="right">
+                                        {meta?.isActive ? null : (
+                                            <Chip
+                                                label="Чарнавік"
+                                                color="warning"
+                                            />
+                                        )}
+                                    </TableCell>
+                                    <TableCell align="right">
+                                        <Button
+                                            size="small"
+                                            onClick={() => {
+                                                router.push(`/editor/${id}`);
+                                            }}
+                                        >
+                                            Рэдагаваць
+                                        </Button>
+                                    </TableCell>
+                                </TableRow>
+                            ) : null,
+                    )}
+                </TableBody>
+            </Table>
         </Box>
     );
 };

@@ -65,6 +65,14 @@ const theme = createTheme({
                 },
             },
         },
+        MuiFormControlLabel: {
+            styleOverrides: {
+                root: {
+                    marginRight: 4,
+                    alignItems: 'baseline',
+                },
+            },
+        },
     },
 });
 

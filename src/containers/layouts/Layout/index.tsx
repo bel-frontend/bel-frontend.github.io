@@ -1,37 +1,46 @@
-import React from 'react';
-import { Container } from '@mui/material';
-import { useLocation } from 'react-router-dom';
+'use client';
+import React, { createElement } from 'react';
+import { Container, Box } from '@mui/material';
 
-import { Header, Footer } from 'components';
+import { Header, Footer } from '@/components';
 import { ScrollToTop } from './components/ScrollToTop';
+import { useSelector } from 'react-redux';
+import { currentUserIsAuth } from '@/modules/auth';
+import { getViewport } from '@/modules/viewport';
+import { useRouter } from 'next/navigation';
+import BuyMeACofee from './components/BuyMeACoffe';
 
-export const Layout = ({ children, ...props }: any) => {
-    const {
-        history,
-        route: { showHeader, showFooter = true, userIsAuth, maxWidth = 'md' },
-        location,
-        viewPort: { isMobile },
-        viewPort,
-    } = props;
-    const { pathname } = useLocation();
+export const Layout = ({ children, style = {}, ...props }: any) => {
+    const { showHeader = true, showFooter = true, maxWidth = 'md' } = props;
 
-    React.useEffect(() => {
-        window.scrollTo(0, 0);
-    }, [pathname]);
-
+    const userIsAuth = useSelector(currentUserIsAuth);
+    const viewPort = useSelector(getViewport);
+    const history = useRouter();
+    const { isMobile } = viewPort;
     return (
         <>
             {showHeader !== false ? (
                 <Header
                     isMobile={isMobile}
-                    location={location}
                     history={history}
                     userIsAuth={userIsAuth}
                 />
             ) : null}
             <ScrollToTop viewPort={viewPort} />
-            <Container maxWidth={maxWidth} sx={{ minHeight: '80vh' }}>
-                {React.createElement(children, props)}
+            <Container
+                maxWidth={maxWidth}
+                sx={{
+                    mt: -6,
+                    mb: 2,
+                    ...style,
+                }}
+            >
+                <Box display={'flex'} justifyContent={'center'}>
+                    <BuyMeACofee isMobile={isMobile} />
+                </Box>
+            </Container>
+            <Container maxWidth={maxWidth} sx={{ minHeight: '80vh', ...style }}>
+                {children}
             </Container>
             {showFooter ? <Footer /> : null}
         </>

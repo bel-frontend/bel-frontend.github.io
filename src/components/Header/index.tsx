@@ -1,4 +1,8 @@
+'use client';
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { useFormik } from 'formik';
+
 import { Container } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -16,31 +20,26 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import LoginIcon from '@mui/icons-material/Login';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import EditIcon from '@mui/icons-material/Edit';
-import { useFormik } from 'formik';
 
-import { searchArticle } from 'modules/artickles';
-import { useDispatch } from 'react-redux';
-import { logoutAction } from 'modules/auth';
+import { logoutAction } from '@/modules/auth';
 import style from './style.module.scss';
+import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 
-export const Header = ({
-    userIsAuth,
-    isMobile,
-    history,
-    location: { search },
-}: any) => {
-    const dispatch = useDispatch();
+export const Header = ({ userIsAuth, isMobile }: any) => {
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
         React.useState<null | HTMLElement>(null);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+    const dispatch = useDispatch();
+    const router = useRouter();
+
+    const searchParams = useSearchParams();
+    const searchParam = searchParams.get('seacrhText');
 
     const { values, handleChange, handleSubmit, setFieldValue } = useFormik({
         onSubmit: ({ text }) => {
-            history.push(`/`);
-            dispatch(searchArticle(text));
-            history.push(`?seacrhText=${text}`);
+            router.push(`/?searchText=${text}`);
         },
-        initialValues: { text: '' },
+        initialValues: { text: searchParam },
     });
 
     const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -69,7 +68,7 @@ export const Header = ({
         >
             {userIsAuth ? null : (
                 <>
-                    <MenuItem onClick={() => history.push('/login')}>
+                    <MenuItem onClick={() => router.push('/login')}>
                         <IconButton
                             aria-label="show 4 new mails"
                             color="inherit"
@@ -78,7 +77,7 @@ export const Header = ({
                         </IconButton>
                         <p>Увайсці</p>
                     </MenuItem>
-                    <MenuItem onClick={() => history.push('/register')}>
+                    <MenuItem onClick={() => router.push('/register')}>
                         <IconButton
                             aria-label="show 17 new notifications"
                             color="inherit"
@@ -93,7 +92,7 @@ export const Header = ({
                 <>
                     <MenuItem
                         onClick={() => {
-                            history.push('/profile');
+                            router.push('/profile');
                         }}
                     >
                         <IconButton
@@ -108,7 +107,7 @@ export const Header = ({
                     </MenuItem>
                     <MenuItem
                         onClick={() => {
-                            history.push('/editor/add');
+                            router.push('/editor/add');
                         }}
                     >
                         <IconButton
@@ -138,7 +137,7 @@ export const Header = ({
                     </MenuItem>
                 </>
             ) : null}
-            <MenuItem onClick={() => history.push('/contacts')}>
+            <MenuItem onClick={() => router.push('/contacts')}>
                 <IconButton
                     aria-label="show 17 new notifications"
                     color="inherit"
@@ -168,7 +167,7 @@ export const Header = ({
                     <Toolbar>
                         <Box
                             className={isMobile ? style.mobileLogo : style.logo}
-                            onClick={() => history.push('/')}
+                            onClick={() => router.push('/')}
                         ></Box>
                         <TextField
                             value={values.text}

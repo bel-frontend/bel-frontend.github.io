@@ -1,0 +1,38 @@
+{
+  "name": "Name",
+  "birthdate": "Birthday",
+  "job": "Job",
+  "email": "Email",
+  "linkedin": "Linkedin",
+  "address": "Address",
+  "stackoverflow": "Stackoverflow",
+  "github": "Github",
+  "phone": "Phone",
+  "button_download_cv": "Download Cv",
+  "button_hire_me": "Hire Me",
+
+  "tab_resume": "RESUME",
+  "tab_portfolio": "PORTFOLIO",
+  "tab_blog": "BLOG",
+  "tab_contact": "CONTACTS",
+
+  "about_me": "About Me",
+  "my_services": "My Services",
+  "skills": "Skills",
+  "resume": "Resume",
+  "clients": "Clients",
+  "testimonials": "Testimonials",
+  "resume_working": "Working History",
+  "resume_education": "Education History",
+  "contact_form": "Contact Form",
+  "contact_information": "Contact Informations",
+  "contact_map": "Contact Map",
+  "portfolio": "Portfolio",
+
+  "web_development": "Web Development",
+  "mobile_development": "Mobile Development",
+  "backend_development": "Backend Prototyping",
+  "card_web_development": "Creating fast applications with extensible architecture",
+  "card_mobile_development": "Creating mobile applications for IOs and Androind",
+  "card_backend_development": "Prototyping the backend environment in NodeJs"
+}

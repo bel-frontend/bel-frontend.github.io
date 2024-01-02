@@ -1,21 +1,22 @@
+'use client';
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { useRouter } from 'next/navigation';
 
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-
-import { registerRequest } from 'modules/auth';
-import { useDispatch } from 'react-redux';
 import Switch from '@mui/material/Switch';
-import { USER_ROLES } from '../../../constants/users';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import Dialog from '@mui/material/Dialog';
+
+import { registerRequest } from '@/modules/auth';
 
 import styles from './style.module.scss';
-import Dialog from '@mui/material/Dialog';
 import { PrivacyPolicy } from './PrivacyPolicy';
 
 const validationSchema = (t: any) =>
@@ -32,11 +33,11 @@ const validationSchema = (t: any) =>
             .oneOf([yup.ref('password'), ''], 'Passwords must match'),
     });
 
-const SignUp = ({ history }: { history: any }) => {
+const SignUp = () => {
     const [isOpenDialog, setIsOpenDialog] = useState(false);
-
     const dispatch = useDispatch();
     const { t } = useTranslation();
+    const history = useRouter();
     const {
         handleChange,
         handleBlur,
@@ -59,7 +60,7 @@ const SignUp = ({ history }: { history: any }) => {
                     { email, password },
                     {
                         onSuccess: () => {
-                            history.goBack();
+                            history.back();
                         },
                         onFailure: ({ response: { data: err } }: any) => {
                             console.error(err);
@@ -140,24 +141,32 @@ const SignUp = ({ history }: { history: any }) => {
                         Boolean(errors.confirm_password)
                     }
                 />
-                <FormControlLabel
-                    control={
-                        <Switch
-                            checked={values.privacy_policy}
-                            onChange={handleChange('privacy_policy')}
-                        />
-                    }
-                    label="Згодны з"
-                />
-                <Typography
-                    variant="body1"
-                    component="span"
-                    color="primary"
-                    className={styles.linkedSpan}
-                    onClick={onOpenDialog}
+                <Box
+                    sx={{
+                        display: 'flex',
+                        // justifyContent: 'center',
+                        alignItems: 'baseline',
+                    }}
                 >
-                    палітыкай прыватнасці
-                </Typography>
+                    <FormControlLabel
+                        control={
+                            <Switch
+                                checked={values.privacy_policy}
+                                onChange={handleChange('privacy_policy')}
+                            />
+                        }
+                        label="Згодны "
+                    />
+                    <Typography
+                        variant="body1"
+                        component="span"
+                        color="primary"
+                        className={styles.linkedSpan}
+                        onClick={onOpenDialog}
+                    >
+                        з палітыкай прыватнасці
+                    </Typography>
+                </Box>
                 <Button
                     type="submit"
                     fullWidth

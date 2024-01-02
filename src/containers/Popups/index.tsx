@@ -1,7 +1,8 @@
+'use client';
 import React, { Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Popup } from 'components';
-import { popupSelector, hidePopupAction } from 'modules/popups';
+import { Popup } from '@/components';
+import { popupSelector, hidePopupAction } from '@/modules/popups';
 import makeStyles from '@mui/styles/makeStyles';
 
 const useStyle = makeStyles((theme) => ({
@@ -13,7 +14,6 @@ const Popups = () => {
     const confirms = useSelector(popupSelector);
     const dispatch = useDispatch();
     const onHidePopup = (id: any) => dispatch(hidePopupAction(id));
-    console.log('confirms', confirms);
 
     return (
         <>

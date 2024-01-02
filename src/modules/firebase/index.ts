@@ -1,3 +1,4 @@
+'use client';
 import { getDatabase, ref, set, onValue } from 'firebase/database';
 import { initializeApp } from 'firebase/app';
 import { getAnalytics } from 'firebase/analytics';
@@ -11,11 +12,12 @@ const firebaseConfig = {
     measurementId: 'G-REGR3FB1CP',
 };
 // Initialize Firebase
-export const app = initializeApp(firebaseConfig);
 
-const analytics = getAnalytics(app);
-
-const database = getDatabase(app);
+if (typeof window !== 'undefined') {
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const database = getDatabase(app);
+}
 
 export const checkArtickeIsLiked = (artickleId: any) => {
     const items =
