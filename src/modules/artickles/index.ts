@@ -160,7 +160,7 @@ function* searchSaga(action: any): any {
 
 export function* artickleModuleSaga(dispatch: any) {
     yield debounce(300, SEARCH_ARTICLE, searchSaga);
-    yield debounce(10000, AUTOSAVE_ARTICLE, autosaveSaga);
+    yield debounce(3000, AUTOSAVE_ARTICLE, autosaveSaga);
 }
 
 export const getArticklesSelector = apiSelector(GET_ARTICKLES_REQUEST);
