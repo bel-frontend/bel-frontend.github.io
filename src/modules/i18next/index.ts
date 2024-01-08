@@ -96,14 +96,14 @@ export const i18nextReducer = (
 const getTranslateSaga = function* (): any {
     const locale = yield select(localeSelector);
     i18next.changeLanguage(locale);
-    yield put(
-        getTranslateAction(
-            { locale },
-            {
-                onSuccess: () => {},
-            },
-        ),
-    );
+    // yield put(
+    //     getTranslateAction(
+    //         { locale },
+    //         {
+    //             onSuccess: () => {},
+    //         },
+    //     ),
+    // );
 };
 
 const getTranslateByActionSaga = function* (

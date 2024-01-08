@@ -1,8 +1,8 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 
-import { ArticleInterface } from '@/constants/types/article';
-import { UserInterface } from '@/constants/types/user';
+import { ArticleInterface } from '@/modules/artickles/types/article';
+import { UserInterface } from '@/modules/artickles/types/user';
 import { USER_ROLES } from '@/constants/users';
 import {
     getArticklesRequest,

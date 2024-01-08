@@ -133,7 +133,7 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
                             size="small"
                             onChange={handleChange('tags')}
                             error={touched.author && Boolean(errors.tags)}
-                            helperText={touched.tags && errors.tags}
+                            helperText={touched.tags && errors.tags?.toString()}
                         />
                     </Grid>
                     <Grid item md={6}>

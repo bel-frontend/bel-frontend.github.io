@@ -23,6 +23,7 @@ export interface ArticleInterface {
     description: string;
     artickle_id: string;
     created_at: string;
+    updated_at?: string;
     likes: number;
     isPinned: boolean;
     isBlocked: boolean;
@@ -30,4 +31,18 @@ export interface ArticleInterface {
     id: string;
     meta: MetaDataInterface;
     loaded?: boolean;
+}
+
+export interface AutoSaveArticleInterface {
+    title: string;
+    description: string;
+    dateArticle: string;
+    author: string;
+    tags: string;
+    content: string;
+    isActive: boolean;
+    isPinned: boolean;
+    isAdd: boolean;
+    id: string;
+    updated_at?: number;
 }

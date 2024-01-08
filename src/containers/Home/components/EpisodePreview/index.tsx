@@ -3,7 +3,7 @@ import { MetaData } from '@/components/MetaData';
 import { Box } from '@mui/material';
 import { MD } from '@/components';
 
-import { ArticleInterface } from '@/constants/types/article';
+import { ArticleInterface } from '@/modules/artickles/types/article';
 import EditLink from '@/components/EditLink';
 
 import Link from 'next/link';

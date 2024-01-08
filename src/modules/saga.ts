@@ -32,11 +32,12 @@ const {
 } = apiHelpers;
 
 if (process.env.NODE_ENV == 'development') {
-    // init('http://localhost:3001');
-    init('https://api.bel-frontend.online');
+    // init('http://134.122.52.103:3002');
+    init('http://localhost:3001');
+    init('https://api-test.bel-geek.com');
 } else if (process.env.NODE_ENV == 'production') {
     // init('http://localhost:3001');
-    init('https://api.bel-frontend.online');
+    init('https://api.bel-geek.com');
     // init(process.env.PROD_URL);
 }
 

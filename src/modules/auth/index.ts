@@ -11,6 +11,8 @@ import {
 } from 'redux-saga/effects';
 import { INIT_DATA } from '@/modules/init';
 
+export * from './types/user';
+
 const modules = 'auth';
 const {
     helpers: { actionCreator, apiSelector },

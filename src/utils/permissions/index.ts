@@ -1,4 +1,4 @@
-import { UserInterface } from '@/constants/types/user';
+import { UserInterface } from '@/modules/artickles/types/user';
 import { USER_ROLES } from '@/constants/users';
 
 export const checkPermission = (

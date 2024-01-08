@@ -17,9 +17,9 @@ import {
 import { getCurrentUserSelector } from '@/modules/auth';
 import { MyArtickles } from './components/MyArtickles';
 import { checkPermission } from '@/utils/permissions';
-import { UserInterface } from '@/constants/types/user';
+import { UserInterface } from '@/modules/artickles/types/user';
 import { USER_ROLES } from '@/constants/users';
-import { ArticleInterface } from '@/constants/types/article';
+import { ArticleInterface } from '@/modules/artickles/types/article';
 
 interface TabPanelProps {
     children?: React.ReactNode;

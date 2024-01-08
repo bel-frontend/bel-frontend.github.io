@@ -8,7 +8,7 @@ import {
 } from '@/modules/artickles';
 import { getDataWrapper } from '@/modules/apiRoutes';
 import ArticleView from './components/Article';
-import { ArticleInterface } from '@/constants/types/article';
+import { ArticleInterface } from '@/modules/artickles/types/article';
 
 type Props = {
     params: { id: string };

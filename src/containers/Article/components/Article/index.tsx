@@ -8,7 +8,7 @@ import { MetaData, MD } from '@/components';
 import { LikeButton, Tag } from '@/components';
 import Error from '../Error';
 import { Comments } from '../Comments';
-import { ArticleInterface } from '@/constants/types/article';
+import { ArticleInterface } from '@/modules/artickles/types/article';
 import style from './style.module.scss';
 
 const Article = ({ article }: { article: ArticleInterface }) => {

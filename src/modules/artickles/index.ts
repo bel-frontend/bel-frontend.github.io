@@ -8,6 +8,7 @@ import {
     debounce,
     all,
 } from 'redux-saga/effects';
+export * from './types/article';
 
 const modules = 'artickles';
 const {
@@ -139,7 +140,7 @@ export const autoSaveArtickleReducer = (state = initialState, action: any) => {
             const {
                 payload: { ...data },
             } = action;
-            return { ...state, ...data };
+            return { ...state, ...data, updated_at: Date.now() };
         }
         case CLEAR_AUTOSAVE_ARTICLE: {
             return {};
@@ -149,17 +150,17 @@ export const autoSaveArtickleReducer = (state = initialState, action: any) => {
     }
 };
 
-export function* autosaveSaga(action: any): any {
+function* autosaveSaga(action: any): any {
     yield put({ type: SAVE_ARTICLE_TO_STORE, payload: action?.payload });
 }
 
-export function* searchSaga(action: any): any {
+function* searchSaga(action: any): any {
     yield put(getArticklesRequest(action?.payload));
 }
 
 export function* artickleModuleSaga(dispatch: any) {
     yield debounce(300, SEARCH_ARTICLE, searchSaga);
-    yield debounce(1000, AUTOSAVE_ARTICLE, autosaveSaga);
+    yield debounce(10000, AUTOSAVE_ARTICLE, autosaveSaga);
 }
 
 export const getArticklesSelector = apiSelector(GET_ARTICKLES_REQUEST);

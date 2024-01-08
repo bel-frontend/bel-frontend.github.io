@@ -3,7 +3,7 @@ import React from 'react';
 import Link from 'next/link';
 import { LikeButton, Tag } from '@/components';
 import { Button, Box } from '@mui/material';
-import { MetaDataInterface } from '@/constants/types/article';
+import { MetaDataInterface } from '@/modules/artickles/types/article';
 
 import style from './style.module.scss';
 

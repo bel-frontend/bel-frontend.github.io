@@ -13,6 +13,7 @@ import {
     clearAutoSaveArticle,
     getAutoSavedArtickleSelector,
     deleteArticleRequest,
+    AutoSaveArticleInterface,
 } from '@/modules/artickles';
 import { showPopupAction, hidePopupAction } from '@/modules/popups';
 
@@ -22,6 +23,7 @@ import {
     getImagesRequest,
     getImagesSelector,
 } from '@/modules/files';
+import { ArticleInterface } from '@/modules/artickles/types/article';
 
 import { getCurrentUserSelector } from '@/modules/auth';
 
@@ -37,7 +39,18 @@ const validationSchema = yup.object({
     content: yup.string().required(),
 });
 
-const initialValues = {
+interface FormDataValues {
+    title: string;
+    description: string;
+    dateArticle: string;
+    author: string;
+    tags: string;
+    content: string;
+    isActive: boolean;
+    isPinned: boolean;
+}
+
+const initialValues: FormDataValues = {
     title: '',
     description: '',
     dateArticle: moment(new Date()).format('YYYY-MM-DD'),
@@ -51,7 +64,9 @@ const initialValues = {
 export const useHooks = ({ history, id }: { history: any; id: any }) => {
     const isAdd = id === 'add';
     const dispatch = useDispatch();
-    const artickleData: any = useSelector(getArtickleSelector);
+    const artickleData = useSelector<any, ArticleInterface>(
+        getArtickleSelector,
+    );
     const currentUser: any = useSelector(getCurrentUserSelector);
     const images: any = useSelector(getImagesSelector);
 
@@ -70,8 +85,37 @@ export const useHooks = ({ history, id }: { history: any; id: any }) => {
         }
     }, [id, isAdd]);
 
-    const autoSavedArticle = useSelector(getAutoSavedArtickleSelector);
+    const autoSavedArticle = useSelector<any, AutoSaveArticleInterface>(
+        getAutoSavedArtickleSelector,
+    );
     const { content = '', meta } = artickleData;
+
+    const autoSaveArtickleClone = { ...autoSavedArticle };
+
+    delete autoSaveArtickleClone.updated_at; // disabled re-rendering
+
+    const formData: FormDataValues = isAdd
+        ? initialValues
+        : {
+              content: content,
+              description: meta?.description || '',
+              dateArticle: meta?.dateArticle || '',
+              author: meta?.author || '',
+              tags: (Array.isArray(meta?.tags) && meta?.tags?.join(' ')) || '',
+              isActive: meta?.isActive || false,
+              isPinned: artickleData?.isPinned || false,
+              title: meta?.title || '',
+          };
+
+    const initialWithAutosave = {
+        ...formData,
+        ...(((autoSavedArticle?.id === id ||
+            (isAdd && autoSaveArtickleClone.isAdd)) &&
+            autoSavedArticle?.updated_at) ||
+        0 > new Date(artickleData.updated_at || 0).getTime()
+            ? autoSaveArtickleClone
+            : {}),
+    };
 
     const {
         values,
@@ -83,23 +127,7 @@ export const useHooks = ({ history, id }: { history: any; id: any }) => {
         handleSubmit,
     } = useFormik({
         initialValues: {
-            ...initialValues,
-            ...(isAdd
-                ? {}
-                : {
-                      content: content,
-                      description: meta?.description || '',
-                      dateArticle: meta?.dateArticle || '',
-                      author: meta?.author || '',
-                      tags:
-                          (Array.isArray(meta?.tags) &&
-                              meta?.tags?.join(' ')) ||
-                          (meta?.tags ?? ''),
-                      isActive: meta?.isActive || false,
-                      isPinned: artickleData?.isPinned || false,
-                      title: meta?.title || '',
-                  }),
-            ...(autoSavedArticle?.id === id ? autoSavedArticle : {}),
+            ...initialWithAutosave,
         },
         enableReinitialize: true,
         onSubmit: (values) => {
@@ -137,7 +165,13 @@ export const useHooks = ({ history, id }: { history: any; id: any }) => {
 
     React.useEffect(() => {
         if (isAdd || artickleData?.loaded) {
-            dispatch(autoSaveArticle({ ...values, isAdd, id }));
+            dispatch(
+                autoSaveArticle({
+                    ...values,
+                    isAdd,
+                    id,
+                }),
+            );
         }
     }, [values]);
 
@@ -158,6 +192,7 @@ export const useHooks = ({ history, id }: { history: any; id: any }) => {
     };
 
     const onDelete = ({ filename, id: field_id }: any) => {
+        dispatch(clearAutoSaveArticle());
         dispatch(
             deleteImageRequest(
                 { filename, id: field_id },
