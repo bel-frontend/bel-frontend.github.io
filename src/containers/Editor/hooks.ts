@@ -109,12 +109,12 @@ export const useHooks = ({ history, id }: { history: any; id: any }) => {
 
     const initialWithAutosave = {
         ...formData,
-        ...(((autoSavedArticle?.id === id ||
-            (isAdd && autoSaveArtickleClone.isAdd)) &&
-            autoSavedArticle?.updated_at) ||
-        0 > new Date(artickleData.updated_at || 0).getTime()
-            ? autoSaveArtickleClone
-            : {}),
+        // ...(((autoSavedArticle?.id === id ||
+        //     (isAdd && autoSaveArtickleClone.isAdd)) &&
+        //     autoSavedArticle?.updated_at) ||
+        // 0 > new Date(artickleData.updated_at || 0).getTime()
+        //     ? autoSaveArtickleClone
+        //     : {}),
     };
 
     const {
@@ -163,17 +163,17 @@ export const useHooks = ({ history, id }: { history: any; id: any }) => {
         validationSchema,
     });
 
-    React.useEffect(() => {
-        if (isAdd || artickleData?.loaded) {
-            dispatch(
-                autoSaveArticle({
-                    ...values,
-                    isAdd,
-                    id,
-                }),
-            );
-        }
-    }, [values]);
+    // React.useEffect(() => {
+    //     if (isAdd || artickleData?.loaded) {
+    //         dispatch(
+    //             autoSaveArticle({
+    //                 ...values,
+    //                 isAdd,
+    //                 id,
+    //             }),
+    //         );
+    //     }
+    // }, [values]);
 
     const onImageUpload = (data: any) => {
         const formData = new FormData();
