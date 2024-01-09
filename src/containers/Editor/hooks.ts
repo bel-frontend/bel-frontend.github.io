@@ -109,6 +109,7 @@ export const useHooks = ({ history, id }: { history: any; id: any }) => {
 
     const initialWithAutosave = {
         ...formData,
+        isAdd,
         // ...(((autoSavedArticle?.id === id ||
         //     (isAdd && autoSaveArtickleClone.isAdd)) &&
         //     autoSavedArticle?.updated_at) ||
