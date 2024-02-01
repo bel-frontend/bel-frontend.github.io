@@ -30,7 +30,7 @@ const validationSchema = (t: any) =>
             .string()
             .min(6)
             .required()
-            .oneOf([yup.ref('password'), ''], 'Passwords must match'),
+            .oneOf([yup.ref('password'), ''], 'Паролі павінны супадаць'),
     });
 
 const SignUp = () => {

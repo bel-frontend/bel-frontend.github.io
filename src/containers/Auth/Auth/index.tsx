@@ -15,7 +15,7 @@ import { loginRequest } from '@/modules/auth';
 const validationSchema = (t?: any) =>
     yup.object({
         email: yup.string().email().required(),
-        password: yup.string().min(6).max(16).required(),
+        password: yup.string().min(6).required(),
     });
 
 const Auth = () => {
