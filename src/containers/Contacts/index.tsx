@@ -25,7 +25,7 @@ const contacts = [
     {
         text: 'RSS',
         Icon: RssFeed,
-        href: 'https://api.bel-frontend.online/rss',
+        href: 'https://api.bel-geek.com/rss',
         color: 'rgb(253,102,0)',
     },
     {
