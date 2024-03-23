@@ -2,8 +2,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import React, { Fragment } from 'react';
-import { Snackbar } from 'components';
-import { notificationSelector, hideNotification } from 'modules/notification';
+import { Snackbar } from '@/components';
+import { notificationSelector, hideNotification } from '@/modules/notification';
 
 const Notifications = ({ ...props }) => {
     const { children, notificationStatus, hideNotification } = props;

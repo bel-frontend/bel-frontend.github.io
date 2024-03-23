@@ -5,9 +5,7 @@ import { Inter } from 'next/font/google';
 import { ReduxProvider, ThemeRegistry, InitProvider } from '@/providers';
 import Popups from '@/containers/Popups';
 import '@/modules/translations';
-import { useDispatch } from 'react-redux';
-import { initDataAction } from '@/modules/init';
-
+import Notifications from '@/containers/Notifications';
 const inter = Inter({ subsets: ['latin'] });
 
 function RootLayout({
@@ -27,6 +25,7 @@ function RootLayout({
                         <ThemeRegistry options={{ key: 'mui' }}>
                             {children}
                             <Popups />
+                            <Notifications />;
                         </ThemeRegistry>
                     </InitProvider>
                 </ReduxProvider>

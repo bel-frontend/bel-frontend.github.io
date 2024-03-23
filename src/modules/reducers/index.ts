@@ -7,6 +7,7 @@ import { popupsReducer } from '@/modules/popups';
 import { autoSaveArtickleReducer } from '../artickles';
 import { combineReducers } from 'redux';
 import { i18nextReducer } from '../i18next';
+import showNotification from '@/modules/notification';
 
 const {
     modules: { apiDefaultReducer },

@@ -22,7 +22,10 @@ const initialState = {
     type: 'info',
 };
 
-export default function showNotification(state = initialState, action: any) {
+export default function notificationsReducer(
+    state = initialState,
+    action: any,
+) {
     switch (action.type) {
         case SHOW_NOTHIFICATION_INFO: {
             const { message = '' } = action.payload;

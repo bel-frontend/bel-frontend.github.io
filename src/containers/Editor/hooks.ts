@@ -16,7 +16,7 @@ import {
     AutoSaveArticleInterface,
 } from '@/modules/artickles';
 import { showPopupAction, hidePopupAction } from '@/modules/popups';
-
+import { showSuccess } from '@/modules/notification';
 import {
     uploadImageForArticleRequest,
     deleteImageRequest,
@@ -126,6 +126,7 @@ export const useHooks = ({ history, id }: { history: any; id: any }) => {
         setValues,
         handleChange,
         handleSubmit,
+        isValid,
     } = useFormik({
         initialValues: {
             ...initialWithAutosave,
@@ -164,17 +165,46 @@ export const useHooks = ({ history, id }: { history: any; id: any }) => {
         validationSchema,
     });
 
-    // React.useEffect(() => {
-    //     if (isAdd || artickleData?.loaded) {
-    //         dispatch(
-    //             autoSaveArticle({
-    //                 ...values,
-    //                 isAdd,
-    //                 id,
-    //             }),
-    //         );
-    //     }
-    // }, [values]);
+    const saveUpdates = () => {
+        console.log('saveUpdates');
+
+        const tags = values.tags.trim().split(' ').filter(Boolean);
+
+        if (isValid) {
+            if (isAdd) {
+                dispatch(
+                    createArtickleRequest(
+                        { ...values, tags, files: urls },
+                        {
+                            onSuccess: ({ data: { artickle_id } }: any) => {
+                                history.push(`/editor/${artickle_id}  `);
+                                dispatch(
+                                    showSuccess({
+                                        message: 'Артыкул захаваны',
+                                    }),
+                                );
+                            },
+                        },
+                    ),
+                );
+            } else {
+                dispatch(
+                    updateArtickleRequest(
+                        { id, ...values, tags, files: urls },
+                        {
+                            onSuccess: ({ ...data }) => {
+                                dispatch(
+                                    showSuccess({
+                                        message: 'Артыкул захаваны',
+                                    }),
+                                );
+                            },
+                        },
+                    ),
+                );
+            }
+        }
+    };
 
     const onImageUpload = (data: any) => {
         const formData = new FormData();
@@ -261,5 +291,7 @@ export const useHooks = ({ history, id }: { history: any; id: any }) => {
         onDelete,
         onCancel,
         deleteArticle,
+        saveUpdates,
+        isValid,
     };
 };

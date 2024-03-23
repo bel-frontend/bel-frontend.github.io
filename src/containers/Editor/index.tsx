@@ -47,6 +47,8 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
         onDelete,
         onCancel,
         deleteArticle,
+        saveUpdates,
+        isValid,
     } = useHooks({ history, id });
 
     const [mode, setMode] = React.useState('0');
@@ -214,6 +216,23 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
                             <ToggleButton value="2">Р | П</ToggleButton>
                         </ToggleButtonGroup>
                     </Grid>
+                    <Grid
+                        item
+                        md={6}
+                        justifyContent={'flex-end'}
+                        display={'flex'}
+                    >
+                        <Button
+                            variant="contained"
+                            disabled={!isValid}
+                            onClick={() => {
+                                saveUpdates();
+                            }}
+                        >
+                            Захаваць змены{' '}
+                            {!isValid ? ' (запоўніце абавязковыя палі)' : ''}
+                        </Button>
+                    </Grid>
                 </Grid>
                 <Grid container className={style.container} spacing={3}>
                     <Grid
@@ -288,7 +307,7 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
                                             className="mt-5"
                                             type="submit"
                                         >
-                                            Захаваць
+                                            Захаваць і перайсці на галоўную
                                         </Button>
                                     </Box>
                                 </>
