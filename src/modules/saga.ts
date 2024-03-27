@@ -33,8 +33,8 @@ const {
 
 if (process.env.NODE_ENV == 'development') {
     // init('https://api.bel-geek.com');
-    // init('http://localhost:3001');
-    init('https://api-test.bel-geek.com');
+    init('http://localhost:3001');
+    // init('https://api-test.bel-geek.com');
 } else if (process.env.NODE_ENV == 'production') {
     // init('http://localhost:3001');
     init('https://api.bel-geek.com');
