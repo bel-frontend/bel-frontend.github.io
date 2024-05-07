@@ -5,6 +5,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import { FormControlLabel, Checkbox, FormGroup } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Cell, GridGenerator, Card } from '@/components';
@@ -17,9 +18,15 @@ import {
 import { getCurrentUserSelector } from '@/modules/auth';
 import { MyArtickles } from './components/MyArtickles';
 import { checkPermission } from '@/utils/permissions';
-import { UserInterface } from '@/modules/artickles/types/user';
+import { UserInterface } from '@/modules/auth/types/user';
 import { USER_ROLES } from '@/constants/users';
 import { ArticleInterface } from '@/modules/artickles/types/article';
+import {
+    addSubscribeRequest,
+    deleteSubscribeRequest,
+    getSubscribeRequest,
+    getSubsribtionStatusSelector,
+} from '@/modules/user';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -62,7 +69,40 @@ export default function Profile({ history }: any) {
     const dispatch = useDispatch();
     React.useEffect(() => {
         dispatch(getMyArticlesRequest());
+        dispatch(getSubscribeRequest());
     }, []);
+
+    const { enabled: subscribeStatus = false } = useSelector<
+        any,
+        { enabled: boolean }
+    >(getSubsribtionStatusSelector);
+    console.log('subscribeStatus', subscribeStatus);
+
+    const handleSubscribe = () => {
+        if (subscribeStatus) {
+            dispatch(
+                deleteSubscribeRequest(
+                    {},
+                    {
+                        onSuccess: () => {
+                            dispatch(getSubscribeRequest());
+                        },
+                    },
+                ),
+            );
+        } else {
+            dispatch(
+                addSubscribeRequest(
+                    {},
+                    {
+                        onSuccess: () => {
+                            dispatch(getSubscribeRequest());
+                        },
+                    },
+                ),
+            );
+        }
+    };
 
     const { preparedArticles, likes, articleWithMostLikes } =
         React.useMemo(() => {
@@ -110,11 +150,8 @@ export default function Profile({ history }: any) {
     return (
         <Box
             sx={{
-                // flexGrow: 1,
-                // display: 'flex',
                 height: '80vh',
                 width: '100%',
-                // height: 224,
             }}
         >
             <GridGenerator
@@ -122,11 +159,11 @@ export default function Profile({ history }: any) {
                     minHeight: '100%',
                     maxHeight: '100%',
                 }}
-                cols={3}
+                cols={6}
                 rows={7}
                 gap={[30, 30]}
             >
-                <Cell col={0} row={0} colSpan={1} rowSpan={1}>
+                <Cell col={0} row={0} colSpan={2} rowSpan={1}>
                     <Card>
                         <Typography variant="subtitle1">
                             Усяго падабаек:
@@ -134,7 +171,7 @@ export default function Profile({ history }: any) {
                         <Typography>{likes}</Typography>
                     </Card>
                 </Cell>
-                <Cell col={1} row={0} colSpan={2} rowSpan={1}>
+                <Cell col={2} row={0} colSpan={2} rowSpan={1}>
                     <Card>
                         <Typography variant="subtitle1">
                             Самы папулярны артыкул:
@@ -146,8 +183,28 @@ export default function Profile({ history }: any) {
                         </Typography>
                     </Card>
                 </Cell>
+                <Cell col={4} row={0} colSpan={2} rowSpan={1}>
+                    <Card>
+                        <FormControlLabel
+                            checked={subscribeStatus}
+                            control={
+                                <Checkbox
+                                    onChange={handleSubscribe}
+                                    checked={subscribeStatus}
+                                />
+                            }
+                            label="Падпісацца на навіны"
+                        />
+                        <Typography variant="body2">
+                            * Падпіска на навіны дазволіць атрымліваць навіны на
+                            вашу электронную пошту. Навіны збіраюцца з розных
+                            крыніц, апрацоўваюцца праз ШІ і перакладаюцца на
+                            беларускую мову.
+                        </Typography>
+                    </Card>
+                </Cell>
 
-                <Cell col={0} row={1} colSpan={3} rowSpan={6}>
+                <Cell col={0} row={1} colSpan={6} rowSpan={6}>
                     <Card
                         sx={{
                             width: '100%',
