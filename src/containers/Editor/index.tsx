@@ -24,9 +24,11 @@ import { MD, UploadFile } from '@/components';
 
 import { useHooks } from './hooks';
 import { UploadController } from './components/UploadController';
+import { IconButton, Tooltip } from '@mui/material';
 
 import 'react-markdown-editor-lite/lib/index.css';
 import style from './style.module.scss';
+import { Save } from '@mui/icons-material';
 
 const mdParser = new MarkdownIt({ typographer: true });
 
@@ -320,13 +322,28 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
                             md={mode == 1 ? 12 : 6}
                             className={classnames('mb-3 mt-5')}
                         >
-                            <Box m={1}>
-                                {/* <label
-                                    htmlFor="exampleFormControlTextarea1"
-                                    className="form-label"
-                                >
-                                    Прадагляд
-                                </label> */}
+                            <Box
+                                sx={{
+                                    position: 'sticky',
+                                    top: '10vh',
+                                    marginLeft: 'auto',
+                                    display: 'flex',
+                                    justifyContent: 'flex-end',
+                                }}
+                            >
+                                <Tooltip title="Захаваць змены">
+                                    <IconButton
+                                        color="secondary"
+                                        size="large"
+                                        disabled={!isValid}
+                                        sx={{ backgroundColor: 'white' }}
+                                        onClick={() => {
+                                            saveUpdates();
+                                        }}
+                                    >
+                                        <Save />
+                                    </IconButton>
+                                </Tooltip>
                             </Box>
                             <MD>{values.content}</MD>
                         </Grid>
