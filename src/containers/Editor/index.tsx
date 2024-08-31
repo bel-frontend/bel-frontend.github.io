@@ -336,7 +336,12 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
                                         color="secondary"
                                         size="large"
                                         disabled={!isValid}
-                                        sx={{ backgroundColor: 'white' }}
+                                        sx={{
+                                            backgroundColor: 'white',
+                                            position: 'fixed',
+                                            left: 'calc(100svw - 78px)',
+                                            top: 'calc(100svh - 200px)',
+                                        }}
                                         onClick={() => {
                                             saveUpdates();
                                         }}
