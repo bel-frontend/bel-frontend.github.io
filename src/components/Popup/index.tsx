@@ -66,7 +66,6 @@ export const Popup = ({ ...props }) => {
                             className={style.buttonClear}
                             onClick={onClear}
                         >
-                            /home/serj/projects/bel-frontend.github.io/src/components/PopupBackground
                             <ClearIcon />
                         </IconButton>
                     </Grid>
