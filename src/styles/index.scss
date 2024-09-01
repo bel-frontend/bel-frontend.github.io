@@ -65,12 +65,13 @@ blockquote {
     color: #777777;
     font-style: italic;
 }
-hr.small {
-    max-width: 100px;
+
+hr {
+    // max-width: 100px;
     margin: 15px auto;
     border-width: 2px;
     border-color: white;
-    opacity: 0.25;
+    opacity: 0;
 }
 ::-moz-selection {
     color: white;
