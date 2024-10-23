@@ -5,6 +5,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import { FormControlLabel, Checkbox, FormGroup } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -27,6 +28,8 @@ import {
     getSubscribeRequest,
     getSubsribtionStatusSelector,
 } from '@/modules/user';
+
+import { useGetNews } from '@/modules/news';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -65,6 +68,13 @@ export default function Profile({ history }: any) {
     const [value, setValue] = React.useState<string | number>(0);
     const { articles, total }: any = useSelector(getMyArticklesSelector);
     const currentUser: UserInterface = useSelector(getCurrentUserSelector);
+
+    const {
+        getOpenAiNews,
+        getGeminiNews,
+        isLoadingGeminiNews,
+        isLoadingOpenAiNews,
+    } = useGetNews();
 
     const dispatch = useDispatch();
     React.useEffect(() => {
@@ -201,6 +211,26 @@ export default function Profile({ history }: any) {
                             крыніц, апрацоўваюцца праз ШІ і перакладаюцца на
                             беларускую мову.
                         </Typography>
+                        {isAdmin && (
+                            <>
+                                <Button
+                                    onClick={getOpenAiNews}
+                                    disabled={isLoadingOpenAiNews}
+                                >
+                                    {isLoadingOpenAiNews
+                                        ? 'Loading...'
+                                        : 'Разаслаць навіны з OpenAI'}
+                                </Button>
+                                <Button
+                                    onClick={getGeminiNews}
+                                    disabled={isLoadingGeminiNews}
+                                >
+                                    {isLoadingGeminiNews
+                                        ? 'Loading...'
+                                        : 'Разаслаць навіны з Gemeni'}
+                                </Button>
+                            </>
+                        )}
                     </Card>
                 </Cell>
 
