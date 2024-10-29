@@ -212,7 +212,11 @@ export default function Profile({ history }: any) {
                             беларускую мову.
                         </Typography>
                         {isAdmin && (
-                            <>
+                            <Box
+                                display={'flex'}
+                                flexDirection={'column'}
+                                gap={'10px'}
+                            >
                                 <Button
                                     onClick={getOpenAiNews}
                                     disabled={isLoadingOpenAiNews}
@@ -229,7 +233,7 @@ export default function Profile({ history }: any) {
                                         ? 'Loading...'
                                         : 'Разаслаць навіны з Gemeni'}
                                 </Button>
-                            </>
+                            </Box>
                         )}
                     </Card>
                 </Cell>
