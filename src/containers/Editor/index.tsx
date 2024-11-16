@@ -1,6 +1,7 @@
 'use client';
 import React, { useEffect } from 'react';
 import classnames from 'classnames';
+import { debounce } from 'lodash';
 
 import MdEditor from 'react-markdown-editor-lite';
 import MarkdownIt from 'markdown-it';
@@ -58,7 +59,33 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
         USER_ROLES.ADMIN,
         USER_ROLES.SUPERADMIN,
     ]);
+    const [previewContent, setPreviewContent] = React.useState(values.content);
+
+    // Debounced update function
+    const updatePreviewContent = React.useMemo(
+        () => debounce(setPreviewContent, 300),
+        [],
+    );
+
+    useEffect(() => {
+        updatePreviewContent(values.content);
+    }, [values.content]);
     // console.log(artickleData, currentUser);
+
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.ctrlKey && event.key === 's') {
+                event.preventDefault();
+                saveUpdates();
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    }, []);
 
     return (
         <Box>
@@ -224,16 +251,20 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
                         justifyContent={'flex-end'}
                         display={'flex'}
                     >
-                        <Button
-                            variant="contained"
-                            disabled={!isValid}
-                            onClick={() => {
-                                saveUpdates();
-                            }}
-                        >
-                            Захаваць змены{' '}
-                            {!isValid ? ' (запоўніце абавязковыя палі)' : ''}
-                        </Button>
+                        <Tooltip title="Захаваць змены - ctrl+s">
+                            <Button
+                                variant="contained"
+                                disabled={!isValid}
+                                onClick={() => {
+                                    saveUpdates();
+                                }}
+                            >
+                                Захаваць змены{' '}
+                                {!isValid
+                                    ? ' (запоўніце абавязковыя палі)'
+                                    : ''}
+                            </Button>
+                        </Tooltip>
                     </Grid>
                 </Grid>
                 <Grid container className={style.container} spacing={3}>
@@ -331,7 +362,7 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
                                     justifyContent: 'flex-end',
                                 }}
                             >
-                                <Tooltip title="Захаваць змены">
+                                <Tooltip title="Захаваць змены - strl+s">
                                     <IconButton
                                         color="secondary"
                                         size="large"
@@ -350,7 +381,7 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
                                     </IconButton>
                                 </Tooltip>
                             </Box>
-                            <MD>{values.content}</MD>
+                            <MD>{previewContent}</MD>
                         </Grid>
                     ) : null}
                 </Grid>
