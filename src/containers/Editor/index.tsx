@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import classnames from 'classnames';
 import { debounce } from 'lodash';
 
@@ -35,6 +35,7 @@ const mdParser = new MarkdownIt({ typographer: true });
 
 const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
     const history = useRouter();
+    const button = useRef(null);
     const {
         handleSubmit,
         values,
@@ -76,7 +77,9 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
         const handleKeyDown = (event: KeyboardEvent) => {
             if (event.ctrlKey && event.key === 's') {
                 event.preventDefault();
-                saveUpdates();
+                if (button.current) {
+                    button.current.click();
+                }
             }
         };
 
@@ -255,6 +258,7 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
                             <Button
                                 variant="contained"
                                 disabled={!isValid}
+                                ref={button}
                                 onClick={() => {
                                     saveUpdates();
                                 }}

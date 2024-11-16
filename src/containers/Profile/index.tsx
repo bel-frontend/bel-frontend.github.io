@@ -8,7 +8,6 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { FormControlLabel, Checkbox, FormGroup } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-
 import { Cell, GridGenerator, Card } from '@/components';
 import {
     getMyArticklesSelector,
@@ -16,6 +15,7 @@ import {
     getUnactiveArticklesSelector,
     getUnactiveArticklesRequest,
 } from '@/modules/artickles';
+import { useViewport } from '@/modules/viewport';
 import { getCurrentUserSelector } from '@/modules/auth';
 import { MyArtickles } from './components/MyArtickles';
 import { checkPermission } from '@/utils/permissions';
@@ -30,32 +30,6 @@ import {
 } from '@/modules/user';
 
 import { useGetNews } from '@/modules/news';
-
-interface TabPanelProps {
-    children?: React.ReactNode;
-    index: number;
-    value: number;
-}
-
-function TabPanel(props: TabPanelProps) {
-    const { children, value, index, ...other } = props;
-
-    return (
-        <div
-            role="tabpanel"
-            hidden={value !== index}
-            id={`vertical-tabpanel-${index}`}
-            aria-labelledby={`vertical-tab-${index}`}
-            {...other}
-        >
-            {value === index && (
-                <Box sx={{ p: 3 }}>
-                    <Typography>{children}</Typography>
-                </Box>
-            )}
-        </div>
-    );
-}
 
 function a11yProps(index: number) {
     return {
@@ -81,6 +55,8 @@ export default function Profile({ history }: any) {
         dispatch(getMyArticlesRequest());
         dispatch(getSubscribeRequest());
     }, []);
+    const { viewPort } = useViewport();
+    const isMobile = viewPort?.isMobile;
 
     const { enabled: subscribeStatus = false } = useSelector<
         any,
@@ -160,20 +136,20 @@ export default function Profile({ history }: any) {
     return (
         <Box
             sx={{
-                height: '80vh',
+                minHeight: '80vh',
                 width: '100%',
             }}
         >
             <GridGenerator
                 style={{
                     minHeight: '100%',
-                    maxHeight: '100%',
+                    // maxHeight: '100%',
                 }}
-                cols={6}
-                rows={7}
+                cols={isMobile ? 1 : 6}
+                rows={isMobile ? 12 : 7}
                 gap={[30, 30]}
             >
-                <Cell col={0} row={0} colSpan={2} rowSpan={1}>
+                <Cell col={0} row={0} colSpan={isMobile ? 1 : 2} rowSpan={1}>
                     <Card>
                         <Typography variant="subtitle1">
                             Усяго падабаек:
@@ -181,7 +157,12 @@ export default function Profile({ history }: any) {
                         <Typography>{likes}</Typography>
                     </Card>
                 </Cell>
-                <Cell col={2} row={0} colSpan={2} rowSpan={1}>
+                <Cell
+                    col={isMobile ? 0 : 2}
+                    row={isMobile ? 1 : 0}
+                    colSpan={isMobile ? 1 : 2}
+                    rowSpan={1}
+                >
                     <Card>
                         <Typography variant="subtitle1">
                             Самы папулярны артыкул:
@@ -193,7 +174,12 @@ export default function Profile({ history }: any) {
                         </Typography>
                     </Card>
                 </Cell>
-                <Cell col={4} row={0} colSpan={2} rowSpan={1}>
+                <Cell
+                    col={isMobile ? 0 : 4}
+                    row={isMobile ? 2 : 0}
+                    colSpan={isMobile ? 1 : 2}
+                    rowSpan={1}
+                >
                     <Card>
                         <FormControlLabel
                             checked={subscribeStatus}
@@ -238,13 +224,19 @@ export default function Profile({ history }: any) {
                     </Card>
                 </Cell>
 
-                <Cell col={0} row={1} colSpan={6} rowSpan={6}>
+                <Cell
+                    col={0}
+                    row={isMobile ? 3 : 1}
+                    colSpan={isMobile ? 1 : 6}
+                    rowSpan={6}
+                >
                     <Card
                         sx={{
                             width: '100%',
                             height: '100%',
-                            overflowY: 'auto',
+                            // overflowY: 'auto',
                             maxHeight: '100%',
+                            maxWidth: 'calc(100vw - 32px) !important',
                         }}
                     >
                         {isAdmin ? (

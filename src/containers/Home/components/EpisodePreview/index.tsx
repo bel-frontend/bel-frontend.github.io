@@ -25,7 +25,7 @@ export const EpisodePreview = ({ article }: { article: ArticleInterface }) => {
                             alignItems: 'center',
                         }}
                     >
-                        <h2 className="episode__title">
+                        <h2 className={style.episode__title}>
                             <Link
                                 className={style.link}
                                 href={meta ? url : '/'}

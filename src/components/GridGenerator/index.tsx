@@ -48,6 +48,8 @@ const Grid = ({
     colSize?: string;
     className?: string;
 }) => {
+    console.log('cols:', cols);
+
     return (
         <div
             className={[styles.gridContainer, className].join(' ')}

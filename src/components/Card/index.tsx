@@ -9,6 +9,7 @@ export const Card = ({ children, ...props }: any) => {
                 width: '100%',
                 height: '100%',
             }}
+            {...props}
         >
             <CardContent sx={{ maxHeight: '100%', overflow: 'auto' }}>
                 {children}

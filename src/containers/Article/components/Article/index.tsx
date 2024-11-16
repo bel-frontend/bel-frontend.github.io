@@ -31,7 +31,9 @@ const Article = ({ article }: { article: ArticleInterface }) => {
             </div>
             <main className="page__main main articlePage">
                 <article className="episode box">
-                    <h2 className="episode__title">{article?.meta?.title}</h2>
+                    <h2 className={style.episode__title}>
+                        {article?.meta?.title}
+                    </h2>
                     {(article?.meta?.tags.toString().split(',') || []).map(
                         (tag: string) => (
                             <Tag key={tag}>{tag}</Tag>
