@@ -75,7 +75,10 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
 
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
-            if (event.ctrlKey && event.key === 's') {
+            if (
+                (event.ctrlKey && event.key === 's') ||
+                (event.ctrlKey && event.key === 'ы')
+            ) {
                 event.preventDefault();
                 if (button.current) {
                     button.current.click();
