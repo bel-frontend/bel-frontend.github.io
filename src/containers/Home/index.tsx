@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import Box from '@mui/material/Box';
 
 import { ArticleInterface } from '@/modules/artickles/types/article';
+
 import {
     getArticklesRequest,
     getArticklesSelector,
@@ -70,7 +71,9 @@ const Home = async ({
                             <EpisodePreview key={index} article={i} />
                         ),
                     )}
-                <Pagination total={total} size={size} />
+                <Suspense>
+                    <Pagination total={total} size={size} />
+                </Suspense>
             </Box>
         </>
     );
