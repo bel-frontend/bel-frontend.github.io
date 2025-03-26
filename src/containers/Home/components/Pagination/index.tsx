@@ -2,13 +2,14 @@
 import React from 'react';
 import PaginationDFT from '@mui/material/Pagination';
 import { Box } from '@mui/material';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { usePathname } from 'next/navigation';
 
 const Pagination = ({ total, size }: { total: number; size: number }) => {
     const router = useRouter();
-
     const pathname = usePathname();
+    const searchParams = useSearchParams();
+    const defaultPage = searchParams.get('page');
 
     const onChange = (ev: any, value: number) => {
         const params = new URLSearchParams({
@@ -24,7 +25,7 @@ const Pagination = ({ total, size }: { total: number; size: number }) => {
             <PaginationDFT
                 count={Math.ceil(total / size)}
                 shape="rounded"
-                defaultPage={1}
+                defaultPage={defaultPage ? Number(defaultPage) : 1}
                 color="primary"
                 onChange={onChange}
             />
