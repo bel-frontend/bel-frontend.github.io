@@ -1,5 +1,5 @@
 'use client';
-import React, { createElement } from 'react';
+import React, { createElement, Suspense } from 'react';
 import { Container, Box } from '@mui/material';
 
 import { Header, Footer } from '@/components';
@@ -20,11 +20,13 @@ export const Layout = ({ children, style = {}, ...props }: any) => {
     return (
         <>
             {showHeader !== false ? (
-                <Header
-                    isMobile={isMobile}
-                    history={history}
-                    userIsAuth={userIsAuth}
-                />
+                <Suspense>
+                    <Header
+                        isMobile={isMobile}
+                        history={history}
+                        userIsAuth={userIsAuth}
+                    />
+                </Suspense>
             ) : null}
             <ScrollToTop viewPort={viewPort} />
             <Container

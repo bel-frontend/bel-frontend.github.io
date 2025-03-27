@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import Box from '@mui/material/Box';
 
 import { ArticleInterface } from '@/modules/artickles/types/article';
@@ -10,7 +10,6 @@ import {
     getPinnedArticlesRequest,
 } from '@/modules/artickles';
 import { getDataWrapper } from '@/modules/apiRoutes';
-import { checkUserAccess } from '@/modules/auth';
 
 import Pagination from './components/Pagination';
 import { EpisodePreview } from './components/EpisodePreview/';
@@ -51,7 +50,7 @@ const Home = async ({
         { search: searchText },
     );
 
-    const preparedArticles = [...pinnedArticles, ...articles] || [];
+    const preparedArticles = [...pinnedArticles, ...articles];
 
     return (
         <>
@@ -71,9 +70,7 @@ const Home = async ({
                             <EpisodePreview key={index} article={i} />
                         ),
                     )}
-                <Suspense>
-                    <Pagination total={total} size={size} />
-                </Suspense>
+                <Pagination total={total} size={size} />
             </Box>
         </>
     );

@@ -24,6 +24,7 @@ export const LikeButton = ({
 }) => {
     const dispatch = useDispatch();
     const [likes, setLikes] = React.useState(likesCount);
+    const [liked, setLiked] = React.useState(checkArtickeIsLiked(articleId));
 
     React.useEffect(() => {
         setLikes(likesCount);
@@ -31,6 +32,7 @@ export const LikeButton = ({
 
     const onClick = React.useCallback(async () => {
         if (!checkArtickeIsLiked(articleId)) {
+            setLiked(true);
             await dispatch(
                 setLikedRequest(
                     { id: articleId },
@@ -43,6 +45,7 @@ export const LikeButton = ({
             );
             saveLikeToLocalStorage(articleId);
         } else {
+            setLiked(false);
             await dispatch(
                 removeLikeRequest(
                     { id: articleId },
@@ -61,13 +64,13 @@ export const LikeButton = ({
         <Button
             color="error"
             type="button"
-            variant="contained"
+            variant={liked ? 'contained' : 'text'}
             size="small"
             onClick={onClick}
             disableElevation
             className={className}
         >
-            <HeardIcon />
+            <HeardIcon fill={liked ? 'white' : '#dc3d62'} />
             <span className={style.count_likes}>{likes}</span>
         </Button>
     );
