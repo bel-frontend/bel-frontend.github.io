@@ -13,32 +13,56 @@ const firebaseConfig = {
 };
 // Initialize Firebase
 
+let app;
+let analytics;
+let database;
+
 if (typeof window !== 'undefined') {
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
-    const database = getDatabase(app);
+    app = initializeApp(firebaseConfig);
+    analytics = getAnalytics(app);
+    database = getDatabase(app);
 }
 
 export const checkArtickeIsLiked = (artickleId: any) => {
-    const items =
-        JSON.parse(localStorage.getItem('user_liked_item') || '[]') || [];
-    return items.find((i: any) => i === artickleId);
+    if (typeof window === 'undefined') return false;
+
+    try {
+        const items =
+            JSON.parse(localStorage.getItem('user_liked_item') || '[]') || [];
+
+        return items.find((i: any) => i === artickleId);
+    } catch (error) {
+        console.error('Error checking if article is liked:', error);
+        return false;
+    }
 };
 
 export const saveLikeToLocalStorage = (artickleId: any) => {
-    const items =
-        JSON.parse(localStorage.getItem('user_liked_item') || '[]') || [];
-    localStorage.setItem(
-        'user_liked_item',
-        JSON.stringify([...items, artickleId]),
-    );
+    if (typeof window === 'undefined') return;
+
+    try {
+        const items =
+            JSON.parse(localStorage.getItem('user_liked_item') || '[]') || [];
+        localStorage.setItem(
+            'user_liked_item',
+            JSON.stringify([...items, artickleId]),
+        );
+    } catch (error) {
+        console.error('Error saving like to localStorage:', error);
+    }
 };
 
 export const removeLikeFromLocalStorage = (artickleId: any) => {
-    const items =
-        JSON.parse(localStorage.getItem('user_liked_item') || '[]') || [];
-    localStorage.setItem(
-        'user_liked_item',
-        JSON.stringify([...items.filter((i: any) => i !== artickleId)]),
-    );
+    if (typeof window === 'undefined') return;
+
+    try {
+        const items =
+            JSON.parse(localStorage.getItem('user_liked_item') || '[]') || [];
+        localStorage.setItem(
+            'user_liked_item',
+            JSON.stringify([...items.filter((i: any) => i !== artickleId)]),
+        );
+    } catch (error) {
+        console.error('Error removing like from localStorage:', error);
+    }
 };

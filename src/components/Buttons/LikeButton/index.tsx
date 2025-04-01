@@ -1,4 +1,5 @@
 'use client';
+
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import {
@@ -24,7 +25,9 @@ export const LikeButton = ({
 }) => {
     const dispatch = useDispatch();
     const [likes, setLikes] = React.useState(likesCount);
-    const [liked, setLiked] = React.useState(checkArtickeIsLiked(articleId));
+    const [liked, setLiked] = React.useState(
+        Boolean(checkArtickeIsLiked(articleId)),
+    );
 
     React.useEffect(() => {
         setLikes(likesCount);
