@@ -19,6 +19,7 @@ export const InitProvider = ({
     const dispatch = useDispatch();
     React.useEffect(() => {
         dispatch(initDataAction());
-    }, []);
+    }, [dispatch]);
+
     return <>{children}</>;
 };

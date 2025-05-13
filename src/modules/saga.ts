@@ -89,6 +89,7 @@ function* rootSaga(dispatch: any) {
                     // redirect to login
                     // yield put(hideLoader());
                     const error = get(data, 'response.data');
+                    console.log('saga error', error);
                     switch (true) {
                         case dataStatus === 400: {
                             yield put(
@@ -132,6 +133,15 @@ function* rootSaga(dispatch: any) {
                                 data,
                                 'response.data.message',
                                 'Internal server error.',
+                            );
+                            yield put(showError({ message }));
+                            return;
+                        }
+                        case dataStatus === 413: {
+                            const message = get(
+                                data,
+                                'response.data.message',
+                                'Request file is too large.',
                             );
                             yield put(showError({ message }));
                             return;

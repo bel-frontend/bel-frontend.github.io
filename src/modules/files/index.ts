@@ -17,7 +17,6 @@ export const deleteImageRequest = actionCreator(DELETE_IMAGE_REQUEST);
 export const getImagesRequest = actionCreator(GET_IMAGES_REQUEST);
 
 apiRoutes.add(UPLOAD_IMAGE_REQUEST, ({ data }: any = {}) => {
-    console.log(data);
 
     return {
         url: `/upload_image`,
@@ -31,8 +30,6 @@ apiRoutes.add(UPLOAD_IMAGE_REQUEST, ({ data }: any = {}) => {
     };
 });
 apiRoutes.add(DELETE_IMAGE_REQUEST, ({ filename, id }: any = {}) => {
-    console.log(filename);
-
     return {
         url: `/delete_image`,
         method: 'delete',

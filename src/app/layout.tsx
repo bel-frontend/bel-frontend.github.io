@@ -25,7 +25,7 @@ function RootLayout({
                         <ThemeRegistry options={{ key: 'mui' }}>
                             {children}
                             <Popups />
-                            <Notifications />;
+                            <Notifications />
                         </ThemeRegistry>
                     </InitProvider>
                 </ReduxProvider>
