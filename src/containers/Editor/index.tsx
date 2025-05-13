@@ -71,7 +71,26 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
     useEffect(() => {
         updatePreviewContent(values.content);
     }, [values.content]);
-    // console.log(artickleData, currentUser);
+
+    const [autosave, setAutoSave] = React.useState(true);
+    const [interval, setIntervalID] = React.useState<any>(null);
+
+    // React.useEffect(() => {
+    //     console.log('interval', interval);
+
+    //     clearInterval(interval);
+    //     if (autosave && !isAdd && isValid && !interval) {
+    //         const intervalID = setInterval(() => {
+    //             if (button.current) {
+    //                 button.current.click();
+    //             }
+    //         }, 5000);
+    //         setIntervalID(intervalID);
+    //         return () => clearInterval(interval);
+    //     } else if (!autosave) {
+    //         clearInterval(interval);
+    //     }
+    // }, [autosave, isAdd, values, isValid]);
 
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
@@ -256,7 +275,19 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
                         md={6}
                         justifyContent={'flex-end'}
                         display={'flex'}
+                        gap={8}
                     >
+                        <FormControlLabel
+                            control={
+                                <Switch
+                                    checked={autosave}
+                                    onChange={(ev) => {
+                                        setAutoSave(ev.target.checked);
+                                    }}
+                                />
+                            }
+                            label="Аўтазахаванне"
+                        />
                         <Tooltip title="Захаваць змены - ctrl+s">
                             <Button
                                 variant="contained"
