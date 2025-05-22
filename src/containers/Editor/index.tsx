@@ -25,7 +25,7 @@ import { MD, UploadFile } from '@/components';
 
 import { useHooks } from './hooks';
 import { UploadController } from './components/UploadController';
-import { IconButton, Tooltip } from '@mui/material';
+import { Container, IconButton, Tooltip } from '@mui/material';
 
 import 'react-markdown-editor-lite/lib/index.css';
 import style from './style.module.scss';
@@ -419,7 +419,9 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
                                     </IconButton>
                                 </Tooltip>
                             </Box>
-                            <MD>{previewContent}</MD>
+                            <Container maxWidth="md">
+                                <MD>{previewContent}</MD>
+                            </Container>
                         </Grid>
                     ) : null}
                 </Grid>
