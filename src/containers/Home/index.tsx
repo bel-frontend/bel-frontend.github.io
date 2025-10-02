@@ -50,7 +50,7 @@ const Home = async ({
         { search: searchText },
     );
 
-    const preparedArticles = [...pinnedArticles, ...articles];
+    const preparedArticles = [...pinnedArticles, ...(articles || [])];
 
     return (
         <>
