@@ -1,26 +1,74 @@
-import i18n from "i18next";
-import { initReactI18next } from "react-i18next";
-import bel from "./bel.json";
-import en from "./en.json";
-// the translations
-// (tip move them in a JSON file and import them,
-// or even better, manage them separated from your code: https://react.i18next.com/guides/multiple-translation-files)
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
+import bel from './bel.json';
+import en from './en.json';
+
+// Налады для падключэння да Goman API
+const GOMAN_API_KEY = '8b09c55af7e408242c690ef4bdb39e083df366b2b489b9cc';
+const GOMAN_APP_ID = 'appID_e8a5aed48aaa902d89518abf48a0738c_f5fb4165';
+
+// Базавыя рэсурсы
 const resources = {
-  en: en,
-  by: bel,
+    en: en,
+    be: bel,
 };
 
-i18n
-  .use(initReactI18next) // passes i18n down to react-i18next
-  .init({
+i18n.use(initReactI18next).init({
     resources,
-    lng: "by", // language to use, more information here: https://www.i18next.com/overview/configuration-options#languages-namespaces-resources
-    // you can use the i18n.changeLanguage function to change the language manually: https://www.i18next.com/overview/api#changelanguage
-    // if you're using a language detector, do not define the lng option
-
+    lng: 'be',
+    fallbackLng: 'en',
     interpolation: {
-      escapeValue: false, // react already safes from xss
+        escapeValue: false,
     },
-  });
+});
 
+// Функцыя для загрузкі перакладаў з Goman API
+async function loadTranslationsFromGoman() {
+    console.log('📥 Loading translations from Goman API...');
+    try {
+        const response = await fetch(
+            `https://translates.goman.live/localizations?apiKey=${GOMAN_API_KEY}&applicationId=${GOMAN_APP_ID}`,
+        );
+
+        if (response.ok) {
+            const allData = await response.json();
+            console.log('✅ Loaded all translations from Goman:', allData);
+
+            // API вяртае структуру: { "be": {...}, "en": {...} }
+            Object.keys(allData).forEach((lang) => {
+                const translations = allData[lang];
+                if (translations && typeof translations === 'object') {
+                    i18n.addResourceBundle(
+                        lang,
+                        'translation',
+                        translations,
+                        true,
+                        true,
+                    );
+                    console.log(`✅ Added translations for "${lang}"`);
+                }
+            });
+        } else {
+            console.error(`❌ Failed to load translations: ${response.status}`);
+        }
+    } catch (error) {
+        console.error('❌ Error loading translations from Goman:', error);
+    }
+}
+
+// Загружаем пераклады пры ініцыялізацыі
+loadTranslationsFromGoman();
+
+// Падпісваемся на змену мовы
+i18n.on('languageChanged', (lng) => {
+    console.log(`🌍 Language changed to: ${lng}`);
+    if (typeof document !== 'undefined') {
+        document.documentElement.lang = lng;
+    }
+});
+
+console.log('🚀 i18n initialized with language:', i18n.language);
+
+// Экспартуем функцыю для перазагрузкі перакладаў
+export { loadTranslationsFromGoman };
 export default i18n;

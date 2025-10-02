@@ -34,3 +34,5 @@ export const parseMD = (text: string) => {
           }
         : null;
 };
+
+export * from './localization';

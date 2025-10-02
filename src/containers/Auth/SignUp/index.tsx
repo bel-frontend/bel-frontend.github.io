@@ -24,13 +24,16 @@ const validationSchema = (t: any) =>
         email: yup.string().email().required(),
         password: yup
             .string()
-            .min(6, 'Пароль павінен быць не карацей за 6 сімвалаў')
+            .min(6, t('auth.signup.validation.password_min'))
             .required(),
         confirm_password: yup
             .string()
             .min(6)
             .required()
-            .oneOf([yup.ref('password'), ''], 'Паролі павінны супадаць'),
+            .oneOf(
+                [yup.ref('password'), ''],
+                t('auth.signup.validation.passwords_match'),
+            ),
     });
 
 const SignUp = () => {
@@ -79,7 +82,7 @@ const SignUp = () => {
     return (
         <Box sx={{ mb: 0, mt: 30 }}>
             <Typography textAlign={'center'} variant="h4">
-                Рэгістрацыя
+                {t('auth.signup.title')}
             </Typography>
             <Box
                 component="form"
@@ -93,7 +96,7 @@ const SignUp = () => {
                     variant="outlined"
                     fullWidth
                     id="email"
-                    label="email"
+                    label={t('auth.signup.email')}
                     name="email"
                     autoComplete="email"
                     value={values.email}
@@ -108,7 +111,7 @@ const SignUp = () => {
                     variant="outlined"
                     fullWidth
                     name="password"
-                    label={'Пароль'}
+                    label={t('auth.signup.password')}
                     type="password"
                     id="password"
                     autoComplete="current-password"
@@ -124,7 +127,7 @@ const SignUp = () => {
                     variant="outlined"
                     fullWidth
                     name="password"
-                    label={'Паўтарыце пароль'}
+                    label={t('auth.signup.repeat_password')}
                     type="password"
                     id="confirm_password"
                     autoComplete="current-password"
@@ -144,7 +147,6 @@ const SignUp = () => {
                 <Box
                     sx={{
                         display: 'flex',
-                        // justifyContent: 'center',
                         alignItems: 'baseline',
                     }}
                 >
@@ -155,7 +157,7 @@ const SignUp = () => {
                                 onChange={handleChange('privacy_policy')}
                             />
                         }
-                        label="Згодны "
+                        label={t('auth.signup.agree')}
                     />
                     <Typography
                         variant="body1"
@@ -164,7 +166,7 @@ const SignUp = () => {
                         className={styles.linkedSpan}
                         onClick={onOpenDialog}
                     >
-                        з палітыкай прыватнасці
+                        {t('auth.signup.privacy_policy')}
                     </Typography>
                 </Box>
                 <Button
@@ -175,7 +177,7 @@ const SignUp = () => {
                     sx={{ mt: 1, mb: 1 }}
                     disabled={!values.privacy_policy}
                 >
-                    Зарэгістравацца
+                    {t('auth.signup.submit_button')}
                 </Button>
             </Box>
             <Dialog open={isOpenDialog} onClose={onCloseDialog}>

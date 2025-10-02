@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import * as yup from 'yup';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useTranslation } from 'react-i18next';
 
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -21,6 +22,7 @@ const validationSchema = (t?: any) =>
 const Auth = () => {
     const history = useRouter();
     const dispatch = useDispatch();
+    const { t } = useTranslation();
     const { handleChange, values, handleSubmit, setErrors, errors } = useFormik(
         {
             initialValues: {
@@ -49,7 +51,7 @@ const Auth = () => {
     return (
         <Box sx={{ mb: 0, mt: 30 }}>
             <Typography textAlign={'center'} variant="h4">
-                Аўтарызацыя
+                {t('auth.login.title')}
             </Typography>
             <Box component="form" onSubmit={handleSubmit} noValidate>
                 <TextField
@@ -58,7 +60,7 @@ const Auth = () => {
                     variant="outlined"
                     fullWidth
                     id="email"
-                    label={'email'}
+                    label={t('auth.login.email')}
                     name="email"
                     autoComplete="email"
                     value={values.email}
@@ -72,7 +74,7 @@ const Auth = () => {
                     variant="outlined"
                     fullWidth
                     name="password"
-                    label={'пароль'}
+                    label={t('auth.login.password')}
                     type="password"
                     id="password"
                     autoComplete="current-password"
@@ -83,7 +85,9 @@ const Auth = () => {
                     margin="dense"
                 />
                 <Box mt={2} mb={2}>
-                    <Link href="/register"> Перайсці да рэгістрацыі</Link>
+                    <Link href="/register">
+                        {t('auth.login.go_to_register')}
+                    </Link>
                 </Box>
                 <Button
                     type="submit"
@@ -92,7 +96,7 @@ const Auth = () => {
                     color="primary"
                     sx={{ mt: 1, mb: 1 }}
                 >
-                    Увайсці
+                    {t('auth.login.submit_button')}
                 </Button>
             </Box>
         </Box>

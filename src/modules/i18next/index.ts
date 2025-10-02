@@ -1,5 +1,6 @@
 import i18next from 'i18next';
 import { Action } from 'redux-actions';
+import React from 'react';
 // import { initReactI18next } from 'react-i18next';
 import get from 'lodash/get';
 import { createAction } from 'redux-actions';
@@ -58,8 +59,8 @@ apiRoutes.add(GET_TRANSLATE_REQUEST, ({ locale }: { locale: string }) => {
         method: 'GET',
         params: {
             language: locale,
-            apiKey: 'apk7a01b56f93956703c5debb4fc170d97a67fe40d5f53d8c9f180f8a71309f30d1',
-            applicationId: 'appID89dddf3b1c9f42b7',
+            apiKey: '8b09c55af7e408242c690ef4bdb39e083df366b2b489b9cc',
+            applicationId: 'appID_e8a5aed48aaa902d89518abf48a0738c_f5fb4165',
         },
         showLoaderFlag: false,
     };
@@ -153,6 +154,20 @@ export const getLanguagesListSelector = apiSelector(GET_LANGUAGES_REQUEST);
 export default i18next;
 
 export const useTranslation = () => {
+    const [, forceUpdate] = React.useState(0);
+
+    React.useEffect(() => {
+        const onLanguageChanged = () => {
+            forceUpdate((prev) => prev + 1);
+        };
+
+        i18next.on('languageChanged', onLanguageChanged);
+
+        return () => {
+            i18next.off('languageChanged', onLanguageChanged);
+        };
+    }, []);
+
     const { t }: { t: (str: string) => any } = i18next;
     return { t };
 };
