@@ -1,0 +1,12 @@
+{
+    "servers": {
+        "goman-mcp": {
+            "type": "http",
+            "url": "https://mcp.goman.live/mcp",
+            "headers": {
+                "apiKey": "8b09c55af7e408242c690ef4bdb39e083df366b2b489b9cc",
+                "applicationid": "appID_e8a5aed48aaa902d89518abf48a0738c_f5fb4165"
+            }
+        }
+    }
+}
