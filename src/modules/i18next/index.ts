@@ -105,7 +105,7 @@ apiRoutes.add(GET_ALL_TRANSLATIONS_REQUEST, () => {
 
 // reducers
 const initialState = {
-    lang: DEFAULT_LANG,
+    lang: getSavedLanguage(),
     translationsLoaded: false,
 };
 
@@ -179,27 +179,21 @@ const getAllTranslationsSuccessSaga = function* (): any {
             }
         });
 
-        // Перазагружаем рэсурсы
+        // Захоўваем бягучую мову і выклікаем падзею для перамалёўкі кампанентаў
         const currentLanguage = i18next.language;
-        yield i18next.reloadResources();
+        console.log(
+            '🌍 Current language after adding translations:',
+            currentLanguage,
+        );
 
-        if (i18next.language !== currentLanguage) {
-            yield i18next.changeLanguage(currentLanguage);
-        } else {
-            // ВАЖНА: Калі мова не змянілася, трэба яўна выклікаць падзею
-            // каб усе кампаненты перамалявалі інтэрфейс з новымі перакладамі
-            i18next.emit('languageChanged', currentLanguage);
-        }
+        // ВАЖНА: Калі мова не змянілася, трэба яўна выклікаць падзею
+        // каб усе кампаненты перамалявалі інтэрфейс з новымі перакладамі
+        i18next.emit('languageChanged', currentLanguage);
 
         console.log('✅ Translations loaded successfully');
     } catch (error) {
         console.error('Error loading translations:', error);
     }
-};
-
-const getTranslateSaga = function* (): any {
-    const locale = yield select(localeSelector);
-    yield i18next.changeLanguage(locale);
 };
 
 const getTranslateByActionSaga = function* (action: Action<any>): any {
@@ -223,8 +217,6 @@ export const i18nextModuleSaga = function* (dispatch: any) {
             [GET_ALL_TRANSLATIONS_SUCCESS],
             getAllTranslationsSuccessSaga,
         ),
-        //@ts-ignore
-        takeLatest([INIT_DATA], getTranslateSaga),
         //@ts-ignore
         takeLatest([SAVE_SELECTED_LOCALE_ACTION], getTranslateByActionSaga),
     ]);
