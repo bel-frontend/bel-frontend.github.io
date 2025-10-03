@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import { Box } from '@mui/system';
 import { Button } from '@mui/material';
@@ -8,9 +9,11 @@ import TableRow from '@mui/material/TableRow';
 import Chip from '@mui/material/Chip';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { useTranslation } from 'react-i18next';
 
 export const MyArtickles = ({ articles = [] }: any) => {
     const router = useRouter();
+    const { t } = useTranslation();
     return (
         <Box sx={{ maxWidth: '100%', maxHeight: '100%', overflowY: 'auto' }}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -58,7 +61,7 @@ export const MyArtickles = ({ articles = [] }: any) => {
                                     <TableCell align="right">
                                         {meta?.isActive ? null : (
                                             <Chip
-                                                label="Чарнавік"
+                                                label={t('profile.draft_chip')}
                                                 color="warning"
                                             />
                                         )}
@@ -70,7 +73,7 @@ export const MyArtickles = ({ articles = [] }: any) => {
                                                 router.push(`/editor/${id}`);
                                             }}
                                         >
-                                            Рэдагаваць
+                                            {t('profile.edit_button')}
                                         </Button>
                                     </TableCell>
                                 </TableRow>

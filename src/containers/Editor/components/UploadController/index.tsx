@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Chip from '@mui/material/Chip';
 import Box from '@mui/material/Box';
 import Tooltip from '@mui/material/Tooltip';
+import { useTranslation } from 'react-i18next';
 
 import { saveToClipBoard } from '@/helpers/clipboard';
 
@@ -18,6 +19,7 @@ export const UploadController = ({
     onDelete: (data: any) => void;
 }) => {
     const dispatch = useDispatch();
+    const { t } = useTranslation();
 
     return (
         <Box m={1}>
@@ -28,12 +30,12 @@ export const UploadController = ({
                             <Tooltip
                                 title={
                                     <>
-                                        Націсні каб скапіраваць URL
+                                        {t('upload_controller.copy_url_tooltip')}
                                         <Box p={1}>
                                             <img
                                                 className={style.preview}
                                                 src={i.url}
-                                                alt={'выява'}
+                                                alt={t('upload_controller.image_alt')}
                                             />
                                         </Box>
                                     </>

@@ -13,6 +13,7 @@ import { getDataWrapper } from '@/modules/apiRoutes';
 
 import Pagination from './components/Pagination';
 import { EpisodePreview } from './components/EpisodePreview/';
+import { TelegramLink } from './components/TelegramLink';
 
 import style from './style.module.scss';
 
@@ -55,14 +56,7 @@ const Home = async ({
     return (
         <>
             <Box component={'main'} className={style.main}>
-                <a
-                    className={style.telegram}
-                    href="https://t.me/bel_frontend"
-                    target="_blank"
-                    rel="noreferrer"
-                >
-                    Далучайцеся да нашага Тэлеграм-канала
-                </a>
+                <TelegramLink className={style.telegram} />
 
                 {preparedArticles &&
                     preparedArticles.map(

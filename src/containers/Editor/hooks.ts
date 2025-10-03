@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import moment from 'moment';
+import { useTranslation } from 'react-i18next';
 
 import {
     updateArtickleRequest,
@@ -27,17 +28,17 @@ import { ArticleInterface } from '@/modules/artickles/types/article';
 
 import { getCurrentUserSelector } from '@/modules/auth';
 
-const validationSchema = yup.object({
+const validationSchema = (t: any) => yup.object({
     title: yup.string().required(),
     description: yup.string(),
     dateArticle: yup.string().required(),
     author: yup.string().required(),
     tags: yup
         .string()
-        .required('Поле абавязковае')
-        .matches(/^[a-z0-9а-я'іў ]+$/i, 'Толькі літары, нумары і прабелы'),
+        .required(t('editor.validation_required'))
+        .matches(/^[a-z0-9а-я'іў ]+$/i, t('editor.validation_chars_only')),
     content: yup.string().required(),
-    lang: yup.string().required('Мова тэксту абавязковая'),
+    lang: yup.string().required(t('editor.validation_lang_required')),
 });
 
 interface FormDataValues {
@@ -67,6 +68,7 @@ const initialValues: FormDataValues = {
 export const useHooks = ({ history, id }: { history: any; id: any }) => {
     const isAdd = id === 'add';
     const dispatch = useDispatch();
+    const { t } = useTranslation();
     const artickleData = useSelector<any, ArticleInterface>(
         getArtickleSelector,
     );
@@ -136,6 +138,7 @@ export const useHooks = ({ history, id }: { history: any; id: any }) => {
             ...initialWithAutosave,
         },
         enableReinitialize: true,
+        validationSchema: validationSchema(t),
         onSubmit: (values) => {
             const tags = values.tags.trim().split(' ').filter(Boolean);
 
@@ -166,7 +169,6 @@ export const useHooks = ({ history, id }: { history: any; id: any }) => {
             }
             dispatch(clearAutoSaveArticle());
         },
-        validationSchema,
     });
 
     const saveUpdates = () => {
@@ -184,7 +186,7 @@ export const useHooks = ({ history, id }: { history: any; id: any }) => {
                                 history.push(`/editor/${artickle_id}  `);
                                 dispatch(
                                     showSuccess({
-                                        message: 'Артыкул захаваны',
+                                        message: t('editor.article_saved'),
                                     }),
                                 );
                             },
@@ -199,7 +201,7 @@ export const useHooks = ({ history, id }: { history: any; id: any }) => {
                             onSuccess: ({ ...data }) => {
                                 dispatch(
                                     showSuccess({
-                                        message: 'Артыкул захаваны',
+                                        message: t('editor.article_saved'),
                                     }),
                                 );
                             },
@@ -249,10 +251,10 @@ export const useHooks = ({ history, id }: { history: any; id: any }) => {
         dispatch(
             showPopupAction({
                 title: '',
-                subtitle: 'Гэты артыкул будзе выдалены назаўседы. Працягнуць?',
+                subtitle: t('editor.delete_confirm_subtitle'),
                 type: 'confirm',
-                submitButtonText: 'Выдаліць',
-                cancelButtonText: 'Скасаваць',
+                submitButtonText: t('editor.delete_submit_button'),
+                cancelButtonText: t('editor.delete_cancel_button'),
                 onClick: () => {
                     dispatch(
                         deleteArticleRequest(

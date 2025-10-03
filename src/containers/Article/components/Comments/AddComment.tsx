@@ -1,20 +1,22 @@
+'use client';
 import React from 'react';
 import { Button, TextField, Grid, Typography, Box, List } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import { useTranslation } from 'react-i18next';
 import { addCommentRequest } from '@/modules/comments';
 
-const validationSchema = () =>
+const validationSchema = (t: any) =>
     yup.object({
         comment: yup
             .string()
-            .min(10, 'Павінна быць не меней за 10 сімвалаў')
-            .required('Увядзіце тэкст'),
+            .min(10, t('article.validation_min_chars', { count: 10 }))
+            .required(t('article.validation_required')),
         user_alias: yup
             .string()
-            .min(4, 'Павінна быць не меней за 4 сімвалаў')
-            .required('Увядзіце імя'),
+            .min(4, t('article.validation_min_chars', { count: 4 }))
+            .required(t('article.validation_required')),
     });
 
 export const AddComment = ({
@@ -29,6 +31,7 @@ export const AddComment = ({
     parent_comment_id?: string;
 }) => {
     const dispatch = useDispatch();
+    const { t } = useTranslation();
     const {
         handleSubmit,
         values,
@@ -56,7 +59,7 @@ export const AddComment = ({
                 ),
             );
         },
-        validationSchema: validationSchema(),
+        validationSchema: validationSchema(t),
         initialValues: {
             comment: '',
             user_alias: '',
@@ -74,8 +77,8 @@ export const AddComment = ({
                 <TextField
                     size="small"
                     onChange={handleChange('user_alias')}
-                    placeholder="Ваша імя"
-                    label="Ваша імя"
+                    placeholder={t('article.comment_name_placeholder')}
+                    label={t('article.comment_name_label')}
                     value={values.user_alias}
                     helperText={errors.user_alias}
                     error={Boolean(errors.user_alias)}
@@ -87,8 +90,8 @@ export const AddComment = ({
                     multiline
                     size="small"
                     onChange={handleChange('comment')}
-                    placeholder="Ваш каментар"
-                    label="Ваш каментар"
+                    placeholder={t('article.comment_text_placeholder')}
+                    label={t('article.comment_text_label')}
                     value={values.comment}
                     helperText={errors.comment}
                     error={Boolean(errors.comment)}
@@ -102,14 +105,13 @@ export const AddComment = ({
                             disabled={!userIsAuth}
                             onClick={() => handleSubmit()}
                         >
-                            Даслаць
+                            {t('article.comment_submit')}
                         </Button>
                     </Grid>
                     <Grid item>
                         {!userIsAuth ? (
                             <Typography>
-                                (Каб даслаць каментар залагуйцеся ў свой уліковы
-                                запіс)
+                                {t('article.comment_login_required')}
                             </Typography>
                         ) : null}
                     </Grid>

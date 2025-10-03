@@ -29,6 +29,115 @@
             "message": "Наш сайт захоўвае файлы cookies на вашай прыладзе. Вы можаце дазнацца больш аб нашай",
             "privacy_policy": "палітыцы прыватнасці",
             "accept": "Пагадзіцца"
+        },
+        "metadata": {
+            "read_button": "Чытаць"
+        },
+        "language_switcher": {
+            "tooltip": "Выбар мовы"
+        },
+        "home": {
+            "telegram_link": "Далучайцеся да нашага Тэлеграм-канала",
+            "pinned_label": "Замацаванае"
+        },
+        "buy_me_coffee": {
+            "tooltip": "Збіраем на падтрымку інфраструктуры і паляпшэнне нашага сайту",
+            "button_text": "на падтрымку праекта",
+            "image_alt": "На каву"
+        },
+        "drawer": {
+            "add_article": "Дадаць новы артыкул",
+            "logout": "Выйсці"
+        },
+        "editor": {
+            "metadata_label": "Метаданыя",
+            "title_label": "Назва артыкула*",
+            "delete_article": "Выдаліць артыкул",
+            "description_placeholder": "Кароткае апісанне зместу",
+            "author_label": "Імя аўтара (любы нікнэйм)*",
+            "tags_label": "Тэгі для пошуку*",
+            "tags_placeholder": "Дадайце патрэбныя тэгі праз прабел: javascript webdev",
+            "date_label": "Дата публікацыі артыкула*",
+            "lang_label": "Мова тэксту*",
+            "lang_belarusian": "Беларуская",
+            "lang_russian": "Руская",
+            "lang_english": "English",
+            "visibility_label": "Паказваць усім (артыкул будзе бачны для ўсіх карыстальнікаў)",
+            "pin_label": "Замацаваць уверсе",
+            "mode_editor": "Рэдактар",
+            "mode_preview": "Перадагляд",
+            "mode_both": "Р | П",
+            "autosave": "Аўтазахаванне",
+            "save_changes_tooltip": "Захаваць змены - ctrl+s",
+            "save_changes": "Захаваць змены",
+            "fill_required_fields": " (запоўніце абавязковыя палі)",
+            "cancel": "Скасаваць",
+            "save_and_home": "Захаваць і перайсці на галоўную",
+            "validation_required": "Поле абавязковае",
+            "validation_chars_only": "Толькі літары, нумары і прабелы",
+            "validation_lang_required": "Мова тэксту абавязковая",
+            "article_saved": "Артыкул захаваны",
+            "delete_confirm_subtitle": "Гэты артыкул будзе выдалены назаўседы. Працягнуць?",
+            "delete_submit_button": "Выдаліць",
+            "delete_cancel_button": "Скасаваць"
+        },
+        "upload_controller": {
+            "copy_url_tooltip": "Націсні каб скапіраваць URL",
+            "image_alt": "выява"
+        },
+        "profile": {
+            "total_likes": "Усяго падабаек:",
+            "most_popular_article": "Самы папулярны артыкул:",
+            "no_articles": "Няма",
+            "subscribe_news": "Падпісацца на навіны",
+            "subscribe_description": "* Падпіска на навіны дазволіць атрымліваць навіны на вашу электронную пошту. Навіны збіраюцца з розных крыніц, апрацоўваюцца праз ШІ і перакладаюцца на беларускую мову.",
+            "loading": "Loading...",
+            "send_openai_news": "Разаслаць навіны з OpenAI",
+            "send_gemini_news": "Разаслаць навіны з Gemeni",
+            "tab_my_articles": "Мае артыкулы",
+            "tab_all_drafts": "Усе чарнавікі",
+            "drafts_all_authors": "Чарнавікі ўсіх аўтараў (only admins)",
+            "draft_chip": "Чарнавік",
+            "edit_button": "Рэдагаваць"
+        },
+        "article": {
+            "draft_chip": "Чарнавік",
+            "comment_name_placeholder": "Ваша імя",
+            "comment_name_label": "Ваша імя",
+            "comment_text_placeholder": "Ваш каментар",
+            "comment_text_label": "Ваш каментар",
+            "comment_submit": "Даслаць",
+            "comment_login_required": "(Каб даслаць каментар залагуйцеся ў свой уліковы запіс)",
+            "validation_min_chars": "Павінна быць не меней за {{count}} сімвалаў",
+            "validation_required": "Увядзіце тэкст",
+            "error_found_button": "Знайшлі памылку?",
+            "error_report_title": "Паведаміць пра памылку",
+            "error_report_description": "Паведамленне пра памылку будзе адпраўлена на Email да аўтара артыкулу",
+            "error_description_placeholder": "Калі ласка, апішыце памылку",
+            "error_cancel": "Скасаваць",
+            "error_submit": "Даслаць"
+        },
+        "auth": {
+            "login": {
+                "title": "Увaход",
+                "email": "Email",
+                "password": "Пароль",
+                "go_to_register": "Няма акаўнта? Зарэгістравацца",
+                "submit_button": "Увайсці"
+            },
+            "signup": {
+                "title": "Рэгістрацыя",
+                "email": "Email",
+                "password": "Пароль",
+                "repeat_password": "Паўтарыце пароль",
+                "agree": "Я пагаджаюся з палітыкай прыватнасці",
+                "privacy_policy": "Палітыка прыватнасці",
+                "submit_button": "Зарэгістравацца",
+                "validation": {
+                    "password_min": "Пароль павінен быць не меней за 6 сімвалаў",
+                    "passwords_match": "Паролі павінны супадаць"
+                }
+            }
         }
     }
 }

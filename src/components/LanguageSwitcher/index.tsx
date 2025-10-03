@@ -3,6 +3,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { IconButton, Menu, MenuItem, Tooltip } from '@mui/material';
 import LanguageIcon from '@mui/icons-material/Language';
+import { useTranslation } from 'react-i18next';
 import { saveLocaleAction, localeSelector } from '@/modules/i18next';
 import i18n from '@/modules/translations';
 
@@ -41,10 +42,11 @@ export const LanguageSwitcher = () => {
     const currentLanguage = languages.find(
         (lang) => lang.code === currentLocale,
     );
+    const { t } = useTranslation();
 
     return (
         <>
-            <Tooltip title="Выбар мовы / Choose language">
+            <Tooltip title={t('language_switcher.tooltip')}>
                 <IconButton
                     onClick={handleClick}
                     size="large"

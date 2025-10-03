@@ -15,19 +15,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
 import { currentUserIsAuth } from '@/modules/auth';
 import { useRouter } from 'next/navigation';
+import { useTranslation } from 'react-i18next';
 
-const validationSchema = () =>
+const validationSchema = (t: any) =>
     yup.object({
         message: yup
             .string()
-            .min(10, 'Павінна быць не меней за 10 сімвалаў')
-            .required('Увядзіце тэкст'),
+            .min(10, t('article.validation_min_chars', { count: 10 }))
+            .required(t('article.validation_required')),
     });
 
 export default function Error({ artickleId }: { artickleId: any }) {
     const history = useRouter();
     const dispatch = useDispatch();
     const userIsAuth = useSelector(currentUserIsAuth);
+    const { t } = useTranslation();
     const { handleSubmit, values, handleChange, setFieldValue, errors } =
         useFormik({
             onSubmit: ({ message }) => {
@@ -43,7 +45,7 @@ export default function Error({ artickleId }: { artickleId: any }) {
                     ),
                 );
             },
-            validationSchema: validationSchema(),
+            validationSchema: validationSchema(t),
             initialValues: {
                 message: '',
             },
@@ -64,14 +66,13 @@ export default function Error({ artickleId }: { artickleId: any }) {
             {userIsAuth ? (
                 <>
                     <Button variant="outlined" onClick={handleClickOpen}>
-                        Знайшлі памылку?
+                        {t('article.error_found_button')}
                     </Button>
                     <Dialog open={open} onClose={handleClose}>
-                        <DialogTitle>Паведаміць пра памылку</DialogTitle>
+                        <DialogTitle>{t('article.error_report_title')}</DialogTitle>
                         <DialogContent>
                             <DialogContentText>
-                                Паведамленне пра памылку будзе адпраўлена на
-                                Email да аўтара артыкулу
+                                {t('article.error_report_description')}
                             </DialogContentText>
                             <TextField
                                 value={values.message}
@@ -80,7 +81,7 @@ export default function Error({ artickleId }: { artickleId: any }) {
                                 margin="dense"
                                 id="name"
                                 label=""
-                                placeholder="Калі ласка, апішыце памылку"
+                                placeholder={t('article.error_description_placeholder')}
                                 fullWidth
                                 multiline
                                 variant="standard"
@@ -89,7 +90,7 @@ export default function Error({ artickleId }: { artickleId: any }) {
                             />
                         </DialogContent>
                         <DialogActions>
-                            <Button onClick={handleClose}>Скасаваць</Button>
+                            <Button onClick={handleClose}>{t('article.error_cancel')}</Button>
                             <Box
                                 component={'form'}
                                 ml={1}
@@ -100,20 +101,19 @@ export default function Error({ artickleId }: { artickleId: any }) {
                                     variant="contained"
                                     type="submit"
                                 >
-                                    Даслаць
+                                    {t('article.error_submit')}
                                 </Button>
                             </Box>
                         </DialogActions>
                     </Dialog>
-                </>
-            ) : (
+                </>            ) : (
                 <Button
                     variant="outlined"
                     onClick={() => {
                         history.push('/login');
                     }}
                 >
-                    Знайшлі памылку?
+                    {t('article.error_found_button')}
                 </Button>
             )}
         </Box>

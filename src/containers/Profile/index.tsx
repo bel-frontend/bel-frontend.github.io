@@ -8,6 +8,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { FormControlLabel, Checkbox, FormGroup } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { Cell, GridGenerator, Card } from '@/components';
 import {
     getMyArticklesSelector,
@@ -42,6 +43,7 @@ export default function Profile({ history }: any) {
     const [value, setValue] = React.useState<string | number>(0);
     const { articles, total }: any = useSelector(getMyArticklesSelector);
     const currentUser: UserInterface = useSelector(getCurrentUserSelector);
+    const { t } = useTranslation();
 
     const {
         getOpenAiNews,
@@ -152,7 +154,7 @@ export default function Profile({ history }: any) {
                 <Cell col={0} row={0} colSpan={isMobile ? 1 : 2} rowSpan={1}>
                     <Card>
                         <Typography variant="subtitle1">
-                            Усяго падабаек:
+                            {t('profile.total_likes')}
                         </Typography>
                         <Typography>{likes}</Typography>
                     </Card>
@@ -165,11 +167,11 @@ export default function Profile({ history }: any) {
                 >
                     <Card>
                         <Typography variant="subtitle1">
-                            Самы папулярны артыкул:
+                            {t('profile.most_popular_article')}
                         </Typography>
                         <Typography>
                             <Link href={`/article/${articleWithMostLikes?.id}`}>
-                                {articleWithMostLikes?.meta?.title || 'Няма'}
+                                {articleWithMostLikes?.meta?.title || t('profile.no_articles')}
                             </Link>
                         </Typography>
                     </Card>
@@ -189,13 +191,10 @@ export default function Profile({ history }: any) {
                                     checked={subscribeStatus}
                                 />
                             }
-                            label="Падпісацца на навіны"
+                            label={t('profile.subscribe_news')}
                         />
                         <Typography variant="body2">
-                            * Падпіска на навіны дазволіць атрымліваць навіны на
-                            вашу электронную пошту. Навіны збіраюцца з розных
-                            крыніц, апрацоўваюцца праз ШІ і перакладаюцца на
-                            беларускую мову.
+                            {t('profile.subscribe_description')}
                         </Typography>
                         {isAdmin && (
                             <Box
@@ -208,16 +207,16 @@ export default function Profile({ history }: any) {
                                     disabled={isLoadingOpenAiNews}
                                 >
                                     {isLoadingOpenAiNews
-                                        ? 'Loading...'
-                                        : 'Разаслаць навіны з OpenAI'}
+                                        ? t('profile.loading')
+                                        : t('profile.send_openai_news')}
                                 </Button>
                                 <Button
                                     onClick={getGeminiNews}
                                     disabled={isLoadingGeminiNews}
                                 >
                                     {isLoadingGeminiNews
-                                        ? 'Loading...'
-                                        : 'Разаслаць навіны з Gemeni'}
+                                        ? t('profile.loading')
+                                        : t('profile.send_gemini_news')}
                                 </Button>
                             </Box>
                         )}
@@ -253,11 +252,11 @@ export default function Profile({ history }: any) {
                                     indicatorColor="secondary"
                                 >
                                     <Tab
-                                        label="Мае артыкулы"
+                                        label={t('profile.tab_my_articles')}
                                         {...a11yProps(0)}
                                     />
                                     <Tab
-                                        label="Усе  чарнавікі"
+                                        label={t('profile.tab_all_drafts')}
                                         {...a11yProps(1)}
                                     />
                                 </Tabs>
@@ -266,8 +265,8 @@ export default function Profile({ history }: any) {
                         <Box>
                             <Typography variant="h5">
                                 {value === 1
-                                    ? `Чарнавікі ўсіх аутараў (only admins)`
-                                    : `Мае артыкулы`}
+                                    ? t('profile.drafts_all_authors')
+                                    : t('profile.tab_my_articles')}
                             </Typography>
                             <MyArtickles
                                 history={history}

@@ -11,6 +11,7 @@ import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import MenuIcon from '@mui/icons-material/Menu';
+import { useTranslation } from 'react-i18next';
 
 import { useDispatch } from 'react-redux';
 
@@ -47,17 +48,18 @@ export const Drawer = ({
             setState({ ...state, [anchor]: open });
         };
     const dispatch = useDispatch();
+    const { t } = useTranslation();
 
     const items = [
         {
-            text: 'Дадаць новы артыкул',
+            text: t('drawer.add_article'),
             icon: <AddIcon />,
             onClick: () => {
                 history.push('/editor/add');
             },
         },
         {
-            text: 'Выйсці',
+            text: t('drawer.logout'),
             icon: <ExitToAppIcon />,
             onClick: () => {
                 dispatch(logoutAction());

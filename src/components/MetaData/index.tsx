@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { LikeButton, Tag } from '@/components';
 import { Button, Box } from '@mui/material';
 import { MetaDataInterface } from '@/modules/artickles/types/article';
+import { useTranslation } from 'react-i18next';
 
 import style from './style.module.scss';
 
@@ -23,6 +24,7 @@ export const MetaData = ({
     showTags?: boolean;
 }) => {
     const { author = '', dateArticle = '' } = meta || {};
+    const { t } = useTranslation();
 
     return (
         <>
@@ -35,7 +37,7 @@ export const MetaData = ({
                             size="small"
                             disableElevation
                         >
-                            Чытаць
+                            {t('metadata.read_button')}
                         </Button>
                     </Link>
                 ) : null}

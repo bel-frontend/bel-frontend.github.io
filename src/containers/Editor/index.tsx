@@ -2,6 +2,7 @@
 import React, { useRef, useEffect } from 'react';
 import classnames from 'classnames';
 import { debounce } from 'lodash';
+import { useTranslation } from 'react-i18next';
 
 import MdEditor from 'react-markdown-editor-lite';
 import MarkdownIt from 'markdown-it';
@@ -40,6 +41,7 @@ const mdParser = new MarkdownIt({ typographer: true });
 const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
     const history = useRouter();
     const button = useRef(null);
+    const { t } = useTranslation();
     const {
         handleSubmit,
         values,
@@ -123,7 +125,7 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
                     htmlFor="exampleFormControlTextarea1"
                     className="form-label"
                 >
-                    Meтаданыя
+                    {t('editor.metadata_label')}
                 </label>
             </Box>
             <form
@@ -139,7 +141,7 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
                             fullWidth
                             id="title"
                             name="title"
-                            label="Назва артыкула*"
+                            label={t('editor.title_label')}
                             value={values.title}
                             size="small"
                             onChange={handleChange('title')}
@@ -154,7 +156,7 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
                             onClick={deleteArticle}
                             disabled={isAdd}
                         >
-                            Выдаліць артыкул
+                            {t('editor.delete_article')}
                         </Button>
                     </Grid>
                     <Grid item md={6}>
@@ -162,8 +164,8 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
                             id="description"
                             name="description"
                             minRows={2}
-                            area-label="Кароткае апісанне зместу"
-                            placeholder="Кароткае апісанне зместу"
+                            area-label={t('editor.description_placeholder')}
+                            placeholder={t('editor.description_placeholder')}
                             value={values.description}
                             onChange={handleChange('description')}
                             className={style.textarea}
@@ -174,7 +176,7 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
                             fullWidth
                             id="author"
                             name="author"
-                            label="Імя аўтара (любы нікнэйм)*"
+                            label={t('editor.author_label')}
                             value={values.author}
                             size="small"
                             onChange={handleChange('author')}
@@ -187,8 +189,8 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
                             fullWidth
                             id="tags"
                             name="tags"
-                            label="Тэгі для пошуку*"
-                            placeholder="Дадайце патрэбныя тэгі праз прабел: javascript webdev"
+                            label={t('editor.tags_label')}
+                            placeholder={t('editor.tags_placeholder')}
                             value={values.tags}
                             size="small"
                             onChange={handleChange('tags')}
@@ -201,7 +203,7 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
                             fullWidth
                             id="dateArticle"
                             name="dateArticle"
-                            label="Дата публікацыі артыкула*"
+                            label={t('editor.date_label')}
                             type="date"
                             InputLabelProps={{ shrink: true }}
                             value={values.dateArticle}
@@ -219,21 +221,21 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
                     <Grid item md={6}>
                         <FormControl fullWidth size="small">
                             <InputLabel id="lang-label">
-                                Мова тэксту*
+                                {t('editor.lang_label')}
                             </InputLabel>
                             <Select
                                 labelId="lang-label"
                                 id="lang"
                                 name="lang"
                                 value={values.lang}
-                                label="Мова тэксту*"
+                                label={t('editor.lang_label')}
                                 onChange={(e) =>
                                     setFieldValue('lang', e.target.value)
                                 }
                             >
-                                <MenuItem value="be">Беларуская</MenuItem>
-                                <MenuItem value="ru">Руская</MenuItem>
-                                <MenuItem value="en">English</MenuItem>
+                                <MenuItem value="be">{t('editor.lang_belarusian')}</MenuItem>
+                                <MenuItem value="ru">{t('editor.lang_russian')}</MenuItem>
+                                <MenuItem value="en">{t('editor.lang_english')}</MenuItem>
                             </Select>
                         </FormControl>
                     </Grid>
@@ -245,7 +247,7 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
                                     onChange={handleChange('isActive')}
                                 />
                             }
-                            label="Паказваць усім (артыкул будзе бачны для ўсіх карыстальнікаў)"
+                            label={t('editor.visibility_label')}
                         />
                         {isAdmin ? (
                             <FormControlLabel
@@ -255,7 +257,7 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
                                         onChange={handleChange('isPinned')}
                                     />
                                 }
-                                label="Замацаваць уверсе"
+                                label={t('editor.pin_label')}
                             />
                         ) : null}
                     </Grid>
@@ -290,9 +292,9 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
                             aria-label="Platform"
                             size="small"
                         >
-                            <ToggleButton value="0">Рэдактар</ToggleButton>
-                            <ToggleButton value="1">Перадагляд</ToggleButton>
-                            <ToggleButton value="2">Р | П</ToggleButton>
+                            <ToggleButton value="0">{t('editor.mode_editor')}</ToggleButton>
+                            <ToggleButton value="1">{t('editor.mode_preview')}</ToggleButton>
+                            <ToggleButton value="2">{t('editor.mode_both')}</ToggleButton>
                         </ToggleButtonGroup>
                     </Grid>
                     <Grid
@@ -311,9 +313,9 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
                                     }}
                                 />
                             }
-                            label="Аўтазахаванне"
+                            label={t('editor.autosave')}
                         />
-                        <Tooltip title="Захаваць змены - ctrl+s">
+                        <Tooltip title={t('editor.save_changes_tooltip')}>
                             <Button
                                 variant="contained"
                                 disabled={!isValid}
@@ -322,9 +324,9 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
                                     saveUpdates();
                                 }}
                             >
-                                Захаваць змены{' '}
+                                {t('editor.save_changes')}{' '}
                                 {!isValid
-                                    ? ' (запоўніце абавязковыя палі)'
+                                    ? t('editor.fill_required_fields')
                                     : ''}
                             </Button>
                         </Tooltip>
@@ -387,7 +389,7 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
                                             color="primary"
                                             onClick={onCancel}
                                         >
-                                            Скасаваць
+                                            {t('editor.cancel')}
                                         </Button>
 
                                         <Button
@@ -403,7 +405,7 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
                                             className="mt-5"
                                             type="submit"
                                         >
-                                            Захаваць і перайсці на галоўную
+                                            {t('editor.save_and_home')}
                                         </Button>
                                     </Box>
                                 </>
@@ -425,7 +427,7 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
                                     justifyContent: 'flex-end',
                                 }}
                             >
-                                <Tooltip title="Захаваць змены - strl+s">
+                                <Tooltip title={t('editor.save_changes_tooltip')}>
                                     <IconButton
                                         color="secondary"
                                         size="large"

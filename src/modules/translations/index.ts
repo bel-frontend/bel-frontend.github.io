@@ -1,26 +1,40 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import bel from './bel.json';
-import en from './en.json';
+import belLocal from './bel.json';
+import enLocal from './en.json';
 
 // Налады для падключэння да Goman API
 const GOMAN_API_KEY = '8b09c55af7e408242c690ef4bdb39e083df366b2b489b9cc';
 const GOMAN_APP_ID = 'appID_e8a5aed48aaa902d89518abf48a0738c_f5fb4165';
 
-// Базавыя рэсурсы
-const resources = {
-    en: en,
-    be: bel,
+// Лакальныя рэсурсы як fallback (рэзервны варыянт)
+const localResources = {
+    en: enLocal,
+    be: belLocal,
 };
 
-i18n.use(initReactI18next).init({
-    resources,
-    lng: 'be',
-    fallbackLng: 'en',
-    interpolation: {
-        escapeValue: false,
-    },
-});
+// Функцыя для глыбокага аб'яднання аб'ектаў
+function deepMerge(target: any, source: any) {
+    const output = { ...target };
+    if (isObject(target) && isObject(source)) {
+        Object.keys(source).forEach((key) => {
+            if (isObject(source[key])) {
+                if (!(key in target)) {
+                    Object.assign(output, { [key]: source[key] });
+                } else {
+                    output[key] = deepMerge(target[key], source[key]);
+                }
+            } else {
+                Object.assign(output, { [key]: source[key] });
+            }
+        });
+    }
+    return output;
+}
+
+function isObject(item: any) {
+    return item && typeof item === 'object' && !Array.isArray(item);
+}
 
 // Функцыя для загрузкі перакладаў з Goman API
 async function loadTranslationsFromGoman() {
@@ -28,36 +42,69 @@ async function loadTranslationsFromGoman() {
     try {
         const response = await fetch(
             `https://translates.goman.live/localizations?apiKey=${GOMAN_API_KEY}&applicationId=${GOMAN_APP_ID}`,
+            { cache: 'no-cache' },
         );
 
         if (response.ok) {
-            const allData = await response.json();
-            console.log('✅ Loaded all translations from Goman:', allData);
+            const gomanData = await response.json();
+            console.log('✅ Loaded translations from Goman API:', gomanData);
 
-            // API вяртае структуру: { "be": {...}, "en": {...} }
-            Object.keys(allData).forEach((lang) => {
-                const translations = allData[lang];
-                if (translations && typeof translations === 'object') {
+            // Аб'ядноўваем лакальныя і серверныя пераклады
+            Object.keys(gomanData).forEach((lang) => {
+                const gomanTranslations = gomanData[lang];
+                const localTranslations = localResources[lang as keyof typeof localResources]?.translation || {};
+                
+                if (gomanTranslations && typeof gomanTranslations === 'object') {
+                    // Аб'ядноўваем: спачатку лакальныя, потым серверныя (серверныя перакрываюць лакальныя)
+                    const mergedTranslations = deepMerge(localTranslations, gomanTranslations);
+                    
                     i18n.addResourceBundle(
                         lang,
                         'translation',
-                        translations,
+                        mergedTranslations,
                         true,
                         true,
                     );
-                    console.log(`✅ Added translations for "${lang}"`);
+                    
+                    const gomanCount = Object.keys(gomanTranslations).length;
+                    const localCount = Object.keys(localTranslations).length;
+                    console.log(`✅ Merged translations for "${lang}": ${gomanCount} from Goman + ${localCount} local = ${Object.keys(mergedTranslations).length} total`);
                 }
             });
+            
+            // Перазапускаем i18n каб ён абнавіў пераклады
+            await i18n.reloadResources();
+            console.log('✅ Translations reloaded successfully from Goman API');
+            return true;
         } else {
-            console.error(`❌ Failed to load translations: ${response.status}`);
+            console.warn(`⚠️ Failed to load from Goman API (${response.status}), using local translations`);
+            return false;
         }
     } catch (error) {
-        console.error('❌ Error loading translations from Goman:', error);
+        console.error('❌ Error loading translations from Goman API:', error);
+        console.log('📦 Using local translations as fallback');
+        return false;
     }
 }
 
-// Загружаем пераклады пры ініцыялізацыі
-loadTranslationsFromGoman();
+// Ініціялізуем i18n з лакальнымі рэсурсамі
+i18n.use(initReactI18next).init({
+    resources: localResources,
+    lng: 'be',
+    fallbackLng: 'en',
+    interpolation: {
+        escapeValue: false,
+    },
+});
+
+// Загружаем пераклады з Goman API пасля ініціялізацыі
+loadTranslationsFromGoman().then((success) => {
+    if (success) {
+        console.log('🌐 Using translations from Goman API');
+    } else {
+        console.log('📦 Using local JSON translations');
+    }
+});
 
 // Падпісваемся на змену мовы
 i18n.on('languageChanged', (lng) => {

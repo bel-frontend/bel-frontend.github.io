@@ -1,7 +1,9 @@
+'use client';
 import React from 'react';
 import { MetaData } from '@/components/MetaData';
 import { Box } from '@mui/material';
 import { MD } from '@/components';
+import { useTranslation } from 'react-i18next';
 
 import { ArticleInterface } from '@/modules/artickles/types/article';
 import EditLink from '@/components/EditLink';
@@ -13,6 +15,7 @@ import style from './style.module.scss';
 export const EpisodePreview = ({ article }: { article: ArticleInterface }) => {
     const { meta, content, id, likes } = article;
     const url = id ? `/article/${id}` : '/';
+    const { t } = useTranslation();
 
     return meta ? (
         <article className="episode box">
@@ -35,7 +38,7 @@ export const EpisodePreview = ({ article }: { article: ArticleInterface }) => {
                             {meta?.isPinned ? (
                                 <Chip
                                     sx={{ ml: 2, mr: 2 }}
-                                    label="Замацаванае"
+                                    label={t('home.pinned_label')}
                                 />
                             ) : null}
                         </h2>
