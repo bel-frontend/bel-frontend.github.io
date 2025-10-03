@@ -2,7 +2,6 @@
 import '@/styles/index.scss';
 import { Inter } from 'next/font/google';
 import { Layout } from '@/containers/layouts/Layout';
-import '@/modules/translations';
 
 const inter = Inter({ subsets: ['latin'] });
 

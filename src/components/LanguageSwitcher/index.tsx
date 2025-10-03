@@ -5,7 +5,7 @@ import { IconButton, Menu, MenuItem, Tooltip } from '@mui/material';
 import LanguageIcon from '@mui/icons-material/Language';
 import { useTranslation } from 'react-i18next';
 import { saveLocaleAction, localeSelector } from '@/modules/i18next';
-import i18n from '@/modules/translations';
+import i18n from '@/modules/i18next';
 
 const languages = [
     { code: 'en', label: 'English' },

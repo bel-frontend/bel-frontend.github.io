@@ -1,11 +1,40 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
+import { createAction } from 'redux-actions';
+import get from 'lodash/get';
 import belLocal from './bel.json';
 import enLocal from './en.json';
 
 // Налады для падключэння да Goman API
 const GOMAN_API_KEY = '8b09c55af7e408242c690ef4bdb39e083df366b2b489b9cc';
 const GOMAN_APP_ID = 'appID_e8a5aed48aaa902d89518abf48a0738c_f5fb4165';
+
+// Redux actions
+const modules = 'translate';
+export const SAVE_SELECTED_LOCALE_ACTION = `${modules}/SAVE_SELECTED_LOCALE_ACTION`;
+export const saveLocaleAction = createAction(SAVE_SELECTED_LOCALE_ACTION);
+
+// Redux reducer
+export const DEFAULT_LANG = 'be';
+const initialState = { lang: DEFAULT_LANG };
+
+export const localeReducer = (
+    state = initialState,
+    action: { payload: any; type: string },
+) => {
+    switch (action.type) {
+        case SAVE_SELECTED_LOCALE_ACTION: {
+            const { payload } = action;
+            return { ...state, lang: payload };
+        }
+        default: {
+            return state;
+        }
+    }
+};
+
+// Redux selector
+export const localeSelector = (state: any) => get(state, 'locale.lang');
 
 // Лакальныя рэсурсы як fallback (рэзервны варыянт)
 const localResources = {

@@ -4,7 +4,7 @@ import React from 'react';
 import { Inter } from 'next/font/google';
 import { ReduxProvider, ThemeRegistry, InitProvider } from '@/providers';
 import Popups from '@/containers/Popups';
-import '@/modules/translations';
+import '@/modules/i18next';
 import Notifications from '@/containers/Notifications';
 import { useSelector } from 'react-redux';
 import { localeSelector } from '@/modules/i18next';
