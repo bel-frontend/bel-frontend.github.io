@@ -53,33 +53,24 @@ function getSavedLanguage(): string {
                 if (parsed.locale) {
                     const localeState = JSON.parse(parsed.locale);
                     if (localeState.lang) {
-                        console.log(
-                            '📖 Found saved language:',
-                            localeState.lang,
-                        );
                         return localeState.lang;
                     }
                 }
             }
             const savedLang = localStorage.getItem('i18nextLng');
             if (savedLang) {
-                console.log(
-                    '📖 Found saved language in i18nextLng:',
-                    savedLang,
-                );
                 return savedLang;
             }
         } catch (error) {
-            console.warn('⚠️ Error reading saved language:', error);
+            console.warn('Error reading saved language:', error);
         }
     }
-    console.log('📖 Using default language:', DEFAULT_LANG);
     return DEFAULT_LANG;
 }
 
 // Ініціялізуем i18next з лакальнымі рэсурсамі
 const initialLanguage = getSavedLanguage();
-console.log('🚀 Initializing i18next with language:', initialLanguage);
+console.log('🚀 i18next init with language:', initialLanguage);
 
 i18next.init({
     resources: localResources,
@@ -92,12 +83,8 @@ i18next.init({
     },
 });
 
-i18next.on('loaded', function (loaded) {
-    console.log('✅ i18next loaded:', loaded);
-});
-
 i18next.on('languageChanged', (lng) => {
-    console.log(`🌍 Language changed to: ${lng}`);
+    console.log('🌍 Language changed to:', lng);
     if (typeof document !== 'undefined') {
         document.documentElement.lang = lng;
     }
@@ -111,7 +98,7 @@ apiRoutes.add(GET_ALL_TRANSLATIONS_REQUEST, () => {
         params: {
             apiKey: GOMAN_API_KEY,
             applicationId: GOMAN_APP_ID,
-            // view: 'tree' // па дэфолце
+            view: 'tree',
         },
         showLoaderFlag: false,
     };
@@ -143,28 +130,41 @@ export const i18nextReducer = (
 
 //sagas
 const loadAllTranslationsSaga = function* (): any {
-    console.log('📥 Loading all translations from Goman API...');
+    console.log('📥 Loading translations from API...');
     yield put(getAllTranslationsAction());
 };
 
 const getAllTranslationsSuccessSaga = function* (): any {
     try {
         const response = yield select(getAllTranslationsSelector);
-        const gomanData = response?.data;
+        console.log('📦 API response received:', response);
 
-        if (!gomanData || typeof gomanData !== 'object') {
+        // Правяраем розныя варыянты структуры адказу
+        let gomanData = response?.data;
+
+        // Калі data - гэта масіў, то дадзеныя могуць быць у іншым месцы
+        if (
+            !gomanData ||
+            typeof gomanData !== 'object' ||
+            Array.isArray(gomanData)
+        ) {
+            gomanData = response;
+        }
+
+        if (
+            !gomanData ||
+            typeof gomanData !== 'object' ||
+            Array.isArray(gomanData)
+        ) {
             console.warn(
-                '⚠️ No translations data from Goman API, using local only',
+                'No translations data from Goman API, using local only',
             );
             return;
         }
 
-        console.log(
-            '✅ Loaded translations from Goman API:',
-            Object.keys(gomanData),
-        );
+        console.log('✅ Processing languages:', Object.keys(gomanData));
 
-        // Проста дадаём пераклады з сервера для кожнай мовы
+        // Дадаём пераклады з сервера для кожнай мовы
         Object.keys(gomanData).forEach((lang) => {
             const gomanTranslations = gomanData[lang];
 
@@ -173,15 +173,10 @@ const getAllTranslationsSuccessSaga = function* (): any {
                     lang,
                     'translation',
                     gomanTranslations,
-                    true, // deep - глыбокае аб'яднанне
-                    true, // overwrite - перазапісваць існуючыя
+                    true,
+                    true,
                 );
-
-                console.log(
-                    `✅ Loaded translations for "${lang}":`,
-                    Object.keys(gomanTranslations).length,
-                    'keys',
-                );
+                console.log(`✅ Added translations for ${lang}`);
             }
         });
 
@@ -191,23 +186,25 @@ const getAllTranslationsSuccessSaga = function* (): any {
 
         if (i18next.language !== currentLanguage) {
             yield i18next.changeLanguage(currentLanguage);
+        } else {
+            // ВАЖНА: Калі мова не змянілася, трэба яўна выклікаць падзею
+            // каб усе кампаненты перамалявалі інтэрфейс з новымі перакладамі
+            i18next.emit('languageChanged', currentLanguage);
         }
 
-        console.log('✅ All translations loaded successfully');
+        console.log('✅ Translations loaded successfully');
     } catch (error) {
-        console.error('❌ Error in getAllTranslationsSuccessSaga:', error);
+        console.error('Error loading translations:', error);
     }
 };
 
 const getTranslateSaga = function* (): any {
     const locale = yield select(localeSelector);
-    console.log('🔄 getTranslateSaga: changing language to', locale);
     yield i18next.changeLanguage(locale);
 };
 
 const getTranslateByActionSaga = function* (action: Action<any>): any {
     const { payload: locale } = action;
-    console.log('🔄 Changing language to:', locale);
 
     // Змяняем мову
     yield i18next.changeLanguage(locale);
@@ -215,7 +212,6 @@ const getTranslateByActionSaga = function* (action: Action<any>): any {
     // Захоўваем у localStorage
     if (typeof window !== 'undefined') {
         localStorage.setItem('i18nextLng', locale);
-        console.log('💾 Language saved to localStorage:', locale);
     }
 };
 
