@@ -1,0 +1,300 @@
+{
+    "be": {
+        "cookies": {
+            "accept": "Пагадзіцца",
+            "message": "Наш сайт захоўвае файлы cookies на вашай прыладзе. Вы можаце дазнацца больш аб нашай",
+            "privacy_policy": "палітыцы прыватнасці"
+        },
+        "drawer": { "add_article": "Дадаць новы артыкул", "logout": "Выйсці" },
+        "auth": {
+            "signup": {
+                "agree": "Я пагаджаюся з палітыкай прыватнасці",
+                "email": "Email",
+                "password": "Пароль",
+                "validation": {
+                    "password_min": "Пароль павінен быць не меней за 6 сімвалаў",
+                    "passwords_match": "Паролі павінны супадаць"
+                },
+                "privacy_policy": "Палітыка прыватнасці",
+                "repeat_password": "Паўтарыце пароль",
+                "submit_button": "Зарэгістравацца",
+                "title": "Рэгістрацыя"
+            },
+            "login": {
+                "email": "Email",
+                "go_to_register": "Няма акаўнта? Зарэгістравацца",
+                "password": "Пароль",
+                "submit_button": "Увайсці",
+                "title": "Уваход"
+            }
+        },
+        "profile": {
+            "all_drafts": "Усе чарнавікі",
+            "draft_chip": "Чарнавік",
+            "drafts_all_authors": "Чарнавікі ўсіх аўтараў (only admins)",
+            "edit_button": "Рэдагаваць",
+            "loading": "Загрузка...",
+            "stats": {
+                "most_popular": "Самы папулярны артыкул:",
+                "none": "Няма",
+                "total_likes": "Усяго падабаек:"
+            },
+            "most_popular_article": "Самы папулярны артыкул:",
+            "my_articles": "Мае артыкулы",
+            "no_articles": "Няма",
+            "admin": {
+                "send_gemini_news": "Разаслаць навіны з Gemini",
+                "send_openai_news": "Разаслаць навіны з OpenAI"
+            },
+            "send_gemini_news": "Разаслаць навіны з Gemini",
+            "send_openai_news": "Разаслаць навіны з OpenAI",
+            "subscribe_description": "* Падпіска на навіны дазволіць атрымліваць навіны на вашу электронную пошту. Навіны збіраюцца з розных крыніц, апрацоўваюцца праз ШІ і перакладаюцца на беларускую мову.",
+            "subscribe_news": "Падпісацца на навіны",
+            "tab_all_drafts": "Усе чарнавікі",
+            "tab_my_articles": "Мае артыкулы",
+            "total_likes": "Усяго падабаек:"
+        },
+        "editor": {
+            "article_saved": "Артыкул захаваны",
+            "author_label": "Імя аўтара (любы нікнэйм)*",
+            "autosave": "Аўтазахаванне",
+            "autosave_label": "Аўтазахаванне",
+            "cancel": "Скасаваць",
+            "date_label": "Дата публікацыі артыкула*",
+            "delete_article": "Выдаліць артыкул",
+            "delete_cancel_button": "Скасаваць",
+            "delete_confirm_subtitle": "Гэты артыкул будзе выдалены назаўседы. Працягнуць?",
+            "delete_submit_button": "Выдаліць",
+            "description_label": "Кароткае апісанне зместу",
+            "description_placeholder": "Кароткае апісанне зместу",
+            "fill_required_fields": " (запоўніце абавязковыя палі)",
+            "lang_belarusian": "Беларуская",
+            "lang_english": "English",
+            "lang_label": "Мова тэксту*",
+            "lang_russian": "Руская",
+            "metadata_label": "Метаданыя",
+            "mode_both": "Р | П",
+            "mode_editor": "Рэдактар",
+            "mode_preview": "Перадагляд",
+            "pin_label": "Замацаваць уверсе",
+            "pin_top_label": "Замацаваць уверсе",
+            "publish_date_label": "Дата публікацыі артыкула*",
+            "save_and_home": "Захаваць і перайсці на галоўную",
+            "save_changes": "Захаваць змены",
+            "save_changes_tooltip": "Захаваць змены - ctrl+s",
+            "show_to_all_label": "Паказваць усім (артыкул будзе бачны для ўсіх карыстальнікаў)",
+            "tags_label": "Тэгі для пошуку*",
+            "tags_placeholder": "Дадайце патрэбныя тэгі праз прабел: javascript webdev",
+            "title_label": "Назва артыкула*",
+            "validation_chars_only": "Толькі літары, нумары і прабелы",
+            "validation_lang_required": "Мова тэксту абавязковая",
+            "validation_required": "Поле абавязковае",
+            "visibility_label": "Паказваць усім (артыкул будзе бачны для ўсіх карыстальнікаў)"
+        },
+        "buy_me_coffee": {
+            "button_text": "на падтрымку праекта",
+            "image_alt": "На каву",
+            "tooltip": "Збіраем на падтрымку інфраструктуры і паляпшэнне нашага сайту"
+        },
+        "article": {
+            "comment_login_required": "(Каб даслаць каментар залагуйцеся ў свой уліковы запіс)",
+            "comment_name_label": "Ваша імя",
+            "comment_name_placeholder": "Ваша імя",
+            "comment_submit": "Даслаць",
+            "comment_text_label": "Ваш каментар",
+            "comment_text_placeholder": "Ваш каментар",
+            "draft_chip": "Чарнавік",
+            "error_cancel": "Скасаваць",
+            "error_description_placeholder": "Калі ласка, апішыце памылку",
+            "error_found_button": "Знайшлі памылку?",
+            "error_report_description": "Паведамленне пра памылку будзе адпраўлена на Email да аўтара артыкулу",
+            "error_report_title": "Паведаміць пра памылку",
+            "error_submit": "Даслаць",
+            "breadcrumb": { "home": "Галоўная" },
+            "validation_min_chars": "Павінна быць не меней за {count} сімвалаў",
+            "validation_required": "Увядзіце тэкст"
+        },
+        "header": {
+            "menu": {
+                "contacts": "Кантакты",
+                "create_article": "Стварыць артыкул",
+                "login": "Увайсці",
+                "logout": "Выйсці",
+                "profile": "Профіль",
+                "register": "Зарэгістравацца"
+            }
+        },
+        "upload_controller": {
+            "copy_url_tooltip": "Націсні каб скапіраваць URL",
+            "image_alt": "выява"
+        },
+        "footer": {
+            "copyright": "Copyright © Bel-Geek.com - Тэхналогіі і Навука"
+        },
+        "error": { "describe_error": "Калі ласка, апішыце памылку" },
+        "support": {
+            "donate_tooltip": "Збіраем на падтрымку інфраструктуры і паляпшэнне нашага сайту"
+        },
+        "common": {
+            "draft": "Чарнавік",
+            "loading": "Загрузка...",
+            "pinned": "Замацаванае"
+        },
+        "home": {
+            "pinned_label": "Замацаванае",
+            "telegram_link": "Далучайцеся да нашага Тэлеграм-канала"
+        },
+        "metadata": { "read_button": "Чытаць" },
+        "language_switcher": { "tooltip": "Выбар мовы" },
+        "comments": { "your_comment": "Ваш каментар", "your_name": "Ваша імя" }
+    },
+    "en": {
+        "cookies": {
+            "accept": "Accept",
+            "message": "Our site stores cookies on your device. You can learn more about our",
+            "privacy_policy": "privacy policy"
+        },
+        "drawer": { "add_article": "Add new article", "logout": "Logout" },
+        "auth": {
+            "signup": {
+                "agree": "I agree to the privacy policy",
+                "email": "Email",
+                "password": "Password",
+                "validation": {
+                    "password_min": "Password must be at least 6 characters",
+                    "passwords_match": "Passwords must match"
+                },
+                "privacy_policy": "Privacy policy",
+                "repeat_password": "Repeat password",
+                "submit_button": "Register",
+                "title": "Sign up"
+            },
+            "login": {
+                "email": "Email",
+                "go_to_register": "Don't have an account? Sign up",
+                "password": "Password",
+                "submit_button": "Sign in",
+                "title": "Login"
+            }
+        },
+        "profile": {
+            "all_drafts": "All drafts",
+            "draft_chip": "Draft",
+            "drafts_all_authors": "Drafts of all authors (only admins)",
+            "edit_button": "Edit",
+            "loading": "Loading...",
+            "stats": {
+                "most_popular": "Most popular article:",
+                "none": "None",
+                "total_likes": "Total likes:"
+            },
+            "most_popular_article": "Most popular article:",
+            "my_articles": "My articles",
+            "no_articles": "None",
+            "admin": {
+                "send_gemini_news": "Send news from Gemini",
+                "send_openai_news": "Send news from OpenAI"
+            },
+            "send_gemini_news": "Send news from Gemini",
+            "send_openai_news": "Send news from OpenAI",
+            "subscribe_description": "* Subscribing to news will allow you to receive news to your email. News is collected from various sources, processed through AI and translated into Belarusian.",
+            "subscribe_news": "Subscribe to news",
+            "tab_all_drafts": "All drafts",
+            "tab_my_articles": "My articles",
+            "total_likes": "Total likes:"
+        },
+        "editor": {
+            "article_saved": "Article saved",
+            "author_label": "Author Name (any nickname)*",
+            "autosave": "Autosave",
+            "autosave_label": "Autosave",
+            "cancel": "Cancel",
+            "date_label": "Article Publication Date*",
+            "delete_article": "Delete Article",
+            "delete_cancel_button": "Cancel",
+            "delete_confirm_subtitle": "This article will be deleted permanently. Continue?",
+            "delete_submit_button": "Delete",
+            "description_label": "Short content description",
+            "description_placeholder": "Short content description",
+            "fill_required_fields": " (fill required fields)",
+            "lang_belarusian": "Belarusian",
+            "lang_english": "English",
+            "lang_label": "Text Language*",
+            "lang_russian": "Russian",
+            "metadata_label": "Metadata",
+            "mode_both": "E | P",
+            "mode_editor": "Editor",
+            "mode_preview": "Preview",
+            "pin_label": "Pin to top",
+            "pin_top_label": "Pin to top",
+            "publish_date_label": "Article publication date*",
+            "save_and_home": "Save and go to home",
+            "save_changes": "Save changes",
+            "save_changes_tooltip": "Save changes - ctrl+s",
+            "show_to_all_label": "Show to all (article will be visible to all users)",
+            "tags_label": "Search Tags*",
+            "tags_placeholder": "Add necessary tags separated by space: javascript webdev",
+            "title_label": "Article Title*",
+            "validation_chars_only": "Only letters, numbers and spaces",
+            "validation_lang_required": "Text language is required",
+            "validation_required": "Field is required",
+            "visibility_label": "Show to everyone (article will be visible to all users)"
+        },
+        "buy_me_coffee": {
+            "button_text": "support the project",
+            "image_alt": "Buy me a coffee",
+            "tooltip": "Support our infrastructure and site improvement"
+        },
+        "article": {
+            "comment_login_required": "(To submit a comment, please log in to your account)",
+            "comment_name_label": "Your name",
+            "comment_name_placeholder": "Your name",
+            "comment_submit": "Submit",
+            "comment_text_label": "Your comment",
+            "comment_text_placeholder": "Your comment",
+            "draft_chip": "Draft",
+            "error_cancel": "Cancel",
+            "error_description_placeholder": "Please describe the error",
+            "error_found_button": "Found an error?",
+            "error_report_description": "The error report will be sent via email to the article author",
+            "error_report_title": "Report an error",
+            "error_submit": "Submit",
+            "breadcrumb": { "home": "Home" },
+            "validation_min_chars": "Must be at least {count} characters",
+            "validation_required": "Enter text"
+        },
+        "header": {
+            "menu": {
+                "contacts": "Contacts",
+                "create_article": "Create Article",
+                "login": "Login",
+                "logout": "Logout",
+                "profile": "Profile",
+                "register": "Register"
+            }
+        },
+        "upload_controller": {
+            "copy_url_tooltip": "Click to copy URL",
+            "image_alt": "image"
+        },
+        "footer": {
+            "copyright": "Copyright © Bel-Geek.com - Technologies and Science"
+        },
+        "error": { "describe_error": "Please describe the error" },
+        "support": {
+            "donate_tooltip": "We are collecting to support infrastructure and improve our site"
+        },
+        "common": {
+            "draft": "Draft",
+            "loading": "Loading...",
+            "pinned": "Pinned"
+        },
+        "home": {
+            "pinned_label": "Pinned",
+            "telegram_link": "Join our Telegram channel"
+        },
+        "metadata": { "read_button": "Read" },
+        "language_switcher": { "tooltip": "Choose language" },
+        "comments": { "your_comment": "Your comment", "your_name": "Your name" }
+    }
+}

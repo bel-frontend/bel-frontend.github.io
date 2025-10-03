@@ -7,8 +7,7 @@ import { createAction } from 'redux-actions';
 import { all, put, select, takeLatest } from 'redux-saga/effects';
 import * as api_helpers from 'react_redux_api';
 import { INIT_DATA, reInitDataAction } from '../init';
-import beLocal from './be.json';
-import enLocal from './en.json';
+import locales from './locales.json';
 
 const {
     helpers: { actionCreator, apiSelector },
@@ -37,8 +36,8 @@ export const DEFAULT_LANG = 'be';
 
 // Лакальныя рэсурсы як fallback
 const localResources = {
-    en: { translation: enLocal },
-    be: { translation: beLocal },
+    en: { translation: locales.en },
+    be: { translation: locales.be },
 };
 
 const apiRoutes = new ApiRoutes();
