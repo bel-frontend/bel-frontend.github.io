@@ -5,7 +5,6 @@ import { Inter } from 'next/font/google';
 import EmptyLayout from '@/containers/layouts/EmptyLayout';
 import { ReduxProvider, ThemeRegistry } from '@/providers';
 import Popups from '@/containers/Popups';
-import '@/modules/translations';
 import { useRouter } from 'next/navigation';
 
 const inter = Inter({ subsets: ['latin'] });

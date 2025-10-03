@@ -5,7 +5,6 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { Layout } from '@/containers/layouts/Layout';
 import { useSelector } from 'react-redux';
-import '@/modules/translations';
 import { useRouter } from 'next/navigation';
 import { currentUserIsAuth } from '@/modules/auth';
 

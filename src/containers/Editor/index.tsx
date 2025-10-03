@@ -218,7 +218,7 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
                             }
                         />
                     </Grid>
-                    <Grid item md={6}>
+                    <Grid item md={12}>
                         <FormControl fullWidth size="small">
                             <InputLabel id="lang-label">
                                 {t('editor.lang_label')}
@@ -235,9 +235,6 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
                             >
                                 <MenuItem value="be">
                                     {t('editor.lang_belarusian')}
-                                </MenuItem>
-                                <MenuItem value="ru">
-                                    {t('editor.lang_russian')}
                                 </MenuItem>
                                 <MenuItem value="en">
                                     {t('editor.lang_english')}
