@@ -36,6 +36,13 @@ export const LanguageSwitcher = () => {
 
         // Захоўваем у Redux
         dispatch(saveLocaleAction(langCode));
+
+        // Захоўваем у localStorage для надзейнасці
+        if (typeof window !== 'undefined') {
+            localStorage.setItem('i18nextLng', langCode);
+            console.log('💾 Language saved to localStorage:', langCode);
+        }
+
         handleClose();
     };
 

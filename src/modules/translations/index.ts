@@ -84,8 +84,21 @@ async function loadTranslationsFromGoman() {
                 }
             });
 
+            // Захоўваем бягучую мову перад перазагрузкай
+            const currentLanguage = i18n.language;
+            console.log('💾 Current language before reload:', currentLanguage);
+
             // Перазапускаем i18n каб ён абнавіў пераклады
             await i18n.reloadResources();
+
+            // Пераканаемся, што мова не змянілася
+            if (i18n.language !== currentLanguage) {
+                console.log(
+                    `🔄 Restoring language from ${i18n.language} to ${currentLanguage}`,
+                );
+                await i18n.changeLanguage(currentLanguage);
+            }
+
             console.log('✅ Translations reloaded successfully from Goman API');
             return true;
         } else {
@@ -101,10 +114,50 @@ async function loadTranslationsFromGoman() {
     }
 }
 
+// Функцыя для атрымання захаванай мовы з localStorage
+function getSavedLanguage(): string {
+    if (typeof window !== 'undefined') {
+        try {
+            // Спрабуем прачытаць з localStorage (Redux Persist)
+            const persistedState = localStorage.getItem('persist:root');
+            if (persistedState) {
+                const parsed = JSON.parse(persistedState);
+                if (parsed.locale) {
+                    const localeState = JSON.parse(parsed.locale);
+                    if (localeState.lang) {
+                        console.log(
+                            '📖 Found saved language in localStorage:',
+                            localeState.lang,
+                        );
+                        return localeState.lang;
+                    }
+                }
+            }
+
+            // Альтэрнатыўны варыянт: праверка lang у localStorage
+            const savedLang = localStorage.getItem('i18nextLng');
+            if (savedLang) {
+                console.log(
+                    '📖 Found saved language in i18nextLng:',
+                    savedLang,
+                );
+                return savedLang;
+            }
+        } catch (error) {
+            console.warn('⚠️ Error reading saved language:', error);
+        }
+    }
+    console.log('📖 No saved language found, using default: be');
+    return 'be'; // Мова па змаўчанні
+}
+
 // Ініціялізуем i18n з лакальнымі рэсурсамі
+const initialLanguage = getSavedLanguage();
+console.log('🚀 Initializing i18n with language:', initialLanguage);
+
 i18n.use(initReactI18next).init({
     resources: localResources,
-    lng: 'be',
+    lng: initialLanguage,
     fallbackLng: 'en',
     interpolation: {
         escapeValue: false,
