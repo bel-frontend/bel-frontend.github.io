@@ -11,7 +11,7 @@ import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import MenuIcon from '@mui/icons-material/Menu';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from '@/modules/i18next';
 
 import { useDispatch } from 'react-redux';
 

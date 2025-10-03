@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from '@/modules/i18next';
 
 export const TelegramLink = ({ className }: { className?: string }) => {
     const { t } = useTranslation();

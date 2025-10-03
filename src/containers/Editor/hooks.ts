@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import moment from 'moment';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from '@/modules/i18next';
 
 import {
     updateArtickleRequest,

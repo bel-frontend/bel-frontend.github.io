@@ -3,7 +3,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { IconButton, Menu, MenuItem, Tooltip } from '@mui/material';
 import LanguageIcon from '@mui/icons-material/Language';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from '@/modules/i18next';
 import { saveLocaleAction, localeSelector } from '@/modules/i18next';
 import i18n from '@/modules/i18next';
 

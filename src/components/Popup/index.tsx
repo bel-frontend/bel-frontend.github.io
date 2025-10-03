@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from '@/modules/i18next';
 import ClearIcon from '@mui/icons-material/Clear';
 
 import PopupBackground from '../PopupBackground';

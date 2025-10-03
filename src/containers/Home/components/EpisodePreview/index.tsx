@@ -3,7 +3,7 @@ import React from 'react';
 import { MetaData } from '@/components/MetaData';
 import { Box } from '@mui/material';
 import { MD } from '@/components';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from '@/modules/i18next';
 
 import { ArticleInterface } from '@/modules/artickles/types/article';
 import EditLink from '@/components/EditLink';

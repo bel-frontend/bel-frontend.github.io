@@ -25,7 +25,7 @@ import { logoutAction } from '@/modules/auth';
 import style from './style.module.scss';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { LanguageSwitcher } from '@/components';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from '@/modules/i18next';
 import i18n from '@/modules/i18next';
 
 export const Header = ({ userIsAuth, isMobile }: any) => {

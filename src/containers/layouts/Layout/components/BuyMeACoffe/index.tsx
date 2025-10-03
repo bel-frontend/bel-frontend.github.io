@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import { Typography, Button, Tooltip } from '@mui/material';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from '@/modules/i18next';
 import Image from 'next/image';
 import Link from 'next/link';
 

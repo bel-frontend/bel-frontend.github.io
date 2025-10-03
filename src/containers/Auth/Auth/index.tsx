@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import * as yup from 'yup';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from '@/modules/i18next';
 
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';

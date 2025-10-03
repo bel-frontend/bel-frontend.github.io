@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from '@/modules/i18next';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/navigation';
 

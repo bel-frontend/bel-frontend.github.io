@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
 import { currentUserIsAuth } from '@/modules/auth';
 import { useRouter } from 'next/navigation';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from '@/modules/i18next';
 
 const validationSchema = (t: any) =>
     yup.object({

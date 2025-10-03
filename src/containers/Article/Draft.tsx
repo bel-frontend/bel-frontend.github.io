@@ -3,7 +3,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box } from '@mui/material';
 import Chip from '@mui/material/Chip';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from '@/modules/i18next';
 
 import { ArticleInterface } from '@/modules/artickles/types/article';
 import { EditLink } from '@/components';

@@ -8,7 +8,7 @@ import Dialog from '@mui/material/Dialog';
 import Button from '@mui/material/Button';
 import CookieIcon from '@mui/icons-material/Cookie';
 import { useSelector, useDispatch } from 'react-redux';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from '@/modules/i18next';
 
 import { PrivacyPolicy } from '@/containers/Auth/SignUp/PrivacyPolicy';
 import { cookiesSelector, confirmCookiesAction } from '@/modules/cookies';

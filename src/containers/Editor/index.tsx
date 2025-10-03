@@ -2,7 +2,7 @@
 import React, { useRef, useEffect } from 'react';
 import classnames from 'classnames';
 import { debounce } from 'lodash';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from '@/modules/i18next';
 
 import MdEditor from 'react-markdown-editor-lite';
 import MarkdownIt from 'markdown-it';

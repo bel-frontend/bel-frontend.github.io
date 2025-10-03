@@ -2,7 +2,7 @@
 import React from 'react';
 import moment from 'moment/moment';
 import { Container } from '@mui/material';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from '@/modules/i18next';
 
 import style from './style.module.scss';
 

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Chip from '@mui/material/Chip';
 import Box from '@mui/material/Box';
 import Tooltip from '@mui/material/Tooltip';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from '@/modules/i18next';
 
 import { saveToClipBoard } from '@/helpers/clipboard';
 

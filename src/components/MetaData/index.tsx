@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { LikeButton, Tag } from '@/components';
 import { Button, Box } from '@mui/material';
 import { MetaDataInterface } from '@/modules/artickles/types/article';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from '@/modules/i18next';
 
 import style from './style.module.scss';
 
