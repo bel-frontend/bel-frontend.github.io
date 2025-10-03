@@ -32,7 +32,7 @@ export const getAllTranslationsAction = actionCreator(
 );
 export const saveLocaleAction = createAction(SAVE_SELECTED_LOCALE_ACTION);
 
-export const DEFAULT_LANG = 'be';
+export const DEFAULT_LANG = 'en'; // Дэфолтная мова для SSR і новых карыстальнікаў
 
 // Лакальныя рэсурсы як fallback
 const localResources = {
@@ -69,7 +69,13 @@ function getSavedLanguage(): string {
 
 // Ініціялізуем i18next з лакальнымі рэсурсамі
 const initialLanguage = getSavedLanguage();
-console.log('🚀 i18next init with language:', initialLanguage);
+console.log(
+    '🚀 i18next init with language:',
+    initialLanguage,
+    '(window available:',
+    typeof window !== 'undefined',
+    ')',
+);
 
 i18next.init({
     resources: localResources,
@@ -88,6 +94,18 @@ i18next.on('languageChanged', (lng) => {
         document.documentElement.lang = lng;
     }
 });
+
+// Калі мы на кліенце (пасля гідрацыі), праверым захаваную мову
+if (typeof window !== 'undefined') {
+    // Дадаем невялікую затрымку, каб Redux устыгнуў загрузіцца з persist
+    setTimeout(() => {
+        const savedLang = getSavedLanguage();
+        if (savedLang !== i18next.language) {
+            console.log('🔄 Syncing language from storage:', savedLang);
+            i18next.changeLanguage(savedLang);
+        }
+    }, 100);
+}
 
 // API маршрут для атрымання ўсіх перакладаў адразу (view=tree па дэфолце)
 apiRoutes.add(GET_ALL_TRANSLATIONS_REQUEST, () => {
