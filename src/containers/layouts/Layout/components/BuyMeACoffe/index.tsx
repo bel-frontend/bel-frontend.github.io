@@ -7,7 +7,7 @@ import Link from 'next/link';
 
 const BuyMeACofee = ({ isMobile }: { isMobile: boolean }) => {
     const { t } = useTranslation();
-    
+
     return (
         <Link target="_blank" href="https://www.buymeacoffee.com/gomanlivesy">
             <Tooltip title={t('buy_me_coffee.tooltip')}>

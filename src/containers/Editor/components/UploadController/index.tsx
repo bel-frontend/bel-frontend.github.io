@@ -30,12 +30,16 @@ export const UploadController = ({
                             <Tooltip
                                 title={
                                     <>
-                                        {t('upload_controller.copy_url_tooltip')}
+                                        {t(
+                                            'upload_controller.copy_url_tooltip',
+                                        )}
                                         <Box p={1}>
                                             <img
                                                 className={style.preview}
                                                 src={i.url}
-                                                alt={t('upload_controller.image_alt')}
+                                                alt={t(
+                                                    'upload_controller.image_alt',
+                                                )}
                                             />
                                         </Box>
                                     </>

@@ -28,18 +28,19 @@ import { ArticleInterface } from '@/modules/artickles/types/article';
 
 import { getCurrentUserSelector } from '@/modules/auth';
 
-const validationSchema = (t: any) => yup.object({
-    title: yup.string().required(),
-    description: yup.string(),
-    dateArticle: yup.string().required(),
-    author: yup.string().required(),
-    tags: yup
-        .string()
-        .required(t('editor.validation_required'))
-        .matches(/^[a-z0-9а-я'іў ]+$/i, t('editor.validation_chars_only')),
-    content: yup.string().required(),
-    lang: yup.string().required(t('editor.validation_lang_required')),
-});
+const validationSchema = (t: any) =>
+    yup.object({
+        title: yup.string().required(),
+        description: yup.string(),
+        dateArticle: yup.string().required(),
+        author: yup.string().required(),
+        tags: yup
+            .string()
+            .required(t('editor.validation_required'))
+            .matches(/^[a-z0-9а-я'іў ]+$/i, t('editor.validation_chars_only')),
+        content: yup.string().required(),
+        lang: yup.string().required(t('editor.validation_lang_required')),
+    });
 
 interface FormDataValues {
     title: string;

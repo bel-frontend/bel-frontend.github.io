@@ -171,7 +171,8 @@ export default function Profile({ history }: any) {
                         </Typography>
                         <Typography>
                             <Link href={`/article/${articleWithMostLikes?.id}`}>
-                                {articleWithMostLikes?.meta?.title || t('profile.no_articles')}
+                                {articleWithMostLikes?.meta?.title ||
+                                    t('profile.no_articles')}
                             </Link>
                         </Typography>
                     </Card>

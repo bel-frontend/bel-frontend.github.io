@@ -69,7 +69,9 @@ export default function Error({ artickleId }: { artickleId: any }) {
                         {t('article.error_found_button')}
                     </Button>
                     <Dialog open={open} onClose={handleClose}>
-                        <DialogTitle>{t('article.error_report_title')}</DialogTitle>
+                        <DialogTitle>
+                            {t('article.error_report_title')}
+                        </DialogTitle>
                         <DialogContent>
                             <DialogContentText>
                                 {t('article.error_report_description')}
@@ -81,7 +83,9 @@ export default function Error({ artickleId }: { artickleId: any }) {
                                 margin="dense"
                                 id="name"
                                 label=""
-                                placeholder={t('article.error_description_placeholder')}
+                                placeholder={t(
+                                    'article.error_description_placeholder',
+                                )}
                                 fullWidth
                                 multiline
                                 variant="standard"
@@ -90,7 +94,9 @@ export default function Error({ artickleId }: { artickleId: any }) {
                             />
                         </DialogContent>
                         <DialogActions>
-                            <Button onClick={handleClose}>{t('article.error_cancel')}</Button>
+                            <Button onClick={handleClose}>
+                                {t('article.error_cancel')}
+                            </Button>
                             <Box
                                 component={'form'}
                                 ml={1}
@@ -106,7 +112,8 @@ export default function Error({ artickleId }: { artickleId: any }) {
                             </Box>
                         </DialogActions>
                     </Dialog>
-                </>            ) : (
+                </>
+            ) : (
                 <Button
                     variant="outlined"
                     onClick={() => {

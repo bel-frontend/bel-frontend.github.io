@@ -233,9 +233,15 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
                                     setFieldValue('lang', e.target.value)
                                 }
                             >
-                                <MenuItem value="be">{t('editor.lang_belarusian')}</MenuItem>
-                                <MenuItem value="ru">{t('editor.lang_russian')}</MenuItem>
-                                <MenuItem value="en">{t('editor.lang_english')}</MenuItem>
+                                <MenuItem value="be">
+                                    {t('editor.lang_belarusian')}
+                                </MenuItem>
+                                <MenuItem value="ru">
+                                    {t('editor.lang_russian')}
+                                </MenuItem>
+                                <MenuItem value="en">
+                                    {t('editor.lang_english')}
+                                </MenuItem>
                             </Select>
                         </FormControl>
                     </Grid>
@@ -292,9 +298,15 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
                             aria-label="Platform"
                             size="small"
                         >
-                            <ToggleButton value="0">{t('editor.mode_editor')}</ToggleButton>
-                            <ToggleButton value="1">{t('editor.mode_preview')}</ToggleButton>
-                            <ToggleButton value="2">{t('editor.mode_both')}</ToggleButton>
+                            <ToggleButton value="0">
+                                {t('editor.mode_editor')}
+                            </ToggleButton>
+                            <ToggleButton value="1">
+                                {t('editor.mode_preview')}
+                            </ToggleButton>
+                            <ToggleButton value="2">
+                                {t('editor.mode_both')}
+                            </ToggleButton>
                         </ToggleButtonGroup>
                     </Grid>
                     <Grid
@@ -427,7 +439,9 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
                                     justifyContent: 'flex-end',
                                 }}
                             >
-                                <Tooltip title={t('editor.save_changes_tooltip')}>
+                                <Tooltip
+                                    title={t('editor.save_changes_tooltip')}
+                                >
                                     <IconButton
                                         color="secondary"
                                         size="large"
