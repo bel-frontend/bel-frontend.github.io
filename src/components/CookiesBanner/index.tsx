@@ -1,3 +1,4 @@
+'use client';
 import React, { useEffect, useState } from 'react';
 
 import Snackbar from '@mui/material/Snackbar';
@@ -7,15 +8,17 @@ import Dialog from '@mui/material/Dialog';
 import Button from '@mui/material/Button';
 import CookieIcon from '@mui/icons-material/Cookie';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
-import { PrivacyPolicy } from 'containers/Auth/SignUp/PrivacyPolicy';
-import { cookiesSelector, confirmCookiesAction } from 'modules/cookies';
+import { PrivacyPolicy } from '@/containers/Auth/SignUp/PrivacyPolicy';
+import { cookiesSelector, confirmCookiesAction } from '@/modules/cookies';
 
 import style from './style.module.scss';
 
 export const CookiesBanner = () => {
     const appliedCookiesConfirmation = useSelector(cookiesSelector);
     const dispatch = useDispatch();
+    const { t } = useTranslation();
     const confirm = () => dispatch(confirmCookiesAction());
 
     const [isOpenCookiesBanner, setIsOpenCookiesBanner] = useState(true);
@@ -42,14 +45,13 @@ export const CookiesBanner = () => {
                         />
                         <div>
                             <Typography variant="body1">
-                                Наш сайт захоўвае файлы cookies на вашай
-                                прыладзе. Вы можаце дазнацца больш аб нашай
+                                {t('cookies.message')}
                                 <span
                                     className={style.linkContainer}
                                     onClick={openDialogHandler}
                                 >
                                     {' '}
-                                    палітыцы прыватнасці
+                                    {t('cookies.privacy_policy')}
                                 </span>
                             </Typography>
                             <div className={style.button}>
@@ -59,7 +61,7 @@ export const CookiesBanner = () => {
                                     size="small"
                                     onClick={confirm}
                                 >
-                                    Пагадзіцца
+                                    {t('cookies.accept')}
                                 </Button>
                             </div>
                         </div>

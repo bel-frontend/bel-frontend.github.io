@@ -15,6 +15,10 @@ import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
 
 import { useRouter } from 'next/navigation';
 
@@ -211,6 +215,27 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
                                 touched.dateArticle && errors.dateArticle
                             }
                         />
+                    </Grid>
+                    <Grid item md={6}>
+                        <FormControl fullWidth size="small">
+                            <InputLabel id="lang-label">
+                                Мова тэксту*
+                            </InputLabel>
+                            <Select
+                                labelId="lang-label"
+                                id="lang"
+                                name="lang"
+                                value={values.lang}
+                                label="Мова тэксту*"
+                                onChange={(e) =>
+                                    setFieldValue('lang', e.target.value)
+                                }
+                            >
+                                <MenuItem value="be">Беларуская</MenuItem>
+                                <MenuItem value="ru">Руская</MenuItem>
+                                <MenuItem value="en">English</MenuItem>
+                            </Select>
+                        </FormControl>
                     </Grid>
                     <Grid item md={6}>
                         <FormControlLabel

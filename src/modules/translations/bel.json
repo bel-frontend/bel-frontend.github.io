@@ -1,16 +1,34 @@
 {
-  "translation": {
-    "welcom": "Вітаем у нашым праекце!",
-    "about_me": {
-      "title": "Пра мяне",
-      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In molestie, tellus id condimentum scelerisque, ligula dolor fermentum velit, vel faucibus justo lorem feugiat magna. Quisque at tortor in diam vulputate congue. Ut consequat arcu a maximus ultricies. Phasellus nec turpis lectus. Morbi pulvinar risus nec risus euismod luctus. Aliquam tempus"
-    },
-    "contacts": {
-      "Email": "Email",
-      "Phone": "Тэлефон",
-      "Address": "Адрас",
-      "Address_value": "Менск, Няміга 12А",
-      "Website": "Сайт"
+    "translation": {
+        "welcom": "Вітаем у нашым праекце!",
+        "about_me": {
+            "title": "Пра мяне",
+            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In molestie, tellus id condimentum scelerisque, ligula dolor fermentum velit, vel faucibus justo lorem feugiat magna. Quisque at tortor in diam vulputate congue. Ut consequat arcu a maximus ultricies. Phasellus nec turpis lectus. Morbi pulvinar risus nec risus euismod luctus. Aliquam tempus"
+        },
+        "contacts": {
+            "Email": "Email",
+            "Phone": "Тэлефон",
+            "Address": "Адрас",
+            "Address_value": "Менск, Няміга 12А",
+            "Website": "Сайт"
+        },
+        "header": {
+            "menu": {
+                "login": "Увайсці",
+                "register": "Зарэгістравацца",
+                "profile": "Профіль",
+                "create_article": "Стварыць артыкул",
+                "logout": "Выйсці",
+                "contacts": "Кантакты"
+            }
+        },
+        "footer": {
+            "copyright": "Copyright © Bel-Geek.com - Тэхналогіі і Навука"
+        },
+        "cookies": {
+            "message": "Наш сайт захоўвае файлы cookies на вашай прыладзе. Вы можаце дазнацца больш аб нашай",
+            "privacy_policy": "палітыцы прыватнасці",
+            "accept": "Пагадзіцца"
+        }
     }
-  }
 }

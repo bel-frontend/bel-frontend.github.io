@@ -29,8 +29,8 @@ const Home = async ({
     [key: string]: any;
 }) => {
     const {
-        articles,
-        total,
+        articles = [],
+        total = 0,
     }: {
         articles: ArticleInterface[];
         total: number;

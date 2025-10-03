@@ -10,6 +10,7 @@ export interface MetaDataInterface {
     created_at: string;
     isPinned: boolean;
     isBlocked: boolean;
+    lang?: string;
 }
 
 export interface ArticleInterface {
@@ -31,6 +32,7 @@ export interface ArticleInterface {
     id: string;
     meta: MetaDataInterface;
     loaded?: boolean;
+    lang?: string;
 }
 
 export interface AutoSaveArticleInterface {
@@ -45,4 +47,5 @@ export interface AutoSaveArticleInterface {
     isAdd: boolean;
     id: string;
     updated_at?: number;
+    lang?: string;
 }

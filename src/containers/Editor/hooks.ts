@@ -37,6 +37,7 @@ const validationSchema = yup.object({
         .required('Поле абавязковае')
         .matches(/^[a-z0-9а-я'іў ]+$/i, 'Толькі літары, нумары і прабелы'),
     content: yup.string().required(),
+    lang: yup.string().required('Мова тэксту абавязковая'),
 });
 
 interface FormDataValues {
@@ -48,6 +49,7 @@ interface FormDataValues {
     content: string;
     isActive: boolean;
     isPinned: boolean;
+    lang: string;
 }
 
 const initialValues: FormDataValues = {
@@ -59,6 +61,7 @@ const initialValues: FormDataValues = {
     content: '',
     isActive: false,
     isPinned: false,
+    lang: 'be',
 };
 
 export const useHooks = ({ history, id }: { history: any; id: any }) => {
@@ -105,6 +108,7 @@ export const useHooks = ({ history, id }: { history: any; id: any }) => {
               isActive: meta?.isActive || false,
               isPinned: artickleData?.isPinned || false,
               title: meta?.title || '',
+              lang: meta?.lang || artickleData?.lang || 'be',
           };
 
     const initialWithAutosave = {
