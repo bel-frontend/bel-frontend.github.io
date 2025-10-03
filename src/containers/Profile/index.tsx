@@ -9,6 +9,7 @@ import Button from '@mui/material/Button';
 import { FormControlLabel, Checkbox, FormGroup } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from '@/modules/i18next';
+import i18next from '@/modules/i18next';
 import { Cell, GridGenerator, Card } from '@/components';
 import {
     getMyArticklesSelector,
@@ -54,7 +55,8 @@ export default function Profile({ history }: any) {
 
     const dispatch = useDispatch();
     React.useEffect(() => {
-        dispatch(getMyArticlesRequest());
+        const currentLang = i18next.language;
+        dispatch(getMyArticlesRequest({ lang: currentLang }));
         dispatch(getSubscribeRequest());
     }, []);
     const { viewPort } = useViewport();
@@ -126,7 +128,8 @@ export default function Profile({ history }: any) {
 
     React.useEffect(() => {
         if (isAdmin) {
-            dispatch(getUnactiveArticklesRequest());
+            const currentLang = i18next.language;
+            dispatch(getUnactiveArticklesRequest({ lang: currentLang }));
         }
     }, []);
 

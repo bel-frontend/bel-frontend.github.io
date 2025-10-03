@@ -18,8 +18,6 @@ export const getDataWrapper = async (
         dispatch(
             requestAction(arg, {
                 onSuccess: (data: any) => {
-                    console.log(data);
-
                     if (onSuccess) onSuccess(data);
                     resolve(data);
 

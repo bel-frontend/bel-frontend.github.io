@@ -32,7 +32,7 @@ export const getAllTranslationsAction = actionCreator(
 );
 export const saveLocaleAction = createAction(SAVE_SELECTED_LOCALE_ACTION);
 
-export const DEFAULT_LANG = 'en'; // Дэфолтная мова для SSR і новых карыстальнікаў
+export const DEFAULT_LANG = 'be'; // Дэфолтная мова для SSR і новых карыстальнікаў
 
 // Лакальныя рэсурсы як fallback
 const localResources = {
@@ -80,7 +80,7 @@ console.log(
 i18next.init({
     resources: localResources,
     lng: initialLanguage,
-    fallbackLng: DEFAULT_LANG,
+    fallbackLng: 'be',
     compatibilityJSON: 'v3',
     debug: false,
     interpolation: {
@@ -147,14 +147,12 @@ export const i18nextReducer = (
 
 //sagas
 const loadAllTranslationsSaga = function* (): any {
-    console.log('📥 Loading translations from API...');
     yield put(getAllTranslationsAction());
 };
 
 const getAllTranslationsSuccessSaga = function* (): any {
     try {
         const response = yield select(getAllTranslationsSelector);
-        console.log('📦 API response received:', response);
 
         // Правяраем розныя варыянты структуры адказу
         let gomanData = response?.data;
@@ -179,8 +177,6 @@ const getAllTranslationsSuccessSaga = function* (): any {
             return;
         }
 
-        console.log('✅ Processing languages:', Object.keys(gomanData));
-
         // Дадаём пераклады з сервера для кожнай мовы
         Object.keys(gomanData).forEach((lang) => {
             const gomanTranslations = gomanData[lang];
@@ -193,22 +189,11 @@ const getAllTranslationsSuccessSaga = function* (): any {
                     true,
                     true,
                 );
-                console.log(`✅ Added translations for ${lang}`);
             }
         });
 
-        // Захоўваем бягучую мову і выклікаем падзею для перамалёўкі кампанентаў
         const currentLanguage = i18next.language;
-        console.log(
-            '🌍 Current language after adding translations:',
-            currentLanguage,
-        );
-
-        // ВАЖНА: Калі мова не змянілася, трэба яўна выклікаць падзею
-        // каб усе кампаненты перамалявалі інтэрфейс з новымі перакладамі
         i18next.emit('languageChanged', currentLanguage);
-
-        console.log('✅ Translations loaded successfully');
     } catch (error) {
         console.error('Error loading translations:', error);
     }
@@ -217,10 +202,8 @@ const getAllTranslationsSuccessSaga = function* (): any {
 const getTranslateByActionSaga = function* (action: Action<any>): any {
     const { payload: locale } = action;
 
-    // Змяняем мову
     yield i18next.changeLanguage(locale);
 
-    // Захоўваем у localStorage
     if (typeof window !== 'undefined') {
         localStorage.setItem('i18nextLng', locale);
     }

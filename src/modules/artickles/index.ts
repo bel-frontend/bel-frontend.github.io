@@ -8,6 +8,7 @@ import {
     debounce,
     all,
 } from 'redux-saga/effects';
+import { localeSelector } from '@/modules/i18next';
 export * from './types/article';
 
 const modules = 'artickles';
@@ -65,11 +66,15 @@ export const getUnactiveArticklesRequest = actionCreator(
     GET_UNACTIVE_ARTICKLES_REQUEST,
 );
 
-apiRoutes.add(GET_ARTICKLES_REQUEST, ({ ...params } = {}) => ({
-    url: `/artickles`,
-    method: 'get',
-    params: params,
-}));
+apiRoutes.add(GET_ARTICKLES_REQUEST, ({ ...params } = {}) => {
+    console.log('Fetching articles with params:', params);
+
+    return {
+        url: `/artickles`,
+        method: 'get',
+        params: params,
+    };
+});
 
 apiRoutes.add(GET_ARTICLES_IDS_REQUEST, ({ ...params } = {}) => ({
     url: `/articles-ids`,
@@ -155,7 +160,9 @@ function* autosaveSaga(action: any): any {
 }
 
 function* searchSaga(action: any): any {
-    yield put(getArticklesRequest(action?.payload));
+    const currentLang = yield select(localeSelector);
+    const payload = { ...action?.payload, lang: currentLang };
+    yield put(getArticklesRequest(payload));
 }
 
 export function* artickleModuleSaga(dispatch: any) {
