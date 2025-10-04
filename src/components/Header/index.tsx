@@ -24,48 +24,18 @@ import EditIcon from '@mui/icons-material/Edit';
 import { logoutAction } from '@/modules/auth';
 import style from './style.module.scss';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
-import { LanguageSwitcher } from '@/components';
 import { useTranslation } from '@/modules/i18next';
-import i18n from '@/modules/i18next';
 
 export const Header = ({ userIsAuth, isMobile }: any) => {
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
         React.useState<null | HTMLElement>(null);
-    const [currentLang, setCurrentLang] = React.useState(i18n.language);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
     const dispatch = useDispatch();
     const router = useRouter();
     const { t } = useTranslation();
 
-    // Слухаем змены мовы і абнаўляем кампанент
-    React.useEffect(() => {
-        const handleLanguageChange = (lng: string) => {
-            console.log('🔄 Header: Language changed to', lng);
-            setCurrentLang(lng);
-        };
-
-        i18n.on('languageChanged', handleLanguageChange);
-
-        return () => {
-            i18n.off('languageChanged', handleLanguageChange);
-        };
-    }, []);
-
     const searchParams = useSearchParams();
     const searchParam = searchParams.get('seacrhText');
-
-    // Дэбаг перакладаў
-    React.useEffect(() => {
-        console.log('🔍 Current language:', currentLang);
-        console.log(
-            '🔍 Translation for "header.menu.login":',
-            t('header.menu.login'),
-        );
-        console.log(
-            '🔍 Translation for "header.menu.register":',
-            t('header.menu.register'),
-        );
-    }, [currentLang, t]);
 
     const { values, handleChange, handleSubmit, setFieldValue } = useFormik({
         onSubmit: ({ text }) => {
@@ -229,7 +199,6 @@ export const Header = ({ userIsAuth, isMobile }: any) => {
                         />
                         <Box sx={{ flexGrow: 1 }} />
                         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                            <LanguageSwitcher />
                             <IconButton
                                 size="large"
                                 aria-label="show more"

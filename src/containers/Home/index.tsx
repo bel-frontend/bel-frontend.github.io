@@ -48,6 +48,7 @@ const getCurrentLanguage = (): string => {
         console.warn('Error reading language from cookies:', error);
     }
 
+    // Дэфолт - беларуская мова
     return DEFAULT_LANG;
 };
 

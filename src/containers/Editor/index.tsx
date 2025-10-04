@@ -218,30 +218,32 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
                             }
                         />
                     </Grid>
-                    <Grid item md={12}>
-                        <FormControl fullWidth size="small">
-                            <InputLabel id="lang-label">
-                                {t('editor.lang_label')}
-                            </InputLabel>
-                            <Select
-                                labelId="lang-label"
-                                id="lang"
-                                name="lang"
-                                value={values.lang}
-                                label={t('editor.lang_label')}
-                                onChange={(e) =>
-                                    setFieldValue('lang', e.target.value)
-                                }
-                            >
-                                <MenuItem value="be">
-                                    {t('editor.lang_belarusian')}
-                                </MenuItem>
-                                <MenuItem value="en">
-                                    {t('editor.lang_english')}
-                                </MenuItem>
-                            </Select>
-                        </FormControl>
-                    </Grid>
+                    {isAdmin ? (
+                        <Grid item md={12}>
+                            <FormControl fullWidth size="small">
+                                <InputLabel id="lang-label">
+                                    {t('editor.lang_label')}
+                                </InputLabel>
+                                <Select
+                                    labelId="lang-label"
+                                    id="lang"
+                                    name="lang"
+                                    value={values.lang}
+                                    label={t('editor.lang_label')}
+                                    onChange={(e) =>
+                                        setFieldValue('lang', e.target.value)
+                                    }
+                                >
+                                    <MenuItem value="be">
+                                        {t('editor.lang_belarusian')}
+                                    </MenuItem>
+                                    <MenuItem value="en">
+                                        {t('editor.lang_english')}
+                                    </MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Grid>
+                    ) : null}
                     <Grid item md={6}>
                         <FormControlLabel
                             control={
