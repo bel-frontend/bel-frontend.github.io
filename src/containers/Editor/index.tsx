@@ -70,12 +70,18 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
 
     // Debounced update function
     const updatePreviewContent = React.useMemo(
-        () => debounce(setPreviewContent, 300),
+        () =>
+            debounce((content: string) => {
+                setPreviewContent(content);
+            }, 500),
         [],
     );
 
     useEffect(() => {
         updatePreviewContent(values.content);
+        return () => {
+            updatePreviewContent.cancel();
+        };
     }, [values.content]);
 
     const [autosave, setAutoSave] = React.useState(true);
@@ -451,15 +457,13 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
                                             left: 'calc(100svw - 78px)',
                                             top: 'calc(100svh - 200px)',
                                         }}
-                                        onClick={() => {
-                                            saveUpdates();
-                                        }}
+                                        onClick={saveUpdates}
                                     >
                                         <Save />
                                     </IconButton>
                                 </Tooltip>
                             </Box>
-                            <MD>{previewContent}</MD>
+                            {previewContent && <MD>{previewContent}</MD>}
                         </Grid>
                     ) : null}
                 </Grid>

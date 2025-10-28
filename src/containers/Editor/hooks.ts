@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
@@ -172,7 +172,7 @@ export const useHooks = ({ history, id }: { history: any; id: any }) => {
         },
     });
 
-    const saveUpdates = () => {
+    const saveUpdates = useCallback(() => {
         console.log('saveUpdates');
 
         const tags = values.tags.trim().split(' ').filter(Boolean);
@@ -211,9 +211,9 @@ export const useHooks = ({ history, id }: { history: any; id: any }) => {
                 );
             }
         }
-    };
+    }, [values, urls, isValid, isAdd, dispatch, id, history, t]);
 
-    const onImageUpload = (data: any) => {
+    const onImageUpload = useCallback((data: any) => {
         const formData = new FormData();
         formData.append('image', data);
         formData.append('artickle_id', id);
@@ -222,14 +222,14 @@ export const useHooks = ({ history, id }: { history: any; id: any }) => {
                 { data: formData },
                 {
                     onSuccess: (data: any) => {
-                        setUrls([...urls, { ...data.data }]);
+                        setUrls((prevUrls) => [...prevUrls, { ...data.data }]);
                     },
                 },
             ),
         );
-    };
+    }, [id, dispatch]);
 
-    const onDelete = ({ filename, id: field_id }: any) => {
+    const onDelete = useCallback(({ filename, id: field_id }: any) => {
         dispatch(clearAutoSaveArticle());
         dispatch(
             deleteImageRequest(
@@ -241,14 +241,14 @@ export const useHooks = ({ history, id }: { history: any; id: any }) => {
                 },
             ),
         );
-    };
+    }, [dispatch, id]);
 
-    const onCancel = () => {
+    const onCancel = useCallback(() => {
         history.back();
         dispatch(clearAutoSaveArticle());
-    };
+    }, [history, dispatch]);
 
-    const deleteArticle = () => {
+    const deleteArticle = useCallback(() => {
         dispatch(
             showPopupAction({
                 title: '',
@@ -280,7 +280,7 @@ export const useHooks = ({ history, id }: { history: any; id: any }) => {
                 },
             }),
         );
-    };
+    }, [dispatch, id, history, t]);
 
     return {
         handleSubmit,
