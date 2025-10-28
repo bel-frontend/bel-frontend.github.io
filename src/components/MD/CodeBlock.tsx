@@ -5,13 +5,7 @@ import { darcula } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import style from './style.module.scss';
 
 export const CodeBlock = memo(
-    ({
-        language,
-        children,
-    }: {
-        language: string;
-        children: string;
-    }) => {
+    ({ language, children }: { language: string; children: string }) => {
         const [copied, setCopied] = useState(false);
 
         const handleCopy = async () => {
@@ -88,8 +82,7 @@ export const CodeBlock = memo(
             prevProps.language === nextProps.language &&
             prevProps.children === nextProps.children
         );
-    }
+    },
 );
 
 CodeBlock.displayName = 'CodeBlock';
-
