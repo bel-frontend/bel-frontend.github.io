@@ -264,3 +264,42 @@
         }
     }
 }
+
+.clickableImage {
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+
+    &:hover {
+        opacity: 0.8;
+    }
+}
+
+.imageModal {
+    max-width: 90vw;
+    max-height: 90vh;
+}
+
+.imageModalRoot {
+    position: relative;
+    // padding: 1rem;
+}
+
+.imageModalContent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: hidden;
+}
+
+.modalImage {
+    max-width: calc(90vw - 60px); // 90vw - 30px padding з кожнага боку
+    max-height: calc(
+        90vh - 90px
+    ); // 90vh - padding зверху і знізу + кнопка закрыцця
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}

@@ -12,7 +12,36 @@ import PopupBackground from '../PopupBackground';
 
 import styles from './style.module.scss';
 
-export const Popup = ({ ...props }) => {
+interface PopupProps {
+    align?: 'left' | 'center' | 'right';
+    onSubmit: () => void;
+    onCancel: () => void;
+    onClear?: () => void;
+    cancelButtonText?: string;
+    submitButtonText?: string;
+    showPopup: boolean;
+    children?: React.ReactNode;
+    className?: string;
+    disableSubmit?: boolean;
+    disableCancel?: boolean;
+    classes?: {
+        root?: string;
+        dataContainer?: string;
+        buttonContainer?: string;
+    };
+    confirmButtonProps?: object;
+    cancelButtonProps?: object;
+    style?: React.CSSProperties;
+    showSubmit?: boolean;
+    showCancel?: boolean;
+    showClear?: boolean;
+    message?: React.ReactNode;
+    popupBackgroundsProps?: object;
+    title?: string;
+    subtitle?: string;
+}
+
+export const Popup = ({ ...props }: PopupProps) => {
     const {
         align = 'left',
         onSubmit,
@@ -63,7 +92,7 @@ export const Popup = ({ ...props }) => {
                     <Grid item xs={12} className={styles.clear}>
                         <IconButton
                             size="small"
-                            className={style.buttonClear}
+                            className={styles.buttonClear}
                             onClick={onClear}
                         >
                             <ClearIcon />

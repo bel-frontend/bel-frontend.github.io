@@ -92,6 +92,10 @@ $maxHeight: 100svh;
     }
     .buttonClear {
         min-height: 32px;
+        position: relative;
+        left: 20px;
+        top: -20px;
+        background-color: rgba($color: #aaaaaa, $alpha: 0.3);
     }
     .confirmButton {
         margin-left: 20px !important;
