@@ -281,7 +281,18 @@
 
 .imageModalRoot {
     position: relative;
-    // padding: 1rem;
+
+    :global {
+        .clear {
+            position: absolute;
+            top: -30px;
+            right: -30px;
+            margin: 0 !important;
+            padding: 0 !important;
+            max-height: none !important;
+            z-index: 10;
+        }
+    }
 }
 
 .imageModalContent {
