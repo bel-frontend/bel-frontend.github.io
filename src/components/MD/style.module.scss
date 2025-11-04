@@ -275,12 +275,19 @@
 }
 
 .imageModal {
-    max-width: 90vw;
-    max-height: 90vh;
+    max-width: 95vw !important;
+    max-height: 95vh !important;
+    width: auto !important;
+    height: auto !important;
 }
 
 .imageModalRoot {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    max-height: 95vh;
+    width: fit-content;
+    max-width: 95vw;
 
     :global {
         .clear {
@@ -296,19 +303,19 @@
 }
 
 .imageModalContent {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
     padding: 0 !important;
     margin: 0 !important;
-    overflow: hidden;
+    overflow: visible !important;
+    max-height: calc(95vh - 60px) !important;
+    max-width: calc(95vw - 60px) !important;
 }
 
 .modalImage {
-    max-width: calc(90vw - 60px); // 90vw - 30px padding з кожнага боку
-    max-height: calc(
-        90vh - 90px
-    ); // 90vh - padding зверху і знізу + кнопка закрыцця
+    max-width: 100%;
+    max-height: 100%;
     width: auto;
     height: auto;
     object-fit: contain;
