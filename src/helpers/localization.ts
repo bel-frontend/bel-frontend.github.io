@@ -19,7 +19,7 @@ export interface LocalizationData {
  * Атрымаць усе лакалізацыі з Goman API
  * Get all localizations from Goman API
  */
-export async function fetchLocalizations(language: string = 'en') {
+export async function fetchLocalizations(language: string = 'be') {
     try {
         const response = await fetch(
             `${GOMAN_API_URL}/get-translations?language=${language}&apiKey=${GOMAN_API_KEY}&applicationId=${GOMAN_APP_ID}`,

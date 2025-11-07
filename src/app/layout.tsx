@@ -7,7 +7,7 @@ import Popups from '@/containers/Popups';
 import '@/modules/i18next';
 import Notifications from '@/containers/Notifications';
 import { useSelector } from 'react-redux';
-import { localeSelector } from '@/modules/i18next';
+import { localeSelector, DEFAULT_LANG } from '@/modules/i18next';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -16,7 +16,7 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
 
     React.useEffect(() => {
         if (typeof document !== 'undefined') {
-            document.documentElement.lang = currentLocale || 'en';
+            document.documentElement.lang = currentLocale || DEFAULT_LANG;
         }
     }, [currentLocale]);
 
@@ -41,7 +41,7 @@ function RootLayout({
     };
 }) {
     return (
-        <html lang="en">
+        <html lang="be">
             <body className={inter.className}>
                 <ReduxProvider>
                     <LayoutContent>{children}</LayoutContent>

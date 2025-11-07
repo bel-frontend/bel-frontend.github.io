@@ -8,8 +8,8 @@ import { saveLocaleAction, localeSelector } from '@/modules/i18next';
 import i18n from '@/modules/i18next';
 
 const languages = [
-    { code: 'en', label: 'English' },
     { code: 'be', label: 'Беларуская' },
+    { code: 'en', label: 'English' },
 ];
 
 export const LanguageSwitcher = () => {
