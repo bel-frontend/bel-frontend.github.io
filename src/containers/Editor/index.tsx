@@ -20,6 +20,8 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
+import { IconButton, Tooltip } from '@mui/material';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
 import { useRouter } from 'next/navigation';
 
@@ -30,7 +32,7 @@ import { MD, UploadFile } from '@/components';
 
 import { useHooks } from './hooks';
 import { UploadController } from './components/UploadController';
-import { IconButton, Tooltip } from '@mui/material';
+import { usePreviewWindow } from './usePreviewWindow';
 
 import 'react-markdown-editor-lite/lib/index.css';
 import style from './style.module.scss';
@@ -40,7 +42,7 @@ const mdParser = new MarkdownIt({ typographer: true });
 
 const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
     const history = useRouter();
-    const button = useRef(null);
+    const button = useRef<HTMLButtonElement>(null);
     const { t } = useTranslation();
     const {
         handleSubmit,
@@ -68,6 +70,12 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
     ]);
     const [previewContent, setPreviewContent] = React.useState(values.content);
 
+    // Preview window hook
+    const { openPreviewWindow, isPreviewWindowOpen } = usePreviewWindow({
+        previewContent,
+        title: t('editor.preview_window_title'),
+    });
+
     // Debounced update function
     const updatePreviewContent = React.useMemo(
         () =>
@@ -82,7 +90,7 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
         return () => {
             updatePreviewContent.cancel();
         };
-    }, [values.content]);
+    }, [values.content, updatePreviewContent]);
 
     const [autosave, setAutoSave] = React.useState(true);
     const [interval, setIntervalID] = React.useState<any>(null);
@@ -293,26 +301,40 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
                         />
                     </Grid>
                     <Grid item md={6}>
-                        <ToggleButtonGroup
-                            color="primary"
-                            exclusive
-                            value={mode}
-                            onChange={(ev, value) => {
-                                setMode(value);
-                            }}
-                            aria-label="Platform"
-                            size="small"
-                        >
-                            <ToggleButton value="0">
-                                {t('editor.mode_editor')}
-                            </ToggleButton>
-                            <ToggleButton value="1">
-                                {t('editor.mode_preview')}
-                            </ToggleButton>
-                            <ToggleButton value="2">
-                                {t('editor.mode_both')}
-                            </ToggleButton>
-                        </ToggleButtonGroup>
+                        <Box display="flex" gap={2} alignItems="center">
+                            <ToggleButtonGroup
+                                color="primary"
+                                exclusive
+                                value={mode}
+                                onChange={(ev, value) => {
+                                    setMode(value);
+                                }}
+                                aria-label="Platform"
+                                size="small"
+                            >
+                                <ToggleButton value="0">
+                                    {t('editor.mode_editor')}
+                                </ToggleButton>
+                                <ToggleButton value="1">
+                                    {t('editor.mode_preview')}
+                                </ToggleButton>
+                                <ToggleButton value="2">
+                                    {t('editor.mode_both')}
+                                </ToggleButton>
+                            </ToggleButtonGroup>
+                            <Tooltip title={t('editor.open_preview_window')}>
+                                <IconButton
+                                    color="primary"
+                                    onClick={openPreviewWindow}
+                                    size="small"
+                                    disabled={
+                                        !previewContent || isPreviewWindowOpen
+                                    }
+                                >
+                                    <OpenInNewIcon />
+                                </IconButton>
+                            </Tooltip>
+                        </Box>
                     </Grid>
                     <Grid
                         item
