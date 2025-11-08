@@ -64,8 +64,9 @@ export const usePreviewWindow = ({
                             background: #f5f5f5;
                             padding: 2px 6px;
                             border-radius: 3px;
-                            font-family: 'Courier New', monospace;
                             font-size: 0.9em;
+                            font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+                            color: #d63384;
                         }
                         pre code {
                             background: transparent;
