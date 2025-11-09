@@ -25,6 +25,7 @@ import { logoutAction } from '@/modules/auth';
 import style from './style.module.scss';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { useTranslation } from '@/modules/i18next';
+import { LanguageSwitcher } from '@/components';
 
 export const Header = ({ userIsAuth, isMobile }: any) => {
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
@@ -199,6 +200,7 @@ export const Header = ({ userIsAuth, isMobile }: any) => {
                         />
                         <Box sx={{ flexGrow: 1 }} />
                         <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                            <LanguageSwitcher />
                             <IconButton
                                 size="large"
                                 aria-label="show more"

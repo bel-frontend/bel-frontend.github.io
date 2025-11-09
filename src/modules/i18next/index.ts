@@ -15,6 +15,7 @@ const {
 } = api_helpers;
 
 const modules = 'translate';
+export const LANGUAGE_STORAGE_KEY = 'belFrontendPreferredLocale';
 
 // Налады Goman API
 const GOMAN_API_KEY = '8b09c55af7e408242c690ef4bdb39e083df366b2b489b9cc';
@@ -43,22 +44,14 @@ const localResources = {
 const apiRoutes = new ApiRoutes();
 
 // Функцыя для атрымання захаванай мовы з localStorage
+const SUPPORTED_LANGUAGES = Object.keys(localResources);
+
 function getSavedLanguage(): string {
     if (typeof window !== 'undefined') {
         try {
-            const persistedState = localStorage.getItem('persist:root');
-            if (persistedState) {
-                const parsed = JSON.parse(persistedState);
-                if (parsed.locale) {
-                    const localeState = JSON.parse(parsed.locale);
-                    if (localeState.lang) {
-                        return localeState.lang;
-                    }
-                }
-            }
-            const savedLang = localStorage.getItem('i18nextLng');
-            if (savedLang) {
-                return savedLang;
+            const storedLang = localStorage.getItem(LANGUAGE_STORAGE_KEY);
+            if (storedLang && SUPPORTED_LANGUAGES.includes(storedLang)) {
+                return storedLang;
             }
         } catch (error) {
             console.warn('Error reading saved language:', error);
@@ -87,6 +80,13 @@ i18next.on('languageChanged', (lng) => {
     if (typeof document !== 'undefined') {
         document.documentElement.lang = lng;
     }
+    if (typeof window !== 'undefined') {
+        try {
+            localStorage.setItem(LANGUAGE_STORAGE_KEY, lng);
+        } catch (error) {
+            console.warn('Error saving language preference:', error);
+        }
+    }
 });
 
 // Калі мы на кліенце (пасля гідрацыі), праверым захаваную мову
@@ -98,6 +98,13 @@ if (typeof window !== 'undefined') {
             i18next.changeLanguage(savedLang);
         }
     }, 100);
+    try {
+        if (!localStorage.getItem(LANGUAGE_STORAGE_KEY)) {
+            localStorage.setItem(LANGUAGE_STORAGE_KEY, initialLanguage);
+        }
+    } catch (error) {
+        console.warn('Error initializing language preference:', error);
+    }
 }
 
 // API маршрут для атрымання ўсіх перакладаў адразу (view=tree па дэфолце)
@@ -125,6 +132,9 @@ export const i18nextReducer = (
     action: { payload: any; type: string },
 ) => {
     switch (action.type) {
+        case 'persist/REHYDRATE': {
+            return { ...state, lang: getSavedLanguage() };
+        }
         case SAVE_SELECTED_LOCALE_ACTION: {
             const { payload } = action;
             return { ...state, lang: payload };
@@ -198,7 +208,11 @@ const getTranslateByActionSaga = function* (action: Action<any>): any {
     yield i18next.changeLanguage(locale);
 
     if (typeof window !== 'undefined') {
-        localStorage.setItem('i18nextLng', locale);
+        try {
+            localStorage.setItem(LANGUAGE_STORAGE_KEY, locale);
+        } catch (error) {
+            console.warn('Error saving language preference:', error);
+        }
     }
 };
 

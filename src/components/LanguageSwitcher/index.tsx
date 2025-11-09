@@ -3,9 +3,12 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { IconButton, Menu, MenuItem, Tooltip } from '@mui/material';
 import LanguageIcon from '@mui/icons-material/Language';
-import { useTranslation } from '@/modules/i18next';
-import { saveLocaleAction, localeSelector } from '@/modules/i18next';
-import i18n from '@/modules/i18next';
+import i18n, {
+    useTranslation,
+    saveLocaleAction,
+    localeSelector,
+    LANGUAGE_STORAGE_KEY,
+} from '@/modules/i18next';
 
 const languages = [
     { code: 'be', label: 'Беларуская' },
@@ -37,10 +40,13 @@ export const LanguageSwitcher = () => {
         // Захоўваем у Redux
         dispatch(saveLocaleAction(langCode));
 
-        // Захоўваем у localStorage для надзейнасці
         if (typeof window !== 'undefined') {
-            localStorage.setItem('i18nextLng', langCode);
-            console.log('💾 Language saved to localStorage:', langCode);
+            try {
+                localStorage.setItem(LANGUAGE_STORAGE_KEY, langCode);
+                console.log('💾 Language saved to localStorage:', langCode);
+            } catch (error) {
+                console.warn('Error storing language preference:', error);
+            }
         }
 
         handleClose();
