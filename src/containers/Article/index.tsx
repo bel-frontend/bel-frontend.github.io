@@ -52,6 +52,7 @@ const extractFirstImageFromContent = (content?: string) => {
         const candidate = markdownMatch[1]
             .split(/"|'/)[0]
             .split(/\s+/)[0]
+            .replace(/^<|>$/g, '')
             .trim();
 
         const normalizedCandidate = normalizeUrl(candidate);
@@ -70,16 +71,62 @@ const extractFirstImageFromContent = (content?: string) => {
     return undefined;
 };
 
-const resolveArticleImage = (article: ArticleInterface) => {
+const resolveArticleImage = (article?: Partial<ArticleInterface> | null) => {
     const candidates = [
         normalizeUrl(article?.meta?.image),
         normalizeUrl(article?.meta?.previewImage),
         normalizeUrl(article?.meta?.cover),
+        normalizeUrl(article?.meta?.images?.[0]),
         normalizeUrl(article?.files?.find((file) => file?.url)?.url),
         extractFirstImageFromContent(article?.content),
     ];
 
     return candidates.find(Boolean);
+};
+
+const API_BASE_URL = process.env.PROD_URL ?? SITE_URL;
+
+const unwrapArticlePayload = (
+    payload: any,
+): Partial<ArticleInterface> | null => {
+    if (!payload) {
+        return null;
+    }
+
+    if (payload.meta || payload.content || payload.files) {
+        return payload as Partial<ArticleInterface>;
+    }
+
+    if (payload.data) {
+        return unwrapArticlePayload(payload.data);
+    }
+
+    return payload as Partial<ArticleInterface>;
+};
+
+const fetchArticleFromApi = async (id: string) => {
+    try {
+        const response = await fetch(
+            `${API_BASE_URL.replace(/\/$/, '')}/artickles/${id}`,
+            {
+                cache: 'no-store',
+                // Avoid Next fetch cache
+                next: {
+                    revalidate: 0,
+                },
+            },
+        );
+
+        if (!response.ok) {
+            return null;
+        }
+
+        const data = await response.json();
+
+        return unwrapArticlePayload(data);
+    } catch (error) {
+        return null;
+    }
 };
 
 const buildTwitterDescription = (description: string) => {
@@ -117,7 +164,15 @@ export async function generateMetadata(
         const title = product.title || product.meta?.title || '';
         const description =
             product.description || product.meta?.description || '';
-        const imageUrl = resolveArticleImage(product);
+        let imageUrl = resolveArticleImage(product);
+
+        if (!imageUrl) {
+            const fallbackArticle = await fetchArticleFromApi(id);
+
+            if (fallbackArticle) {
+                imageUrl = resolveArticleImage(fallbackArticle);
+            }
+        }
         const twitterDescription = buildTwitterDescription(description);
         const articleUrl = `${SITE_URL.replace(/\/$/, '')}/article/${id}`;
 
