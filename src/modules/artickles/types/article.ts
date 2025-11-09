@@ -11,6 +11,16 @@ export interface MetaDataInterface {
     isPinned: boolean;
     isBlocked: boolean;
     lang?: string;
+    image?: string;
+    previewImage?: string;
+    cover?: string;
+    images?: string[];
+}
+
+export interface ArticleFile {
+    id: string;
+    filename: string;
+    url: string;
 }
 
 export interface ArticleInterface {
@@ -33,6 +43,7 @@ export interface ArticleInterface {
     meta: MetaDataInterface;
     loaded?: boolean;
     lang?: string;
+    files?: ArticleFile[];
 }
 
 export interface AutoSaveArticleInterface {
