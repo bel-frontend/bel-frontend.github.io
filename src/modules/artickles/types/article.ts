@@ -60,3 +60,12 @@ export interface AutoSaveArticleInterface {
     updated_at?: number;
     lang?: string;
 }
+
+export interface TagCloudItem {
+    tag: string;
+    count: number;
+}
+
+export interface TagsCloudResponse {
+    tags: TagCloudItem[];
+}

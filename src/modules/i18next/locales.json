@@ -142,7 +142,11 @@
         },
         "home": {
             "pinned_label": "Замацаванае",
-            "telegram_link": "Далучайцеся да нашага Тэлеграм-канала"
+            "telegram_link": "Далучайцеся да нашага Тэлеграм-канала",
+            "tags_cloud_title": "Папулярныя тэмы",
+            "clear_tag_filter": "Скінуць фільтр",
+            "tags_search_placeholder": "Пошук тэгаў...",
+            "tags_no_results": "Тэгі не знойдзены"
         },
         "metadata": { "read_button": "Чытаць" },
         "language_switcher": { "tooltip": "Выбар мовы" },
@@ -291,7 +295,11 @@
         },
         "home": {
             "pinned_label": "Pinned",
-            "telegram_link": "Join our Telegram channel"
+            "telegram_link": "Join our Telegram channel",
+            "tags_cloud_title": "Popular Topics",
+            "clear_tag_filter": "Clear filter",
+            "tags_search_placeholder": "Search tags...",
+            "tags_no_results": "No tags found"
         },
         "metadata": { "read_button": "Read" },
         "language_switcher": { "tooltip": "Choose language" },
