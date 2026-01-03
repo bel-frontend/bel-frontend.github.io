@@ -213,35 +213,60 @@ export const useHooks = ({ history, id }: { history: any; id: any }) => {
         }
     }, [values, urls, isValid, isAdd, dispatch, id, history, t]);
 
-    const onImageUpload = useCallback((data: any) => {
-        const formData = new FormData();
-        formData.append('image', data);
-        formData.append('artickle_id', id);
-        dispatch(
-            uploadImageForArticleRequest(
-                { data: formData },
-                {
-                    onSuccess: (data: any) => {
-                        setUrls((prevUrls) => [...prevUrls, { ...data.data }]);
+    const onImageUpload = useCallback(
+        (data: any) => {
+            const formData = new FormData();
+            formData.append('image', data);
+            formData.append('artickle_id', id);
+            dispatch(
+                uploadImageForArticleRequest(
+                    { data: formData },
+                    {
+                        onSuccess: (data: any) => {
+                            setUrls((prevUrls) => [
+                                ...prevUrls,
+                                { ...data.data },
+                            ]);
+                        },
                     },
-                },
-            ),
-        );
-    }, [id, dispatch]);
+                ),
+            );
+        },
+        [id, dispatch],
+    );
 
-    const onDelete = useCallback(({ filename, id: field_id }: any) => {
-        dispatch(clearAutoSaveArticle());
-        dispatch(
-            deleteImageRequest(
-                { filename, id: field_id },
-                {
-                    onSuccess: () => {
-                        dispatch(getImagesRequest({ artickle_id: id }));
+    const onDelete = useCallback(
+        ({ filename, id: field_id }: any) => {
+            dispatch(clearAutoSaveArticle());
+
+            // Для новых артыкулаў або калі няма id файла - проста выдаляем з лакальнага стану
+            if (isAdd || !field_id) {
+                setUrls((prevUrls) =>
+                    prevUrls.filter((item) => item.filename !== filename),
+                );
+                return;
+            }
+
+            dispatch(
+                deleteImageRequest(
+                    { filename, id: field_id },
+                    {
+                        onSuccess: () => {
+                            // Абнаўляем лакальны стан адразу
+                            setUrls((prevUrls) =>
+                                prevUrls.filter(
+                                    (item) => item.filename !== filename,
+                                ),
+                            );
+                            // Таксама перазапытваем з сервера для сінхранізацыі
+                            dispatch(getImagesRequest({ artickle_id: id }));
+                        },
                     },
-                },
-            ),
-        );
-    }, [dispatch, id]);
+                ),
+            );
+        },
+        [dispatch, id, isAdd],
+    );
 
     const onCancel = useCallback(() => {
         history.back();
