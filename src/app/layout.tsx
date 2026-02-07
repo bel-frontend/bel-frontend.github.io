@@ -62,9 +62,7 @@ function RootLayout({
         <html lang="be" suppressHydrationWarning>
             <head />
             <body className={inter.className} suppressHydrationWarning>
-                <script
-                    dangerouslySetInnerHTML={{ __html: themeInitScript }}
-                />
+                <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
                 <ReduxProvider>
                     <LayoutContent>{children}</LayoutContent>
                 </ReduxProvider>
