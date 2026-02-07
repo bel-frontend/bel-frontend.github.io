@@ -309,7 +309,10 @@
         },
         "metadata": { "read_button": "Read" },
         "language_switcher": { "tooltip": "Choose language" },
-        "comments": { "your_comment": "Your comment", "your_name": "Your name" },
+        "comments": {
+            "your_comment": "Your comment",
+            "your_name": "Your name"
+        },
         "theme": {
             "toggle": "Toggle theme",
             "light": "Light",

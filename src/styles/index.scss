@@ -1,3 +1,4 @@
+// Prevent flash of unstyled content - apply dark mode immediately if class is set
 body {
     margin: 0;
     -webkit-font-smoothing: antialiased;
@@ -7,8 +8,21 @@ body {
         'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
     font-size: 16px;
     color: #333333;
+    background-color: #ffffff;
     -webkit-tap-highlight-color: #0085a1;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    // Only apply transition after initial load to prevent flash
+    &.theme-loaded {
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+}
+
+// Fallback for system dark mode preference before JS loads
+// This is overridden by .dark-mode or .light-mode classes once JS initializes
+@media (prefers-color-scheme: dark) {
+    body:not(.light-mode):not(.dark-mode) {
+        color: #e0e0e0;
+        background-color: #121212;
+    }
 }
 
 // Dark mode styles

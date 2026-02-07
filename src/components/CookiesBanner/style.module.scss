@@ -1,39 +1,41 @@
 .wrapper {
-  min-width: 300px;
-  max-width: 450px;
-  width: 70vw;
-  padding: 20px;
+    min-width: 300px;
+    max-width: 450px;
+    width: 70vw;
+    padding: 20px;
 
-  border-radius: 5px;
-  background-color: #eeeded;
+    border-radius: 5px;
+    background-color: #eeeded;
 
-  :global(body.dark-mode) & {
-    background-color: #2d2d2d;
-    color: #e0e0e0;
-  }
+    :global(body.dark-mode) & {
+        background-color: #2d2d2d;
+        color: #e0e0e0;
+    }
 }
 
 .cookieContainer {
-  display: flex;
+    display: flex;
 }
 
 .linkContainer {
-  color: #0085a1;
-  cursor: pointer;
+    color: #0085a1;
+    cursor: pointer;
 
-  &:focus, &:hover {
-    color: #0c93e4;
-  }
-
-  :global(body.dark-mode) & {
-    color: #4db6ac;
-
-    &:focus, &:hover {
-      color: #80cbc4;
+    &:focus,
+    &:hover {
+        color: #0c93e4;
     }
-  }
+
+    :global(body.dark-mode) & {
+        color: #4db6ac;
+
+        &:focus,
+        &:hover {
+            color: #80cbc4;
+        }
+    }
 }
 
 .button {
-  margin-top: 10px;
+    margin-top: 10px;
 }

@@ -11,6 +11,24 @@ import { localeSelector, DEFAULT_LANG } from '@/modules/i18next';
 
 const inter = Inter({ subsets: ['latin'] });
 
+// Script to prevent theme flash - runs before React hydration
+const themeInitScript = `
+(function() {
+    try {
+        var stored = localStorage.getItem('theme-mode');
+        var mode = stored === 'dark' ? 'dark' : stored === 'light' ? 'light' : null;
+        if (!mode) {
+            mode = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        document.body.classList.add(mode + '-mode');
+        // Add theme-loaded class after a small delay to enable transitions
+        requestAnimationFrame(function() {
+            document.body.classList.add('theme-loaded');
+        });
+    } catch (e) {}
+})();
+`;
+
 function LayoutContent({ children }: { children: React.ReactNode }) {
     const currentLocale = useSelector(localeSelector);
 
@@ -41,8 +59,12 @@ function RootLayout({
     };
 }) {
     return (
-        <html lang="be">
-            <body className={inter.className}>
+        <html lang="be" suppressHydrationWarning>
+            <head />
+            <body className={inter.className} suppressHydrationWarning>
+                <script
+                    dangerouslySetInnerHTML={{ __html: themeInitScript }}
+                />
                 <ReduxProvider>
                     <LayoutContent>{children}</LayoutContent>
                 </ReduxProvider>

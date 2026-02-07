@@ -33,7 +33,7 @@ export const initThemeAction = createAction(INIT_THEME);
 
 export const themeReducer = (
     state = initialState,
-    action: { type: string; payload?: ThemeMode }
+    action: { type: string; payload?: ThemeMode },
 ): ThemeState => {
     switch (action.type) {
         case SET_THEME_MODE: {
@@ -59,7 +59,7 @@ export const themeModeSelector = (state: { theme: ThemeState }): ThemeMode =>
  */
 export const getEffectiveThemeMode = (
     mode: ThemeMode,
-    prefersDark: boolean
+    prefersDark: boolean,
 ): 'light' | 'dark' => {
     if (mode === 'system') {
         return prefersDark ? 'dark' : 'light';
