@@ -25,7 +25,7 @@ import { logoutAction } from '@/modules/auth';
 import style from './style.module.scss';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { useTranslation } from '@/modules/i18next';
-import { LanguageSwitcher } from '@/components';
+import { LanguageSwitcher, ThemeToggle } from '@/components';
 
 export const Header = ({ userIsAuth, isMobile }: any) => {
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
@@ -181,11 +181,11 @@ export const Header = ({ userIsAuth, isMobile }: any) => {
                                 ml: 2,
                                 width: '25vw',
                                 minWidth: isMobile ? '200px' : '240px',
+                                '& .MuiOutlinedInput-root': {
+                                    backgroundColor: 'background.paper',
+                                },
                             }}
                             InputProps={{
-                                style: {
-                                    backgroundColor: '#fff',
-                                },
                                 endAdornment: (
                                     <InputAdornment position="start">
                                         <IconButton
@@ -200,6 +200,7 @@ export const Header = ({ userIsAuth, isMobile }: any) => {
                         />
                         <Box sx={{ flexGrow: 1 }} />
                         <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                            <ThemeToggle />
                             <LanguageSwitcher />
                             <IconButton
                                 size="large"

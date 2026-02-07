@@ -7,6 +7,7 @@ import { Layout } from '@/containers/layouts/Layout';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import { currentUserIsAuth } from '@/modules/auth';
+import { useTheme } from '@mui/material/styles';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -21,6 +22,7 @@ function LayoutAuth({
 }) {
     const router = useRouter();
     const userIsAuth = useSelector(currentUserIsAuth);
+    const theme = useTheme();
 
     React.useEffect(() => {
         if (!userIsAuth) router.push('/login');
@@ -29,7 +31,7 @@ function LayoutAuth({
     return (
         <div
             style={{
-                backgroundColor: 'rgb(245, 245, 245)',
+                backgroundColor: theme.palette.background.default,
                 minHeight: '100svh',
             }}
         >

@@ -1,5 +1,6 @@
 // Variables for consistency
 $primary-color: #556cd6;
+$primary-color-dark: #7986cb;
 $border-radius: 12px;
 $transition-fast: 0.15s ease;
 $transition-normal: 0.2s ease;
@@ -9,6 +10,12 @@ $text-primary: #1a1a2e;
 $text-secondary: #4a4a6a;
 $bg-light: #f8f9fc;
 $border-light: rgba(85, 108, 214, 0.2);
+
+// Dark theme colors
+$text-primary-dark: #e0e0e0;
+$text-secondary-dark: #b0b0b0;
+$bg-dark: #1e1e1e;
+$border-dark: rgba(121, 134, 203, 0.3);
 
 .tagsCloud {
     width: 100%;
@@ -22,6 +29,15 @@ $border-light: rgba(85, 108, 214, 0.2);
     border: 1px solid $border-light;
     overflow: hidden;
 
+    :global(body.dark-mode) & {
+        background: linear-gradient(
+            135deg,
+            rgba(121, 134, 203, 0.12) 0%,
+            rgba(121, 134, 203, 0.04) 100%
+        ) !important;
+        border-color: $border-dark;
+    }
+
     .header {
         display: flex;
         align-items: center;
@@ -33,6 +49,12 @@ $border-light: rgba(85, 108, 214, 0.2);
 
         &:hover {
             background-color: rgba(85, 108, 214, 0.08);
+        }
+
+        :global(body.dark-mode) & {
+            &:hover {
+                background-color: rgba(121, 134, 203, 0.15);
+            }
         }
     }
 
@@ -196,6 +218,19 @@ $border-light: rgba(85, 108, 214, 0.2);
                 transform: translateY(-2px);
                 box-shadow: 0 4px 12px rgba(85, 108, 214, 0.15);
             }
+
+            :global(body.dark-mode) & {
+                border-color: $border-dark;
+                color: $text-secondary-dark;
+                background-color: rgba(30, 30, 30, 0.5);
+
+                &:hover {
+                    border-color: $primary-color-dark;
+                    background-color: rgba(121, 134, 203, 0.2);
+                    color: $text-primary-dark;
+                    box-shadow: 0 4px 12px rgba(121, 134, 203, 0.25);
+                }
+            }
         }
 
         &.active {
@@ -205,6 +240,14 @@ $border-light: rgba(85, 108, 214, 0.2);
             &:hover {
                 box-shadow: 0 4px 12px rgba(85, 108, 214, 0.35);
             }
+
+            :global(body.dark-mode) & {
+                box-shadow: 0 2px 8px rgba(121, 134, 203, 0.35);
+
+                &:hover {
+                    box-shadow: 0 4px 12px rgba(121, 134, 203, 0.45);
+                }
+            }
         }
     }
 
@@ -212,6 +255,11 @@ $border-light: rgba(85, 108, 214, 0.2);
         padding: 0.75rem 1rem;
         border-top: 1px solid rgba(85, 108, 214, 0.1);
         background-color: rgba(85, 108, 214, 0.03);
+
+        :global(body.dark-mode) & {
+            border-top-color: rgba(121, 134, 203, 0.2);
+            background-color: rgba(121, 134, 203, 0.08);
+        }
     }
 
     .clearButton {

@@ -150,7 +150,13 @@
         },
         "metadata": { "read_button": "Чытаць" },
         "language_switcher": { "tooltip": "Выбар мовы" },
-        "comments": { "your_comment": "Ваш каментар", "your_name": "Ваша імя" }
+        "comments": { "your_comment": "Ваш каментар", "your_name": "Ваша імя" },
+        "theme": {
+            "toggle": "Пераключыць тэму",
+            "light": "Светлая",
+            "dark": "Цёмная",
+            "system": "Сістэмная"
+        }
     },
     "en": {
         "cookies": {
@@ -303,6 +309,12 @@
         },
         "metadata": { "read_button": "Read" },
         "language_switcher": { "tooltip": "Choose language" },
-        "comments": { "your_comment": "Your comment", "your_name": "Your name" }
+        "comments": { "your_comment": "Your comment", "your_name": "Your name" },
+        "theme": {
+            "toggle": "Toggle theme",
+            "light": "Light",
+            "dark": "Dark",
+            "system": "System"
+        }
     }
 }

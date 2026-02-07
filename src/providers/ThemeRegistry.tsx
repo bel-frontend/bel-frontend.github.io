@@ -5,12 +5,37 @@ import { useServerInsertedHTML } from "next/navigation";
 import { CacheProvider } from "@emotion/react";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import theme from "@/styles/theme";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useSelector, useDispatch } from "react-redux";
+import { getTheme } from "@/styles/theme";
+import {
+  themeModeSelector,
+  getEffectiveThemeMode,
+  initThemeAction,
+} from "@/modules/theme";
 
 // This implementation is from emotion-js
 // https://github.com/emotion-js/emotion/issues/2928#issuecomment-1319747902
-export default function ThemeRegistry(props: any) {
+export default function ThemeRegistry(props: { options: { key: string }; children: React.ReactNode }) {
   const { options, children } = props;
+  const dispatch = useDispatch();
+  const themeMode = useSelector(themeModeSelector);
+  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+
+  const effectiveMode = getEffectiveThemeMode(themeMode, prefersDarkMode);
+  const theme = React.useMemo(() => getTheme(effectiveMode), [effectiveMode]);
+
+  React.useEffect(() => {
+    dispatch(initThemeAction());
+  }, [dispatch]);
+
+  React.useEffect(() => {
+    // Update body class for SCSS styling
+    if (typeof document !== "undefined") {
+      document.body.classList.remove("light-mode", "dark-mode");
+      document.body.classList.add(`${effectiveMode}-mode`);
+    }
+  }, [effectiveMode]);
 
   const [{ cache, flush }] = React.useState(() => {
     const cache = createCache(options);

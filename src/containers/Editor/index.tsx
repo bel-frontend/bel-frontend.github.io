@@ -474,7 +474,7 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
                                         size="large"
                                         disabled={!isValid}
                                         sx={{
-                                            backgroundColor: 'white',
+                                            backgroundColor: 'background.paper',
                                             position: 'fixed',
                                             left: 'calc(100svw - 78px)',
                                             top: 'calc(100svh - 200px)',

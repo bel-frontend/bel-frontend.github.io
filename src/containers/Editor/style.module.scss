@@ -21,4 +21,75 @@
         border-color: #556cd6;
         outline-color: #556cd6;
     }
+
+    :global(body.dark-mode) & {
+        background-color: #1e1e1e;
+        color: #e0e0e0;
+        border-color: rgba(255, 255, 255, 0.23);
+
+        &:hover {
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        &:focus, &:active {
+            border-color: #7986cb;
+            outline-color: #7986cb;
+        }
+    }
+}
+
+// Dark mode styles for react-markdown-editor-lite
+:global(body.dark-mode) {
+    .rc-md-editor {
+        background-color: #1e1e1e;
+        border-color: rgba(255, 255, 255, 0.23);
+
+        .rc-md-navigation {
+            background-color: #2d2d2d;
+            border-color: rgba(255, 255, 255, 0.12);
+
+            .button-wrap {
+                .button {
+                    color: #e0e0e0;
+
+                    &:hover {
+                        color: #7986cb;
+                    }
+                }
+            }
+        }
+
+        .editor-container {
+            .sec-md {
+                border-color: rgba(255, 255, 255, 0.12);
+
+                .input {
+                    background-color: #1e1e1e;
+                    color: #e0e0e0;
+
+                    &::placeholder {
+                        color: #b0b0b0;
+                    }
+                }
+            }
+
+            .sec-html {
+                background-color: #1e1e1e;
+                color: #e0e0e0;
+            }
+        }
+
+        .drop-wrap {
+            background-color: #2d2d2d;
+            border-color: rgba(255, 255, 255, 0.12);
+
+            .list-item {
+                color: #e0e0e0;
+
+                &:hover {
+                    background-color: rgba(121, 134, 203, 0.2);
+                }
+            }
+        }
+    }
 }

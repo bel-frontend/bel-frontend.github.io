@@ -8,6 +8,197 @@ body {
     font-size: 16px;
     color: #333333;
     -webkit-tap-highlight-color: #0085a1;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+// Dark mode styles
+body.dark-mode {
+    color: #e0e0e0;
+    background-color: #121212;
+
+    code {
+        color: #f48fb1;
+    }
+
+    blockquote {
+        color: #b0b0b0;
+    }
+
+    a {
+        color: #4db6ac;
+    }
+
+    a:hover,
+    a:focus {
+        color: #80cbc4;
+    }
+
+    .date-article {
+        color: #b0b0b0;
+    }
+
+    hr {
+        border-color: #333333;
+    }
+
+    // React Markdown Editor Lite dark mode
+    .rc-md-editor {
+        background-color: #1e1e1e !important;
+        border-color: rgba(255, 255, 255, 0.23) !important;
+
+        .rc-md-navigation {
+            background-color: #2d2d2d !important;
+            border-color: rgba(255, 255, 255, 0.12) !important;
+
+            .button-wrap {
+                .button {
+                    color: #e0e0e0 !important;
+
+                    &:hover {
+                        color: #7986cb !important;
+                    }
+                }
+            }
+        }
+
+        .editor-container {
+            .sec-md {
+                border-color: rgba(255, 255, 255, 0.12) !important;
+
+                .input {
+                    background-color: #1e1e1e !important;
+                    color: #e0e0e0 !important;
+
+                    &::placeholder {
+                        color: #b0b0b0 !important;
+                    }
+                }
+            }
+
+            .sec-html {
+                background-color: #1e1e1e !important;
+                color: #e0e0e0 !important;
+            }
+        }
+
+        .drop-wrap {
+            background-color: #2d2d2d !important;
+            border-color: rgba(255, 255, 255, 0.12) !important;
+
+            .list-item {
+                color: #e0e0e0 !important;
+
+                &:hover {
+                    background-color: rgba(121, 134, 203, 0.2) !important;
+                }
+            }
+        }
+    }
+
+    // MUI TextField/Input dark mode overrides
+    .MuiOutlinedInput-root {
+        background-color: #2d2d2d !important;
+
+        .MuiOutlinedInput-notchedOutline {
+            border-color: rgba(255, 255, 255, 0.23) !important;
+        }
+
+        &:hover .MuiOutlinedInput-notchedOutline {
+            border-color: rgba(255, 255, 255, 0.5) !important;
+        }
+
+        &.Mui-focused .MuiOutlinedInput-notchedOutline {
+            border-color: #7986cb !important;
+        }
+    }
+
+    .MuiInputBase-input {
+        color: #e0e0e0 !important;
+    }
+
+    .MuiInputLabel-root {
+        color: #b0b0b0 !important;
+
+        &.Mui-focused {
+            color: #7986cb !important;
+        }
+    }
+
+    // MUI Select
+    .MuiSelect-select {
+        color: #e0e0e0 !important;
+        background-color: #2d2d2d !important;
+    }
+
+    .MuiSelect-icon {
+        color: #b0b0b0 !important;
+    }
+
+    // MUI Menu/Dropdown
+    .MuiMenu-paper,
+    .MuiPaper-root {
+        background-color: #2d2d2d !important;
+    }
+
+    .MuiMenuItem-root {
+        color: #e0e0e0 !important;
+
+        &:hover {
+            background-color: rgba(121, 134, 203, 0.2) !important;
+        }
+
+        &.Mui-selected {
+            background-color: rgba(121, 134, 203, 0.3) !important;
+        }
+    }
+
+    // MUI ToggleButtonGroup
+    .MuiToggleButtonGroup-root {
+        .MuiToggleButton-root {
+            color: #b0b0b0 !important;
+            border-color: rgba(255, 255, 255, 0.23) !important;
+
+            &.Mui-selected {
+                background-color: rgba(121, 134, 203, 0.3) !important;
+                color: #7986cb !important;
+            }
+
+            &:hover {
+                background-color: rgba(255, 255, 255, 0.08) !important;
+            }
+        }
+    }
+
+    // MUI Switch
+    .MuiSwitch-track {
+        background-color: #555555 !important;
+    }
+
+    // MUI FormControlLabel
+    .MuiFormControlLabel-label {
+        color: #e0e0e0 !important;
+    }
+
+    // MUI Typography
+    .MuiTypography-root {
+        color: #e0e0e0;
+    }
+
+    // MUI Card
+    .MuiCard-root {
+        background-color: #1e1e1e !important;
+    }
+
+    // MUI Button
+    .MuiButton-outlined {
+        border-color: rgba(255, 255, 255, 0.23) !important;
+        color: #e0e0e0 !important;
+
+        &:hover {
+            border-color: rgba(255, 255, 255, 0.5) !important;
+            background-color: rgba(255, 255, 255, 0.08) !important;
+        }
+    }
 }
 
 @font-face {
