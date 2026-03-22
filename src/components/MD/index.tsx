@@ -97,6 +97,8 @@ export const MD = memo(({ children, className = '' }: any) => {
                 classes={{
                     dataContainer: style.imageModalContent,
                     root: style.imageModalRoot,
+                    clear: style.imageModalClear,
+                    clearButton: style.imageModalClearButton,
                 }}
             >
                 <img

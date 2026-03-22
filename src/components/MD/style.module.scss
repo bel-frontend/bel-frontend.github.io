@@ -290,18 +290,6 @@
     width: min(95vw, 1400px);
     max-width: 95vw;
     max-height: 95vh;
-
-    :global {
-        .clear {
-            position: absolute;
-            top: -30px;
-            right: -30px;
-            margin: 0 !important;
-            padding: 0 !important;
-            max-height: none !important;
-            z-index: 10;
-        }
-    }
 }
 
 .imageModalContent {
@@ -323,4 +311,19 @@
     max-height: calc(95vh - 60px);
     object-fit: contain;
     display: block;
+}
+
+.imageModalClear {
+    position: absolute;
+    top: -30px;
+    right: -30px;
+    margin: 0 !important;
+    padding: 0 !important;
+    max-height: none !important;
+    z-index: 10;
+}
+
+.imageModalClearButton {
+    left: 0 !important;
+    top: 0 !important;
 }

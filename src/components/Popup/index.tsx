@@ -28,6 +28,8 @@ interface PopupProps {
         root?: string;
         dataContainer?: string;
         buttonContainer?: string;
+        clear?: string;
+        clearButton?: string;
     };
     confirmButtonProps?: object;
     cancelButtonProps?: object;
@@ -89,10 +91,19 @@ export const Popup = ({ ...props }: PopupProps) => {
                 style={{ ...style }}
             >
                 {showClear && (
-                    <Grid item xs={12} className={styles.clear}>
+                    <Grid
+                        item
+                        xs={12}
+                        className={[styles.clear, classes.clear || ''].join(
+                            ' ',
+                        )}
+                    >
                         <IconButton
                             size="small"
-                            className={styles.buttonClear}
+                            className={[
+                                styles.buttonClear,
+                                classes.clearButton || '',
+                            ].join(' ')}
                             onClick={onClear}
                         >
                             <ClearIcon />
@@ -192,6 +203,8 @@ Popup.propTypes = {
         root: PropTypes.string,
         dataContainer: PropTypes.string,
         buttonContainer: PropTypes.string,
+        clear: PropTypes.string,
+        clearButton: PropTypes.string,
     }),
     confirmButtonClasses: PropTypes.objectOf(PropTypes.object),
     cancelButtonClasses: PropTypes.objectOf(PropTypes.object),
