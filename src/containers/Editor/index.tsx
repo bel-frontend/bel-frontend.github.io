@@ -295,8 +295,8 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
                             }
                             maxCount={15}
                             count={urls.length}
-                            onChange={(data) => {
-                                onImageUpload(data);
+                            onChange={(files) => {
+                                onImageUpload(files);
                             }}
                         />
                     </Grid>

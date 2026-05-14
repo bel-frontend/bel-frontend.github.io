@@ -8,7 +8,7 @@ export function UploadFile({
     maxCount = 4,
     count = 0,
 }: {
-    onChange: (data: any) => any;
+    onChange: (data: File[]) => any;
     disabled?: boolean;
     maxCount?: number;
     count?: number;
@@ -31,8 +31,11 @@ export function UploadFile({
                     accept="image/*"
                     multiple
                     type="file"
-                    onChange={(event: any) => {
-                        onChange(event.currentTarget.files[0]);
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                        const files = event.currentTarget.files;
+                        if (files && files.length > 0) {
+                            onChange(Array.from(files));
+                        }
                     }}
                 />
             </Button>

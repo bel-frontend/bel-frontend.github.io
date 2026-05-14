@@ -214,23 +214,25 @@ export const useHooks = ({ history, id }: { history: any; id: any }) => {
     }, [values, urls, isValid, isAdd, dispatch, id, history, t]);
 
     const onImageUpload = useCallback(
-        (data: any) => {
-            const formData = new FormData();
-            formData.append('image', data);
-            formData.append('artickle_id', id);
-            dispatch(
-                uploadImageForArticleRequest(
-                    { data: formData },
-                    {
-                        onSuccess: (data: any) => {
-                            setUrls((prevUrls) => [
-                                ...prevUrls,
-                                { ...data.data },
-                            ]);
+        (files: File[]) => {
+            files.forEach((file) => {
+                const formData = new FormData();
+                formData.append('image', file);
+                formData.append('artickle_id', id);
+                dispatch(
+                    uploadImageForArticleRequest(
+                        { data: formData },
+                        {
+                            onSuccess: (data: any) => {
+                                setUrls((prevUrls) => [
+                                    ...prevUrls,
+                                    { ...data.data },
+                                ]);
+                            },
                         },
-                    },
-                ),
-            );
+                    ),
+                );
+            });
         },
         [id, dispatch],
     );
