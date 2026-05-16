@@ -296,7 +296,7 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
                                 artickleData.user_id !== currentUser.user_id &&
                                 !isAdd
                             }
-                            maxCount={15}
+                            maxCount={30}
                             count={urls.length}
                             onChange={(files) => {
                                 onImageUpload(files);
@@ -377,7 +377,7 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
                 <Grid container className={style.container} spacing={3}>
                     <Grid
                         item
-                        md={mode == 0 ? 12 : 6}
+                        md={mode == '0' ? 12 : 6}
                         className={classnames('mb-3 mt-5')}
                     >
                         <Box sx={{ position: 'sticky', top: '10vh' }}>
@@ -395,7 +395,7 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
                                     Рэдактар
                                 </label> */}
                             </Box>
-                            {mode == 1 ? null : (
+                            {mode == '1' ? null : (
                                 <>
                                     <MdEditor
                                         renderHTML={(text) =>
@@ -454,10 +454,10 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
                             )}
                         </Box>
                     </Grid>
-                    {mode != 0 ? (
+                    {mode != '0' ? (
                         <Grid
                             item
-                            md={mode == 1 ? 12 : 6}
+                            md={mode == '1' ? 12 : 6}
                             className={classnames('mb-3 mt-5')}
                         >
                             <Box
