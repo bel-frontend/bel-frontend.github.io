@@ -96,24 +96,18 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
     }, [values.content, updatePreviewContent]);
 
     const [autosave, setAutoSave] = React.useState(true);
-    const [interval, setIntervalID] = React.useState<any>(null);
 
-    // React.useEffect(() => {
-    //     console.log('interval', interval);
+    React.useEffect(() => {
+        if (!autosave || isAdd || !isValid) {
+            return;
+        }
 
-    //     clearInterval(interval);
-    //     if (autosave && !isAdd && isValid && !interval) {
-    //         const intervalID = setInterval(() => {
-    //             if (button.current) {
-    //                 button.current.click();
-    //             }
-    //         }, 5000);
-    //         setIntervalID(intervalID);
-    //         return () => clearInterval(interval);
-    //     } else if (!autosave) {
-    //         clearInterval(interval);
-    //     }
-    // }, [autosave, isAdd, values, isValid]);
+        const intervalID = window.setInterval(() => {
+            button.current?.click();
+        }, 15000);
+
+        return () => window.clearInterval(intervalID);
+    }, [autosave, isAdd, isValid]);
 
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {

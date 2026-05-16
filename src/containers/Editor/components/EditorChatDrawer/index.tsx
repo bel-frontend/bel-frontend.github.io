@@ -103,7 +103,7 @@ export const EditorChatDrawer = ({
     };
 
     return (
-        <Drawer anchor="right" open={open} onClose={onClose}>
+        <Drawer anchor="right" open={open} variant="persistent">
             <Box
                 sx={{
                     width: { xs: '100svw', sm: 420, md: 480 },
