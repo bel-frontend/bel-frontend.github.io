@@ -22,6 +22,7 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import { IconButton, Tooltip } from '@mui/material';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import ChatIcon from '@mui/icons-material/Chat';
 
 import { useRouter } from 'next/navigation';
 
@@ -32,6 +33,7 @@ import { MD, UploadFile } from '@/components';
 
 import { useHooks } from './hooks';
 import { UploadController } from './components/UploadController';
+import { EditorChatDrawer } from './components/EditorChatDrawer';
 import { usePreviewWindow } from './usePreviewWindow';
 
 import 'react-markdown-editor-lite/lib/index.css';
@@ -64,6 +66,7 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
     } = useHooks({ history, id });
 
     const [mode, setMode] = React.useState('0');
+    const [isChatOpen, setIsChatOpen] = React.useState(false);
     const isAdmin = checkUserAccess(currentUser, [
         USER_ROLES.ADMIN,
         USER_ROLES.SUPERADMIN,
@@ -476,8 +479,9 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
                                         sx={{
                                             backgroundColor: 'background.paper',
                                             position: 'fixed',
-                                            left: 'calc(100svw - 78px)',
-                                            top: 'calc(100svh - 200px)',
+                                            right: 24,
+                                            bottom: 204,
+                                            zIndex: 4,
                                         }}
                                         onClick={saveUpdates}
                                     >
@@ -490,6 +494,26 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
                     ) : null}
                 </Grid>
             </form>
+            <Tooltip title={t('editor.chat_open')}>
+                <IconButton
+                    color="primary"
+                    size="large"
+                    sx={{
+                        backgroundColor: 'background.paper',
+                        position: 'fixed',
+                        right: 24,
+                        bottom: 152,
+                        zIndex: 4,
+                    }}
+                    onClick={() => setIsChatOpen(true)}
+                >
+                    <ChatIcon />
+                </IconButton>
+            </Tooltip>
+            <EditorChatDrawer
+                open={isChatOpen}
+                onClose={() => setIsChatOpen(false)}
+            />
         </Box>
     );
 };
