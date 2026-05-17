@@ -95,7 +95,11 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
         };
     }, [values.content, updatePreviewContent]);
 
-    const [autosave, setAutoSave] = React.useState(true);
+    const [autosave, setAutoSave] = React.useState(() => {
+        if (typeof window === 'undefined') return true;
+        const saved = localStorage.getItem('editor_autosave');
+        return saved === null ? true : saved === 'true';
+    });
 
     React.useEffect(() => {
         if (!autosave || isAdd || !isValid) {
@@ -346,6 +350,10 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
                                     checked={autosave}
                                     onChange={(ev) => {
                                         setAutoSave(ev.target.checked);
+                                        localStorage.setItem(
+                                            'editor_autosave',
+                                            String(ev.target.checked),
+                                        );
                                     }}
                                 />
                             }
