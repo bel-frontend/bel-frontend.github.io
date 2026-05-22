@@ -30,6 +30,7 @@ import {
     NEW_ARTICLE_ID,
     BC_SAVED_EVENT,
     getBroadcastChannelName,
+    TAB_ID,
     SYNC_POLL_INTERVAL_MS,
     OWN_SAVE_GRACE_MS,
 } from './constants';
@@ -213,7 +214,7 @@ export const useHooks = ({ history, id }: { history: any; id: any }) => {
                                     const bc = new BroadcastChannel(
                                         getBroadcastChannelName(id),
                                     );
-                                    bc.postMessage({ type: BC_SAVED_EVENT });
+                                    bc.postMessage({ type: BC_SAVED_EVENT, tabId: TAB_ID });
                                     bc.close();
                                 } catch {}
                                 dispatch(
@@ -236,7 +237,7 @@ export const useHooks = ({ history, id }: { history: any; id: any }) => {
         try {
             channel = new BroadcastChannel(getBroadcastChannelName(id));
             channel.addEventListener('message', (event: MessageEvent) => {
-                if (event.data?.type === BC_SAVED_EVENT) {
+                if (event.data?.type === BC_SAVED_EVENT && event.data?.tabId !== TAB_ID) {
                     setConflictDetected(true);
                 }
             });
