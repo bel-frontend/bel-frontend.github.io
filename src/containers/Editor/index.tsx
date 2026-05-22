@@ -20,7 +20,7 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
-import { IconButton, Tooltip } from '@mui/material';
+import { IconButton, Tooltip, Alert } from '@mui/material';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import ChatIcon from '@mui/icons-material/Chat';
 
@@ -32,6 +32,7 @@ import { checkUserAccess } from '@/modules/auth';
 import { MD, UploadFile } from '@/components';
 
 import { useHooks } from './hooks';
+import { AUTOSAVE_STORAGE_KEY, AUTOSAVE_INTERVAL_MS } from './constants';
 import { UploadController } from './components/UploadController';
 import { EditorChatDrawer } from './components/EditorChatDrawer';
 import { usePreviewWindow } from './usePreviewWindow';
@@ -63,6 +64,9 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
         deleteArticle,
         saveUpdates,
         isValid,
+        conflictDetected,
+        dismissConflict,
+        loadServerVersion,
     } = useHooks({ history, id });
 
     const [mode, setMode] = React.useState('0');
@@ -97,21 +101,25 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
 
     const [autosave, setAutoSave] = React.useState(() => {
         if (typeof window === 'undefined') return true;
-        const saved = localStorage.getItem('editor_autosave');
+        const saved = localStorage.getItem(AUTOSAVE_STORAGE_KEY);
         return saved === null ? true : saved === 'true';
     });
 
+    // Keep a stable ref so the interval never captures a stale saveUpdates closure
+    const saveUpdatesRef = React.useRef(saveUpdates);
     React.useEffect(() => {
-        if (!autosave || isAdd || !isValid) {
-            return;
-        }
+        saveUpdatesRef.current = saveUpdates;
+    }, [saveUpdates]);
 
-        const intervalID = window.setInterval(() => {
-            button.current?.click();
-        }, 15000);
-
-        return () => window.clearInterval(intervalID);
-    }, [autosave, isAdd, isValid]);
+    useEffect(() => {
+        if (!autosave || isAdd) return;
+        const intervalId = setInterval(() => {
+            if (!conflictDetected) {
+                saveUpdatesRef.current();
+            }
+        }, AUTOSAVE_INTERVAL_MS);
+        return () => clearInterval(intervalId);
+    }, [autosave, isAdd, conflictDetected]);
 
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
@@ -135,6 +143,32 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
 
     return (
         <Box>
+            {conflictDetected && !isAdd && (
+                <Alert
+                    severity="warning"
+                    sx={{ mb: 2 }}
+                    action={
+                        <Box display="flex" gap={1}>
+                            <Button
+                                color="inherit"
+                                size="small"
+                                onClick={loadServerVersion}
+                            >
+                                {t('editor.conflict_load_server')}
+                            </Button>
+                            <Button
+                                color="inherit"
+                                size="small"
+                                onClick={dismissConflict}
+                            >
+                                {t('editor.conflict_dismiss')}
+                            </Button>
+                        </Box>
+                    }
+                >
+                    {t('editor.conflict_warning')}
+                </Alert>
+            )}
             <Box mb={1}>
                 <label
                     htmlFor="exampleFormControlTextarea1"
@@ -145,8 +179,6 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
             </Box>
             <form
                 onSubmit={(ev) => {
-                    console.log('submit');
-
                     handleSubmit(ev);
                 }}
             >
@@ -351,7 +383,7 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
                                     onChange={(ev) => {
                                         setAutoSave(ev.target.checked);
                                         localStorage.setItem(
-                                            'editor_autosave',
+                                            AUTOSAVE_STORAGE_KEY,
                                             String(ev.target.checked),
                                         );
                                     }}
@@ -389,14 +421,7 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
                                     display: 'flex',
                                     justifyContent: 'space-between',
                                 }}
-                            >
-                                {/* <label
-                                    htmlFor="exampleFormControlTextarea1"
-                                    className="form-label"
-                                >
-                                    Рэдактар
-                                </label> */}
-                            </Box>
+                            ></Box>
                             {mode == '1' ? null : (
                                 <>
                                     <MdEditor

@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
@@ -10,11 +10,8 @@ import {
     createArtickleRequest,
     getArtickleByIdRequest,
     getArtickleSelector,
-    autoSaveArticle,
     clearAutoSaveArticle,
-    getAutoSavedArtickleSelector,
     deleteArticleRequest,
-    AutoSaveArticleInterface,
 } from '@/modules/artickles';
 import { showPopupAction, hidePopupAction } from '@/modules/popups';
 import { showSuccess } from '@/modules/notification';
@@ -26,7 +23,16 @@ import {
 } from '@/modules/files';
 import { ArticleInterface } from '@/modules/artickles/types/article';
 
-import { getCurrentUserSelector } from '@/modules/auth';
+import { getCurrentUserSelector, authHashSelector } from '@/modules/auth';
+import { DEFAULT_LANG } from '@/modules/i18next';
+import { DATE_FORMAT_TO_SERVER } from '@/constants/date';
+import {
+    NEW_ARTICLE_ID,
+    BC_SAVED_EVENT,
+    getBroadcastChannelName,
+    SYNC_POLL_INTERVAL_MS,
+    OWN_SAVE_GRACE_MS,
+} from './constants';
 
 const validationSchema = (t: any) =>
     yup.object({
@@ -57,17 +63,17 @@ interface FormDataValues {
 const initialValues: FormDataValues = {
     title: '',
     description: '',
-    dateArticle: moment(new Date()).format('YYYY-MM-DD'),
+    dateArticle: moment(new Date()).format(DATE_FORMAT_TO_SERVER),
     author: '',
     tags: '',
     content: '',
     isActive: false,
     isPinned: false,
-    lang: 'be',
+    lang: DEFAULT_LANG,
 };
 
 export const useHooks = ({ history, id }: { history: any; id: any }) => {
-    const isAdd = id === 'add';
+    const isAdd = id === NEW_ARTICLE_ID;
     const dispatch = useDispatch();
     const { t } = useTranslation();
     const artickleData = useSelector<any, ArticleInterface>(
@@ -89,16 +95,9 @@ export const useHooks = ({ history, id }: { history: any; id: any }) => {
             dispatch(getArtickleByIdRequest({ id }));
             dispatch(getImagesRequest({ artickle_id: id }));
         }
-    }, [id, isAdd]);
+    }, [id, isAdd, dispatch]);
 
-    const autoSavedArticle = useSelector<any, AutoSaveArticleInterface>(
-        getAutoSavedArtickleSelector,
-    );
     const { content = '', meta } = artickleData;
-
-    const autoSaveArtickleClone = { ...autoSavedArticle };
-
-    delete autoSaveArtickleClone.updated_at; // disabled re-rendering
 
     const formData: FormDataValues = isAdd
         ? initialValues
@@ -111,18 +110,12 @@ export const useHooks = ({ history, id }: { history: any; id: any }) => {
               isActive: meta?.isActive || false,
               isPinned: artickleData?.isPinned || false,
               title: meta?.title || '',
-              lang: meta?.lang || artickleData?.lang || 'be',
+              lang: meta?.lang || artickleData?.lang || DEFAULT_LANG,
           };
 
     const initialWithAutosave = {
         ...formData,
         isAdd,
-        // ...(((autoSavedArticle?.id === id ||
-        //     (isAdd && autoSaveArtickleClone.isAdd)) &&
-        //     autoSavedArticle?.updated_at) ||
-        // 0 > new Date(artickleData.updated_at || 0).getTime()
-        //     ? autoSaveArtickleClone
-        //     : {}),
     };
 
     const {
@@ -134,6 +127,7 @@ export const useHooks = ({ history, id }: { history: any; id: any }) => {
         handleChange,
         handleSubmit,
         isValid,
+        dirty,
     } = useFormik({
         initialValues: {
             ...initialWithAutosave,
@@ -172,9 +166,21 @@ export const useHooks = ({ history, id }: { history: any; id: any }) => {
         },
     });
 
-    const saveUpdates = useCallback(() => {
-        console.log('saveUpdates');
+    const authToken = useSelector<any, string>(authHashSelector);
+    const lastKnownUpdatedAt = useRef<string | undefined>(undefined);
+    const weJustSaved = useRef<number>(0);
+    const dirtyRef = useRef(false);
+    dirtyRef.current = dirty;
+    const [conflictDetected, setConflictDetected] = React.useState(false);
 
+    // Initialise the version reference when the article first loads
+    useEffect(() => {
+        if (artickleData?.updated_at && !lastKnownUpdatedAt.current) {
+            lastKnownUpdatedAt.current = artickleData.updated_at;
+        }
+    }, [artickleData?.updated_at]);
+
+    const saveUpdates = useCallback(() => {
         const tags = values.tags.trim().split(' ').filter(Boolean);
 
         if (isValid) {
@@ -200,6 +206,16 @@ export const useHooks = ({ history, id }: { history: any; id: any }) => {
                         { id, ...values, tags, files: urls },
                         {
                             onSuccess: ({ ...data }) => {
+                                weJustSaved.current = Date.now();
+                                setConflictDetected(false);
+                                // Notify other tabs in the same browser
+                                try {
+                                    const bc = new BroadcastChannel(
+                                        getBroadcastChannelName(id),
+                                    );
+                                    bc.postMessage({ type: BC_SAVED_EVENT });
+                                    bc.close();
+                                } catch {}
                                 dispatch(
                                     showSuccess({
                                         message: t('editor.article_saved'),
@@ -212,6 +228,99 @@ export const useHooks = ({ history, id }: { history: any; id: any }) => {
             }
         }
     }, [values, urls, isValid, isAdd, dispatch, id, history, t]);
+
+    // Detect saves from another tab in the same browser
+    useEffect(() => {
+        if (isAdd || !id) return;
+        let channel: BroadcastChannel;
+        try {
+            channel = new BroadcastChannel(getBroadcastChannelName(id));
+            channel.addEventListener('message', (event: MessageEvent) => {
+                if (event.data?.type === BC_SAVED_EVENT) {
+                    setConflictDetected(true);
+                }
+            });
+        } catch {
+            return;
+        }
+        return () => channel?.close();
+    }, [id, isAdd]);
+
+    // Sync with other devices (poll every 15 s)
+    useEffect(() => {
+        if (isAdd || !id || !authToken) return;
+
+        const poll = () => {
+            if (!lastKnownUpdatedAt.current) return;
+            dispatch(
+                getArtickleByIdRequest(
+                    { id },
+                    {
+                        preventSuccess: true,
+                        onSuccess: (response: any) => {
+                            const data = response?.data;
+                            if (!data?.updated_at) return;
+
+                            const serverTime = new Date(
+                                data.updated_at,
+                            ).getTime();
+                            const knownTime = new Date(
+                                lastKnownUpdatedAt.current!,
+                            ).getTime();
+
+                            if (serverTime > knownTime) {
+                                if (
+                                    Date.now() - weJustSaved.current <
+                                    OWN_SAVE_GRACE_MS
+                                ) {
+                                    // This was our own recent save — update the reference
+                                    lastKnownUpdatedAt.current =
+                                        data.updated_at;
+                                } else if (!dirtyRef.current) {
+                                    // No local edits — silently apply the server version
+                                    setValues({
+                                        title: data.meta?.title || '',
+                                        description:
+                                            data.meta?.description || '',
+                                        dateArticle:
+                                            data.meta?.dateArticle || '',
+                                        author: data.meta?.author || '',
+                                        tags: Array.isArray(data.meta?.tags)
+                                            ? data.meta.tags.join(' ')
+                                            : '',
+                                        content: data.content || '',
+                                        isActive: data.meta?.isActive || false,
+                                        isPinned: data.isPinned || false,
+                                        lang: data.meta?.lang || DEFAULT_LANG,
+                                        isAdd,
+                                    });
+                                    lastKnownUpdatedAt.current =
+                                        data.updated_at;
+                                } else {
+                                    // User has unsaved local changes — warn instead of overwriting
+                                    setConflictDetected(true);
+                                }
+                            }
+                        },
+                    },
+                ),
+            );
+        };
+
+        const pollId = setInterval(poll, SYNC_POLL_INTERVAL_MS);
+        return () => clearInterval(pollId);
+    }, [id, isAdd, authToken, dispatch, setValues]);
+
+    const dismissConflict = useCallback(() => {
+        setConflictDetected(false);
+        lastKnownUpdatedAt.current = new Date().toISOString();
+    }, []);
+
+    const loadServerVersion = useCallback(() => {
+        dispatch(getArtickleByIdRequest({ id }));
+        setConflictDetected(false);
+        lastKnownUpdatedAt.current = new Date().toISOString();
+    }, [dispatch, id]);
 
     const onImageUpload = useCallback(
         (files: File[]) => {
@@ -315,7 +424,6 @@ export const useHooks = ({ history, id }: { history: any; id: any }) => {
         touched,
         handleChange,
         errors,
-        meta,
         currentUser,
         artickleData,
         setFieldValue,
@@ -327,5 +435,8 @@ export const useHooks = ({ history, id }: { history: any; id: any }) => {
         deleteArticle,
         saveUpdates,
         isValid,
+        conflictDetected,
+        dismissConflict,
+        loadServerVersion,
     };
 };
