@@ -10,7 +10,7 @@ import { FormControlLabel, Checkbox, FormGroup } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from '@/modules/i18next';
 import i18next from '@/modules/i18next';
-import { Cell, GridGenerator, Card } from '@/components';
+import { Card } from '@/components';
 import {
     getMyArticklesSelector,
     getMyArticlesRequest,
@@ -139,151 +139,107 @@ export default function Profile({ history }: any) {
     >(getUnactiveArticklesSelector);
 
     return (
-        <Box
-            sx={{
-                minHeight: '80vh',
-                width: '100%',
-            }}
-        >
-            <GridGenerator
-                style={{
-                    minHeight: '100%',
-                    // maxHeight: '100%',
+        <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 3 }}>
+            {/* Stats row */}
+            <Box
+                sx={{
+                    display: 'grid',
+                    gridTemplateColumns: { xs: '1fr', md: 'repeat(3, 1fr)' },
+                    gap: 3,
                 }}
-                cols={isMobile ? 1 : 6}
-                rows={isMobile ? 12 : 7}
-                gap={[30, 30]}
             >
-                <Cell col={0} row={0} colSpan={isMobile ? 1 : 2} rowSpan={1}>
-                    <Card>
-                        <Typography variant="subtitle1">
-                            {t('profile.total_likes')}
-                        </Typography>
-                        <Typography>{likes}</Typography>
-                    </Card>
-                </Cell>
-                <Cell
-                    col={isMobile ? 0 : 2}
-                    row={isMobile ? 1 : 0}
-                    colSpan={isMobile ? 1 : 2}
-                    rowSpan={1}
-                >
-                    <Card>
-                        <Typography variant="subtitle1">
-                            {t('profile.most_popular_article')}
-                        </Typography>
-                        <Typography>
-                            <Link href={`/article/${articleWithMostLikes?.id}`}>
-                                {articleWithMostLikes?.meta?.title ||
-                                    t('profile.no_articles')}
-                            </Link>
-                        </Typography>
-                    </Card>
-                </Cell>
-                <Cell
-                    col={isMobile ? 0 : 4}
-                    row={isMobile ? 2 : 0}
-                    colSpan={isMobile ? 1 : 2}
-                    rowSpan={1}
-                >
-                    <Card>
-                        <FormControlLabel
-                            checked={subscribeStatus}
-                            control={
-                                <Checkbox
-                                    onChange={handleSubscribe}
-                                    checked={subscribeStatus}
-                                />
-                            }
-                            label={t('profile.subscribe_news')}
-                        />
-                        <Typography variant="body2">
-                            {t('profile.subscribe_description')}
-                        </Typography>
-                        {isAdmin && (
-                            <Box
-                                display={'flex'}
-                                flexDirection={'column'}
-                                gap={'10px'}
-                            >
-                                <Button
-                                    onClick={getOpenAiNews}
-                                    disabled={isLoadingOpenAiNews}
-                                >
-                                    {isLoadingOpenAiNews
-                                        ? t('profile.loading')
-                                        : t('profile.send_openai_news')}
-                                </Button>
-                                <Button
-                                    onClick={getGeminiNews}
-                                    disabled={isLoadingGeminiNews}
-                                >
-                                    {isLoadingGeminiNews
-                                        ? t('profile.loading')
-                                        : t('profile.send_gemini_news')}
-                                </Button>
-                            </Box>
-                        )}
-                    </Card>
-                </Cell>
+                <Card>
+                    <Typography variant="subtitle1">
+                        {t('profile.total_likes')}
+                    </Typography>
+                    <Typography>{likes}</Typography>
+                </Card>
 
-                <Cell
-                    col={0}
-                    row={isMobile ? 3 : 1}
-                    colSpan={isMobile ? 1 : 6}
-                    rowSpan={6}
-                >
-                    <Card
-                        sx={{
-                            width: '100%',
-                            height: '100%',
-                            // overflowY: 'auto',
-                            maxHeight: '100%',
-                            maxWidth: 'calc(100vw - 32px) !important',
-                        }}
-                    >
-                        {isAdmin ? (
-                            <Box
-                                sx={{
-                                    paddingBottom: 2,
-                                }}
-                            >
-                                <Tabs
-                                    value={value}
-                                    onChange={handleChange}
-                                    aria-label="basic tabs example"
-                                    textColor="secondary"
-                                    indicatorColor="secondary"
-                                >
-                                    <Tab
-                                        label={t('profile.tab_my_articles')}
-                                        {...a11yProps(0)}
-                                    />
-                                    <Tab
-                                        label={t('profile.tab_all_drafts')}
-                                        {...a11yProps(1)}
-                                    />
-                                </Tabs>
-                            </Box>
-                        ) : null}
-                        <Box>
-                            <Typography variant="h5">
-                                {value === 1
-                                    ? t('profile.drafts_all_authors')
-                                    : t('profile.tab_my_articles')}
-                            </Typography>
-                            <MyArtickles
-                                history={history}
-                                articles={
-                                    value === 1
-                                        ? unactiveArticles
-                                        : preparedArticles
-                                }
+                <Card>
+                    <Typography variant="subtitle1">
+                        {t('profile.most_popular_article')}
+                    </Typography>
+                    <Typography>
+                        <Link href={`/article/${articleWithMostLikes?.id}`}>
+                            {articleWithMostLikes?.meta?.title ||
+                                t('profile.no_articles')}
+                        </Link>
+                    </Typography>
+                </Card>
+
+                <Card>
+                    <FormControlLabel
+                        checked={subscribeStatus}
+                        control={
+                            <Checkbox
+                                onChange={handleSubscribe}
+                                checked={subscribeStatus}
                             />
+                        }
+                        label={t('profile.subscribe_news')}
+                    />
+                    <Typography variant="body2">
+                        {t('profile.subscribe_description')}
+                    </Typography>
+                    {isAdmin && (
+                        <Box display="flex" flexDirection="column" gap="10px">
+                            <Button
+                                onClick={getOpenAiNews}
+                                disabled={isLoadingOpenAiNews}
+                            >
+                                {isLoadingOpenAiNews
+                                    ? t('profile.loading')
+                                    : t('profile.send_openai_news')}
+                            </Button>
+                            <Button
+                                onClick={getGeminiNews}
+                                disabled={isLoadingGeminiNews}
+                            >
+                                {isLoadingGeminiNews
+                                    ? t('profile.loading')
+                                    : t('profile.send_gemini_news')}
+                            </Button>
                         </Box>
-                    </Card>
-                </Cell>
-            </GridGenerator>
+                    )}
+                </Card>
+            </Box>
+
+            {/* Articles table */}
+            <Card sx={{ height: 'auto', maxWidth: 'calc(100vw - 32px)' }}>
+                {isAdmin ? (
+                    <Box sx={{ paddingBottom: 2 }}>
+                        <Tabs
+                            value={value}
+                            onChange={handleChange}
+                            aria-label="basic tabs example"
+                            textColor="secondary"
+                            indicatorColor="secondary"
+                        >
+                            <Tab
+                                label={t('profile.tab_my_articles')}
+                                {...a11yProps(0)}
+                            />
+                            <Tab
+                                label={t('profile.tab_all_drafts')}
+                                {...a11yProps(1)}
+                            />
+                        </Tabs>
+                    </Box>
+                ) : null}
+                <Box>
+                    <Typography variant="h5">
+                        {value === 1
+                            ? t('profile.drafts_all_authors')
+                            : t('profile.tab_my_articles')}
+                    </Typography>
+                    <MyArtickles
+                        history={history}
+                        articles={
+                            value === 1 ? unactiveArticles : preparedArticles
+                        }
+                    />
+                </Box>
+            </Card>
         </Box>
     );
 }

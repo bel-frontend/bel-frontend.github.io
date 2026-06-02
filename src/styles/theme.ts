@@ -144,6 +144,9 @@ export const darkTheme = createTheme({
         mode: 'dark',
         primary: {
             main: dp.primary,
+            // #7c9dff is a light color (luminance 0.36) — MUI would assign light text.primary
+            // (#e2e8f0) as contrastText, giving only 2:1. Force dark text for contained buttons.
+            contrastText: 'rgba(0, 0, 0, 0.87)',
         },
         secondary: {
             main: dp.secondary,
@@ -189,6 +192,16 @@ export const darkTheme = createTheme({
     ],
     components: {
         ...baseThemeOptions.components,
+        MuiAppBar: {
+            styleOverrides: {
+                colorPrimary: {
+                    // Prevent light primary (#7c9dff) from being used as AppBar bg in dark mode.
+                    // Use a dark surface so white logos and icons remain readable.
+                    backgroundColor: '#0d1629',
+                    color: dp.textPrimary,
+                },
+            },
+        },
         MuiCard: {
             styleOverrides: {
                 root: {

@@ -106,12 +106,12 @@ body.dark-mode {
         color: var(--color-text-secondary);
     }
 
-    a {
+    a:not(.MuiButtonBase-root) {
         color: var(--color-link);
     }
 
-    a:hover,
-    a:focus {
+    a:not(.MuiButtonBase-root):hover,
+    a:not(.MuiButtonBase-root):focus {
         color: var(--color-link-hover);
     }
 
@@ -323,12 +323,12 @@ h2 {
     color: #eeeeee;
 }
 
-a {
+a:not(.MuiButtonBase-root) {
     color: var(--color-link);
     text-decoration: none !important;
 }
-a:hover,
-a:focus {
+a:not(.MuiButtonBase-root):hover,
+a:not(.MuiButtonBase-root):focus {
     color: var(--color-link-hover);
 }
 a img:hover,
