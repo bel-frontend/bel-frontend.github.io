@@ -1,8 +1,8 @@
 'use client';
 import React from 'react';
 import Link from 'next/link';
-import { LikeButton, Tag } from '@/components';
-import { Button, Box } from '@mui/material';
+import { LikeButton, Tag, AppButton } from '@/components';
+import { Box } from '@mui/material';
 import { MetaDataInterface } from '@/modules/artickles/types/article';
 import { useTranslation } from '@/modules/i18next';
 
@@ -30,16 +30,15 @@ export const MetaData = ({
         <>
             <div className={style.episode_meta}>
                 {showReadButton ? (
-                    <Link href={url}>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            size="small"
-                            disableElevation
-                        >
-                            {t('metadata.read_button')}
-                        </Button>
-                    </Link>
+                    <AppButton
+                        component={Link}
+                        href={url}
+                        variant="contained"
+                        color="primary"
+                        size="small"
+                    >
+                        {t('metadata.read_button')}
+                    </AppButton>
                 ) : null}
                 {showReadButton ? (
                     <LikeButton likesCount={likes} articleId={articleId} />

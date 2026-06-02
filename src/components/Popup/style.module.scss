@@ -22,12 +22,18 @@ $maxHeight: 100svh;
     @media (min-width: $md) {
         min-width: 280px;
     }
+    .titleContainer {
+        padding-bottom: 4px;
+    }
     .title {
         padding: 0 25px 16px 25px;
         text-align: center;
         @media (max-width: $md) {
             display: none;
         }
+    }
+    .subtitleContainer {
+        padding-bottom: 8px;
     }
     .subtitle {
         text-align: center;

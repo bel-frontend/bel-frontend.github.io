@@ -4,13 +4,10 @@
     width: 70vw;
     padding: 20px;
 
-    border-radius: 5px;
-    background-color: #eeeded;
-
-    :global(body.dark-mode) & {
-        background-color: #2d2d2d;
-        color: #e0e0e0;
-    }
+    border-radius: 12px;
+    background-color: var(--color-bg-paper);
+    color: var(--color-text);
+    box-shadow: var(--shadow-card);
 }
 
 .cookieContainer {
@@ -18,21 +15,12 @@
 }
 
 .linkContainer {
-    color: #0085a1;
+    color: var(--color-link);
     cursor: pointer;
 
     &:focus,
     &:hover {
-        color: #0c93e4;
-    }
-
-    :global(body.dark-mode) & {
-        color: #4db6ac;
-
-        &:focus,
-        &:hover {
-            color: #80cbc4;
-        }
+        color: var(--color-link-hover);
     }
 }
 

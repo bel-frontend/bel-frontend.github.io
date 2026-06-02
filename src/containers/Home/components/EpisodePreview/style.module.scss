@@ -3,35 +3,14 @@
     height: 45px;
     top: -45px;
     width: 100%;
-    background-image: linear-gradient(
-        to bottom,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0.7) 50%,
-        rgba(255, 255, 255, 1)
-    );
-
-    :global(body.dark-mode) & {
-        background-image: linear-gradient(
-            to bottom,
-            rgba(18, 18, 18, 0) 0%,
-            rgba(18, 18, 18, 0.7) 50%,
-            rgba(18, 18, 18, 1)
-        );
-    }
+    background-image: var(--gradient-bg-fade);
 }
 .link {
 }
 .deactivatedLink {
-    color: #888;
+    color: var(--color-text-secondary);
     &:hover {
-        color: #555;
-    }
-
-    :global(body.dark-mode) & {
-        color: #999;
-        &:hover {
-            color: #ccc;
-        }
+        color: var(--color-text);
     }
 }
 .episode__title {

@@ -7,6 +7,8 @@ export * from './Snackbar';
 export * from './Popup';
 export * from './GridGenerator';
 export * from './Card';
+export { AppButton } from './AppButton';
+export { AppLink } from './AppLink';
 export { default as EditLink } from './EditLink';
 export { default as LanguageSwitcher } from './LanguageSwitcher';
 export { default as ThemeToggle } from './ThemeToggle';

@@ -9,6 +9,8 @@ export const Card = ({ children, sx, ...props }: any) => {
                 width: '100%',
                 height: '100%',
                 backgroundColor: 'background.paper',
+                borderRadius: 3,
+                boxShadow: 'var(--shadow-card)',
                 ...sx,
             }}
             {...props}

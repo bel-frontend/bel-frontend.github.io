@@ -1,7 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import withStyles from '@mui/styles/withStyles';
 import Snack from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 // @mui/icons-material

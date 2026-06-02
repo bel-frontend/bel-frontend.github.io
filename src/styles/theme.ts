@@ -1,31 +1,59 @@
 import { createTheme, ThemeOptions } from '@mui/material/styles';
+import {
+    designBreakpoints,
+    designPalette,
+    designShape,
+    designShadows,
+    designTypography,
+} from './tokens';
+
+const lp = designPalette.light;
+const dp = designPalette.dark;
+
+// Elevated surface for dark mode (one step above background.paper)
+const darkElevated = '#1a2540';
+const darkPrimaryAlpha20 = 'rgba(124, 157, 255, 0.2)';
+const darkPrimaryAlpha30 = 'rgba(124, 157, 255, 0.3)';
 
 const baseThemeOptions: ThemeOptions = {
     breakpoints: {
-        values: {
-            xs: 0,
-            sm: 600,
-            md: 900,
-            lg: 1200,
-            xl: 1536,
-        },
+        values: { ...designBreakpoints },
+    },
+    shape: {
+        borderRadius: designShape.borderRadius,
     },
     typography: {
+        fontFamily: designTypography.fontFamily,
         h1: {
-            fontSize: 36,
-            fontWeight: 700,
+            fontSize: designTypography.h1.fontSize,
+            fontWeight: designTypography.h1.fontWeight,
+            lineHeight: designTypography.h1.lineHeight,
+            letterSpacing: designTypography.h1.letterSpacing,
         },
         h2: {
-            fontSize: 24,
-            fontWeight: 400,
+            fontSize: designTypography.h2.fontSize,
+            fontWeight: designTypography.h2.fontWeight,
+            lineHeight: designTypography.h2.lineHeight,
+            letterSpacing: designTypography.h2.letterSpacing,
+        },
+        h3: {
+            fontSize: designTypography.h3.fontSize,
+            fontWeight: designTypography.h3.fontWeight,
+            lineHeight: designTypography.h3.lineHeight,
+            letterSpacing: designTypography.h3.letterSpacing,
+        },
+        h4: {
+            fontSize: designTypography.h4.fontSize,
+            fontWeight: designTypography.h4.fontWeight,
+            lineHeight: designTypography.h4.lineHeight,
         },
         subtitle1: {
             fontSize: '1.1rem',
-            fontWeight: 600,
+            fontWeight: designTypography.fontWeightSemibold,
         },
         subtitle2: {
             fontSize: '1.1rem',
-            fontWeight: 500,
+            fontWeight: designTypography.fontWeightMedium,
             lineHeight: 1,
         },
     },
@@ -64,23 +92,50 @@ export const lightTheme = createTheme({
     palette: {
         mode: 'light',
         primary: {
-            main: '#556cd6',
+            main: lp.primary,
         },
         secondary: {
-            main: '#19857b',
+            main: lp.secondary,
         },
         error: {
-            main: '#dc3d62',
+            main: lp.error,
         },
         background: {
-            default: '#ffffff',
-            paper: '#f5f5f5',
+            default: lp.backgroundDefault,
+            paper: lp.backgroundPaper,
         },
         text: {
-            primary: '#333333',
-            secondary: '#666666',
+            primary: lp.textPrimary,
+            secondary: lp.textSecondary,
         },
     },
+    shadows: [
+        'none',
+        designShadows.card,
+        designShadows.card,
+        designShadows.card,
+        designShadows.card,
+        designShadows.card,
+        designShadows.card,
+        designShadows.card,
+        designShadows.card,
+        designShadows.card,
+        designShadows.card,
+        designShadows.card,
+        designShadows.card,
+        designShadows.card,
+        designShadows.card,
+        designShadows.card,
+        designShadows.card,
+        designShadows.card,
+        designShadows.card,
+        designShadows.card,
+        designShadows.card,
+        designShadows.card,
+        designShadows.card,
+        designShadows.card,
+        designShadows.card,
+    ],
 });
 
 export const darkTheme = createTheme({
@@ -88,36 +143,76 @@ export const darkTheme = createTheme({
     palette: {
         mode: 'dark',
         primary: {
-            main: '#7986cb',
+            main: dp.primary,
+            // #7c9dff is a light color (luminance 0.36) — MUI would assign light text.primary
+            // (#e2e8f0) as contrastText, giving only 2:1. Force dark text for contained buttons.
+            contrastText: 'rgba(0, 0, 0, 0.87)',
         },
         secondary: {
-            main: '#4db6ac',
+            main: dp.secondary,
         },
         error: {
-            main: '#f48fb1',
+            main: dp.error,
         },
         background: {
-            default: '#121212',
-            paper: '#1e1e1e',
+            default: dp.backgroundDefault,
+            paper: dp.backgroundPaper,
         },
         text: {
-            primary: '#e0e0e0',
-            secondary: '#b0b0b0',
+            primary: dp.textPrimary,
+            secondary: dp.textSecondary,
         },
     },
+    shadows: [
+        'none',
+        designShadows.cardDark,
+        designShadows.cardDark,
+        designShadows.cardDark,
+        designShadows.cardDark,
+        designShadows.cardDark,
+        designShadows.cardDark,
+        designShadows.cardDark,
+        designShadows.cardDark,
+        designShadows.cardDark,
+        designShadows.cardDark,
+        designShadows.cardDark,
+        designShadows.cardDark,
+        designShadows.cardDark,
+        designShadows.cardDark,
+        designShadows.cardDark,
+        designShadows.cardDark,
+        designShadows.cardDark,
+        designShadows.cardDark,
+        designShadows.cardDark,
+        designShadows.cardDark,
+        designShadows.cardDark,
+        designShadows.cardDark,
+        designShadows.cardDark,
+        designShadows.cardDark,
+    ],
     components: {
         ...baseThemeOptions.components,
+        MuiAppBar: {
+            styleOverrides: {
+                colorPrimary: {
+                    // Prevent light primary (#7c9dff) from being used as AppBar bg in dark mode.
+                    // Use a dark surface so white logos and icons remain readable.
+                    backgroundColor: '#0d1629',
+                    color: dp.textPrimary,
+                },
+            },
+        },
         MuiCard: {
             styleOverrides: {
                 root: {
-                    backgroundColor: '#1e1e1e',
+                    backgroundColor: dp.backgroundPaper,
                 },
             },
         },
         MuiTableCell: {
             styleOverrides: {
                 root: {
-                    borderColor: 'rgba(255, 255, 255, 0.12)',
+                    borderColor: dp.border,
                 },
             },
         },
@@ -125,7 +220,7 @@ export const darkTheme = createTheme({
             styleOverrides: {
                 root: {
                     '&:hover': {
-                        backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                        backgroundColor: 'rgba(255, 255, 255, 0.05)',
                     },
                 },
             },
@@ -133,21 +228,21 @@ export const darkTheme = createTheme({
         MuiTabs: {
             styleOverrides: {
                 root: {
-                    borderColor: 'rgba(255, 255, 255, 0.12)',
+                    borderColor: dp.border,
                 },
             },
         },
         MuiCheckbox: {
             styleOverrides: {
                 root: {
-                    color: '#b0b0b0',
+                    color: dp.textSecondary,
                 },
             },
         },
         MuiLink: {
             styleOverrides: {
                 root: {
-                    color: '#4db6ac',
+                    color: dp.link,
                 },
             },
         },
@@ -155,25 +250,25 @@ export const darkTheme = createTheme({
             styleOverrides: {
                 root: {
                     '& .MuiOutlinedInput-root': {
-                        backgroundColor: '#2d2d2d',
+                        backgroundColor: darkElevated,
                         '& fieldset': {
-                            borderColor: 'rgba(255, 255, 255, 0.23)',
+                            borderColor: dp.border,
                         },
                         '&:hover fieldset': {
-                            borderColor: 'rgba(255, 255, 255, 0.5)',
+                            borderColor: dp.textSecondary,
                         },
                         '&.Mui-focused fieldset': {
-                            borderColor: '#7986cb',
+                            borderColor: dp.primary,
                         },
                     },
                     '& .MuiInputBase-input': {
-                        color: '#e0e0e0',
+                        color: dp.textPrimary,
                     },
                     '& .MuiInputLabel-root': {
-                        color: '#b0b0b0',
+                        color: dp.textSecondary,
                     },
                     '& .MuiInputLabel-root.Mui-focused': {
-                        color: '#7986cb',
+                        color: dp.primary,
                     },
                 },
             },
@@ -181,28 +276,28 @@ export const darkTheme = createTheme({
         MuiOutlinedInput: {
             styleOverrides: {
                 root: {
-                    backgroundColor: '#2d2d2d',
+                    backgroundColor: darkElevated,
                     '& fieldset': {
-                        borderColor: 'rgba(255, 255, 255, 0.23)',
+                        borderColor: dp.border,
                     },
                     '&:hover fieldset': {
-                        borderColor: 'rgba(255, 255, 255, 0.5)',
+                        borderColor: dp.textSecondary,
                     },
                     '&.Mui-focused fieldset': {
-                        borderColor: '#7986cb',
+                        borderColor: dp.primary,
                     },
                 },
                 input: {
-                    color: '#e0e0e0',
+                    color: dp.textPrimary,
                 },
             },
         },
         MuiInputLabel: {
             styleOverrides: {
                 root: {
-                    color: '#b0b0b0',
+                    color: dp.textSecondary,
                     '&.Mui-focused': {
-                        color: '#7986cb',
+                        color: dp.primary,
                     },
                 },
             },
@@ -210,17 +305,17 @@ export const darkTheme = createTheme({
         MuiSelect: {
             styleOverrides: {
                 select: {
-                    backgroundColor: '#2d2d2d',
+                    backgroundColor: darkElevated,
                 },
                 icon: {
-                    color: '#b0b0b0',
+                    color: dp.textSecondary,
                 },
             },
         },
         MuiMenu: {
             styleOverrides: {
                 paper: {
-                    backgroundColor: '#2d2d2d',
+                    backgroundColor: darkElevated,
                 },
             },
         },
@@ -228,10 +323,10 @@ export const darkTheme = createTheme({
             styleOverrides: {
                 root: {
                     '&:hover': {
-                        backgroundColor: 'rgba(121, 134, 203, 0.2)',
+                        backgroundColor: darkPrimaryAlpha20,
                     },
                     '&.Mui-selected': {
-                        backgroundColor: 'rgba(121, 134, 203, 0.3)',
+                        backgroundColor: darkPrimaryAlpha30,
                     },
                 },
             },
@@ -239,17 +334,17 @@ export const darkTheme = createTheme({
         MuiToggleButton: {
             styleOverrides: {
                 root: {
-                    color: '#b0b0b0',
-                    borderColor: 'rgba(255, 255, 255, 0.23)',
+                    color: dp.textSecondary,
+                    borderColor: dp.border,
                     '&.Mui-selected': {
-                        backgroundColor: 'rgba(121, 134, 203, 0.3)',
-                        color: '#7986cb',
+                        backgroundColor: darkPrimaryAlpha30,
+                        color: dp.primary,
                         '&:hover': {
-                            backgroundColor: 'rgba(121, 134, 203, 0.4)',
+                            backgroundColor: darkPrimaryAlpha20,
                         },
                     },
                     '&:hover': {
-                        backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                        backgroundColor: 'rgba(255, 255, 255, 0.05)',
                     },
                 },
             },
@@ -257,7 +352,7 @@ export const darkTheme = createTheme({
         MuiSwitch: {
             styleOverrides: {
                 track: {
-                    backgroundColor: '#555555',
+                    backgroundColor: '#3a4a6b',
                 },
             },
         },
@@ -268,21 +363,21 @@ export const darkTheme = createTheme({
                     alignItems: 'baseline',
                 },
                 label: {
-                    color: '#e0e0e0',
+                    color: dp.textPrimary,
                 },
             },
         },
         MuiTypography: {
             styleOverrides: {
                 root: {
-                    color: '#e0e0e0',
+                    color: dp.textPrimary,
                 },
             },
         },
         MuiPaper: {
             styleOverrides: {
                 root: {
-                    backgroundColor: '#1e1e1e',
+                    backgroundColor: dp.backgroundPaper,
                 },
             },
         },
@@ -293,6 +388,5 @@ export const getTheme = (mode: 'light' | 'dark') => {
     return mode === 'dark' ? darkTheme : lightTheme;
 };
 
-// Default export for backward compatibility
 const theme = lightTheme;
 export default theme;

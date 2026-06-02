@@ -1,15 +1,64 @@
+// Design token CSS custom properties
+:root {
+    --color-primary: #2563eb;
+    --color-primary-hover: #1d4ed8;
+    --color-secondary: #0f766e;
+    --color-link: #1d4ed8;
+    --color-link-hover: #1e40af;
+    --color-error: #dc3d62;
+    --color-bg: #f8fafc;
+    --color-bg-paper: #ffffff;
+    --color-bg-elevated: #f1f5f9;
+    --color-text: #0f172a;
+    --color-text-secondary: #475569;
+    --color-border: rgba(15, 23, 42, 0.12);
+    --color-selection: #2563eb;
+    --color-code: #d63384;
+    --shadow-card: 0px 8px 24px rgba(15, 23, 42, 0.08);
+    // Pre-computed RGBA variants for fade gradients (cannot inline CSS var into rgba())
+    --gradient-bg-fade: linear-gradient(
+        to bottom,
+        rgba(248, 250, 252, 0) 0%,
+        rgba(248, 250, 252, 0.7) 50%,
+        rgba(248, 250, 252, 1)
+    );
+}
+
+body.dark-mode {
+    --color-primary: #7c9dff;
+    --color-primary-hover: #9db4ff;
+    --color-secondary: #4db6ac;
+    --color-link: #80cbc4;
+    --color-link-hover: #b2dfdb;
+    --color-error: #f48fb1;
+    --color-bg: #0b1220;
+    --color-bg-paper: #111a2c;
+    --color-bg-elevated: #1a2540;
+    --color-text: #e2e8f0;
+    --color-text-secondary: #a8b6cc;
+    --color-border: rgba(148, 163, 184, 0.35);
+    --color-selection: #4db6ac;
+    --color-code: #f48fb1;
+    --shadow-card: 0px 8px 24px rgba(2, 6, 23, 0.45);
+    --gradient-bg-fade: linear-gradient(
+        to bottom,
+        rgba(11, 18, 32, 0) 0%,
+        rgba(11, 18, 32, 0.7) 50%,
+        rgba(11, 18, 32, 1)
+    );
+}
+
 // Prevent flash of unstyled content - apply dark mode immediately if class is set
 body {
     margin: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue',
-        'Noto Sans', 'Liberation Sans', Arial, sans-serif, 'Apple Color Emoji',
-        'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+        'Helvetica Neue', Arial, sans-serif;
     font-size: 16px;
-    color: #333333;
-    background-color: #ffffff;
-    -webkit-tap-highlight-color: #0085a1;
+    color: var(--color-text);
+    background-color: var(--color-bg);
+    -webkit-tap-highlight-color: var(--color-primary);
     // Only apply transition after initial load to prevent flash
     &.theme-loaded {
         transition: background-color 0.3s ease, color 0.3s ease;
@@ -20,56 +69,75 @@ body {
 // This is overridden by .dark-mode or .light-mode classes once JS initializes
 @media (prefers-color-scheme: dark) {
     body:not(.light-mode):not(.dark-mode) {
-        color: #e0e0e0;
-        background-color: #121212;
+        --color-primary: #7c9dff;
+        --color-primary-hover: #9db4ff;
+        --color-link: #80cbc4;
+        --color-link-hover: #b2dfdb;
+        --color-bg: #0b1220;
+        --color-bg-paper: #111a2c;
+        --color-bg-elevated: #1a2540;
+        --color-text: #e2e8f0;
+        --color-text-secondary: #a8b6cc;
+        --color-border: rgba(148, 163, 184, 0.35);
+        --color-selection: #4db6ac;
+        --color-code: #f48fb1;
+        --shadow-card: 0px 8px 24px rgba(2, 6, 23, 0.45);
+        --gradient-bg-fade: linear-gradient(
+            to bottom,
+            rgba(11, 18, 32, 0) 0%,
+            rgba(11, 18, 32, 0.7) 50%,
+            rgba(11, 18, 32, 1)
+        );
+        color: var(--color-text);
+        background-color: var(--color-bg);
     }
 }
 
 // Dark mode styles
 body.dark-mode {
-    color: #e0e0e0;
-    background-color: #121212;
+    color: var(--color-text);
+    background-color: var(--color-bg);
 
     code {
-        color: #f48fb1;
+        color: var(--color-code);
     }
 
     blockquote {
-        color: #b0b0b0;
+        color: var(--color-text-secondary);
     }
 
-    a {
-        color: #4db6ac;
+    a:not(.MuiButtonBase-root) {
+        color: var(--color-link);
     }
 
-    a:hover,
-    a:focus {
-        color: #80cbc4;
+    a:not(.MuiButtonBase-root):hover,
+    a:not(.MuiButtonBase-root):focus {
+        color: var(--color-link-hover);
     }
 
     .date-article {
-        color: #b0b0b0;
+        color: var(--color-text-secondary);
     }
 
     hr {
-        border-color: #333333;
+        border-color: var(--color-border);
     }
 
     // React Markdown Editor Lite dark mode
     .rc-md-editor {
-        background-color: #1e1e1e !important;
-        border-color: rgba(255, 255, 255, 0.23) !important;
+        background-color: #1a2540 !important;
+        border-color: var(--color-border) !important;
 
         .rc-md-navigation {
-            background-color: #2d2d2d !important;
-            border-color: rgba(255, 255, 255, 0.12) !important;
+            background-color: #0b1220 !important;
+            border-color: var(--color-border) !important;
 
             .button-wrap {
                 .button {
-                    color: #e0e0e0 !important;
+                    color: var(--color-text) !important;
 
                     &:hover {
-                        color: #7986cb !important;
+                        color: var(--color-primary) !important;
                     }
                 }
             }
@@ -77,33 +145,33 @@ body.dark-mode {
 
         .editor-container {
             .sec-md {
-                border-color: rgba(255, 255, 255, 0.12) !important;
+                border-color: var(--color-border) !important;
 
                 .input {
-                    background-color: #1e1e1e !important;
-                    color: #e0e0e0 !important;
+                    background-color: #1a2540 !important;
+                    color: var(--color-text) !important;
 
                     &::placeholder {
-                        color: #b0b0b0 !important;
+                        color: var(--color-text-secondary) !important;
                     }
                 }
             }
 
             .sec-html {
-                background-color: #1e1e1e !important;
-                color: #e0e0e0 !important;
+                background-color: #1a2540 !important;
+                color: var(--color-text) !important;
             }
         }
 
         .drop-wrap {
-            background-color: #2d2d2d !important;
-            border-color: rgba(255, 255, 255, 0.12) !important;
+            background-color: #0b1220 !important;
+            border-color: var(--color-border) !important;
 
             .list-item {
-                color: #e0e0e0 !important;
+                color: var(--color-text) !important;
 
                 &:hover {
-                    background-color: rgba(121, 134, 203, 0.2) !important;
+                    background-color: rgba(124, 157, 255, 0.15) !important;
                 }
             }
         }
@@ -111,106 +179,106 @@ body.dark-mode {
 
     // MUI TextField/Input dark mode overrides
     .MuiOutlinedInput-root {
-        background-color: #2d2d2d !important;
+        background-color: var(--color-bg-elevated) !important;
 
         .MuiOutlinedInput-notchedOutline {
-            border-color: rgba(255, 255, 255, 0.23) !important;
+            border-color: var(--color-border) !important;
         }
 
         &:hover .MuiOutlinedInput-notchedOutline {
-            border-color: rgba(255, 255, 255, 0.5) !important;
+            border-color: var(--color-text-secondary) !important;
         }
 
         &.Mui-focused .MuiOutlinedInput-notchedOutline {
-            border-color: #7986cb !important;
+            border-color: var(--color-primary) !important;
         }
     }
 
     .MuiInputBase-input {
-        color: #e0e0e0 !important;
+        color: var(--color-text) !important;
     }
 
     .MuiInputLabel-root {
-        color: #b0b0b0 !important;
+        color: var(--color-text-secondary) !important;
 
         &.Mui-focused {
-            color: #7986cb !important;
+            color: var(--color-primary) !important;
         }
     }
 
     // MUI Select
     .MuiSelect-select {
-        color: #e0e0e0 !important;
-        background-color: #2d2d2d !important;
+        color: var(--color-text) !important;
+        background-color: var(--color-bg-elevated) !important;
     }
 
     .MuiSelect-icon {
-        color: #b0b0b0 !important;
+        color: var(--color-text-secondary) !important;
     }
 
     // MUI Menu/Dropdown
     .MuiMenu-paper,
     .MuiPaper-root {
-        background-color: #2d2d2d !important;
+        background-color: var(--color-bg-elevated) !important;
     }
 
     .MuiMenuItem-root {
-        color: #e0e0e0 !important;
+        color: var(--color-text) !important;
 
         &:hover {
-            background-color: rgba(121, 134, 203, 0.2) !important;
+            background-color: rgba(124, 157, 255, 0.15) !important;
         }
 
         &.Mui-selected {
-            background-color: rgba(121, 134, 203, 0.3) !important;
+            background-color: rgba(124, 157, 255, 0.25) !important;
         }
     }
 
     // MUI ToggleButtonGroup
     .MuiToggleButtonGroup-root {
         .MuiToggleButton-root {
-            color: #b0b0b0 !important;
-            border-color: rgba(255, 255, 255, 0.23) !important;
+            color: var(--color-text-secondary) !important;
+            border-color: var(--color-border) !important;
 
             &.Mui-selected {
-                background-color: rgba(121, 134, 203, 0.3) !important;
-                color: #7986cb !important;
+                background-color: rgba(124, 157, 255, 0.25) !important;
+                color: var(--color-primary) !important;
             }
 
             &:hover {
-                background-color: rgba(255, 255, 255, 0.08) !important;
+                background-color: rgba(255, 255, 255, 0.05) !important;
             }
         }
     }
 
     // MUI Switch
     .MuiSwitch-track {
-        background-color: #555555 !important;
+        background-color: #3a4a6b !important;
     }
 
     // MUI FormControlLabel
     .MuiFormControlLabel-label {
-        color: #e0e0e0 !important;
+        color: var(--color-text) !important;
     }
 
     // MUI Typography
     .MuiTypography-root {
-        color: #e0e0e0;
+        color: var(--color-text);
     }
 
     // MUI Card
     .MuiCard-root {
-        background-color: #1e1e1e !important;
+        background-color: var(--color-bg-paper) !important;
     }
 
     // MUI Button
     .MuiButton-outlined {
-        border-color: rgba(255, 255, 255, 0.23) !important;
-        color: #e0e0e0 !important;
+        border-color: var(--color-border) !important;
+        color: var(--color-text) !important;
 
         &:hover {
-            border-color: rgba(255, 255, 255, 0.5) !important;
-            background-color: rgba(255, 255, 255, 0.08) !important;
+            border-color: var(--color-text-secondary) !important;
+            background-color: rgba(255, 255, 255, 0.05) !important;
         }
     }
 }
@@ -223,11 +291,11 @@ body.dark-mode {
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
         monospace;
-    color: #d63384;
+    color: var(--color-code);
 }
 
 p {
-    line-height: 1.5;
+    line-height: 1.6;
     margin: 20px 0;
 }
 p a {
@@ -239,40 +307,40 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-weight: 500;
+    font-family: inherit;
+    font-weight: 600;
     text-decoration: none;
-    line-height: 1.2;
+    line-height: 1.25;
     margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
 }
 
 h2 {
-    font-size: 2rem;
+    font-size: 1.75rem;
 }
 
 .header {
     color: #eeeeee;
 }
 
-a {
-    color: #0085a1;
+a:not(.MuiButtonBase-root) {
+    color: var(--color-link);
     text-decoration: none !important;
 }
-a:hover,
-a:focus {
-    color: #0c93e4;
+a:not(.MuiButtonBase-root):hover,
+a:not(.MuiButtonBase-root):focus {
+    color: var(--color-link-hover);
 }
 a img:hover,
 a img:focus {
     cursor: zoom-in;
 }
 blockquote {
-    color: #777777;
+    color: var(--color-text-secondary);
     font-style: italic;
 }
 
 hr {
-    // max-width: 100px;
     margin: 15px auto;
     border-width: 2px;
     border-color: white;
@@ -281,12 +349,12 @@ hr {
 ::-moz-selection {
     color: white;
     text-shadow: none;
-    background: #0085a1;
+    background: var(--color-selection);
 }
 ::selection {
     color: white;
     text-shadow: none;
-    background: #0085a1;
+    background: var(--color-selection);
 }
 img::selection {
     color: white;
@@ -297,9 +365,7 @@ img::-moz-selection {
     background: transparent;
 }
 span {
-    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue',
-        'Noto Sans', 'Liberation Sans', Arial, sans-serif, 'Apple Color Emoji',
-        'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    font-family: inherit;
 }
 .author {
     font-size: 18px;
@@ -308,13 +374,12 @@ span {
 .date-article {
     font-size: 18px;
     font-style: italic;
-    color: #777;
+    color: var(--color-text-secondary);
 }
 .article {
     max-height: 350px;
     overflow: hidden;
     text-overflow: ellipsis;
-    /* white-space: nowrap; */
 }
 
 .episode img {
