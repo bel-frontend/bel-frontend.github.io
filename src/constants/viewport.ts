@@ -1,9 +1,9 @@
-// |0px     600px    960px    1280px   1920px
+// |0px     600px    900px    1200px   1536px
 export const endpoints = Object.freeze({
     xs: 0,
     sm: 600,
-    md: 960,
-    lg: 1400,
-    xl: 1920,
-    isMobile: 959,
+    md: 900,
+    lg: 1200,
+    xl: 1536,
+    isMobile: 899,
 });
