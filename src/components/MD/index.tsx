@@ -1,10 +1,16 @@
 'use client';
 import React, { memo, useMemo, useState } from 'react';
+import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { CodeBlock } from './CodeBlock';
 import { Popup } from '../Popup';
 import style from './style.module.scss';
+
+const Mermaid = dynamic(
+    () => import('./Mermaid').then((m) => m.Mermaid),
+    { ssr: false },
+);
 
 export const MD = memo(({ children, className = '' }: any) => {
     const [imageModal, setImageModal] = useState<{
@@ -39,6 +45,10 @@ export const MD = memo(({ children, className = '' }: any) => {
                 const match = /language-(\w+)/.exec(className || '');
                 const language = match ? match[1] : 'text';
                 const codeString = String(children).replace(/\n$/, '');
+
+                if (!inline && language === 'mermaid') {
+                    return <Mermaid code={codeString} />;
+                }
 
                 return !inline ? (
                     <CodeBlock language={language}>{codeString}</CodeBlock>
