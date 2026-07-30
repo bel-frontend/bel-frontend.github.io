@@ -123,7 +123,7 @@
             "error_report_title": "Паведаміць пра памылку",
             "error_submit": "Даслаць",
             "breadcrumb": { "home": "Галоўная" },
-            "validation_min_chars": "Павінна быць не меней за {count} сімвалаў",
+            "validation_min_chars": "Павінна быць не меней за {{count}} сімвалаў",
             "validation_required": "Увядзіце тэкст"
         },
         "header": {
@@ -294,7 +294,7 @@
             "error_report_title": "Report an error",
             "error_submit": "Submit",
             "breadcrumb": { "home": "Home" },
-            "validation_min_chars": "Must be at least {count} characters",
+            "validation_min_chars": "Must be at least {{count}} characters",
             "validation_required": "Enter text"
         },
         "header": {
