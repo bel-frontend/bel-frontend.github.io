@@ -40,6 +40,7 @@ $edge-gap: clamp(60px, 8vw, 96px);
         var(--accent-from) 0%,
         var(--accent-to) 100%
     );
+    border: 1px solid transparent;
 
     &::after {
         content: '';
@@ -51,6 +52,21 @@ $edge-gap: clamp(60px, 8vw, 96px);
             rgba(255, 255, 255, 0) 55%
         );
         pointer-events: none;
+    }
+
+    :global(body.dark-mode) & {
+        background: linear-gradient(
+                100deg,
+                rgba(10, 14, 26, 0.82) 0%,
+                rgba(10, 14, 26, 0.9) 100%
+            ),
+            linear-gradient(100deg, var(--accent-from) 0%, var(--accent-to) 100%);
+        border-color: var(--accent-from);
+        border-color: color-mix(in srgb, var(--accent-from) 45%, transparent);
+
+        &::after {
+            opacity: 0.4;
+        }
     }
 }
 
@@ -65,6 +81,10 @@ $edge-gap: clamp(60px, 8vw, 96px);
     font-size: 1.5rem;
     color: #fff;
     background: rgba(255, 255, 255, 0.18);
+
+    :global(body.dark-mode) & {
+        background: var(--accent-from);
+    }
 }
 
 .body {
@@ -133,7 +153,8 @@ $edge-gap: clamp(60px, 8vw, 96px);
     background: #fff;
     white-space: nowrap;
     transform: translateY(-50%);
-    transition: transform $transition-fast;
+    transition: transform $transition-fast, background-color $transition-fast,
+        color $transition-fast;
 
     &:hover {
         transform: translateY(-50%) translateY(-1px);
@@ -141,6 +162,16 @@ $edge-gap: clamp(60px, 8vw, 96px);
 
     &:hover .ctaIcon {
         transform: translate(2px, -2px);
+    }
+
+    :global(body.dark-mode) & {
+        color: #fff;
+        background: transparent;
+        border: 1.5px solid var(--accent-from);
+
+        &:hover {
+            background: var(--accent-from);
+        }
     }
 }
 
