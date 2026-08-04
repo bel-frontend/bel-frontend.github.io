@@ -7,8 +7,9 @@ import { ScrollToTop } from './components/ScrollToTop';
 import { useSelector } from 'react-redux';
 import { currentUserIsAuth } from '@/modules/auth';
 import { getViewport } from '@/modules/viewport';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import BuyMeACofee from './components/BuyMeACoffe';
+import { Projects } from '@/containers/Home/components/Projects';
 
 export const Layout = ({ children, style = {}, ...props }: any) => {
     const { showHeader = true, showFooter = true, maxWidth = 'md' } = props;
@@ -16,7 +17,10 @@ export const Layout = ({ children, style = {}, ...props }: any) => {
     const userIsAuth = useSelector(currentUserIsAuth);
     const viewPort = useSelector(getViewport);
     const history = useRouter();
+    const pathname = usePathname();
     const { isMobile } = viewPort;
+    const isHome = pathname === '/';
+
     return (
         <>
             {showHeader !== false ? (
@@ -29,10 +33,11 @@ export const Layout = ({ children, style = {}, ...props }: any) => {
                 </Suspense>
             ) : null}
             <ScrollToTop viewPort={viewPort} />
+            {isHome ? <Projects /> : null}
             <Container
                 maxWidth={maxWidth}
                 sx={{
-                    mt: -6,
+                    mt: isHome ? 2 : -6,
                     mb: 2,
                     ...style,
                 }}
