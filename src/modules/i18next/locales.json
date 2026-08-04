@@ -174,7 +174,9 @@
                 "passcv_name": "PassCV",
                 "passcv_description": "Штучны інтэлект адаптуе тваё CV пад кожную вакансію і падказвае, як павялічыць шанцы на інтэрв'ю. Ужо больш за 10 000 рэзюмэ.",
                 "zaspa_name": "Zaspa",
-                "zaspa_description": "Дзённік для бацькоў: сачы за кармленнем, сном і пялюшкамі немаўля ў адной зручнай праграме."
+                "zaspa_description": "Дзённік для бацькоў: сачы за кармленнем, сном і пялюшкамі немаўля ў адной зручнай праграме.",
+                "discord_name": "Discord",
+                "discord_description": "Наш Discord-сервер з прымаўкавым ботам — далучайся да супольнасці і атрымлівай беларускія прымаўкі проста ў чаце."
             }
         },
         "metadata": { "read_button": "Чытаць" },
@@ -362,7 +364,9 @@
                 "passcv_name": "PassCV",
                 "passcv_description": "AI adapts your resume to every job posting and shows you how to boost your interview chances. Already behind 10,000+ tailored CVs.",
                 "zaspa_name": "Zaspa",
-                "zaspa_description": "A parent's log for tracking feeding, sleep, and diaper changes — all in one simple app."
+                "zaspa_description": "A parent's log for tracking feeding, sleep, and diaper changes — all in one simple app.",
+                "discord_name": "Discord",
+                "discord_description": "Our Discord server with a proverb bot — join the community and get Belarusian proverbs right in the chat."
             }
         },
         "metadata": { "read_button": "Read" },

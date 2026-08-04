@@ -10,6 +10,7 @@ import CasinoRoundedIcon from '@mui/icons-material/CasinoRounded';
 import TranslateRoundedIcon from '@mui/icons-material/TranslateRounded';
 import DescriptionRoundedIcon from '@mui/icons-material/DescriptionRounded';
 import ChildCareRoundedIcon from '@mui/icons-material/ChildCareRounded';
+import ForumRoundedIcon from '@mui/icons-material/ForumRounded';
 import { useTranslation } from '@/modules/i18next';
 
 import style from './style.module.scss';
@@ -54,6 +55,14 @@ const PROJECTS = [
         Icon: ChildCareRoundedIcon,
         from: '#ec4899',
         to: '#a21caf',
+    },
+    {
+        key: 'discord',
+        url: 'https://discord.gg/TDuFF4kAJ4',
+        repoUrl: 'https://github.com/bel-frontend/tg_discord_bot',
+        Icon: ForumRoundedIcon,
+        from: '#5865f2',
+        to: '#4752c4',
     },
 ] as const;
 
