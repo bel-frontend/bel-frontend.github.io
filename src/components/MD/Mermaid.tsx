@@ -1,11 +1,21 @@
 'use client';
 import React, { memo, useEffect, useId, useRef, useState } from 'react';
 import mermaid from 'mermaid';
+import { CodeBlock } from './CodeBlock';
 import style from './style.module.scss';
 
 const isDarkMode = () =>
     typeof document !== 'undefined' &&
     document.body.classList.contains('dark-mode');
+
+const LINE_NUMBER_PATTERN = /on line (\d+)/i;
+
+const extractMermaidErrorLine = (message: string): number | null => {
+    const match = LINE_NUMBER_PATTERN.exec(message);
+    if (!match) return null;
+    const line = Number(match[1]);
+    return Number.isNaN(line) ? null : line;
+};
 
 export const Mermaid = memo(({ code }: { code: string }) => {
     const rawId = useId();
@@ -52,12 +62,18 @@ export const Mermaid = memo(({ code }: { code: string }) => {
     }, [code, dark, diagramId]);
 
     if (error) {
+        const lineNumber = extractMermaidErrorLine(error);
         return (
             <div className={style.mermaidError}>
-                <div className={style.mermaidErrorMessage}>{error}</div>
-                <pre>
-                    <code>{code}</code>
-                </pre>
+                <div className={style.mermaidErrorMessage}>
+                    {lineNumber !== null && (
+                        <span className={style.mermaidErrorLine}>
+                            Error on line {lineNumber}
+                        </span>
+                    )}
+                    <pre className={style.mermaidErrorRaw}>{error}</pre>
+                </div>
+                <CodeBlock language="mermaid">{code}</CodeBlock>
             </div>
         );
     }
