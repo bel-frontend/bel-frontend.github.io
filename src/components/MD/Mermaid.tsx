@@ -1,5 +1,5 @@
 'use client';
-import React, { memo, useEffect, useId, useState } from 'react';
+import React, { memo, useEffect, useId, useMemo, useState } from 'react';
 import mermaid from 'mermaid';
 import { CodeBlock } from './CodeBlock';
 import { Popup } from '../Popup';
@@ -10,6 +10,8 @@ const isDarkMode = () =>
     document.body.classList.contains('dark-mode');
 
 const LINE_NUMBER_PATTERN = /on line (\d+)/i;
+const SVG_WIDTH_PATTERN = /max-width:\s*([\d.]+)px/;
+const MODAL_ZOOM = 1.6;
 
 const extractMermaidErrorLine = (message: string): number | null => {
     const match = LINE_NUMBER_PATTERN.exec(message);
@@ -25,6 +27,12 @@ export const Mermaid = memo(({ code }: { code: string }) => {
     const [error, setError] = useState<string | null>(null);
     const [dark, setDark] = useState(isDarkMode);
     const [zoomOpen, setZoomOpen] = useState(false);
+
+    const zoomedWidth = useMemo(() => {
+        if (!svg) return null;
+        const match = SVG_WIDTH_PATTERN.exec(svg);
+        return match ? Number(match[1]) * MODAL_ZOOM : null;
+    }, [svg]);
 
     useEffect(() => {
         const observer = new MutationObserver(() => setDark(isDarkMode()));
@@ -105,6 +113,7 @@ export const Mermaid = memo(({ code }: { code: string }) => {
             >
                 <div
                     className={style.mermaidModalSvg}
+                    style={zoomedWidth ? { width: zoomedWidth } : undefined}
                     dangerouslySetInnerHTML={svg ? { __html: svg } : undefined}
                 />
             </Popup>

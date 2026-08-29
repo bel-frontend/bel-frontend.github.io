@@ -412,7 +412,7 @@
 
 .mermaidModalContent {
     display: flex !important;
-    justify-content: center !important;
+    justify-content: flex-start !important;
     align-items: flex-start !important;
     width: 100% !important;
     padding: 1.5rem !important;
@@ -424,10 +424,12 @@
 
 .mermaidModalSvg {
     width: 100%;
+    flex-shrink: 0;
 
     svg {
         display: block;
-        width: 100%;
+        width: 100% !important;
+        max-width: none !important;
     }
 }
 
