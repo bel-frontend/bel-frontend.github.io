@@ -1,7 +1,8 @@
 'use client';
-import React, { memo, useEffect, useId, useRef, useState } from 'react';
+import React, { memo, useEffect, useId, useState } from 'react';
 import mermaid from 'mermaid';
 import { CodeBlock } from './CodeBlock';
+import { Popup } from '../Popup';
 import style from './style.module.scss';
 
 const isDarkMode = () =>
@@ -20,9 +21,10 @@ const extractMermaidErrorLine = (message: string): number | null => {
 export const Mermaid = memo(({ code }: { code: string }) => {
     const rawId = useId();
     const diagramId = `mermaid-${rawId.replace(/[^a-zA-Z0-9_-]/g, '')}`;
-    const containerRef = useRef<HTMLDivElement>(null);
+    const [svg, setSvg] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [dark, setDark] = useState(isDarkMode);
+    const [zoomOpen, setZoomOpen] = useState(false);
 
     useEffect(() => {
         const observer = new MutationObserver(() => setDark(isDarkMode()));
@@ -44,9 +46,9 @@ export const Mermaid = memo(({ code }: { code: string }) => {
 
         mermaid
             .render(diagramId, code)
-            .then(({ svg }) => {
-                if (!cancelled && containerRef.current) {
-                    containerRef.current.innerHTML = svg;
+            .then(({ svg: renderedSvg }) => {
+                if (!cancelled) {
+                    setSvg(renderedSvg);
                     setError(null);
                 }
             })
@@ -78,7 +80,36 @@ export const Mermaid = memo(({ code }: { code: string }) => {
         );
     }
 
-    return <div className={style.mermaidBlock} ref={containerRef} />;
+    return (
+        <>
+            <div
+                className={style.mermaidBlock}
+                onClick={() => svg && setZoomOpen(true)}
+                dangerouslySetInnerHTML={svg ? { __html: svg } : undefined}
+            />
+
+            <Popup
+                showPopup={zoomOpen}
+                onCancel={() => setZoomOpen(false)}
+                onClear={() => setZoomOpen(false)}
+                showClear={true}
+                showSubmit={false}
+                showCancel={false}
+                className={style.mermaidModal}
+                classes={{
+                    dataContainer: style.mermaidModalContent,
+                    root: style.mermaidModalRoot,
+                    clear: style.mermaidModalClear,
+                    clearButton: style.mermaidModalClearButton,
+                }}
+            >
+                <div
+                    className={style.mermaidModalSvg}
+                    dangerouslySetInnerHTML={svg ? { __html: svg } : undefined}
+                />
+            </Popup>
+        </>
+    );
 });
 
 Mermaid.displayName = 'Mermaid';

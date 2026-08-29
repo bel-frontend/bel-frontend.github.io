@@ -164,6 +164,12 @@
         overflow-x: auto;
         border-radius: 6px;
         background-color: rgba(0, 0, 0, 0.02);
+        cursor: pointer;
+        transition: opacity 0.2s ease;
+
+        &:hover {
+            opacity: 0.85;
+        }
 
         svg {
             max-width: 100%;
@@ -382,6 +388,60 @@
 }
 
 .imageModalClearButton {
+    left: 0 !important;
+    top: 0 !important;
+}
+
+.mermaidModal {
+    width: min(95vw, 1400px) !important;
+    max-width: 95vw !important;
+    max-height: 95vh !important;
+    height: auto !important;
+}
+
+.mermaidModalRoot {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: min(95vw, 1400px);
+    max-width: 95vw;
+    max-height: 95vh;
+}
+
+.mermaidModalContent {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: flex-start !important;
+    width: 100% !important;
+    padding: 1.5rem !important;
+    margin: 0 !important;
+    overflow: auto !important;
+    max-height: calc(95vh - 60px) !important;
+    max-width: 100% !important;
+}
+
+.mermaidModalSvg {
+    width: 100%;
+
+    svg {
+        display: block;
+        width: 100%;
+    }
+}
+
+.mermaidModalClear {
+    position: absolute;
+    top: -30px;
+    right: -30px;
+    margin: 0 !important;
+    padding: 0 !important;
+    max-height: none !important;
+    z-index: 10;
+}
+
+.mermaidModalClearButton {
     left: 0 !important;
     top: 0 !important;
 }
