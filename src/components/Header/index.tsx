@@ -36,13 +36,13 @@ export const Header = ({ userIsAuth, isMobile }: any) => {
     const { t } = useTranslation();
 
     const searchParams = useSearchParams();
-    const searchParam = searchParams.get('seacrhText');
+    const searchParam = searchParams.get('searchText');
 
     const { values, handleChange, handleSubmit, setFieldValue } = useFormik({
         onSubmit: ({ text }) => {
             router.push(`/?searchText=${text}`);
         },
-        initialValues: { text: searchParam },
+        initialValues: { text: searchParam ?? '' },
     });
 
     const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {

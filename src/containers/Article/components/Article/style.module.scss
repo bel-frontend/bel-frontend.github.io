@@ -1,13 +1,47 @@
-.likeContainer {
-    justify-content: flex-end;
-    display: flex;
+.likeBar {
     position: sticky;
-    top: calc(100svh - 54px);
-
-    // @media screen and (max-width: 1200px) {
-    //     justify-content: flex-start;
-    // }
+    bottom: 16px;
+    z-index: 2;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 24px;
+    // the bar spans full width: let clicks pass through to the text under it
+    pointer-events: none;
 }
+
+.likePill {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 4px;
+    border-radius: 999px;
+    border: 1px solid rgba(127, 127, 127, 0.25);
+    background: var(--like-pill-bg, rgba(255, 255, 255, 0.92));
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.18);
+    backdrop-filter: blur(8px);
+    pointer-events: auto;
+    transition: box-shadow 0.2s, padding 0.2s;
+
+    :global(body.dark-mode) & {
+        --like-pill-bg: rgba(17, 26, 44, 0.92);
+    }
+}
+
+.likePillResting {
+    padding-left: 16px;
+    box-shadow: none;
+}
+
+.likeLabel {
+    font-size: 0.9rem;
+    font-weight: 600;
+    opacity: 0.8;
+}
+
+.likeSentinel {
+    height: 1px;
+}
+
 .editButton {
     // position: fixed;
     // right: 5vw;

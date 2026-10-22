@@ -8,21 +8,30 @@ const {
 
 const apiRoutes = new ApiRoutes();
 
+export type CommentVote = 1 | -1 | 0;
+
+export interface CommentDTO {
+    comment_id: string;
+    parent_comment_id?: string | null;
+    artickle_id: string;
+    user_id: string;
+    user_alias: string;
+    comment: string;
+    created_at?: string;
+    score: number;
+    my_vote: CommentVote;
+    disabled?: boolean;
+}
+
 export const ADD_COMMENT_REQUEST = `${modules}/ADD_COMMENT_REQUEST`;
 export const DELETE_COMMENT_REQUEST = `${modules}/DELETE_COMMENT_REQUEST`;
 export const GET_COMMENTS_REQUEST = `${modules}/GET_COMMENTS_REQUEST`;
-export const ADD_SCORE_COMMENTS_REQUEST = `${modules}/ADD_SCORE_COMMENTS_REQUEST`;
-export const REMOVE_SCORE_COMMENTS_REQUEST = `${modules}/REMOVE_SCORE_COMMENTS_REQUEST`;
+export const VOTE_COMMENT_REQUEST = `${modules}/VOTE_COMMENT_REQUEST`;
 
 export const addCommentRequest = actionCreator(ADD_COMMENT_REQUEST);
 export const deleteCommentRequest = actionCreator(DELETE_COMMENT_REQUEST);
 export const getCommentsRequest = actionCreator(GET_COMMENTS_REQUEST);
-export const addScoreToCommentsRequest = actionCreator(
-    ADD_SCORE_COMMENTS_REQUEST,
-);
-export const removeScoreToCommentsRequest = actionCreator(
-    REMOVE_SCORE_COMMENTS_REQUEST,
-);
+export const voteCommentRequest = actionCreator(VOTE_COMMENT_REQUEST);
 
 apiRoutes.add(ADD_COMMENT_REQUEST, ({ artickle_id, ...data }: any = {}) => {
     return {
@@ -45,17 +54,11 @@ apiRoutes.add(DELETE_COMMENT_REQUEST, ({ comment_id }: any = {}) => {
     };
 });
 
-apiRoutes.add(ADD_SCORE_COMMENTS_REQUEST, ({ comment_id }: any = {}) => {
+apiRoutes.add(VOTE_COMMENT_REQUEST, ({ comment_id, value }: any = {}) => {
     return {
-        url: `/comment/${comment_id}/add-like`,
+        url: `/comment/${comment_id}/vote`,
         method: 'put',
-    };
-});
-
-apiRoutes.add(REMOVE_SCORE_COMMENTS_REQUEST, ({ comment_id }: any = {}) => {
-    return {
-        url: `/comment/${comment_id}/remove-like`,
-        method: 'put',
+        data: { value },
     };
 });
 

@@ -31,6 +31,7 @@ export const UPDATE_ARTICLE_REQUEST = `${modules}/UPDATE_ARTICLE_REQUEST`;
 export const CREATE_ARTICLE_REQUEST = `${modules}/CREATE_ARTICLE_REQUEST`;
 export const SET_LIKE_REQUEST = `${modules}/SET_LIKE_REQUEST`;
 export const REMOVE_LIKE_REQUEST = `${modules}/REMOVE_LIKE_REQUEST`;
+export const GET_LIKE_REQUEST = `${modules}/GET_LIKE_REQUEST`;
 export const SEND_ERRORR_REQUEST = `${modules}/SEND_ERRORR_REQUEST`;
 export const DELETE_ARTICLE_REQUEST = `${modules}/DELETE_ARTICLE_REQUEST`;
 
@@ -56,6 +57,7 @@ export const createArtickleRequest = actionCreator(CREATE_ARTICLE_REQUEST);
 export const getArtickleByIdRequest = actionCreator(GET_ARTICKLE_BY_ID_REQUEST);
 export const setLikedRequest = actionCreator(SET_LIKE_REQUEST);
 export const removeLikeRequest = actionCreator(REMOVE_LIKE_REQUEST);
+export const getLikeRequest = actionCreator(GET_LIKE_REQUEST);
 
 export const sendErrorRequest = actionCreator(SEND_ERRORR_REQUEST);
 export const deleteArticleRequest = actionCreator(DELETE_ARTICLE_REQUEST);
@@ -138,6 +140,11 @@ apiRoutes.add(SET_LIKE_REQUEST, ({ id }: { id: any }) => ({
 apiRoutes.add(REMOVE_LIKE_REQUEST, ({ id }: { id: any }) => ({
     url: `/like/${id}`,
     method: 'delete',
+}));
+
+apiRoutes.add(GET_LIKE_REQUEST, ({ id }: { id: any }) => ({
+    url: `/like/${id}`,
+    method: 'get',
 }));
 
 apiRoutes.add(DELETE_ARTICLE_REQUEST, ({ id }: { id: any }) => ({

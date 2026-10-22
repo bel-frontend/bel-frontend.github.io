@@ -1,0 +1,103 @@
+.thread {
+    display: flex;
+    gap: 12px;
+    scroll-margin-top: 96px;
+
+    @media (max-width: 599px) {
+        gap: 8px;
+    }
+}
+
+.gutter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+// vertical line under avatar: click collapses the whole thread
+.threadLine {
+    position: relative;
+    flex: 1;
+    width: 20px;
+    min-height: 8px;
+    margin-top: 8px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        width: 2px;
+        transform: translateX(-50%);
+        border-radius: 2px;
+        transition: background-color 0.15s;
+    }
+}
+
+// overrides of shared article markdown styles: comments are more compact.
+// class is doubled to beat specificity of nested `.container ul li` rules
+.markdown.markdown {
+    font-size: 0.975rem;
+
+    & * {
+        line-height: 1.6;
+    }
+
+    > :first-child {
+        margin-top: 0;
+    }
+
+    > :last-child {
+        margin-bottom: 0;
+    }
+
+    p {
+        margin: 0 0 0.6em;
+    }
+
+    ul,
+    ol {
+        margin: 0 0 0.6em;
+        padding-left: 1.4em;
+    }
+
+    ul li,
+    ol li {
+        margin: 0.2em 0;
+        font-size: inherit;
+    }
+
+    code {
+        margin: 0;
+    }
+
+    blockquote {
+        margin: 0 0 0.6em;
+        padding-left: 0.75em;
+        border-left: 3px solid rgba(127, 127, 127, 0.4);
+        opacity: 0.85;
+    }
+
+    table {
+        border-collapse: collapse;
+        margin-bottom: 0.6em;
+
+        th,
+        td {
+            border: 1px solid rgba(127, 127, 127, 0.3);
+            padding: 4px 8px;
+        }
+    }
+
+    pre,
+    [class*='codeBlock'] {
+        margin: 0.5em 0 0.75em;
+        max-width: 100%;
+    }
+}

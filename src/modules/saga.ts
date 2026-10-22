@@ -43,6 +43,12 @@ if (process.env.NODE_ENV == 'development') {
 
 // TODO:  need refactoring
 
+// requests whose result is visible immediately: no success toast
+const SILENT_URLS = /\/like\/[^/]+$|\/comment\/[^/]+\/vote$/;
+// background requests: their errors are not shown to user
+const isSilentBackgroundRequest = (config: any = {}) =>
+    config.method === 'get' && /\/like\/[^/]+$/.test(config.url || '');
+
 function* rootSaga(dispatch: any) {
     yield all([
         apiWatchRequest(
@@ -66,9 +72,10 @@ function* rootSaga(dispatch: any) {
                 successCallback: function* (data: any) {
                     // yield put(hideLoader());
                     if (
-                        data.config.method === 'put' ||
-                        data.config.method === 'post' ||
-                        data.config.method === 'delete'
+                        (data.config.method === 'put' ||
+                            data.config.method === 'post' ||
+                            data.config.method === 'delete') &&
+                        !SILENT_URLS.test(data.config.url || '')
                     ) {
                         const message = get(data, 'data.message');
                         if (message) {
@@ -90,6 +97,8 @@ function* rootSaga(dispatch: any) {
                     // yield put(hideLoader());
                     const error = get(data, 'response.data');
                     console.log('saga error', error);
+                    if (isSilentBackgroundRequest(data?.response?.config))
+                        return;
                     switch (true) {
                         case dataStatus === 400: {
                             yield put(

@@ -1,158 +1,232 @@
-import React from "react";
-import { IconButton, Box, Typography, Button } from "@mui/material";
-import { DeleteRounded } from "@mui/icons-material";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import Avatar from "@mui/material/Avatar";
-import { AddComment } from "./AddComment";
-import ReplyIcon from "@mui/icons-material/Reply";
-import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
+'use client';
+import React from 'react';
+import { Box, Button, Chip, Tooltip, Typography } from '@mui/material';
+import ChatBubbleOutlineRoundedIcon from '@mui/icons-material/ChatBubbleOutlineRounded';
+import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
+import i18next from 'i18next';
+import { useTranslation } from '@/modules/i18next';
+import { CommentForm } from './CommentForm';
+import { CommentMarkdown } from './CommentMarkdown';
+import { VoteButtons } from './VoteButtons';
+import { useCommentsContext } from './context';
+import { CommentNode, formatFullDate, pluralKey, timeAgo } from './utils';
 
-export const CommentItem = ({
-  onSetLike,
-  onSetDislike,
-  currntUserIsAdmin,
-  articleId,
-  userIsAuth,
-  onSuccess,
-  item,
-  onDelete,
-  currentUser,
+const actionButtonSx = {
+    color: 'text.secondary',
+    fontWeight: 600,
+    fontSize: '0.8rem',
+    borderRadius: 999,
+    minWidth: 0,
+    px: { xs: 1, sm: 1.25 },
+    '& .MuiButton-startIcon': { mr: 0.75 },
+};
+
+// on mobile secondary actions are icon-only to fit in one row
+const mobileHiddenLabelSx = {
+    ...actionButtonSx,
+    '& .MuiButton-startIcon': {
+        mr: { xs: 0, sm: 0.75 },
+        ml: { xs: 0, sm: -0.5 },
+    },
+};
+
+export const CommentHeader = ({
+    item,
+    collapsed,
+    repliesCount,
 }: {
-  onSetLike: (id: any) => void;
-  onSetDislike: (id: any) => void;
-  currntUserIsAdmin: boolean;
-  articleId: string;
-  userIsAuth?: boolean;
-  onSuccess: () => void;
-  item: {
-    user_alias: string;
-    comment: string;
-    comment_id: string;
-    children: any[];
-    user_id: string;
-    disabled?: boolean;
-    score?: number;
-  };
-  onDelete: (id: any) => void;
-  currentUser?: any;
+    item: CommentNode;
+    collapsed?: boolean;
+    repliesCount?: number;
 }) => {
-  const { user_alias, comment, comment_id, children } = item;
-  const [addCommentIsOpen, setAddComment] = React.useState(false);
-  const [liked, setLiked] = React.useState<any>();
+    const { t }: { t: any } = useTranslation();
+    const { articleAuthorId } = useCommentsContext();
+    const lang = i18next.language;
+    const plural = (key: string, count: number) =>
+        t(pluralKey(key, count, lang), { count });
 
-  return (
-    <>
-      <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <Avatar alt={user_alias}>{user_alias.slice(0, 1)}</Avatar>
-        </ListItemAvatar>
-        <ListItemText
-          primary={
-            <Box display={"flex"} justifyContent="space-between">
-              <Typography variant="subtitle1">{user_alias}</Typography>
-              <Box display={"inline-flex"} alignItems="center">
-                {(currntUserIsAdmin ||
-                  currentUser?.user_id === item?.user_id) &&
-                !item?.disabled ? (
-                  <IconButton
-                    size="small"
-                    color={"error"}
-                    onClick={() => {
-                      onDelete(item?.comment_id);
-                    }}
-                  >
-                    <DeleteRounded fontSize="small" />
-                  </IconButton>
-                ) : null}
-                <IconButton
-                  color="secondary"
-                  size={"small"}
-                  onClick={() => {
-                    setAddComment(!addCommentIsOpen);
-                  }}
-                >
-                  <ReplyIcon fontSize="small" />
-                </IconButton>
-              </Box>
-            </Box>
-          }
-          secondary={
-            <React.Fragment>
-              <Typography
-                sx={{
-                  display: "inline",
-                  whiteSpace: "pre-wrap",
-                }}
+    return (
+        <Box
+            display="flex"
+            alignItems="center"
+            flexWrap="wrap"
+            columnGap={1}
+            minHeight={32}
+            sx={{ fontSize: '0.85rem' }}
+        >
+            <Typography
                 component="span"
-                variant="body2"
-                color="text.primary"
-              >
-                {comment}
-              </Typography>
-              {addCommentIsOpen ? (
-                <AddComment
-                  articleId={articleId}
-                  userIsAuth={userIsAuth}
-                  onSuccess={() => {
-                    onSuccess();
-                    setAddComment(!addCommentIsOpen);
-                  }}
-                  parent_comment_id={comment_id}
+                sx={{
+                    fontWeight: 700,
+                    fontSize: '0.9rem',
+                    color: item.disabled ? 'text.secondary' : 'text.primary',
+                }}
+            >
+                {item.disabled
+                    ? t('article.comments.deleted')
+                    : item.user_alias}
+            </Typography>
+            {!item.disabled &&
+            articleAuthorId &&
+            item.user_id === articleAuthorId ? (
+                <Chip
+                    label={t('article.comments.author_badge')}
+                    size="small"
+                    color="primary"
+                    sx={{
+                        height: 20,
+                        fontSize: '0.7rem',
+                        fontWeight: 700,
+                        letterSpacing: '0.02em',
+                    }}
                 />
-              ) : null}
-            </React.Fragment>
-          }
-        />
-      </ListItem>{" "}
-      <Box
-        display={"flex"}
-        alignItems="center"
-        justifyContent={"flex-end"}
-        ml={1}
-      >
-        <IconButton
-          color="error"
-          size="small"
-          disabled={liked}
-          onClick={() => {
-            onSetLike(comment_id);
-            setLiked(liked ? undefined : liked === false ? undefined : true);
-          }}
-        >
-          <AddIcon fontSize="small" />
-        </IconButton>
-        <Typography variant="subtitle2">{item?.score || 0}</Typography>
-        <IconButton
-          color="primary"
-          size="small"
-          disabled={liked === false}
-          onClick={() => {
-            onSetDislike(comment_id);
-            setLiked(liked === false ? undefined : liked ? undefined : false);
-          }}
-        >
-          <RemoveIcon fontSize="small" />
-        </IconButton>
-      </Box>
-      {children.map((item: any) => (
-        <Box ml={10} mt={2} key={item.comment_id}>
-          <CommentItem
-            onDelete={onDelete}
-            articleId={articleId}
-            userIsAuth={userIsAuth}
-            onSuccess={onSuccess}
-            currntUserIsAdmin={currntUserIsAdmin}
-            item={item}
-            currentUser={currentUser}
-            onSetDislike={onSetDislike}
-            onSetLike={onSetLike}
-          ></CommentItem>
+            ) : null}
+            {item.created_at ? (
+                <>
+                    <Typography
+                        component="span"
+                        color="text.secondary"
+                        fontSize="inherit"
+                    >
+                        ·
+                    </Typography>
+                    <Tooltip title={formatFullDate(item.created_at)}>
+                        <Typography
+                            component="time"
+                            dateTime={item.created_at}
+                            color="text.secondary"
+                            fontSize="inherit"
+                        >
+                            {timeAgo(item.created_at, t, lang)}
+                        </Typography>
+                    </Tooltip>
+                </>
+            ) : null}
+            {collapsed ? (
+                <Typography
+                    component="span"
+                    color="text.secondary"
+                    fontSize="inherit"
+                >
+                    · {plural('article.comments.points', item.score || 0)}
+                    {repliesCount
+                        ? ` · ${plural(
+                              'article.comments.replies',
+                              repliesCount,
+                          )}`
+                        : ''}
+                </Typography>
+            ) : null}
         </Box>
-      ))}
-      {/* <Divider /> */}
-    </>
-  );
+    );
+};
+
+export const CommentItem = ({ item }: { item: CommentNode }) => {
+    const { t }: { t: any } = useTranslation();
+    const {
+        articleId,
+        userIsAuth,
+        currentUserId,
+        currentUserIsAdmin,
+        onVote,
+        onDelete,
+        onCommentAdded,
+    } = useCommentsContext();
+    const [replyIsOpen, setReplyIsOpen] = React.useState(false);
+
+    const canDelete =
+        !item.disabled &&
+        (currentUserIsAdmin ||
+            (!!currentUserId && currentUserId === item.user_id));
+
+    return (
+        <>
+            <Box sx={{ pt: 0.5, pb: 1, wordBreak: 'break-word' }}>
+                {item.disabled ? (
+                    <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        fontStyle="italic"
+                    >
+                        {t('article.comments.deleted_text')}
+                    </Typography>
+                ) : (
+                    <CommentMarkdown>{item.comment}</CommentMarkdown>
+                )}
+            </Box>
+            <Box
+                display="flex"
+                alignItems="center"
+                flexWrap="wrap"
+                gap={{ xs: 0.5, sm: 1 }}
+                ml={-0.5}
+            >
+                {item.disabled ? null : (
+                    <VoteButtons
+                        score={item.score || 0}
+                        myVote={item.my_vote || 0}
+                        canVote={userIsAuth}
+                        onVote={(value) => onVote(item.comment_id, value)}
+                    />
+                )}
+                {userIsAuth && !item.disabled ? (
+                    <Button
+                        size="small"
+                        startIcon={
+                            <ChatBubbleOutlineRoundedIcon
+                                sx={{ fontSize: '16px !important' }}
+                            />
+                        }
+                        onClick={() => setReplyIsOpen(!replyIsOpen)}
+                        sx={actionButtonSx}
+                    >
+                        {t('article.comments.reply')}
+                    </Button>
+                ) : null}
+                {canDelete ? (
+                    <Button
+                        size="small"
+                        startIcon={
+                            <DeleteOutlineRoundedIcon
+                                sx={{ fontSize: '16px !important' }}
+                            />
+                        }
+                        onClick={() => {
+                            if (
+                                window.confirm(
+                                    t('article.comments.delete_confirm'),
+                                )
+                            ) {
+                                onDelete(item.comment_id);
+                            }
+                        }}
+                        aria-label={t('article.comments.delete')}
+                        sx={{
+                            ...mobileHiddenLabelSx,
+                            '&:hover': { color: 'error.main' },
+                        }}
+                    >
+                        <Box
+                            component="span"
+                            sx={{ display: { xs: 'none', sm: 'inline' } }}
+                        >
+                            {t('article.comments.delete')}
+                        </Box>
+                    </Button>
+                ) : null}
+            </Box>
+            {replyIsOpen ? (
+                <CommentForm
+                    articleId={articleId}
+                    userIsAuth={userIsAuth}
+                    parent_comment_id={item.comment_id}
+                    onCancel={() => setReplyIsOpen(false)}
+                    onSuccess={() => {
+                        setReplyIsOpen(false);
+                        onCommentAdded();
+                    }}
+                />
+            ) : null}
+        </>
+    );
 };

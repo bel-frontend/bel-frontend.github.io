@@ -14,12 +14,12 @@ import styles from './style.module.scss';
 
 interface PopupProps {
     align?: 'left' | 'center' | 'right';
-    onSubmit: () => void;
-    onCancel: () => void;
+    onSubmit?: () => void;
+    onCancel?: () => void;
     onClear?: () => void;
     cancelButtonText?: string;
     submitButtonText?: string;
-    showPopup: boolean;
+    showPopup?: boolean;
     children?: React.ReactNode;
     className?: string;
     disableSubmit?: boolean;
@@ -43,15 +43,17 @@ interface PopupProps {
     subtitle?: string;
 }
 
+const noop = () => {};
+
 export const Popup = ({ ...props }: PopupProps) => {
     const {
         align = 'left',
-        onSubmit,
-        onCancel,
-        onClear,
+        onSubmit = noop,
+        onCancel = noop,
+        onClear = noop,
         cancelButtonText,
         submitButtonText,
-        showPopup,
+        showPopup = true,
         children,
         className,
         disableSubmit = false,
@@ -59,9 +61,9 @@ export const Popup = ({ ...props }: PopupProps) => {
         classes = {},
         confirmButtonProps = {},
         cancelButtonProps = {},
-        style,
-        showSubmit,
-        showCancel,
+        style = {},
+        showSubmit = true,
+        showCancel = true,
         showClear = false,
         message = null,
         popupBackgroundsProps,
@@ -225,19 +227,4 @@ Popup.propTypes = {
     showClear: PropTypes.bool,
     onClear: PropTypes.func,
     title: PropTypes.string,
-};
-Popup.defaultProps = {
-    onSubmit: () => {},
-    onCancel: () => {},
-    onClear: () => {},
-    showPopup: true,
-    disableSubmit: false,
-    disableCancel: false,
-    showSubmit: true,
-    showCancel: true,
-    showForce: false,
-    align: 'left',
-    confirmButtonProps: {},
-    cancelButtonProps: {},
-    style: {},
 };

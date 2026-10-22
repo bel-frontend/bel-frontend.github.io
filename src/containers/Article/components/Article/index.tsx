@@ -5,9 +5,10 @@ import classnames from 'classnames';
 import Box from '@mui/material/Box';
 import { Grid } from '@mui/material';
 import { MetaData, MD } from '@/components';
-import { LikeButton, Tag } from '@/components';
+import { Tag } from '@/components';
 import Error from '../Error';
 import { Comments } from '../Comments';
+import { ArticleLikeBar } from './ArticleLikeBar';
 import { ArticleInterface } from '@/modules/artickles/types/article';
 import style from './style.module.scss';
 
@@ -22,40 +23,46 @@ const Article = ({ article }: { article: ArticleInterface }) => {
                 <span>{title}</span>
             </div>
 
-            <div className={classnames(style.likeContainer)}>
-                <LikeButton
-                    likesCount={article?.likes || 0}
-                    className={style.likeButton}
-                    articleId={id}
-                />
-            </div>
             <main className="page__main main articlePage">
                 <article className="episode box">
-                    <h2 className={style.episode__title}>
-                        {article?.meta?.title}
-                    </h2>
-                    {(article?.meta?.tags.toString().split(',') || []).map(
-                        (tag: string) => (
-                            <Tag key={tag}>{tag}</Tag>
-                        ),
-                    )}
-                    <div className="content">
-                        <MD className={style.MD_view}>{article?.content}</MD>
+                    {/* wrapper limits sticky like bar to the article text */}
+                    <div>
+                        <h2 className={style.episode__title}>
+                            {article?.meta?.title}
+                        </h2>
+                        {(article?.meta?.tags.toString().split(',') || []).map(
+                            (tag: string) => (
+                                <Tag key={tag}>{tag}</Tag>
+                            ),
+                        )}
+                        <div className="content">
+                            <MD className={style.MD_view}>
+                                {article?.content}
+                            </MD>
+                        </div>
+                        <MetaData
+                            showReadButton={false}
+                            showLikes={false}
+                            showTags={false}
+                            meta={article?.meta}
+                            articleId={id}
+                        />
+                        <ArticleLikeBar
+                            articleId={id}
+                            likesCount={article?.likes || 0}
+                        />
                     </div>
-                    <MetaData
-                        showReadButton={false}
-                        showLikes={false}
-                        showTags={false}
-                        meta={article?.meta}
-                        articleId={id}
-                    />
-                    <Box marginTop={2}></Box>
                     <Grid marginTop={2} spacing={2} container>
                         <Grid item>
                             <Error artickleId={id} />
                         </Grid>
                         <Grid item xs={12}>
-                            <Comments articleId={id}></Comments>
+                            <Comments
+                                articleId={id}
+                                articleAuthorId={
+                                    article?.user_id || article?.meta?.user_id
+                                }
+                            />
                         </Grid>
                     </Grid>
                 </article>
