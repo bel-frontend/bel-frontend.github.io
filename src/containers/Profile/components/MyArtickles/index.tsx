@@ -44,7 +44,8 @@ export const MyArtickles = ({ articles = [] }: any) => {
                                     <TableCell component="th" scope="row">
                                         <Link
                                             href={
-                                                meta?.isActive
+                                                meta?.isActive &&
+                                                !meta?.isBlocked
                                                     ? `/article/${id}`
                                                     : `/draft/${id}`
                                             }
@@ -53,7 +54,14 @@ export const MyArtickles = ({ articles = [] }: any) => {
                                         </Link>
                                     </TableCell>
                                     <TableCell align="right">
-                                        {meta?.isActive ? null : (
+                                        {meta?.isBlocked ? (
+                                            <Chip
+                                                label={t(
+                                                    'moderation.blocked_chip',
+                                                )}
+                                                color="error"
+                                            />
+                                        ) : meta?.isActive ? null : (
                                             <Chip
                                                 label={t('profile.draft_chip')}
                                                 color="warning"

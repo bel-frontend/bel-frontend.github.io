@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 
 import { Container } from '@mui/material';
@@ -20,8 +20,11 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import LoginIcon from '@mui/icons-material/Login';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import EditIcon from '@mui/icons-material/Edit';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 
-import { logoutAction } from '@/modules/auth';
+import { logoutAction, getCurrentUserSelector } from '@/modules/auth';
+import { checkPermission } from '@/utils/permissions';
+import { USER_ROLES } from '@/constants/users';
 import style from './style.module.scss';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { useTranslation } from '@/modules/i18next';
@@ -34,6 +37,10 @@ export const Header = ({ userIsAuth, isMobile }: any) => {
     const dispatch = useDispatch();
     const router = useRouter();
     const { t } = useTranslation();
+    const currentUser: any = useSelector(getCurrentUserSelector);
+    const isAdmin =
+        userIsAuth &&
+        checkPermission(currentUser, [USER_ROLES.ADMIN, USER_ROLES.SUPERADMIN]);
 
     const searchParams = useSearchParams();
     const searchParam = searchParams.get('searchText');
@@ -123,6 +130,14 @@ export const Header = ({ userIsAuth, isMobile }: any) => {
                         </IconButton>
                         <p>{t('header.menu.create_article')}</p>
                     </MenuItem>
+                    {isAdmin ? (
+                        <MenuItem onClick={() => router.push('/admin')}>
+                            <IconButton aria-label="admin" color="inherit">
+                                <AdminPanelSettingsIcon />
+                            </IconButton>
+                            <p>{t('header.menu.admin')}</p>
+                        </MenuItem>
+                    ) : null}
                     <MenuItem
                         onClick={() => {
                             dispatch(logoutAction());

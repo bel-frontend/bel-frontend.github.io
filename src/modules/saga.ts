@@ -99,6 +99,14 @@ function* rootSaga(dispatch: any) {
                     console.log('saga error', error);
                     if (isSilentBackgroundRequest(data?.response?.config))
                         return;
+                    // banned user: log out and show the reason
+                    if (error?.type === 'banned') {
+                        yield put(logoutAction());
+                        yield put(showError({ message: error.message }));
+                        return;
+                    }
+                    // moderation rejection is shown by the form itself
+                    if (error?.type === 'moderation') return;
                     switch (true) {
                         case dataStatus === 400: {
                             yield put(

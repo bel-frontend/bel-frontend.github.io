@@ -27,7 +27,7 @@ import ChatIcon from '@mui/icons-material/Chat';
 import { useRouter } from 'next/navigation';
 
 import { USER_ROLES } from '@/constants/users';
-import { checkUserAccess } from '@/modules/auth';
+import { checkPermission } from '@/utils/permissions';
 
 import { MD, UploadFile } from '@/components';
 
@@ -67,11 +67,12 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
         conflictDetected,
         dismissConflict,
         loadServerVersion,
+        moderation,
     } = useHooks({ history, id });
 
     const [mode, setMode] = React.useState('0');
     const [isChatOpen, setIsChatOpen] = React.useState(false);
-    const isAdmin = checkUserAccess(currentUser, [
+    const isAdmin = checkPermission(currentUser, [
         USER_ROLES.ADMIN,
         USER_ROLES.SUPERADMIN,
     ]);
@@ -143,6 +144,22 @@ const Editor = ({ params: { id } }: { params: { id: number | string } }) => {
 
     return (
         <Box>
+            {moderation ? (
+                <Alert
+                    severity={
+                        moderation.status === 'rejected' ? 'error' : 'warning'
+                    }
+                    sx={{ mb: 2 }}
+                >
+                    <strong>
+                        {moderation.status === 'rejected'
+                            ? t('moderation.article_blocked')
+                            : t('moderation.article_pending')}
+                    </strong>
+                    {moderation.reason ? <div>{moderation.reason}</div> : null}
+                    <div>{t('moderation.article_review_hint')}</div>
+                </Alert>
+            ) : null}
             {conflictDetected && !isAdd && (
                 <Alert
                     severity="warning"

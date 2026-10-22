@@ -40,7 +40,11 @@ const Draft = ({
                     gap: '10px',
                 }}
             >
-                <Chip label={t('article.draft_chip')} color="warning" />
+                {article?.isBlocked ? (
+                    <Chip label={t('moderation.blocked_chip')} color="error" />
+                ) : (
+                    <Chip label={t('article.draft_chip')} color="warning" />
+                )}
                 <EditLink id={id} meta={article?.meta} />
             </Box>
             <ArticleView article={article} />

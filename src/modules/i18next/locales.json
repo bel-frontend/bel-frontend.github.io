@@ -181,12 +181,67 @@
             "validation_min_chars": "Павінна быць не меней за {{count}} сімвалаў",
             "validation_required": "Увядзіце тэкст"
         },
+        "admin": {
+            "title": "Адмін-панэль",
+            "cancel": "Скасаваць",
+            "tabs": {
+                "users": "Карыстальнікі",
+                "moderation": "Мадэрацыя"
+            },
+            "users": {
+                "search": "Пошук па email",
+                "email": "Email",
+                "role": "Роля",
+                "created": "Рэгістрацыя",
+                "last_login": "Апошні ўваход",
+                "status": "Статус",
+                "banned": "Заблакаваны",
+                "active": "Актыўны",
+                "ban": "Заблакаваць",
+                "unban": "Разблакаваць",
+                "empty": "Карыстальнікаў не знойдзена",
+                "ban_title": "Заблакаваць {{email}}?",
+                "ban_hint": "Карыстальнік не зможа ўвайсці, пісаць артыкулы, каментаваць і галасаваць. Яго ранейшы кантэнт застанецца на сайце.",
+                "ban_reason": "Прычына (карыстальнік убачыць яе)"
+            },
+            "moderation": {
+                "hint": "Артыкулы, якія ШІ-праверка заблакавала або не змагла праверыць. Яны не бачныя на сайце, пакуль вы іх не апублікуеце.",
+                "article": "Артыкул",
+                "status": "Статус",
+                "reason": "Прычына",
+                "approve": "Апублікаваць",
+                "reject": "Адхіліць",
+                "empty": "Няма артыкулаў, якія чакаюць разгляду",
+                "status_rejected": "Заблакаваны ШІ",
+                "status_pending": "Чакае праверкі",
+                "reject_title": "Адхіліць артыкул",
+                "reject_reason": "Прычына (аўтар убачыць яе)"
+            }
+        },
+        "moderation": {
+            "article_blocked": "Артыкул не апублікаваны: ён не прайшоў аўтаматычную праверку.",
+            "article_pending": "Артыкул не апублікаваны: аўтаматычная праверка зараз недаступная.",
+            "article_review_hint": "Адміністратар разгледзіць яго. Калі вы выправіце тэкст, праверка адбудзецца зноў пры захаванні.",
+            "blocked_chip": "На мадэрацыі",
+            "comment_rejected": "Каментар не прайшоў праверку",
+            "checking": "Правяраем…",
+            "categories": {
+                "politics": "Палітыка",
+                "insults": "Абразы",
+                "obscene": "Мат",
+                "sexual": "Сексуальны кантэнт",
+                "hate": "Мова варожасці",
+                "violence": "Гвалт",
+                "other": "Іншае"
+            }
+        },
         "header": {
             "menu": {
                 "contacts": "Кантакты",
                 "create_article": "Стварыць артыкул",
                 "login": "Увайсці",
                 "logout": "Выйсці",
+                "admin": "Адмін-панэль",
                 "profile": "Профіль",
                 "register": "Зарэгістравацца"
             }
@@ -412,12 +467,67 @@
             "validation_min_chars": "Must be at least {{count}} characters",
             "validation_required": "Enter text"
         },
+        "admin": {
+            "title": "Admin panel",
+            "cancel": "Cancel",
+            "tabs": {
+                "users": "Users",
+                "moderation": "Moderation"
+            },
+            "users": {
+                "search": "Search by email",
+                "email": "Email",
+                "role": "Role",
+                "created": "Registered",
+                "last_login": "Last login",
+                "status": "Status",
+                "banned": "Banned",
+                "active": "Active",
+                "ban": "Ban",
+                "unban": "Unban",
+                "empty": "No users found",
+                "ban_title": "Ban {{email}}?",
+                "ban_hint": "The user won't be able to log in, write articles, comment or vote. Their existing content stays on the site.",
+                "ban_reason": "Reason (the user will see it)"
+            },
+            "moderation": {
+                "hint": "Articles blocked by the AI check or not checked because of an error. They are hidden from the site until you publish them.",
+                "article": "Article",
+                "status": "Status",
+                "reason": "Reason",
+                "approve": "Publish",
+                "reject": "Reject",
+                "empty": "No articles waiting for review",
+                "status_rejected": "Blocked by AI",
+                "status_pending": "Waiting for check",
+                "reject_title": "Reject article",
+                "reject_reason": "Reason (the author will see it)"
+            }
+        },
+        "moderation": {
+            "article_blocked": "The article is not published: it didn't pass the automatic check.",
+            "article_pending": "The article is not published: the automatic check is unavailable now.",
+            "article_review_hint": "An administrator will review it. If you fix the text, it will be checked again when saved.",
+            "blocked_chip": "Under moderation",
+            "comment_rejected": "The comment didn't pass the check",
+            "checking": "Checking…",
+            "categories": {
+                "politics": "Politics",
+                "insults": "Insults",
+                "obscene": "Obscene language",
+                "sexual": "Sexual content",
+                "hate": "Hate speech",
+                "violence": "Violence",
+                "other": "Other"
+            }
+        },
         "header": {
             "menu": {
                 "contacts": "Contacts",
                 "create_article": "Create Article",
                 "login": "Login",
                 "logout": "Logout",
+                "admin": "Admin panel",
                 "profile": "Profile",
                 "register": "Register"
             }

@@ -39,7 +39,8 @@ const Auth = () => {
                                 history.back();
                             },
                             onFailure: ({ response: { data: err } }: any) => {
-                                setErrors({ email: err });
+                                // ban error is an object with message
+                                setErrors({ email: err?.message || err });
                             },
                         },
                     ),

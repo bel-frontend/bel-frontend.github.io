@@ -79,6 +79,7 @@ export const CommentForm = ({
         errors,
         isSubmitting,
         setSubmitting,
+        setFieldError,
     } = useFormik({
         onSubmit: ({ comment, user_alias }) => {
             const alias = user_alias.trim();
@@ -99,7 +100,18 @@ export const CommentForm = ({
                             setFieldValue('comment', '');
                             onSuccess();
                         },
-                        onFailure: () => setSubmitting(false),
+                        onFailure: (error: any) => {
+                            setSubmitting(false);
+                            // AI moderation rejection is shown under the field
+                            const data = error?.response?.data;
+                            if (data?.type === 'moderation') {
+                                setFieldError(
+                                    'comment',
+                                    data.message ||
+                                        t('moderation.comment_rejected'),
+                                );
+                            }
+                        },
                     },
                 ),
             );
@@ -274,7 +286,9 @@ export const CommentForm = ({
                         disabled={isSubmitting || !values.comment.trim()}
                         sx={{ borderRadius: 999, px: 2.5 }}
                     >
-                        {isReply
+                        {isSubmitting
+                            ? t('moderation.checking')
+                            : isReply
                             ? t('article.comments.reply')
                             : t('article.comments.submit')}
                     </Button>

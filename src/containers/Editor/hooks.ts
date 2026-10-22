@@ -21,7 +21,10 @@ import {
     getImagesRequest,
     getImagesSelector,
 } from '@/modules/files';
-import { ArticleInterface } from '@/modules/artickles/types/article';
+import {
+    ArticleInterface,
+    ArticleModeration,
+} from '@/modules/artickles/types/article';
 
 import { getCurrentUserSelector, authHashSelector } from '@/modules/auth';
 import { DEFAULT_LANG } from '@/modules/i18next';
@@ -84,6 +87,23 @@ export const useHooks = ({ history, id }: { history: any; id: any }) => {
     const images: any = useSelector(getImagesSelector);
 
     const [urls, setUrls] = React.useState<any[]>([]);
+    // result of AI moderation when article is not published because of it
+    const [moderation, setModeration] =
+        React.useState<ArticleModeration | null>(null);
+    useEffect(() => {
+        setModeration(
+            artickleData?.isBlocked
+                ? artickleData?.moderation || { status: 'pending' }
+                : null,
+        );
+    }, [artickleData?.isBlocked, artickleData?.moderation]);
+    // returns true when saved article is blocked by moderation
+    const applyModerationResponse = (data: any) => {
+        const result: ArticleModeration | undefined = data?.moderation;
+        const isBlocked = Boolean(result && result.status !== 'approved');
+        setModeration(isBlocked ? result! : null);
+        return isBlocked;
+    };
 
     React.useEffect(() => {
         if (images?.loaded) {
@@ -143,7 +163,12 @@ export const useHooks = ({ history, id }: { history: any; id: any }) => {
                     createArtickleRequest(
                         { ...values, tags, files: urls },
                         {
-                            onSuccess: () => {
+                            onSuccess: ({ data }: any) => {
+                                // blocked article: stay in editor to show reason
+                                if (applyModerationResponse(data)) {
+                                    history.push(`/editor/${data.artickle_id}`);
+                                    return;
+                                }
                                 history.push('/');
                                 history.refresh();
                             },
@@ -155,7 +180,8 @@ export const useHooks = ({ history, id }: { history: any; id: any }) => {
                     updateArtickleRequest(
                         { id, ...values, tags, files: urls },
                         {
-                            onSuccess: () => {
+                            onSuccess: ({ data }: any) => {
+                                if (applyModerationResponse(data)) return;
                                 history.push('/');
                                 history.refresh();
                             },
@@ -190,8 +216,9 @@ export const useHooks = ({ history, id }: { history: any; id: any }) => {
                     createArtickleRequest(
                         { ...values, tags, files: urls },
                         {
-                            onSuccess: ({ data: { artickle_id } }: any) => {
-                                history.push(`/editor/${artickle_id}  `);
+                            onSuccess: ({ data }: any) => {
+                                applyModerationResponse(data);
+                                history.push(`/editor/${data.artickle_id}  `);
                                 dispatch(
                                     showSuccess({
                                         message: t('editor.article_saved'),
@@ -206,7 +233,8 @@ export const useHooks = ({ history, id }: { history: any; id: any }) => {
                     updateArtickleRequest(
                         { id, ...values, tags, files: urls },
                         {
-                            onSuccess: ({ ...data }) => {
+                            onSuccess: ({ data }: any) => {
+                                applyModerationResponse(data);
                                 weJustSaved.current = Date.now();
                                 setConflictDetected(false);
                                 // Notify other tabs in the same browser
@@ -214,7 +242,10 @@ export const useHooks = ({ history, id }: { history: any; id: any }) => {
                                     const bc = new BroadcastChannel(
                                         getBroadcastChannelName(id),
                                     );
-                                    bc.postMessage({ type: BC_SAVED_EVENT, tabId: TAB_ID });
+                                    bc.postMessage({
+                                        type: BC_SAVED_EVENT,
+                                        tabId: TAB_ID,
+                                    });
                                     bc.close();
                                 } catch {}
                                 dispatch(
@@ -237,7 +268,10 @@ export const useHooks = ({ history, id }: { history: any; id: any }) => {
         try {
             channel = new BroadcastChannel(getBroadcastChannelName(id));
             channel.addEventListener('message', (event: MessageEvent) => {
-                if (event.data?.type === BC_SAVED_EVENT && event.data?.tabId !== TAB_ID) {
+                if (
+                    event.data?.type === BC_SAVED_EVENT &&
+                    event.data?.tabId !== TAB_ID
+                ) {
                     setConflictDetected(true);
                 }
             });
@@ -439,5 +473,6 @@ export const useHooks = ({ history, id }: { history: any; id: any }) => {
         conflictDetected,
         dismissConflict,
         loadServerVersion,
+        moderation,
     };
 };

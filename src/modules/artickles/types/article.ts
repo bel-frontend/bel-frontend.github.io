@@ -10,6 +10,7 @@ export interface MetaDataInterface {
     created_at: string;
     isPinned: boolean;
     isBlocked: boolean;
+    moderation?: ArticleModeration;
     lang?: string;
     image?: string;
     previewImage?: string;
@@ -23,8 +24,15 @@ export interface ArticleFile {
     url: string;
 }
 
+export interface ArticleModeration {
+    status: 'approved' | 'rejected' | 'pending';
+    categories?: string[];
+    reason?: string;
+}
+
 export interface ArticleInterface {
     _id: string;
+    moderation?: ArticleModeration;
     title: string;
     dateArticle: string;
     tags: string[];
