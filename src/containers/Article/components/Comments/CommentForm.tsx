@@ -45,7 +45,6 @@ const validationSchema = (t: any) =>
         user_alias: yup
             .string()
             .trim()
-            .min(2, t('article.validation_min_chars', { count: 2 }))
             .max(64)
             .required(t('article.validation_required')),
     });
