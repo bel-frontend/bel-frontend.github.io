@@ -173,6 +173,16 @@
 
         svg {
             max-width: 100%;
+            margin: 0;
+
+            // Mermaid sizes foreignObject labels before insertion, so the
+            // markdown container styles (margins, line-height, p font-size)
+            // must not leak into them or the text gets clipped
+            foreignObject * {
+                margin: 0;
+                line-height: inherit;
+                font-size: inherit;
+            }
         }
     }
 
@@ -430,6 +440,12 @@
         display: block;
         width: 100% !important;
         max-width: none !important;
+
+        foreignObject * {
+            margin: 0;
+            line-height: inherit;
+            font-size: inherit;
+        }
     }
 }
 

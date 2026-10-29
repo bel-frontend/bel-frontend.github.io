@@ -45,18 +45,27 @@ export const Mermaid = memo(({ code }: { code: string }) => {
 
     useEffect(() => {
         let cancelled = false;
+        // Use the page font (next/font gives Inter a hashed family name) so
+        // labels are measured with the same font they are displayed in
+        const fontFamily = getComputedStyle(document.body).fontFamily;
 
         mermaid.initialize({
             startOnLoad: false,
             theme: dark ? 'dark' : 'default',
             suppressErrorRendering: true,
+            fontFamily,
+            themeVariables: { fontFamily },
         });
 
-        mermaid
-            .render(diagramId, code)
-            .then(({ svg: renderedSvg }) => {
-                if (!cancelled) {
-                    setSvg(renderedSvg);
+        // Labels are measured during render, so the web font must be loaded
+        document.fonts.ready
+            .then(() => {
+                if (cancelled) return null;
+                return mermaid.render(diagramId, code);
+            })
+            .then((result) => {
+                if (result && !cancelled) {
+                    setSvg(result.svg);
                     setError(null);
                 }
             })
