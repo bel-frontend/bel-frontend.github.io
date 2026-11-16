@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
 import { useDispatch } from 'react-redux';
 import {
     setLikedRequest,
@@ -9,13 +8,7 @@ import {
     getLikeRequest,
 } from '@/modules/artickles';
 import { useTranslation } from '@/modules/i18next';
-import {
-    Button,
-    Tooltip,
-    Dialog,
-    DialogTitle,
-    DialogActions,
-} from '@mui/material';
+import { Button, Tooltip } from '@mui/material';
 import HeardIcon from './components/HeardIcon';
 
 import style from './style.module.scss';
@@ -39,7 +32,6 @@ export const LikeButton = ({
     fetchLikeState?: boolean;
 }) => {
     const dispatch = useDispatch();
-    const [showLogin, setShowLogin] = React.useState(false);
     const [isPending, setIsPending] = React.useState(false);
     const pendingRef = React.useRef(false);
     const { t } = useTranslation();
@@ -52,7 +44,7 @@ export const LikeButton = ({
         setState((prev) => ({ ...prev, count: likesCount }));
     }, [likesCount]);
 
-    // refetch on login/logout: like state depends on user
+    // Restore the browser’s like state when the article changes.
     React.useEffect(() => {
         if (!fetchLikeState || !articleId) return;
         dispatch(
@@ -71,10 +63,6 @@ export const LikeButton = ({
     }, [dispatch, articleId, fetchLikeState]);
 
     const onClick = () => {
-        if (!userIsAuth) {
-            setShowLogin(true);
-            return;
-        }
         if (pendingRef.current) return;
         pendingRef.current = true;
         setIsPending(true);
@@ -125,33 +113,8 @@ export const LikeButton = ({
     );
 
     return (
-        <>
-            <Tooltip
-                title={
-                    userIsAuth
-                        ? t('article.like_tooltip')
-                        : t('article.like_login_required')
-                }
-            >
-                {button}
-            </Tooltip>
-            <Dialog
-                open={showLogin}
-                onClose={() => setShowLogin(false)}
-                aria-labelledby="like-login-title"
-            >
-                <DialogTitle id="like-login-title">
-                    {t('article.like_login_required')}
-                </DialogTitle>
-                <DialogActions>
-                    <Button onClick={() => setShowLogin(false)}>
-                        {t('article.comments.cancel')}
-                    </Button>
-                    <Button component={Link} href="/login">
-                        {t('header.menu.login')}
-                    </Button>
-                </DialogActions>
-            </Dialog>
-        </>
+        <Tooltip title={t('article.like_tooltip')}>
+            <span>{button}</span>
+        </Tooltip>
     );
 };
