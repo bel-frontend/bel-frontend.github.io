@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 import {
     setLikedRequest,
@@ -9,7 +10,13 @@ import {
 } from '@/modules/artickles';
 import { currentUserIsAuth } from '@/modules/auth';
 import { useTranslation } from '@/modules/i18next';
-import { Button, Tooltip } from '@mui/material';
+import {
+    Button,
+    Tooltip,
+    Dialog,
+    DialogTitle,
+    DialogActions,
+} from '@mui/material';
 import HeardIcon from './components/HeardIcon';
 
 import style from './style.module.scss';
@@ -33,6 +40,9 @@ export const LikeButton = ({
     fetchLikeState?: boolean;
 }) => {
     const dispatch = useDispatch();
+    const [showLogin, setShowLogin] = React.useState(false);
+    const [isPending, setIsPending] = React.useState(false);
+    const pendingRef = React.useRef(false);
     const { t } = useTranslation();
     const isAuthInStore = useSelector(currentUserIsAuth);
     // auth is restored from localStorage, unknown during SSR
@@ -68,7 +78,13 @@ export const LikeButton = ({
     }, [dispatch, articleId, fetchLikeState, isAuthInStore]);
 
     const onClick = () => {
-        if (!userIsAuth) return;
+        if (!userIsAuth) {
+            setShowLogin(true);
+            return;
+        }
+        if (pendingRef.current) return;
+        pendingRef.current = true;
+        setIsPending(true);
         const prev = state;
         const liked = !prev.liked;
         // optimistic update, rolled back on failure
@@ -79,12 +95,18 @@ export const LikeButton = ({
                 { id: articleId },
                 {
                     onSuccess: ({ data }: { data: LikeState }) => {
+                        pendingRef.current = false;
+                        setIsPending(false);
                         setState({
                             count: data?.count ?? 0,
                             liked: Boolean(data?.liked),
                         });
                     },
-                    onFailure: () => setState(prev),
+                    onFailure: () => {
+                        pendingRef.current = false;
+                        setIsPending(false);
+                        setState(prev);
+                    },
                 },
             ),
         );
@@ -98,6 +120,9 @@ export const LikeButton = ({
             size="small"
             onClick={onClick}
             aria-pressed={state.liked}
+            aria-label={t('article.like_tooltip')}
+            aria-busy={isPending}
+            disabled={isPending}
             disableElevation
             className={className}
         >
@@ -107,14 +132,33 @@ export const LikeButton = ({
     );
 
     return (
-        <Tooltip
-            title={
-                userIsAuth
-                    ? t('article.like_tooltip')
-                    : t('article.like_login_required')
-            }
-        >
-            {button}
-        </Tooltip>
+        <>
+            <Tooltip
+                title={
+                    userIsAuth
+                        ? t('article.like_tooltip')
+                        : t('article.like_login_required')
+                }
+            >
+                {button}
+            </Tooltip>
+            <Dialog
+                open={showLogin}
+                onClose={() => setShowLogin(false)}
+                aria-labelledby="like-login-title"
+            >
+                <DialogTitle id="like-login-title">
+                    {t('article.like_login_required')}
+                </DialogTitle>
+                <DialogActions>
+                    <Button onClick={() => setShowLogin(false)}>
+                        {t('article.comments.cancel')}
+                    </Button>
+                    <Button component={Link} href="/login">
+                        {t('header.menu.login')}
+                    </Button>
+                </DialogActions>
+            </Dialog>
+        </>
     );
 };
