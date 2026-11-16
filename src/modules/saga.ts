@@ -44,10 +44,10 @@ if (process.env.NODE_ENV == 'development') {
 // TODO:  need refactoring
 
 // requests whose result is visible immediately: no success toast
-const SILENT_URLS = /\/like\/[^/]+$|\/comment\/[^/]+\/vote$/;
+const SILENT_URLS = /\/like\/[^/?]+(?:\?[^#]*)?$|\/comment\/[^/]+\/vote$/;
 // background requests: their errors are not shown to user
 const isSilentBackgroundRequest = (config: any = {}) =>
-    config.method === 'get' && /\/like\/[^/]+$/.test(config.url || '');
+    config.method === 'get' && /\/like\/[^/?]+(?:\?[^#]*)?$/.test(config.url || '');
 
 function* rootSaga(dispatch: any) {
     yield all([

@@ -132,18 +132,29 @@ apiRoutes.add(CREATE_ARTICLE_REQUEST, ({ ...data }: { id: any }) => ({
     data: data,
 }));
 
+// Keep the same anonymous identity across reloads and login changes.
+const likeVisitorId = () => {
+    const key = 'article-like-visitor';
+    let id = localStorage.getItem(key);
+    if (!id) {
+        id = crypto.randomUUID();
+        localStorage.setItem(key, id);
+    }
+    return id;
+};
+
 apiRoutes.add(SET_LIKE_REQUEST, ({ id }: { id: any }) => ({
-    url: `/like/${id}`,
+    url: `/like/${id}?visitorId=${likeVisitorId()}`,
     method: 'put',
 }));
 
 apiRoutes.add(REMOVE_LIKE_REQUEST, ({ id }: { id: any }) => ({
-    url: `/like/${id}`,
+    url: `/like/${id}?visitorId=${likeVisitorId()}`,
     method: 'delete',
 }));
 
 apiRoutes.add(GET_LIKE_REQUEST, ({ id }: { id: any }) => ({
-    url: `/like/${id}`,
+    url: `/like/${id}?visitorId=${likeVisitorId()}`,
     method: 'get',
 }));
 

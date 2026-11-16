@@ -2,13 +2,12 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {
     setLikedRequest,
     removeLikeRequest,
     getLikeRequest,
 } from '@/modules/artickles';
-import { currentUserIsAuth } from '@/modules/auth';
 import { useTranslation } from '@/modules/i18next';
 import {
     Button,
@@ -44,12 +43,6 @@ export const LikeButton = ({
     const [isPending, setIsPending] = React.useState(false);
     const pendingRef = React.useRef(false);
     const { t } = useTranslation();
-    const isAuthInStore = useSelector(currentUserIsAuth);
-    // auth is restored from localStorage, unknown during SSR
-    const [isMounted, setIsMounted] = React.useState(false);
-    React.useEffect(() => setIsMounted(true), []);
-    const userIsAuth = isMounted && Boolean(isAuthInStore);
-
     const [state, setState] = React.useState<LikeState>({
         count: likesCount,
         liked: false,
@@ -75,7 +68,7 @@ export const LikeButton = ({
                 },
             ),
         );
-    }, [dispatch, articleId, fetchLikeState, isAuthInStore]);
+    }, [dispatch, articleId, fetchLikeState]);
 
     const onClick = () => {
         if (!userIsAuth) {
