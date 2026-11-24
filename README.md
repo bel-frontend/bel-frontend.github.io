@@ -32,3 +32,13 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Урокі
+
+Каталог: `/lessons`. Першы ўрок: `/lessons/aws/aif-c01`.
+Матэрыялы AWS знаходзяцца ў `public/lessons/aws/aif-c01/` і перанесены з
+`lessons/RAG/AWS_lessons/aif-c01-study`. Лакальны неабавязковы `data_udemy.js`
+не публікуецца. Для абнаўлення скапіруй публічныя файлы ўрока, захаваўшы
+`base`, апісанне і спасылку на каталог у `index.html`.
+Новыя ўрокі дадавай у `public/lessons/<тэма>/<урок>/` і ў каталог
+`src/app/(non-auth)/lessons/page.tsx`; для чыстага адраса дадай rewrite у `next.config.js`.

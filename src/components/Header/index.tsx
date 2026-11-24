@@ -8,6 +8,7 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
+import SchoolIcon from '@mui/icons-material/School';
 import SearchIcon from '@mui/icons-material/Search';
 import InputAdornment from '@mui/material/InputAdornment';
 import TextField from '@mui/material/TextField';
@@ -155,6 +156,12 @@ export const Header = ({ userIsAuth, isMobile }: any) => {
                     </MenuItem>
                 </>
             ) : null}
+            <MenuItem onClick={() => { router.push('/lessons'); handleMobileMenuClose(); }}>
+                <IconButton aria-label={t('header.menu.lessons')} color="inherit">
+                    <SchoolIcon />
+                </IconButton>
+                <p>{t('header.menu.lessons')}</p>
+            </MenuItem>
             <MenuItem onClick={() => router.push('/contacts')}>
                 <IconButton
                     aria-label="show 17 new notifications"

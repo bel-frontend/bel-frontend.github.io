@@ -237,6 +237,7 @@
         },
         "header": {
             "menu": {
+                "lessons": "Урокі",
                 "contacts": "Кантакты",
                 "create_article": "Стварыць артыкул",
                 "login": "Увайсці",
@@ -523,6 +524,7 @@
         },
         "header": {
             "menu": {
+                "lessons": "Lessons",
                 "contacts": "Contacts",
                 "create_article": "Create Article",
                 "login": "Login",

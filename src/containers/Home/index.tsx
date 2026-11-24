@@ -1,5 +1,6 @@
 // 'use client';
 import React from 'react';
+import Link from 'next/link';
 import Box from '@mui/material/Box';
 import { cookies } from 'next/headers';
 
@@ -116,6 +117,8 @@ const Home = async ({
         <>
             <Box component={'main'} className={style.main}>
                 <TelegramLink className={style.telegram} />
+
+                <Box sx={{ mb: 3 }}><Link href="/lessons">Урокі: падрыхтоўка да AWS Certified AI Practitioner</Link></Box>
 
                 <TagsCloud tags={tags} />
 

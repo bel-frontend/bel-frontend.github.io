@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="be">
+<head>
+<meta charset="utf-8">
+<base href="/lessons/aws/aif-c01/">
+<meta name="description" content="Падрыхтоўка да AWS Certified AI Practitioner (AIF-C01) па-беларуску: тэорыя, трэнажор, экзамен, карткі і слоўнік.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AWS AIF-C01 — падрыхтоўка</title>
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--ink:#1d2433;--muted:#6b7280;--line:#e3e6ee;--acc:#3b5bdb;--ok:#2b8a3e;--okbg:#e6f6ea;--bad:#c92a2a;--badbg:#fdecec;--warn:#fff7db;--warnline:#f0c94a}
+@media (prefers-color-scheme:dark){:root{--bg:#14171f;--card:#1d212c;--ink:#e6e8ee;--muted:#9aa1b1;--line:#2f3443;--acc:#7b93ff;--ok:#5fd17a;--okbg:#18301f;--bad:#ff7b7b;--badbg:#3a1d1f;--warn:#2f2a17;--warnline:#8a7426}}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink)}
+header{position:sticky;top:0;z-index:5;background:var(--card);border-bottom:1px solid var(--line);padding:10px 18px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+header h1{font-size:18px;margin:0 12px 0 0}
+nav button{background:none;border:0;padding:8px 12px;border-radius:8px;cursor:pointer;color:var(--muted);font:inherit}
+nav button.on{background:var(--acc);color:#fff}
+main{max-width:920px;margin:20px auto;padding:0 16px 80px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin-bottom:16px}
+h2{margin:0 0 12px;font-size:20px}
+h3{margin:18px 0 8px;font-size:16px}
+label.chk{display:inline-flex;align-items:center;gap:6px;margin:4px 14px 4px 0;cursor:pointer}
+select,input[type=number]{font:inherit;padding:6px 8px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--ink)}
+.btn{background:var(--acc);color:#fff;border:0;border-radius:10px;padding:10px 18px;font:inherit;font-weight:600;cursor:pointer}
+.btn.sec{background:transparent;color:var(--acc);border:1px solid var(--acc)}
+.btn:disabled{opacity:.45;cursor:default}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.muted{color:var(--muted)}
+.badge{display:inline-block;font-size:12px;padding:2px 8px;border-radius:99px;background:var(--bg);border:1px solid var(--line);color:var(--muted);margin-right:6px}
+.badge.red{color:var(--bad);border-color:var(--bad)}
+.bar{height:6px;background:var(--line);border-radius:6px;overflow:hidden;margin:6px 0 14px}
+.bar>i{display:block;height:100%;background:var(--acc)}
+.q{font-size:17px}
+.q p{margin:.4em 0}
+pre,code{background:var(--bg);border-radius:6px;padding:2px 5px;font-size:14px;white-space:pre-wrap}
+.opt{display:flex;gap:12px;align-items:flex-start;border:1.5px solid var(--line);border-radius:12px;padding:10px 14px;margin:8px 0;cursor:pointer;transition:.1s}
+.opt:hover{border-color:var(--acc)}
+.opt .k{flex:0 0 26px;height:26px;border-radius:50%;border:1.5px solid var(--muted);display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--muted)}
+.opt.multi .k{border-radius:6px}
+.opt.sel{border-color:var(--acc);background:color-mix(in srgb,var(--acc) 8%,transparent)}
+.opt.sel .k{background:var(--acc);border-color:var(--acc);color:#fff}
+.opt p{margin:0}
+.opt.ok{border-color:var(--ok);background:var(--okbg)}
+.opt.bad{border-color:var(--bad);background:var(--badbg)}
+.opt .tag{margin-left:auto;font-size:12px;white-space:nowrap;padding-left:8px}
+.done .opt{cursor:default}
+.note{background:var(--warn);border-left:4px solid var(--warnline);padding:10px 14px;border-radius:8px;margin:14px 0}
+.verdict{font-weight:700;margin:12px 0 4px}
+.verdict.ok{color:var(--ok)}.verdict.bad{color:var(--bad)}
+details.exp{margin-top:10px;border-top:1px solid var(--line);padding-top:8px}
+details.exp summary{cursor:pointer;color:var(--acc);font-weight:600}
+.exp img{max-width:100%;border-radius:8px;border:1px solid var(--line);margin:6px 0}
+.exp a{color:var(--acc);word-break:break-all}
+table{border-collapse:collapse;width:100%}
+td,th{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left;font-size:14px}
+.mini{display:inline-block;width:120px;height:8px;background:var(--line);border-radius:4px;overflow:hidden;vertical-align:middle}
+.mini i{display:block;height:100%}
+.timer{font-variant-numeric:tabular-nums;font-weight:700}
+.kbd{font-size:12px;color:var(--muted)}
+.hidden{display:none!important}
+.big{font-size:42px;font-weight:800;margin:4px 0}
+.wronglist .item{border-top:1px solid var(--line);padding:12px 0}
+:root{--c1:#e7ecff;--c2:#cfd9ff;--c3:#aebfff;--c4:#3b5bdb;--card2:#f1f3f9}
+@media (prefers-color-scheme:dark){:root{--c1:#222842;--c2:#2c3560;--c3:#3a4785;--c4:#7b93ff;--card2:#252a37}}
+main.wide{max-width:1280px}
+.layout{display:grid;grid-template-columns:290px 1fr;gap:18px;align-items:start}
+.side{position:sticky;top:70px;max-height:calc(100vh - 90px);overflow:auto;padding:12px}
+.side input{width:100%;font:inherit;padding:7px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);margin-bottom:8px}
+.side h5{margin:12px 4px 4px;font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+.side a{display:flex;justify-content:space-between;gap:6px;align-items:center;padding:5px 8px;border-radius:8px;color:var(--ink);text-decoration:none;font-size:14px;cursor:pointer}
+.side a:hover{background:var(--bg)}.side a.on{background:var(--acc);color:#fff}
+.side a .pc{font-size:11px;color:var(--muted);white-space:nowrap}.side a.on .pc{color:#fff}
+.side a .wr{color:var(--bad);font-size:11px}.side a.on .wr{color:#fff}
+.topic h2{font-size:24px;margin-bottom:4px}
+.topic table{margin:12px 0;font-size:15px}.topic th{background:var(--card2)}
+.topic td,.topic th{border:1px solid var(--line)}
+.dg{background:var(--card2);border-radius:12px;padding:16px;margin:14px 0;overflow-x:auto}
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:6px 0}
+.nd{background:var(--card);border:2px solid var(--acc);border-radius:10px;padding:8px 12px;font-size:14px;line-height:1.35}
+.nd small{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+.nd.y{border-color:#e6a700}.nd.g{border-color:var(--ok)}.nd.r{border-color:var(--bad)}.nd.b{border-color:var(--acc);background:color-mix(in srgb,var(--acc) 10%,var(--card))}
+.ar{color:var(--muted);font-size:18px;font-weight:700}
+.cap{text-align:center;color:var(--muted);font-size:14px;margin:8px 0 0}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:12px 0}
+.card2{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.dg .card2{background:var(--card)}
+.card2 h4{margin:0 0 6px;font-size:15px;color:var(--acc)}
+.card2 p{margin:4px 0}.m{font-size:14px}
+.tree{display:flex;flex-direction:column;align-items:center;gap:10px}.tree>.cols{width:100%}
+.cycle{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px}
+.tip{background:color-mix(in srgb,var(--acc) 9%,transparent);border-left:4px solid var(--acc);padding:10px 14px;border-radius:8px;margin:12px 0}
+.trap{background:var(--warn);border-left:4px solid var(--warnline);padding:10px 14px;border-radius:8px;margin:12px 0}
+.okc{color:var(--ok);font-weight:700}
+.svg{width:100%;max-width:640px;display:block;margin:auto}
+.svg .st{font-size:13px;fill:var(--ink)}.svg .st.b{font-weight:700;fill:#fff;font-size:15px}
+.svg .pt{fill:var(--acc)}.svg .pt.g{fill:var(--ok)}.svg .pt.r{fill:var(--bad)}
+.svg .ln{fill:none;stroke-width:3}.svg .ln.g{stroke:var(--ok)}.svg .ln.r{stroke:var(--bad)}
+.svg .ax{stroke:var(--muted);stroke-width:1.5}
+.cm{display:grid;grid-template-columns:110px 1fr 1fr;gap:6px;max-width:460px;margin:auto}
+.cm .h{font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;color:var(--muted)}
+.cm .c{border-radius:10px;padding:14px;text-align:center;font-weight:800;font-size:20px}
+.cm .c small{display:block;font-weight:400;font-size:12px}
+.cm .g{background:var(--okbg);color:var(--ok)}.cm .r{background:var(--badbg);color:var(--bad)}
+.scale{display:flex;gap:6px;flex-wrap:wrap}.scale .nd{flex:1;text-align:center;min-width:110px}
+.axis{display:flex;justify-content:space-between;color:var(--muted);font-size:13px;margin-top:6px;gap:10px}
+.bars{max-width:560px;margin:auto}.brow{display:grid;grid-template-columns:100px 1fr 46px 22px 22px;gap:8px;align-items:center;margin:5px 0;font-size:14px}
+.brow i{display:block;height:16px;border-radius:4px;background:var(--acc)}.brow.dim{opacity:.45}
+.brow em{font-style:normal;font-size:11px;font-weight:700;border-radius:4px;text-align:center}.brow .k{background:#e6a700;color:#fff}.brow .p{background:var(--ok);color:#fff}
+.bars.small .brow{grid-template-columns:60px 1fr 46px}.brow i.pos{background:var(--ok)}.brow i.neg{background:var(--bad)}
+.kk{color:#e6a700}.pp{color:var(--ok)}
+.prompt{font-family:ui-monospace,monospace;font-size:13.5px;background:var(--card);border-radius:10px;padding:12px;border:1px solid var(--line)}
+.prompt div{margin:4px 0}.tagc{color:var(--acc)}
+.stairs{display:flex;align-items:flex-end;gap:8px;height:220px}
+.stairs div{flex:1;background:linear-gradient(to top,var(--acc),color-mix(in srgb,var(--acc) 55%,var(--card)));border-radius:10px 10px 4px 4px;color:#fff;padding:8px;font-size:13px;display:flex;flex-direction:column;justify-content:flex-end}
+.stairs small{opacity:.85}
+.svcmap{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}
+.svcmap .grp{background:var(--card);border-radius:10px;padding:10px;border:1px solid var(--line)}
+.svcmap .grp h4{margin:0 0 6px}.svcmap .grp .nd{margin:6px 0}
+.cvbox{position:relative;height:90px;border-radius:8px;background:linear-gradient(135deg,#9fb3c8,#d8c39a);margin:6px 0}
+.cvbox .lbl{position:absolute;bottom:6px;left:6px;background:#000a;color:#fff;font-size:12px;padding:2px 6px;border-radius:4px}
+.cvbox .bb{position:absolute;border:2px solid #ff3b3b;font-size:11px;color:#fff;background:#ff3b3b33;padding:1px 3px}
+.cvbox.seg{background:linear-gradient(90deg,#4caf50 0 30%,#2196f3 30% 65%,#ff9800 65%)}
+.qa{display:grid;gap:6px}.qa div{display:flex;justify-content:space-between;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 12px;font-size:14px;flex-wrap:wrap}
+.srm div{border-radius:10px;padding:14px;margin:6px 0}.srm small{display:block;margin-top:4px;font-size:13px}
+.srm .cust{background:color-mix(in srgb,var(--acc) 15%,var(--card))}.srm .aws{background:color-mix(in srgb,#e6a700 18%,var(--card))}
+.matrix{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.matrix div{border-radius:10px;padding:10px 6px;text-align:center;font-size:13px;color:#fff}
+.matrix div b{display:block;font-size:22px}.matrix small{display:block;opacity:.85}
+.matrix div:nth-child(1){background:#5c7cfa}.matrix div:nth-child(2){background:#4c6ef5}.matrix div:nth-child(3){background:#7048e8}.matrix div:nth-child(4){background:#ae3ec9}.matrix div:nth-child(5){background:#e03131}
+.tnav{display:flex;justify-content:space-between;gap:10px;margin-top:22px;flex-wrap:wrap}
+.mist{border-top:1px solid var(--line);padding:10px 0}.mist .q{font-size:15px}
+.fc{perspective:1000px;max-width:560px;margin:10px auto;height:240px;cursor:pointer}
+.fc .in{position:relative;width:100%;height:100%;transition:transform .45s;transform-style:preserve-3d}
+.fc.flip .in{transform:rotateY(180deg)}
+.fc .fa,.fc .fb{position:absolute;inset:0;backface-visibility:hidden;border-radius:16px;display:flex;align-items:center;justify-content:center;text-align:center;padding:22px;font-size:22px;font-weight:600;border:1px solid var(--line)}
+.fc .fa{background:var(--card)}.fc .fb{background:var(--okbg);color:var(--ok);transform:rotateY(180deg)}
+.fc small{position:absolute;top:10px;left:14px;font-size:12px;color:var(--muted);font-weight:400}
+@media(max-width:860px){.layout{grid-template-columns:1fr}.side{position:static;max-height:none}.matrix{grid-template-columns:1fr 1fr}}
+@media print{header,.side,.tnav,.practbtn{display:none!important}.layout{display:block}}
+
+.term{border-bottom:1.5px dotted var(--acc);cursor:help}
+#gtip{position:fixed;z-index:50;max-width:380px;background:var(--card);color:var(--ink);border:1px solid var(--acc);border-radius:10px;padding:10px 12px;font-size:14px;line-height:1.45;box-shadow:0 8px 28px #0004;display:none}
+#gtip .gn{font-size:12px;color:var(--muted);margin-top:6px}
+.gcat{margin:18px 0 6px;color:var(--acc)}
+.gi{border-top:1px solid var(--line);padding:9px 2px}
+.gi .gnm{font-weight:700}.gi .gal{color:var(--muted);font-size:13px}
+.gi .gd{margin-top:3px;font-size:15px}
+@media(max-width:1500px){#hdrInfo{display:none}}
+.be p{margin:6px 0}.be .ok>b{color:var(--ok)}.be .no>b{color:var(--bad)}details.orig{margin-top:10px;opacity:.85}details.orig summary{cursor:pointer;color:var(--muted);font-size:14px}
+h3.more{margin-top:34px;padding-top:16px;border-top:2px dashed var(--line)}
+</style>
+</head>
+<body>
+<div id="gtip"></div>
+<header>
+  <a href="/lessons" class="muted">Усе ўрокі</a>
+  <h1>AWS AIF-C01 · падрыхтоўка</h1>
+  <nav>
+    <button data-tab="theory" class="on">📖 Тэорыя</button>
+    <button data-tab="practice">Трэніроўка</button>
+    <button data-tab="mistakes" id="navMistakes">❌ Памылкі</button>
+    <button data-tab="exam">Экзамен 65</button>
+    <button data-tab="cards">Карткі</button>
+    <button data-tab="gloss">Слоўнік</button>
+    <button data-tab="stats">Статыстыка</button>
+  </nav>
+  <a href="ГАЙД_AIF-C01.html" target="_blank" class="muted" style="font-size:14px">поўны гайд для друку ↗</a>
+  <span class="muted" id="hdrInfo"></span>
+</header>
+<main>
+<section id="theoryView" class="hidden"><div class="layout">
+  <div class="card side"><input id="sideSearch" placeholder="🔍 Пошук па тэмах…"><div id="sideList"></div></div>
+  <div class="card" id="topicBody"></div>
+</div></section>
+<section id="glossView" class="card hidden">
+  <h2>Слоўнік тэрмінаў</h2>
+  <p class="muted">Усе гэтыя тэрміны падкрэслены пункцірам у тэорыі і пытаннях — навядзі курсор або націсні, каб убачыць тлумачэнне.</p>
+  <input id="glossSearch" placeholder="🔍 Пошук тэрміна (напр. epoch, embedding, recall)…" style="width:100%;font:inherit;padding:9px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink)">
+  <div id="glossList"></div>
+</section>
+<section id="cardsView" class="card hidden">
+  <h2>Карткі «ключавое слова → адказ»</h2>
+  <p class="muted">Націсні на картку (або прабел), каб перавярнуць. «Ведаю» → / «Не ведаю» ←.</p>
+  <div class="row"><label class="chk"><input type="checkbox" id="cardsOnlyUnknown" checked> толькі невывучаныя</label><button class="btn sec" id="cardsShuffle">Перамяшаць</button><span class="muted" id="cardsInfo"></span><span class="muted" id="cardsPos"></span></div>
+  <div class="fc" id="fc"><div class="in"><div class="fa" id="fcA"></div><div class="fb" id="fcB"></div></div></div>
+  <div class="row" style="justify-content:center"><button class="btn sec" id="cardNo">✘ Не ведаю</button><button class="btn" id="cardYes">✔ Ведаю</button></div>
+  <div class="row" style="justify-content:flex-end;margin-top:14px"><button class="btn sec" id="cardsReset">Скінуць прагрэс</button></div>
+</section>
+
+<!-- ====== PRACTICE SETUP ====== -->
+<section id="practiceSetup" class="card hidden">
+  <h2>Трэніроўка з разборам</h2>
+  <p class="muted">Пасля кожнага адказу адразу бачыш правільны варыянт, тлумачэнне і кароткую нататку «Запомні» па-беларуску.</p>
+  <h3>Крыніца</h3>
+  <div id="srcBox"></div>
+  <h3>Дамены экзамену</h3>
+  <div id="domBox"></div>
+  <h3>Фільтр</h3>
+  <div class="row">
+    <select id="filter">
+      <option value="all">Усе пытанні</option>
+      <option value="examWrong">Толькі тыповыя памылкі</option>
+      <option value="testWrong">Памылкі з практычных тэстаў (без паўтораў)</option>
+      <option value="weak">Мае слабыя (памылкі ў трэнажоры)</option>
+      <option value="new">Яшчэ не адказаныя ў трэнажоры</option>
+      <option value="smart">Разумны рэжым: спачатку слабыя і памылкі</option>
+    </select>
+    <label class="chk"><input type="checkbox" id="shuffleQ" checked> перамяшаць пытанні</label>
+    <label class="chk"><input type="checkbox" id="shuffleA" checked> перамяшаць варыянты</label>
+  </div>
+  <div class="row" style="margin-top:16px">
+    <button class="btn" id="startPractice">Пачаць</button>
+    <span class="muted" id="poolInfo"></span>
+  </div>
+</section>
+
+<!-- ====== EXAM SETUP ====== -->
+<section id="mistakesView" class="card hidden">
+  <h2>❌ Памылкі з практычных тэстаў</h2>
+  <p class="muted">Усе пытанні, дзе ў тэстах быў няправільны адказ. Калі пытанне трапілася ў некалькіх тэстах, яно тут адзін раз.</p>
+  <div class="row" style="margin:12px 0">
+    <button class="btn" id="startMistakes">▶ Перапрайсці ўсе</button>
+    <label class="chk"><input type="checkbox" id="mistOnlyOpen"> толькі яшчэ не выпраўленыя ў трэнажоры</label>
+    <span class="muted" id="mistInfo"></span>
+  </div>
+  <div id="mistList"></div>
+</section>
+<section id="examSetup" class="card hidden">
+  <h2>Сімуляцыя экзамену</h2>
+  <p>65 пытанняў, размеркаваных па вагах афіцыйных даменаў AIF-C01, 90 хвілін, без падказак да канца. Прахадны бал на трэнажоры — <b>70%</b> (на рэальным экзамене — 700/1000 па шкале).</p>
+  <table>
+    <tr><th>Дамен</th><th>Вага</th><th>Пытанняў</th></tr>
+    <tbody id="examPlan"></tbody>
+  </table>
+  <div class="row" style="margin-top:16px">
+        <button class="btn" id="startExam">Пачаць экзамен</button>
+  </div>
+</section>
+
+<!-- ====== QUESTION VIEW ====== -->
+<section id="qView" class="card hidden">
+  <div class="row" style="justify-content:space-between">
+    <div><span class="badge" id="qSrc"></span><span class="badge" id="qDom"></span><span class="badge red hidden" id="qWasWrong">тыповая памылка</span></div>
+    <div class="row"><span class="timer hidden" id="timer"></span><span class="muted" id="qPos"></span></div>
+  </div>
+  <div class="bar"><i id="qBar"></i></div>
+  <div class="q" id="qText"></div>
+  <div class="muted" id="qHint" style="font-size:14px"></div>
+  <div id="opts"></div>
+  <div id="feedback"></div>
+  <div class="row" style="margin-top:14px;justify-content:space-between">
+    <div class="row">
+      <button class="btn" id="checkBtn" disabled>Праверыць</button>
+      <button class="btn hidden" id="nextBtn">Далей →</button>
+      <button class="btn sec hidden" id="prevBtn">← Назад</button>
+    </div>
+    <div class="row">
+      <span class="kbd">клавішы: 1–6 выбар · Enter праверыць/далей</span>
+      <button class="btn sec" id="quitBtn">Скончыць</button>
+    </div>
+  </div>
+</section>
+
+<!-- ====== RESULT ====== -->
+<section id="resultView" class="card hidden"></section>
+
+<!-- ====== STATS ====== -->
+<section id="statsView" class="card hidden"></section>
+
+</main>
+<script src="data.js"></script>
+
+<script src="theory.js"></script>
+<script src="theory_more1.js"></script>
+<script src="theory_more2.js"></script>
+<script src="glossary.js"></script>
+<script src="terms.js"></script>
+<script>
+const Q = window.QUESTIONS || [];
+const expl = q => q.explanation_be ? `<div class="be">${q.explanation_be}</div><details class="orig"><summary>Арыгінал (English)</summary>${q.explanation}</details>` : q.explanation;
+const DOMAINS = [
+  ["Fundamentals of AI and ML", .20, "D1 Асновы AI/ML"],
+  ["Fundamentals of Generative AI", .24, "D2 Асновы GenAI"],
+  ["Applications of Foundation Models", .28, "D3 Прымяненне FM"],
+  ["Guidelines for Responsible AI", .14, "D4 Адказны AI"],
+  ["Security, Compliance, and Governance for AI Solutions", .14, "D5 Бяспека і кампліенс"],
+];
+const SOURCES = [...new Set(Q.map(q=>q.src))];
+const shortDom = d => (DOMAINS.find(x=>x[0]===d)||[0,0,d])[2];
+const $ = id => document.getElementById(id);
+const LS = 'aif-c01-stats-v1';
+let stats = JSON.parse(localStorage.getItem(LS) || '{}');
+const save = () => localStorage.setItem(LS, JSON.stringify(stats));
+const shuffle = a => { a=[...a]; for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]];} return a; };
+const isWeak = q => { const s=stats[q.id]; return s && (s.last===false || s.c/s.a < .7); };
+
+/* ---------- setup UI ---------- */
+$('srcBox').innerHTML = SOURCES.map(s=>`<label class="chk"><input type="checkbox" class="src" value="${s}" checked> ${s} <span class="muted">(${Q.filter(q=>q.src===s).length})</span></label>`).join('');
+$('domBox').innerHTML = DOMAINS.map(d=>`<label class="chk"><input type="checkbox" class="dom" value="${d[0]}" checked> ${d[2]} <span class="muted">(${Q.filter(q=>q.domain===d[0]).length})</span></label>`).join('');
+const counts = examCounts();
+$('examPlan').innerHTML = DOMAINS.map((d,i)=>`<tr><td>${d[2]} — ${d[0]}</td><td>${Math.round(d[1]*100)}%</td><td>${counts[i]}</td></tr>`).join('');
+function examCounts(){ const c=DOMAINS.map(d=>Math.round(d[1]*65)); c[2]+=65-c.reduce((a,b)=>a+b,0); return c; }
+
+function pool(){
+  const srcs=[...document.querySelectorAll('.src:checked')].map(e=>e.value);
+  const doms=[...document.querySelectorAll('.dom:checked')].map(e=>e.value);
+  let p=Q.filter(q=>srcs.includes(q.src)&&doms.includes(q.domain));
+  const f=$('filter').value;
+  if(f==='examWrong') p=p.filter(q=>q.examWrong);
+  if(f==='testWrong') p=p.filter(q=>q.examWrong&&/^Practice Test/.test(q.src));
+  if(f==='weak') p=p.filter(isWeak);
+  if(f==='new') p=p.filter(q=>!stats[q.id]);
+  return p;
+}
+function updatePool(){ $('poolInfo').textContent = `Будзе пытанняў: ${pool().length}`; }
+document.querySelectorAll('#practiceSetup input,#practiceSetup select').forEach(e=>e.addEventListener('change',updatePool));
+if(!Q.some(q=>q.examWrong)){ document.querySelector('#filter option[value=examWrong]').remove(); document.head.insertAdjacentHTML('beforeend','<style>.ew{display:none}</style>'); }
+if(!Q.some(q=>q.examWrong&&/^Practice Test/.test(q.src))) document.querySelector('#filter option[value=testWrong]').remove();
+updatePool();
+
+/* ---------- tabs ---------- */
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{
+  if(session && !session.finished && !confirm('Перапыніць бягучую сесію?')) return;
+  endSession(false);
+  document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('on',x===b));
+  showTab(b.dataset.tab);
+});
+function showTab(t){
+  ['practiceSetup','examSetup','qView','resultView','statsView'].forEach(id=>$(id).classList.add('hidden'));
+  if(t==='practice'){ $('practiceSetup').classList.remove('hidden'); updatePool(); }
+  if(t==='exam') $('examSetup').classList.remove('hidden');
+  if(t==='stats'){ renderStats(); $('statsView').classList.remove('hidden'); }
+}
+
+/* ---------- session ---------- */
+let session=null, timerId=null;
+function makeItem(q, shufA){
+  const order = shufA ? shuffle(q.options.map((_,i)=>i)) : q.options.map((_,i)=>i);
+  return {q, order, chosen:new Set(), checked:false, correct:null};
+}
+$('startPractice').onclick=()=>{
+  let p=pool(); if(!p.length){alert('Няма пытанняў па гэтым фільтры.');return;}
+  if($('filter').value==='smart'){
+    const score=q=>(isWeak(q)?0:q.examWrong&&!stats[q.id]?1:!stats[q.id]?2:3)+Math.random()*.9;
+    p=[...p].sort((a,b)=>score(a)-score(b));
+  } else if($('shuffleQ').checked) p=shuffle(p);
+  startSession(p.map(q=>makeItem(q,$('shuffleA').checked)),'practice');
+};
+$('startExam').onclick=()=>{
+  const c=examCounts(); let items=[];
+  DOMAINS.forEach((d,i)=>{
+    let p=Q.filter(q=>q.domain===d[0] && true);
+    items.push(...shuffle(p).slice(0,c[i]));
+  });
+  startSession(shuffle(items).map(q=>makeItem(q,true)),'exam');
+};
+function startSession(items, mode){
+  session={items, idx:0, mode, finished:false, start:Date.now()};
+  ['theoryView','cardsView','glossView','practiceSetup','examSetup','resultView','statsView','mistakesView'].forEach(id=>$(id).classList.add('hidden'));
+  document.querySelector('main').classList.remove('wide');
+  $('qView').classList.remove('hidden');
+  $('timer').classList.toggle('hidden', mode!=='exam');
+  $('prevBtn').classList.toggle('hidden', mode!=='exam');
+  if(mode==='exam'){ const end=Date.now()+90*60*1000; tick(end); timerId=setInterval(()=>tick(end),1000); }
+  render();
+}
+function tick(end){
+  const s=Math.max(0,Math.round((end-Date.now())/1000));
+  $('timer').textContent=`⏱ ${String(s/60|0).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;
+  if(s===0){ alert('Час скончыўся!'); finishExam(); }
+}
+function endSession(){ clearInterval(timerId); timerId=null; session=null; }
+
+function render(){
+  const it=session.items[session.idx], q=it.q, multi=q.correct.length>1, n=session.items.length;
+  $('qSrc').textContent=`${q.src} · ${q.id}`;
+  $('qDom').textContent=shortDom(q.domain);
+  $('qWasWrong').classList.toggle('hidden', !(q.examWrong && session.mode==='practice'));
+  $('qPos').textContent=`${session.idx+1} / ${n}`;
+  $('qBar').style.width=`${(session.idx)/n*100}%`;
+  $('qText').innerHTML=q.q; linkTerms($('qText'));
+  $('qHint').textContent = multi ? `Выберыце ${q.correct.length} варыянты` : 'Выберыце адзін варыянт';
+  $('opts').className = it.checked ? 'done' : '';
+  $('opts').innerHTML = it.order.map((oi,k)=>`<div class="opt ${multi?'multi':''}" data-oi="${oi}"><span class="k">${k+1}</span><div>${q.options[oi]}</div></div>`).join('');
+  $('opts').querySelectorAll('.opt').forEach(el=>el.onclick=()=>toggle(+el.dataset.oi));
+  linkTerms($('opts'));
+  paint();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function toggle(oi){
+  const it=session.items[session.idx]; if(it.checked) return;
+  const multi=it.q.correct.length>1;
+  if(multi){ it.chosen.has(oi)?it.chosen.delete(oi):it.chosen.add(oi); }
+  else { it.chosen=new Set([oi]); }
+  paint();
+}
+function paint(){
+  const it=session.items[session.idx], q=it.q;
+  $('opts').querySelectorAll('.opt').forEach(el=>{
+    const oi=+el.dataset.oi; el.classList.toggle('sel', it.chosen.has(oi));
+    el.querySelector('.tag')?.remove();
+    if(it.checked && session.mode==='practice'){
+      const ok=q.correct.includes(oi);
+      el.classList.toggle('ok', ok);
+      el.classList.toggle('bad', !ok && it.chosen.has(oi));
+      let tag=[]; if(ok) tag.push('✔ правільна'); if(q.mine.includes(oi) && !ok) tag.push('частая памылка');
+      if(tag.length) el.insertAdjacentHTML('beforeend',`<span class="tag muted">${tag.join(' · ')}</span>`);
+    }
+  });
+  const exam=session.mode==='exam', last=session.idx===session.items.length-1;
+  $('checkBtn').classList.toggle('hidden', it.checked || exam);
+  $('checkBtn').disabled = it.chosen.size!==q.correct.length;
+  $('nextBtn').classList.toggle('hidden', !(it.checked || exam));
+  $('nextBtn').textContent = last ? (exam?'Завяршыць экзамен':'Вынікі') : 'Далей →';
+  $('nextBtn').disabled = exam && it.chosen.size===0 && false;
+  $('prevBtn').disabled = session.idx===0;
+  $('feedback').innerHTML = (it.checked && !exam) ? feedbackHTML(it) : ''; linkTerms($('feedback'));
+}
+function grade(it){ const q=it.q; return it.chosen.size===q.correct.length && q.correct.every(c=>it.chosen.has(c)); }
+function record(it){
+  const s=stats[it.q.id]||{a:0,c:0}; s.a++; if(it.correct) s.c++; s.last=it.correct; s.t=Date.now(); stats[it.q.id]=s; save();
+}
+function feedbackHTML(it){
+  const q=it.q;
+  return `<div class="verdict ${it.correct?'ok':'bad'}">${it.correct?'✔ Правільна!':'✘ Няправільна'}</div>
+    ${q.note?`<div class="note"><b>Запомні:</b> ${q.note}</div>`:''}
+    <details class="exp" open><summary>Тлумачэнне</summary><div>${expl(q)}</div></details>`;
+}
+$('checkBtn').onclick=()=>{
+  const it=session.items[session.idx]; if(it.chosen.size!==it.q.correct.length) return;
+  it.checked=true; it.correct=grade(it); record(it); render();
+};
+$('nextBtn').onclick=()=>{
+  if(session.idx<session.items.length-1){ session.idx++; render(); }
+  else session.mode==='exam' ? finishExam() : finishPractice();
+};
+$('prevBtn').onclick=()=>{ if(session.idx>0){session.idx--; render();} };
+$('quitBtn').onclick=()=>{
+  if(session.mode==='exam'){ if(confirm('Завяршыць экзамен і паглядзець вынік?')) finishExam(); }
+  else finishPractice();
+};
+document.addEventListener('keydown',e=>{
+  if(!session || $('qView').classList.contains('hidden')) return;
+  if(e.target.tagName==='INPUT'||e.target.tagName==='SELECT') return;
+  const it=session.items[session.idx];
+  if(/^[1-9]$/.test(e.key)){ const oi=it.order[+e.key-1]; if(oi!==undefined) toggle(oi); }
+  if(e.key==='Enter'){ e.preventDefault(); if(!$('checkBtn').classList.contains('hidden') && !$('checkBtn').disabled) $('checkBtn').click(); else if(!$('nextBtn').classList.contains('hidden')) $('nextBtn').click(); }
+  if(e.key==='ArrowRight' && !$('nextBtn').classList.contains('hidden')) $('nextBtn').click();
+  if(e.key==='ArrowLeft' && session.mode==='exam') $('prevBtn').click();
+});
+
+/* ---------- results ---------- */
+function domTable(items){
+  return `<table><tr><th>Дамен</th><th>Вынік</th><th></th></tr>${DOMAINS.map(d=>{
+    const its=items.filter(i=>i.q.domain===d[0]); if(!its.length) return '';
+    const ok=its.filter(i=>i.correct).length, p=Math.round(ok/its.length*100);
+    return `<tr><td>${d[2]}</td><td>${ok}/${its.length} (${p}%)</td><td><span class="mini"><i style="width:${p}%;background:${p>=70?'var(--ok)':'var(--bad)'}"></i></span></td></tr>`;
+  }).join('')}</table>`;
+}
+function wrongList(items){
+  const w=items.filter(i=>!i.correct); if(!w.length) return '<p>Памылак няма 🎉</p>';
+  return `<div class="wronglist">${w.map(it=>{const q=it.q;return `<div class="item">
+    <span class="badge">${q.id}</span><span class="badge">${shortDom(q.domain)}</span>
+    <div class="q">${q.q}</div>
+    <p><b>Твой адказ:</b> ${[...it.chosen].map(i=>q.options[i].replace(/<\/?p>/g,'')).join('; ')||'<i>без адказу</i>'}</p>
+    <p style="color:var(--ok)"><b>Правільна:</b> ${q.correct.map(i=>q.options[i].replace(/<\/?p>/g,'')).join('; ')}</p>
+    ${q.note?`<div class="note"><b>Запомні:</b> ${q.note}</div>`:''}
+    <details class="exp"><summary>Тлумачэнне</summary><div>${expl(q)}</div></details></div>`}).join('')}</div>`;
+}
+function finishExam(){
+  if(!session) return;
+  session.items.forEach(it=>{ it.correct=grade(it); if(it.chosen.size) record(it); });
+  showResult('Вынік экзамену', session.items, true);
+}
+function finishPractice(){
+  const done=session.items.filter(i=>i.checked);
+  showResult('Вынік трэніроўкі', done, false);
+}
+function showResult(title, items, exam){
+  const mins=Math.round((Date.now()-session.start)/60000), back=session.backTopic;
+  endSession();
+  $('qView').classList.add('hidden');
+  const ok=items.filter(i=>i.correct).length, p=items.length?Math.round(ok/items.length*100):0;
+  $('resultView').innerHTML = `<h2>${title}</h2>
+    <div class="big" style="color:${p>=70?'var(--ok)':'var(--bad)'}">${p}%</div>
+    <p>${ok} з ${items.length} правільна · ${mins} хв ${exam?(p>=70?'· <b style="color:var(--ok)">ЗАЛІК</b>':'· <b style="color:var(--bad)">НЕ ЗДАДЗЕНА</b> (трэба 70%)'):''}</p>
+    ${items.length?domTable(items):''}
+    <div class="row" style="margin:16px 0">${back?`<button class="btn" onclick="document.querySelector('nav button[data-tab=theory]').click();openTopic('${back}')">← Назад да тэмы</button>`:''}<button class="btn ${back?'sec':''}" onclick="showTab('${exam?'exam':'practice'}')">Яшчэ раз</button>
+    <button class="btn sec" onclick="document.querySelector('nav button[data-tab=stats]').click()">Статыстыка</button></div>
+    <h3>Разбор памылак</h3>${wrongList(items)}`;
+  linkTerms($('resultView'));
+  $('resultView').classList.remove('hidden');
+  window.scrollTo({top:0});
+}
+
+/* ---------- stats ---------- */
+function renderStats(){
+  const answered=Q.filter(q=>stats[q.id]);
+  const rows=DOMAINS.map(d=>{
+    const all=Q.filter(q=>q.domain===d[0]), seen=all.filter(q=>stats[q.id]);
+    const mastered=seen.filter(q=>stats[q.id].last && stats[q.id].c/stats[q.id].a>=.7).length;
+    const typicalWrong=all.filter(q=>q.examWrong).length;
+    const p=Math.round(mastered/all.length*100);
+    return `<tr><td>${d[2]}</td><td>${seen.length}/${all.length}</td><td>${mastered}</td><td class="ew">${typicalWrong}</td><td><span class="mini"><i style="width:${p}%;background:var(--acc)"></i></span> ${p}%</td></tr>`;
+  }).join('');
+  const weak=Q.filter(isWeak).sort((a,b)=>(stats[a.id].c/stats[a.id].a)-(stats[b.id].c/stats[b.id].a));
+  $('statsView').innerHTML=`<h2>Статыстыка трэнажора</h2>
+    <p>Адказана хоць раз: <b>${answered.length}</b> з ${Q.length}. Слабых пытанняў: <b>${weak.length}</b>.</p>
+    <table><tr><th>Дамен</th><th>Бачыў</th><th>Засвоена</th><th class="ew">Тыповых памылак</th><th>Засваенне</th></tr>${rows}</table>
+    <p class="muted" style="font-size:14px">«Засвоена» = апошні адказ правільны і агульная дакладнасць ≥ 70%.</p>
+    <h3>Слабыя пытанні (${weak.length})</h3>
+    ${weak.length?`<table><tr><th>ID</th><th>Дамен</th><th>Дакладнасць</th><th>Пытанне</th></tr>${weak.slice(0,60).map(q=>`<tr><td>${q.id}</td><td>${shortDom(q.domain)}</td><td>${stats[q.id].c}/${stats[q.id].a}</td><td>${q.q.replace(/<[^>]+>/g,' ').slice(0,110)}…</td></tr>`).join('')}</table>`:'<p class="muted">Пакуль няма — патрэніруйся 🙂</p>'}
+    <div class="row" style="margin-top:16px"><button class="btn sec" id="resetStats">Скінуць статыстыку</button></div>`;
+  $('resetStats').onclick=()=>{ if(confirm('Выдаліць усю статыстыку трэнажора?')){ stats={}; save(); renderStats(); } };
+}
+$('hdrInfo').textContent = `${Q.length} пытанняў`;
+
+/* ===== Тэорыя ===== */
+const T = window.TOPICS || [];
+T.forEach(t=>{ const m=(window.TOPIC_MORE||{})[t.id]; if(m) t.html+=m; });
+const DOMCODE = {D1:DOMAINS[0], D2:DOMAINS[1], D3:DOMAINS[2], D4:DOMAINS[3], D5:DOMAINS[4]};
+const strip = h => h.replace(/<[^>]+>/g,' ').replace(/&[a-z#0-9]+;/gi,' ');
+T.forEach(t=>{
+  t.qs = Q.filter(q=>t.match.test(strip(q.q)+' '+q.correct.map(i=>strip(q.options[i])).join(' ')));
+});
+let curTopic = null;
+function topicProgress(t){
+  if(!t.qs.length) return null;
+  const m=t.qs.filter(q=>stats[q.id] && stats[q.id].last && stats[q.id].c/stats[q.id].a>=.7).length;
+  return Math.round(m/t.qs.length*100);
+}
+function renderSide(filter=''){
+  const f=filter.trim().toLowerCase();
+  let h='';
+  Object.entries(DOMCODE).forEach(([code,d])=>{
+    const ts=T.filter(t=>t.dom===code && (!f || (t.title+strip(t.html)).toLowerCase().includes(f)));
+    if(!ts.length) return;
+    h+=`<h5>${d[2]} · ${Math.round(d[1]*100)}%</h5>`;
+    ts.forEach(t=>{
+      const w=t.qs.filter(q=>q.examWrong).length, p=topicProgress(t);
+      h+=`<a data-t="${t.id}" class="${curTopic===t.id?'on':''}"><span>${t.title}</span><span>${w?`<span class="wr">✘${w}</span> `:''}<span class="pc">${p===null?'':p+'%'}</span></span></a>`;
+    });
+  });
+  $('sideList').innerHTML=h||'<p class="muted">Нічога не знойдзена</p>';
+  $('sideList').querySelectorAll('a').forEach(a=>a.onclick=()=>openTopic(a.dataset.t));
+}
+function openTopic(id){
+  const i=T.findIndex(t=>t.id===id); if(i<0) return;
+  const t=T[i]; curTopic=id; history.replaceState(null,'','#'+id);
+  const wrong=t.qs.filter(q=>q.examWrong);
+  const prev=T[i-1], next=T[i+1];
+  $('topicBody').innerHTML=`<div class="topic">
+   <span class="badge">${DOMCODE[t.dom][2]}</span><span class="badge">пытанняў па тэме: ${t.qs.length}</span>${wrong.length?`<span class="badge red">тыповыя памылкі: ${wrong.length}</span>`:''}
+   <h2>${t.title}</h2>${t.html}
+   <div class="row practbtn" style="margin:20px 0 6px">
+    ${t.qs.length?`<button class="btn" onclick="practiceTopic('${t.id}')">▶ Практыкаваць тэму (${t.qs.length})</button>`:''}
+    ${wrong.length?`<button class="btn sec" onclick="practiceTopic('${t.id}',true)">Толькі тыповыя памылкі (${wrong.length})</button>`:''}
+   </div>
+   ${wrong.length?`<h3>❗ Тыповыя памылкі па гэтай тэме</h3>${wrong.map(q=>`<div class="mist"><span class="badge">${q.id}</span><div class="q">${q.q}</div>
+     ${q.mine.filter(m=>!q.correct.includes(m)).map(m=>`<p style="color:var(--bad);margin:4px 0">✘ ${strip(q.options[m])}</p>`).join('')}
+     ${q.correct.map(c=>`<p style="color:var(--ok);margin:4px 0">✔ ${strip(q.options[c])}</p>`).join('')}
+     ${q.note?`<div class="note"><b>Запомні:</b> ${q.note}</div>`:''}</div>`).join('')}`:''}
+   <div class="tnav">${prev?`<button class="btn sec" onclick="openTopic('${prev.id}')">← ${prev.title}</button>`:'<span></span>'}${next?`<button class="btn sec" onclick="openTopic('${next.id}')">${next.title} →</button>`:''}</div>
+  </div>`;
+  linkTerms($('topicBody'));
+  renderSide($('sideSearch').value);
+  window.scrollTo({top:0});
+}
+function practiceTopic(id, onlyWrong){
+  const t=T.find(x=>x.id===id); let p=onlyWrong?t.qs.filter(q=>q.examWrong):t.qs;
+  const score=q=>(isWeak(q)?0:q.examWrong?1:!stats[q.id]?2:3)+Math.random()*.9;
+  p=[...p].sort((a,b)=>score(a)-score(b));
+  document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('on',x.dataset.tab==='practice'));
+  endSession(); startSession(p.map(q=>makeItem(q,true)),'practice');
+  session.backTopic=id;
+}
+$('sideSearch').oninput=e=>renderSide(e.target.value);
+
+/* ===== Карткі ===== */
+const CLS='aif-c01-cards-v1';
+let cardKnown=JSON.parse(localStorage.getItem(CLS)||'{}'), deck=[], ci=0;
+function newDeck(){
+  const only=$('cardsOnlyUnknown').checked;
+  deck=shuffle((window.CARDS||[]).map((c,i)=>({c,i})).filter(x=>!only||!cardKnown[x.i]));
+  ci=0; drawCard();
+}
+function drawCard(){
+  const total=(window.CARDS||[]).length, known=Object.values(cardKnown).filter(Boolean).length;
+  $('cardsInfo').textContent=`Ведаю: ${known} / ${total}`;
+  if(!deck.length){ $('fc').classList.remove('flip'); $('fcA').innerHTML='🎉 Усе карткі вывучаны!'; $('fcB').innerHTML=''; $('cardsPos').textContent=''; return; }
+  const {c}=deck[ci]; $('fc').classList.remove('flip');
+  $('fcA').innerHTML=`<small>Калі ў пытанні… (націсні, каб убачыць адказ)</small>${c[0]}`;
+  $('fcB').innerHTML=`<small>Адказ</small>${c[1]}`;
+  $('cardsPos').textContent=`${ci+1} / ${deck.length}`;
+}
+function markCard(k){
+  if(!deck.length) return;
+  cardKnown[deck[ci].i]=k; localStorage.setItem(CLS,JSON.stringify(cardKnown));
+  if(k && $('cardsOnlyUnknown').checked){ deck.splice(ci,1); if(ci>=deck.length) ci=0; }
+  else ci=(ci+1)%deck.length;
+  drawCard();
+}
+$('fc').onclick=()=>$('fc').classList.toggle('flip');
+$('cardYes').onclick=()=>markCard(true); $('cardNo').onclick=()=>markCard(false);
+$('cardsOnlyUnknown').onchange=newDeck; $('cardsShuffle').onclick=newDeck;
+$('cardsReset').onclick=()=>{ if(confirm('Скінуць прагрэс картак?')){cardKnown={};localStorage.setItem(CLS,'{}');newDeck();} };
+document.addEventListener('keydown',e=>{
+  if($('cardsView').classList.contains('hidden')) return;
+  if(e.key===' '){e.preventDefault();$('fc').classList.toggle('flip');}
+  if(e.key==='ArrowRight'||e.key==='1') markCard(true);
+  if(e.key==='ArrowLeft'||e.key==='2') markCard(false);
+});
+
+
+function renderGloss(){
+  const f=$('glossSearch').value.trim().toLowerCase(); let h='', cat='';
+  G.map((e,i)=>({e,i})).filter(({e})=>!f||(e[0].join(' ')+' '+e[2]).toLowerCase().includes(f))
+   .sort((a,b)=>a.e[1].localeCompare(b.e[1])||a.e[0][0].localeCompare(b.e[0][0]))
+   .forEach(({e})=>{ if(e[1]!==cat){cat=e[1]; h+=`<h3 class="gcat">${cat}</h3>`;}
+     h+=`<div class="gi"><span class="gnm">${e[0][0]}</span>${e[0].length>1?` <span class="gal">(${e[0].slice(1).join(', ')})</span>`:''}<div class="gd">${e[2]}</div></div>`; });
+  $('glossList').innerHTML=h||'<p class="muted">Нічога не знойдзена. Напішы, і я дадам тэрмін.</p>';
+}
+$('glossSearch').oninput=renderGloss;
+/* ===== памылкі з тэстаў ===== */
+const testWrong = () => Q.filter(q=>q.examWrong&&/^Practice Test/.test(q.src));
+const fixedInTrainer = q => stats[q.id] && !isWeak(q);
+function mistPool(){ const p=testWrong(); return $('mistOnlyOpen').checked ? p.filter(q=>!fixedInTrainer(q)) : p; }
+function renderMistakes(){
+  const all=testWrong(), open=all.filter(q=>!fixedInTrainer(q));
+  $('mistInfo').textContent=`Усяго ${all.length}, яшчэ не выпраўлена ў трэнажоры: ${open.length}`;
+  const bySrc={}; all.forEach(q=>(bySrc[q.src]=bySrc[q.src]||[]).push(q));
+  $('mistList').innerHTML=Object.keys(bySrc).sort().map(src=>`<h3>${src} — ${bySrc[src].length}</h3>`+bySrc[src].map(q=>{
+    const opts=q.options.map((o,i)=>{const c=q.correct.includes(i), m=q.mine.includes(i);
+      return (c||m)?`<div class="${c?'ok':'no'}">${c?'✅':'❌'} ${o.replace(/<\/?p>/g,'')}${m&&!c?' <span class="muted">(няправільны выбар)</span>':''}</div>`:''}).join('');
+    return `<details class="exp" style="margin:6px 0"><summary>${fixedInTrainer(q)?'✔️ ':''}${q.q.replace(/<[^>]+>/g,' ').slice(0,160)}…</summary><div>${q.q}${opts}<hr>${expl(q)}</div></details>`;}).join('')).join('');
+}
+$('mistOnlyOpen').onchange=renderMistakes;
+$('startMistakes').onclick=()=>{ const p=mistPool(); if(!p.length){alert('Усе памылкі ўжо выпраўлены 🎉');return;} startSession(shuffle(p).map(q=>makeItem(q,true)),'practice'); };
+if(!testWrong().length) $('navMistakes').remove();
+/* ===== навігацыя ===== */
+function showTab(t){
+  ['theoryView','practiceSetup','examSetup','qView','resultView','statsView','cardsView','glossView','mistakesView'].forEach(id=>$(id).classList.add('hidden'));
+  document.querySelector('main').classList.toggle('wide', t==='theory');
+  if(t==='theory'){ $('theoryView').classList.remove('hidden'); renderSide($('sideSearch').value); if(curTopic) openTopic(curTopic); }
+  if(t==='practice'){ $('practiceSetup').classList.remove('hidden'); updatePool(); }
+  if(t==='exam') $('examSetup').classList.remove('hidden');
+  if(t==='stats'){ renderStats(); $('statsView').classList.remove('hidden'); }
+  if(t==='gloss'){ $('glossView').classList.remove('hidden'); renderGloss(); }
+  if(t==='cards'){ $('cardsView').classList.remove('hidden'); if(!deck.length) newDeck(); else drawCard(); }
+  if(t==='mistakes'){ $('mistakesView').classList.remove('hidden'); renderMistakes(); }
+}
+curTopic = (location.hash.slice(1) && T.some(t=>t.id===location.hash.slice(1))) ? location.hash.slice(1) : T[0].id;
+showTab('theory');
+
+</script>
+</body>
+</html>
